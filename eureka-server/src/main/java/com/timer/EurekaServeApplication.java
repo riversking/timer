@@ -1,4 +1,4 @@
-package com.clouddeer;
+package com.timer;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

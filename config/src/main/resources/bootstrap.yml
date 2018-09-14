@@ -1,3 +1,7 @@
 server:
   port: 8888
-Spring
+
+
+spring:
+  application:
+    name: config

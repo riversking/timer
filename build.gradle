@@ -1,12 +1,17 @@
 buildscript {
     ext {
-        springBootVersion = '2.1.0.M2'
-        springCloudVersion = 'Greenwich.BUILD-SNAPSHOT'
+        springBootVersion = '2.0.4.RELEASE'
+        springCloudVersion = 'Finchley.SR1'
+
     }
     repositories {
-        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
-        maven { url "https://repo.spring.io/snapshot" }
-        maven { url "https://repo.spring.io/milestone" }
+        maven { url 'http://10.135.81.160:8081/repository/maven-public/' }
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+//        maven { url "https://repo.spring.io/snapshot" }
+//        maven { url "https://repo.spring.io/milestone" }
+        jcenter{
+            url 'http://jcenter.bintray.com'
+        }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -17,8 +22,9 @@ buildscript {
 
 repositories {
     maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
-    maven { url "https://repo.spring.io/snapshot" }
-    maven { url "https://repo.spring.io/milestone" }
+//    maven { url "https://repo.spring.io/snapshot" }
+//    maven { url "https://repo.spring.io/milestone" }
+    maven { url 'http://10.135.81.160:8081/repository/maven-public/' }
 }
 
 
@@ -38,8 +44,12 @@ subprojects {
 
     repositories {
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
-        maven { url "https://repo.spring.io/snapshot" }
-        maven { url "https://repo.spring.io/milestone" }
+        jcenter{
+            url 'http://jcenter.bintray.com'
+        }
+        maven { url 'http://10.135.81.160:8081/repository/maven-public/' }
+//        maven { url "https://repo.spring.io/snapshot" }
+//        maven { url "https://repo.spring.io/milestone" }
     }
 
     jar {
@@ -68,8 +78,11 @@ subprojects {
     buildscript {
         repositories {
             maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
-            maven { url "https://repo.spring.io/snapshot" }
-            maven { url "https://repo.spring.io/milestone" }
+            jcenter{
+                url 'http://jcenter.bintray.com'
+            }
+//            maven { url "https://repo.spring.io/snapshot" }
+//            maven { url "https://repo.spring.io/milestone" }
         }
         dependencyManagement {
             imports {

@@ -16,39 +16,23 @@ spring:
         git:
           uri: git@github.com:riversking/config-repo.git
           search-paths: config-repo
-          ignoreLocalSshSettings: true
-          private-key: -----BEGIN RSA PRIVATE KEY-----
-          MIIEowIBAAKCAQEAsdH2M0WwjFkSiisRj5HaHTEXNu+k4OXGEypwUR25UlFc8dtb
-          SQPaqzHaG4Yg3eqhOZ7VLX4ZKIrrpslGf8SUMC5qabHZhuHei6g+g267iivDyFOv
-          fixbsJxgdrDzpg7QBANgixo0zO+pq0KhJE0nWJXiaDMytd85cTFi9Lndo6+O11TK
-          W1Ki1SaUGgky5cL+R/iSwlYRm42csULo3zXvtfSrBbcRmju1Ns7NAB7M20JZk+Tj
-          4GjG2CMCXClfaq8Xf/N0csKtWIn+fHFAiSJkSpOJrIWdX+Qc5oaxCCISTHSQXL2c
-          ng1fzr4dyqhhaQWVUrAKYcGbOx/9to4lMZHDhwIDAQABAoIBAGgyAbP1iAgVQXnY
-          1sdrzYUBePrl3ZUyzqf4XCwL4MXNi0rlIE5ehcl+wrESHTwr+iELYxrvIsrQ7Fik
-          5DyF8ddxu0UHw9D3lTH8efUF87p4/pXqA5FJaMjKOPQTqBGL6HQRjoaz6nCTlrYV
-          qtrcosuTuEEajwJnNP+Q0s1YA/mfMWZgjmy5Yj0py5/kncM9FA/nTlorq6XXUgnY
-          qf4ki+50DW3i+ipwci7lfcpuHI1FYilr03OpdqqtL2gQkI7fqDW/1k7IL/O8sDFd
-          se8mc5boX0Q9iFz3rofWZAO7lMxoXko9q0wmhJ4jWX2PmUpIVXU9RzLyN5oH685H
-          M0U/ikECgYEA1mWQyZewhBsR1vwAresE2EfltQkwNtKae6PAtUvvU5U2mvULyy2t
-          bl6B8VzLoGcbjpHhd37fK39oOywgFIuZddg3AZMQaYyQiNGXxGJyo5fhFr22bRe1
-          1j4EmQCuBG0pTM4ofqV4Oi0W1DZo/GMWvybc2WOArqVrNYAX1KrBSbcCgYEA1FNo
-          Uom+hoSQRhJ/updJ/F6GvQWSBgalj4TsoxIec5OhQG+zjed6huY4v204wVEWTecA
-          ZBrXfnDE80ifM1RpCIHUxF9Cfg+X5FCI9eLEeuSCEEs9O3AjbTTC6wtBfkegoM0n
-          IDm2ug8x1E/9l6XjGwmAeQcmfsaIknexKvcwlLECgYEA0I3WDTQAolFOxkk3Q/cV
-          LGqr+bHpc7rkSZdeUz19nlnM12m9wjQ5u941GxvAfNUvyj0ADWSeJMr4Em92+WVe
-          r3LW9zIeyf3RbzYrIv79M0P/0kZTWcWxvalwgYFWxbmGbk8wtxmxXS4VQfN3puOg
-          8esU9GbFe54wLsfe5qIACfsCgYAwkvhN0addvNwIu9iuxketza5Ddg/HAyRDJiTA
-          1bdTt5VvWV6Zezhjvi2DVahjSXqxzcQgIqfkDEZyZc3N/2ScBp+3YRekIUsdd3Mt
-          1XgfqUE8GwpiG7BvHl/tR8Du89ICl4x46dssy6cZrEcWt2OyXsUeaw1aeW7rGyjT
-          7IMXsQKBgB6CV8dz1sja65Pqh2B2uAjWQe/VCvCuHfmcRuit5ijrMs9TqiFnccR+
-          ng+Zu/ISIa5rdoTd+cZLAlnUP5ZFQrDvsmfESim6t4RkR7osnZkw7M7avEPrBHAE
-          N5hptLg8zTC3PeVhGrdEx53FlAAOJ110+sM0MSV4o7RcWAFfvFCl
-          -----END RSA PRIVATE KEY-----
+          username: riversking
+          password: king1992
     bus:
-      enabled: true
+      refresh:
+        enabled: true
+
 
 eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    bus-refresh:
+      enabled: true

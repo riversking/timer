@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.clouddeer.account.mapper.CdAccountWechatMapper">
+  <resultMap id="BaseResultMap" type="com.clouddeer.account.entity.CdAccountWechat">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="account_id" jdbcType="INTEGER" property="accountId" />
+    <result column="share_user" jdbcType="INTEGER" property="shareUser" />
+    <result column="send_count" jdbcType="INTEGER" property="sendCount" />
+    <result column="share_count" jdbcType="INTEGER" property="shareCount" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="update_user_id" jdbcType="INTEGER" property="updateUserId" />
+    <result column="record_status" jdbcType="INTEGER" property="recordStatus" />
+  </resultMap>
+
+</mapper>

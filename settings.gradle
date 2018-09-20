@@ -2,5 +2,7 @@ rootProject.name = 'timer'
 include 'eureka-server'
 include 'config'
 include 'gateway'
+include 'account'
+include 'utils'
 //include 'config-client'
 

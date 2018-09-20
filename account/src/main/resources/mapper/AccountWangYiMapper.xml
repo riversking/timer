@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.clouddeer.account.mapper.CdAccountWangYiMapper">
+    <resultMap id="BaseResultMap" type="com.clouddeer.account.entity.CdAccountWangYi">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="account_id" jdbcType="INTEGER" property="accountId"/>
+        <result column="subscribe_count" jdbcType="INTEGER" property="subscribeCount"/>
+        <result column="read_count" jdbcType="INTEGER" property="readCount"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+        <result column="update_user_id" jdbcType="INTEGER" property="updateUserId"/>
+        <result column="record_status" jdbcType="INTEGER" property="recordStatus"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    id, account_id, subscribe_count, read_count, create_date, create_user_id, update_date, update_user_id, record_status
+  </sql>
+
+    <update id="deleteWangYi" parameterType="com.clouddeer.account.entity.CdAccountWangYi">
+        update
+        cd_account_wangyi
+        set
+        record_status=0
+        update_date =#{updateDate},
+        update_user_id =#{updateUserId}
+        where
+        id=#{id}
+    </update>
+    <!--查询关联账户信息-->
+    <select id="selectAccountInfo" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select <include refid="Base_Column_List" />
+        from cd_account_wangyi
+        where account_id = #{accountId,jdbcType=INTEGER}
+        and record_status = 1
+    </select>
+</mapper>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.clouddeer.account.mapper.CdAccountMapper">
+  <resultMap id="BaseResultMap" type="com.clouddeer.account.entity.CdAccount">
+    <id column="id" jdbcType="INTEGER" property="id"/>
+    <result column="account_name" jdbcType="VARCHAR" property="accountName"/>
+    <result column="account_pwd" jdbcType="VARCHAR" property="accountPwd"/>
+    <result column="user_id" jdbcType="INTEGER" property="userId"/>
+    <result column="is_share" jdbcType="INTEGER" property="isShare"/>
+    <result column="head_portrait" jdbcType="VARCHAR" property="headPortrait"/>
+    <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+    <result column="is_sort" jdbcType="INTEGER" property="isSort"/>
+    <result column="price" jdbcType="DECIMAL" property="price"/>
+    <result column="platform_name" jdbcType="VARCHAR" property="platformName"/>
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+    <result column="update_user_id" jdbcType="INTEGER" property="updateUserId"/>
+    <result column="record_status" jdbcType="INTEGER" property="recordStatus"/>
+    <result column="uuid" jdbcType="VARCHAR" property="uuid"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, account_name, account_pwd, user_id, is_share, head_portrait, nickname,is_sort ,price,uuid,
+    platform_name, create_date, create_user_id, update_date, update_user_id, record_status
+  </sql>
+  <sql id="Account_dynamic_where_fields">
+    <where>
+      <if test="accountName != null  and accountName != '' ">AND account_name=#{accountName}</if>
+      <if test="userId != null  and userId != '' ">AND user_id=#{userId}</if>
+      <if test="platformName != null  and platformName != '' ">AND platform_name=#{platformName}</if>
+      <if test="recordStatus != null  and recordStatus != '' ">AND record_status=#{recordStatus}</if>
+      <if test="nickname != null  and nickname != '' ">AND nickname=#{nickname}</if>
+      <if test="isSort != null  and isSort != '' ">AND is_sort=#{isSort}</if>
+      <if test="uuid != null  and uuid != '' ">AND uuid=#{uuid}</if>
+    </where>
+  </sql>
+
+  <!--查询 账号列表-->
+  <select id="selectAccountByUserId" resultMap="BaseResultMap" parameterType="com.clouddeer.account.entity.CdAccount">
+    select
+    <include refid="Base_Column_List"/>
+    from cd_account
+    <include refid="Account_dynamic_where_fields"/>
+    order by create_date
+    <if test="isSort == 0">
+      desc
+    </if>
+  </select>
+
+  <update id="updateIsShare" parameterType="com.clouddeer.account.entity.CdAccount">
+    update cd_account
+    set is_share = #{isShare},
+        price = #{price},
+        update_date =#{updateDate},
+        update_user_id =#{updateUserId}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectDynamicPageQuery" parameterType="com.clouddeer.account.entity.CdAccount" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from cd_account
+    where user_id = #{userId}
+    and record_status = 1
+    Limit #{start},#{pageSize}
+  </select>
+
+  <!--条件查询-->
+  <select id="selectDynamic" parameterType="com.clouddeer.account.entity.CdAccount" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from cd_account
+    where user_id = #{userId}
+    and record_status = 1
+    <if test="nickname != null">
+      and nickname like concat('%', #{nickname}, '%')
+    </if>
+  </select>
+
+  <!--条件查询-->
+  <select id="selectPlanAccount" parameterType="java.util.List" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from cd_account
+    where id in
+    <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+    and record_status = 1
+  </select>
+
+  <select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from cd_account
+    where id = #{id}
+    and record_status = 1
+  </select>
+
+  <select id="selectUserIdByAccountId" parameterType="java.util.List" resultType="java.lang.Integer">
+    select
+    user_id
+    from cd_account
+    where id in
+    <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+    and record_status = 1
+    GROUP BY user_id
+  </select>
+
+</mapper>

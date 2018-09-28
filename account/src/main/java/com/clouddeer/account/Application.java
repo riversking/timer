@@ -10,7 +10,6 @@ import tk.mybatis.spring.annotation.MapperScan;
 
 @EnableEurekaClient
 @SpringBootApplication
-@EnableAutoConfiguration
 @EnableTransactionManagement
 @EnableFeignClients
 @MapperScan("com.clouddeer.account.mapper")

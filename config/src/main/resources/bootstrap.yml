@@ -14,10 +14,38 @@ spring:
     config:
       server:
         git:
-          uri: git@github.com:riversking/config-repo.git
+          uri: https://github.com/riversking/config-repo.git
           search-paths: config-repo
-          username: riversking
-          password: king1992
+          ignore-local-ssh-settings: true
+          strict-host-key-checking: false
+          private-key:  -----BEGIN RSA PRIVATE KEY-----
+                        MIIEpAIBAAKCAQEA3p6MzQdZMx2ngr8FVTG/mGbobPiGHnoqViquB2l9lpZ0HujE
+                        aTgjFgka8ygqscmzMozBIkaB21sHHDJIQwBkbUbhdiOgWTSNAcgZruvzDqixfWoJ
+                        RnAFSbF+14d2CsFaV3Dip3VvoZw10UUvmXgv+ghITYpxZ1gUzzHdWdBs6EeP7MaP
+                        bTS6RAUSf5rdeOslQ2QuBMMOpxtu130UaYTM/ie8ApV7bazoNmJ97JNbdoDH9w+0
+                        uC/U/LSNk5JTY6vGGNMwQz5SIxQ+ig01lw/liUpslXvVy4o9BoG8vw+o7vMezD2S
+                        9nXheAVlf1FbLls1xGXBT7e6PT8vqPc7uF0B4wIDAQABAoIBABdadJTRj4bwNnFd
+                        zpZoWJwJN5qu24r479YINidq5pTUhav0aR5MmEmofN5DOW9bJGRKJbyNvvOe8fkA
+                        QVpeASsBg4dcJ2cUPzKPpjoWYHIKOkxYwk5UVAmuCAteF4D7VZnUqsI8bJB8jZy9
+                        cEfeNtI46jTQMCNSNyShK4JPfg1DunwvWUXXjzoPRiPSSn9w5P5ejhsFJs4B9nPH
+                        E2yFsHI4Ww4neSzxDLboAI5e+9efpezL7+RlY519ERYjmYTpGRzBPTwZzH64Z85t
+                        73CDBEbx35qAAX7oC/uz5OSOPLP7ER5gl0GdktrnhpjPTUo7+sINS0ZoWYrozpoI
+                        wWAYK8ECgYEA7wXOM/eWDmBku3LbKFdGiSx8NZ0XEoHqwlL+oD/YE7WwCgDgKltK
+                        STjcjyiQWrolmMWzQgmcy3mdu1BnaIPdmFCWLZUwxJye3rskF77KHDS1fao7mB+9
+                        TAFAC32F7w84pU0fHXVFqVn0zTb6au8lHZKpFwmOgQCK2z6VQb2+h6ECgYEA7m56
+                        vfFJu5Rxc7ffAu2b9GeAnypL9XlaXIsjvQygSbnvI6uZHdGygYAyNUcGwXxdqKQq
+                        fQVvsw3E6sshGYy1RFDO5yZJtGFzAj1J754quTVfQViqefXE3YScCvqZDs1OE2pH
+                        BeZKmi4jAhiIKUXnYIsaMNH11tlYQy5YKwZdiwMCgYABmtBfmPHw9sS2XXcLNkrK
+                        8PmEgqF9BlJFK7l56fPRbg7Yglj+78333+HbNDKD6WwHMoyZjOb4lsBwWYHYOcpr
+                        E19uvums6EBIzojXf/hraA8v4My1oMDsmbWMXjNf/4Ip2fKzh+4HzQrPtebIgQKG
+                        yE1KUk4an55PCoSGBHgbAQKBgQCU9n9HBmXrhN2wz3LMUIk8FCI+zt0wG0ZCRUfp
+                        x+aoyTrIDWCXSbj9wYsc0Cg/YCTfxNkqzOexdWvOyWP/o3JooRfzQG+R+8Qv5Py5
+                        cRb+KYM+v1ea5Nq/DyeykEhqAAjEhoSjAfMgCq0ilRMUvjDFl4Kgd7zhI19Kcbzx
+                        /IMa4wKBgQCqkHlLqGChbVqhYnc6dZT02AnkSPFP/dbEvWJVNwVwR+klYcqSoA5Y
+                        tF9CHYdLYuxSCEDawGKCSHXH11ItgLw8N/U4h+EkNZlbuXLGci9D3cgkfviDGzvp
+                        485TTKPksRiX5peY08OlB4AtwhB9aBfQdJg/EZKg02qta+Z8Ahh1ug==
+                        -----END RSA PRIVATE KEY-----
+
     bus:
       refresh:
         enabled: true

@@ -51,16 +51,16 @@ subprojects {
 //        maven { url "https://repo.spring.io/snapshot" }
 //        maven { url "https://repo.spring.io/milestone" }
     }
-
-    jar {
-        enabled = true
-    }
-
-    bootJar {
-        manifest {
-            attributes 'Start-Class': 'com.clouddeer.account.Application'
-        }
-    }
+//
+//    jar {
+//        enabled = true
+//    }
+//
+//    bootJar {
+//        manifest {
+//            attributes 'Start-Class': 'com.clouddeer.account.Application'
+//        }
+//    }
 
     configurations {
         // 所有需要忽略的包定义在此

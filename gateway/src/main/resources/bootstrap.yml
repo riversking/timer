@@ -13,6 +13,12 @@ spring:
       name: gateway-server
     bus:
       enabled: true
+  boot:
+    admin:
+      client:
+        instance:
+          service-base-url: http://localhost:10500
+        url: http://localhost:7086
 
 logging:
   level:
@@ -34,4 +40,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: bus-refresh
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS

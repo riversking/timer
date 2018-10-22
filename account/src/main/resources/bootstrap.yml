@@ -13,7 +13,7 @@ spring:
         host: ${REDIS_HOST:localhost}
         port:  ${REDIS_PORT:6379}
         password:
-        timeout: 2000
+        timeout: 2000ms
         # 服务或应用名
         sysName: account
         enable: true
@@ -22,7 +22,7 @@ spring:
           pool:
             max-active: 300
             max-idle: 100
-            max-wait: -1
+            max-wait: -1s
     datasource:
         name: cd-account
         url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/cloud_deer_account?useUnicode=true&characterEncoding=UTF8

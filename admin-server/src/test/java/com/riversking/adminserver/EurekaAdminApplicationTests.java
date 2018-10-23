@@ -1,4 +1,4 @@
-package com.riversking.eurekaadmin;
+package com.riversking.adminserver;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

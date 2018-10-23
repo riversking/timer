@@ -1,6 +1,23 @@
 spring:
   application:
     name: eureka-admin
+  profiles:
+    active:
+      - secure
+
+---
+spring:
+  profiles: insecure
+
+---
+# admin登录的用户名和密码
+spring:
+  profiles: secure
+  security:
+    user:
+      name: "root"
+      password: "root"
+
 server:
   port: 7086
 
@@ -15,9 +32,13 @@ eureka:
     ip-address: localhost
     metadata-map:
       startup: ${random.int}
+      "user.name": ${spring.security.user.name}         #These two are needed so that the server
+      "user.password": ${spring.security.user.password} #can access the protected client endpoint
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
+
+
 management:
   endpoints:
     web:

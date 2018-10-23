@@ -26,7 +26,7 @@ import java.util.List;
         consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.APPLICATION_JSON_VALUE})
 public class CdAccountController extends BaseController<CdAccountBiz, CdAccount> {
 
-    @Resource
+    @Autowired
     private CdAccountBiz accountService;
 
     @Autowired

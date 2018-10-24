@@ -21,8 +21,8 @@ spring:
 server:
   port: 7086
 
-#logging:
-#  config: classpath:logback.xml
+logging:
+  config: classpath:logback.xml
 
 
 eureka:

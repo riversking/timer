@@ -5,9 +5,5 @@ dependencies {
     compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-bus-amqp'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
     compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-gateway'
-//    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
-//    compile group: 'org.springframework.boot', name: 'spring-boot-starter-undertow'
+    compile group: 'org.jolokia', name: 'jolokia-core', version: '1.6.0'
 }
-//configurations {
-//    compile.exclude module: 'spring-boot-starter-tomcat'
-//}

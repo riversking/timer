@@ -34,4 +34,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: bus-refresh
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS

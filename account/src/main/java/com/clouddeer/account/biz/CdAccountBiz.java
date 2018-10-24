@@ -141,10 +141,10 @@ public class CdAccountBiz extends BaseBiz<CdAccountMapper, CdAccount> {
         cdAccountList.forEach(a -> {
             CdAccountWeibo cdAccountWeibo = cdAccountWeiboMapper.selectAccountInfo(a.getId());
             CdAccountToutiao cdAccountToutiao = cdAccountToutiaoMapper.selectToutiaoInfo(a.getId());
-            CdAccountWangYi cdAccountWangYi = cdAccountWangYiMapper.selectAccountInfo(a.getId());
+//            CdAccountWangYi cdAccountWangYi = cdAccountWangYiMapper.selectAccountInfo(a.getId());
             a.setCdAccountWeibo(cdAccountWeibo);
             a.setCdAccountToutiao(cdAccountToutiao);
-            a.setCdAccountWangYi(cdAccountWangYi);
+//            a.setCdAccountWangYi(cdAccountWangYi);
         });
         PageInfo<CdAccount> pageInfo = new PageInfo(cdAccountList);
         return pageInfo;

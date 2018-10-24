@@ -112,7 +112,7 @@ public class WeboUtil {
             wbPwd.sendKeys(cdAccount.getAccountPwd());
             WebElement loginBtn = driver.findElement(By.xpath("//*[@id=\"pl_login_form\"]/div/div[3]/div[6]/a"));
             loginBtn.click();
-            Thread.sleep(10000L);
+            Thread.sleep(20000L);
             String requesUrl = driver.getCurrentUrl();
             if (requesUrl.equals("https://weibo.com/login.php")) {
                 WebElement verifyCode = driver.findElement(By.xpath("//*[@id=\"pl_login_form\"]/div/div[3]/div[3]/a/img"));

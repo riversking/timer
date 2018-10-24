@@ -25,7 +25,7 @@ spring:
             max-wait: -1s
     datasource:
         name: cd-account
-        url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/cloud_deer_account?useUnicode=true&characterEncoding=UTF8
+        url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/cloud_deer_account?useUnicode=true&characterEncoding=UTF8&useSSL=false
         username: root
         password: root
         # 使用druid数据源
@@ -98,12 +98,12 @@ hystrix:
 
 # 配置swagger
 swagger:
-    enabled: true
-    base-package: com.clouddeer
-    title: account
-    version: 1.0.0.SNAPSHOT
-    description: 公共设施服务
-    contact:
+  enabled: true
+  base-package: com.clouddeer
+  title: account
+  version: 1.0.0.SNAPSHOT
+  description: 公共设施服务
+  contact:
         name: material
 
 auth:
@@ -114,6 +114,15 @@ auth:
     id: account
     secret: 123456
     token-header: x-client-token
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
 
 ##redis-cache 相关
 #redis:

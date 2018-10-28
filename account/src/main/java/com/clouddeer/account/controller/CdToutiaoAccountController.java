@@ -3,18 +3,9 @@ package com.clouddeer.account.controller;
 import com.clouddeer.account.biz.CdAccountBiz;
 import com.clouddeer.account.constant.ErrorCodeConstant;
 import com.clouddeer.account.entity.CdAccount;
-import com.clouddeer.account.entity.CdAccountToutiao;
-import com.clouddeer.account.entity.CdAccountWeibo;
-import com.clouddeer.account.util.DriverFactory;
 import com.clouddeer.account.util.ToutiaoUtil;
-import com.clouddeer.account.util.WeboUtil;
-import com.clouddeer.core.rest.BaseController;
-import com.clouddeer.core.view.RequestVo;
-import com.clouddeer.core.view.ResponseVo;
-import com.cloudder.utils.ExceptionUtil;
-import com.cloudder.utils.json.JsonUtil;
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.*;
+import com.rivers.core.view.RequestVo;
+import com.rivers.core.view.ResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -22,17 +13,13 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import javax.annotation.Resource;
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.util.concurrent.TimeUnit;
+
 
 @RestController
 @RequestMapping(value = "account/toutiao", produces = {MediaType.APPLICATION_JSON_VALUE},
         consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.APPLICATION_JSON_VALUE})
-public class CdToutiaoAccountController extends BaseController<CdAccountBiz, CdAccount> {
+public class CdToutiaoAccountController {
 
     @Resource
     private CdAccountBiz accountService;

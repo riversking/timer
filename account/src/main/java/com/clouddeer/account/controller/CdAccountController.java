@@ -6,36 +6,32 @@ import com.clouddeer.account.client.TagClient;
 import com.clouddeer.account.constant.ErrorCodeConstant;
 import com.clouddeer.account.entity.*;
 import com.clouddeer.account.util.WeboUtil;
-import com.clouddeer.core.rest.BaseController;
 import com.clouddeer.account.biz.CdAccountBiz;
-import com.clouddeer.core.view.RequestVo;
-import com.clouddeer.core.view.ResponseVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.rivers.core.view.RequestVo;
+import com.rivers.core.view.ResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping(value = "account", produces = {MediaType.APPLICATION_JSON_VALUE},
         consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.APPLICATION_JSON_VALUE})
-public class CdAccountController extends BaseController<CdAccountBiz, CdAccount> {
+public class CdAccountController {
 
     @Autowired
     private CdAccountBiz accountService;
 
-    @Autowired
+    @Resource
     private SpreadClient spreadClient;
 
-    @Autowired
+    @Resource
     private TagClient tagClient;
 
     @Autowired

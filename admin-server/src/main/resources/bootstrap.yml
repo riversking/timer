@@ -30,6 +30,7 @@ eureka:
     instance-id: ${spring.application.name}:${server.port}
     prefer-ip-address: true
     ip-address: localhost
+    health-check-url-path: /actuator/health
     metadata-map:
       startup: ${random.int}
       "user.name": ${spring.security.user.name}         #These two are needed so that the server

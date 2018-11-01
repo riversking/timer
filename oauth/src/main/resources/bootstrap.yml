@@ -1,7 +1,18 @@
+server:
+  port:
+    9080
+
 spring:
   application:
     name: oauth-server
-
+  datasource:
+    name: oauth-server
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/cloud_deer_admin?useUnicode=true&characterEncoding=UTF8&useSSL=false
+    username: root
+    password: root
+    # 使用druid数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
 
 
 
@@ -13,6 +24,8 @@ eureka:
     prefer-ip-address: true
     ip-address: localhost
     health-check-url-path: /actuator/health
+    status-page-url-path: /info
   client:
     serviceUrl:
         defaultZone: http://localhost:8761/eureka/
+

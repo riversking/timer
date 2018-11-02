@@ -1,5 +1,10 @@
 package com.riversking.oauth.service;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.segments.MergeSegments;
+import com.riversking.oauth.entity.SysOauthClientModel;
+import com.riversking.oauth.mapper.SysOauthClientDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.provider.ClientDetails;
@@ -8,6 +13,8 @@ import org.springframework.security.oauth2.provider.ClientRegistrationException;
 import org.springframework.security.oauth2.provider.client.BaseClientDetails;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 /**
  * Created by hwj on 2018/9/10.
  */
@@ -15,6 +22,9 @@ import org.springframework.stereotype.Service;
 public class ClientDetailsServiceImpl implements ClientDetailsService {
     @Autowired
     PasswordEncoder passwordEncoder;
+
+    @Resource
+    SysOauthClientDao sysOauthClientDao;
 
     /**
      * 注意secret需要BCrypt加密，否则会报Encoded password does not look like BCrypt
@@ -54,7 +64,14 @@ public class ClientDetailsServiceImpl implements ClientDetailsService {
          */
         //scope表示此客户端可以授予的权限范围，是authorities的一个集合,且客户端必须得有一个scope
         //第二个参数resourceIds如果设置了，则在资源配置ResourceServerConfigurer中必须配置一致的resourceId
-        BaseClientDetails bcd=null;
+        QueryWrapper<SysOauthClientModel> wrapper = new QueryWrapper<>();
+        wrapper.eq("client_id", s);
+        SysOauthClientModel sysOauthClientModel = sysOauthClientDao.selectOne(wrapper);
+        BaseClientDetails bcd = null;
+        if (sysOauthClientModel.getClientId().equals(s)) {
+            bcd = new BaseClientDetails(s,"",sysOauthClientModel.getScope(),sysOauthClientModel.getAuthorizedGrantTypes(),"");
+            bcd.setClientSecret(passwordEncoder.encode("secret"));
+        }
         if ("client1".equals(s)) {
             bcd = new BaseClientDetails(s, "", "scope", "password,refresh_token", "");//在密码模式scope仍然生效，但authorities不生效，为空即可
             bcd.setClientSecret(passwordEncoder.encode("secret"));

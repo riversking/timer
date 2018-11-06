@@ -7,6 +7,6 @@ dependencies {
     compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-gateway'
     compile group: 'org.jolokia', name: 'jolokia-core', version: '1.6.0'
     compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '2.0.2.RELEASE'
-
+    
 //    compile 'com.github.riversking:core:1.0.3'
 }

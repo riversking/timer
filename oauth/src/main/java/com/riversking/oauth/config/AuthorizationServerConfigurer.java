@@ -1,5 +1,6 @@
 package com.riversking.oauth.config;
 
+import com.riversking.oauth.common.CustomWebResponseExceptionTranslator;
 import com.riversking.oauth.domain.Test;
 import com.riversking.oauth.service.ClientDetailsServiceImpl;
 import com.riversking.oauth.service.UserDetailsServiceImpl;
@@ -35,18 +36,18 @@ import java.util.Map;
 public class AuthorizationServerConfigurer extends AuthorizationServerConfigurerAdapter {
 
     @Autowired
-    PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
     @Autowired
-    AuthenticationManager authenticationManager;
+    private AuthenticationManager authenticationManager;
 
     @Autowired
-    UserDetailsServiceImpl userDetailsService;
+    private UserDetailsServiceImpl userDetailsService;
 
     @Autowired
-    ClientDetailsServiceImpl clientDetailsService;
+    private ClientDetailsServiceImpl clientDetailsService;
 
     @Autowired
-    private WebResponseExceptionTranslator customWebResponseExceptionTranslator;
+    private CustomWebResponseExceptionTranslator customWebResponseExceptionTranslator;
 
     @Autowired
     private RedisConnectionFactory redisConnectionFactory;
@@ -112,7 +113,7 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 

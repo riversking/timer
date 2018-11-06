@@ -83,14 +83,19 @@ swagger:
   contact:
         name: material
 
-auth:
-  serviceId: cd-auth
-  user:
-    token-header: Authorization
-  client:
-    id: account
-    secret: 123456
-    token-header: x-client-token
+security:
+  oauth2:
+    client:
+      client-id: admin
+      client-secret: secret
+      scope: server
+      access-token-uri: http://localhost:9080/oauth/token
+      user-authorization-uri: http://localhost:9080/oauth/authorize
+    resource:
+      token-info-uri: http://localhost:9080/oauth/check_token
+    authorization:
+      check-token-access: http://localhost:9080/oauth/check_token
+
 
 management:
   endpoints:

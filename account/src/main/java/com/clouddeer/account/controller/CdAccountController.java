@@ -144,7 +144,7 @@ public class CdAccountController {
     public ResponseVo checkAccountStatus(@RequestBody RequestVo<String> vo) {
         ResponseVo rvo = ResponseVo.ok();
         Integer i = weboUtil.getCookie(vo.getParam());
-        if (i.equals(1)){
+        if (i.equals(1)) {
             rvo = ResponseVo.fail(ErrorCodeConstant.ECODE_0302, "Cookie不存在");
             return rvo;
         }

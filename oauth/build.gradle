@@ -10,6 +10,7 @@ dependencies {
     // https://mvnrepository.com/artifact/com.baomidou/mybatisplus-spring-boot-starter
     compile group: 'com.baomidou', name: 'mybatis-plus'
     compile group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.0.5'
+    compile group: 'com.github.riversking', name: 'core', version: '1.0.6'
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 configurations {

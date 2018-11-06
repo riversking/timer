@@ -1,8 +1,9 @@
 package com.riversking.oauth.config;
 
 
-import com.riversking.oauth.common.AuthExceptionEntryPoint;
-import com.riversking.oauth.common.CustomAccessDeniedHandler;
+
+import com.rivers.core.oath.common.AuthExceptionEntryPoint;
+import com.rivers.core.oath.common.CustomAccessDeniedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;

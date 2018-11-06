@@ -1,7 +1,6 @@
 package com.riversking.oauth.config;
 
 import com.riversking.oauth.common.CustomWebResponseExceptionTranslator;
-import com.riversking.oauth.domain.Test;
 import com.riversking.oauth.service.ClientDetailsServiceImpl;
 import com.riversking.oauth.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,6 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
-import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 
@@ -93,7 +91,7 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
                 .userDetailsService(userDetailsService)
                 .authenticationManager(authenticationManager);
         // endpoints.pathMapping("/oauth/token","/oauth/token3");//可以修改默认的endpoint路径
-        // endpoints.tokenEnhancer(tokenEnhancer());//增加token返回内容
+        endpoints.tokenEnhancer(tokenEnhancer());//增加token返回内容
         endpoints.exceptionTranslator(customWebResponseExceptionTranslator);//修改异常时返回格式
     }
 

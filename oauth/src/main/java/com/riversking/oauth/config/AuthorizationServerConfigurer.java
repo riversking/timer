@@ -102,11 +102,9 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
         return (OAuth2AccessToken accessToken, OAuth2Authentication authentication) -> {
             if (accessToken instanceof DefaultOAuth2AccessToken) {
                 DefaultOAuth2AccessToken token = (DefaultOAuth2AccessToken) accessToken;
-                Map<String, Object> additionalInformation = new LinkedHashMap<String, Object>();
+                Map<String, Object> additionalInformation = new LinkedHashMap<>();
                 additionalInformation.put("username", authentication.getDetails());
-                additionalInformation.put("data", new Test("123", 123.456));
                 token.setAdditionalInformation(additionalInformation);
-
             }
             return accessToken;
         };

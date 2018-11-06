@@ -21,10 +21,10 @@ import javax.annotation.Resource;
 @Service
 public class ClientDetailsServiceImpl implements ClientDetailsService {
     @Autowired
-    PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     @Resource
-    SysOauthClientDao sysOauthClientDao;
+    private SysOauthClientDao sysOauthClientDao;
 
     /**
      * 注意secret需要BCrypt加密，否则会报Encoded password does not look like BCrypt
@@ -69,30 +69,30 @@ public class ClientDetailsServiceImpl implements ClientDetailsService {
         SysOauthClientModel sysOauthClientModel = sysOauthClientDao.selectOne(wrapper);
         BaseClientDetails bcd = null;
         if (sysOauthClientModel.getClientId().equals(s)) {
-            bcd = new BaseClientDetails(s,"",sysOauthClientModel.getScope(),sysOauthClientModel.getAuthorizedGrantTypes(),"");
+            bcd = new BaseClientDetails(s, "", sysOauthClientModel.getScope(), sysOauthClientModel.getAuthorizedGrantTypes(), "");
             bcd.setClientSecret(passwordEncoder.encode("secret"));
         }
-        if ("client1".equals(s)) {
-            bcd = new BaseClientDetails(s, "", "scope", "password,refresh_token", "");//在密码模式scope仍然生效，但authorities不生效，为空即可
-            bcd.setClientSecret(passwordEncoder.encode("secret"));
-        }
-        if ("client2".equals(s)) {
-            bcd = new BaseClientDetails(s, "", "scope", "password,refresh_token", "");
-            bcd.setClientSecret(passwordEncoder.encode("secret"));
-        }
-        if ("client3".equals(s)) {
-            bcd = new BaseClientDetails(s, "", "scope1", "client_credentials,refresh_token", "res1");//在client模式scope,authorities都生效
-            bcd.setClientSecret(passwordEncoder.encode("secret"));
-        }
-        if ("client4".equals(s)) {
-            bcd = new BaseClientDetails(s, "", "scope1,scope2", "client_credentials,refresh_token", "res1,res2");
-            bcd.setClientSecret(passwordEncoder.encode("secret"));
-        }
-
-        if ("client5".equals(s)) {
-            bcd = new BaseClientDetails(s, "", "scope1,scope2", "authorization_code,refresh_token", "res1,res2");
-            bcd.setClientSecret(passwordEncoder.encode("secret"));
-        }
+//        if ("client1".equals(s)) {
+//            bcd = new BaseClientDetails(s, "", "scope", "password,refresh_token", "");//在密码模式scope仍然生效，但authorities不生效，为空即可
+//            bcd.setClientSecret(passwordEncoder.encode("secret"));
+//        }
+//        if ("client2".equals(s)) {
+//            bcd = new BaseClientDetails(s, "", "scope", "password,refresh_token", "");
+//            bcd.setClientSecret(passwordEncoder.encode("secret"));
+//        }
+//        if ("client3".equals(s)) {
+//            bcd = new BaseClientDetails(s, "", "scope1", "client_credentials,refresh_token", "res1");//在client模式scope,authorities都生效
+//            bcd.setClientSecret(passwordEncoder.encode("secret"));
+//        }
+//        if ("client4".equals(s)) {
+//            bcd = new BaseClientDetails(s, "", "scope1,scope2", "client_credentials,refresh_token", "res1,res2");
+//            bcd.setClientSecret(passwordEncoder.encode("secret"));
+//        }
+//
+//        if ("client5".equals(s)) {
+//            bcd = new BaseClientDetails(s, "", "scope1,scope2", "authorization_code,refresh_token", "res1,res2");
+//            bcd.setClientSecret(passwordEncoder.encode("secret"));
+//        }
 
 
         return bcd;

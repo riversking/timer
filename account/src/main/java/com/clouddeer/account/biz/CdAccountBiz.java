@@ -5,11 +5,9 @@ import com.clouddeer.account.constant.ErrorCodeConstant;
 import com.clouddeer.account.entity.*;
 import com.clouddeer.account.mapper.*;
 import com.clouddeer.account.util.Page;
-import com.cloudder.utils.ExceptionUtil;
 import com.github.pagehelper.PageInfo;
+import com.rivers.core.util.ExceptionUtil;
 import org.springframework.stereotype.Service;
-
-import com.clouddeer.core.biz.BaseBiz;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
@@ -28,7 +26,7 @@ import java.util.UUID;
  */
 @Service
 @SuppressWarnings("all")
-public class CdAccountBiz extends BaseBiz<CdAccountMapper, CdAccount> {
+public class CdAccountBiz {
 
     @Resource
     private CdAccountMapper cdAccountMapper;

@@ -2,7 +2,7 @@ package com.clouddeer.account.util;
 
 import com.clouddeer.account.entity.CdAccount;
 import com.clouddeer.account.entity.CdAccountZhihu;
-import com.cloudder.utils.ExceptionUtil;
+import com.rivers.core.util.ExceptionUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

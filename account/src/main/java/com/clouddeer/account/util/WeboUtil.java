@@ -3,20 +3,17 @@ package com.clouddeer.account.util;
 import com.clouddeer.account.entity.CdAccount;
 import com.clouddeer.account.entity.CdAccountWeibo;
 import com.clouddeer.account.entity.CdArticle;
-import com.cloudder.utils.ExceptionUtil;
+import com.rivers.core.util.ExceptionUtil;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Set;
 

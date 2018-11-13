@@ -92,6 +92,7 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
                 .authenticationManager(authenticationManager);
         // endpoints.pathMapping("/oauth/token","/oauth/token3");//可以修改默认的endpoint路径
         endpoints.tokenEnhancer(tokenEnhancer());//增加token返回内容
+//        endpoints.accessTokenConverter();
         endpoints.exceptionTranslator(customWebResponseExceptionTranslator);//修改异常时返回格式
     }
 

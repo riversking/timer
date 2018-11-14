@@ -21,7 +21,7 @@ import java.util.HashSet;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     /**
      * 注意password需要BCrypt加密，否则会报Encoded password does not look like BCrypt

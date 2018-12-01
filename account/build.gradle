@@ -22,9 +22,7 @@ dependencies {
 //        ext.optional = true
 //    }
     compile group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.10.0'
-    compile(group: 'org.springframework.boot', name: 'spring-boot-starter-web') {
-        exclude(module: 'spring-boot-starter-tomcat')
-    }
+    compile(group: 'org.springframework.boot', name: 'spring-boot-starter-web')
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-undertow'
     compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.12.0'
     compile group: 'org.seleniumhq.selenium', name: 'selenium-edge-driver', version: '3.12.0'
@@ -37,4 +35,7 @@ dependencies {
     compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-bus-amqp'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-webflux'
     compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-security'
-}   
+}
+configurations {
+    compile.exclude module: 'spring-boot-starter-tomcat'
+}

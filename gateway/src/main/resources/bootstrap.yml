@@ -4,15 +4,8 @@ server:
 spring:
   application:
     name: gateway
-  cloud:
-    config:
-      discovery:
-        enabled: true
-        service-id: config
-      label: master
-      name: gateway-server
-    bus:
-      enabled: true
+  profiles:
+    active: local
 
 logging:
   level:
@@ -30,6 +23,19 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
+
+#security:
+#  oauth2:
+#    client:
+#      client-id: admin
+#      client-secret: secret
+#      scope: server
+#      access-token-uri: http://localhost:9080/oauth/token
+#      user-authorization-uri: http://localhost:9080/oauth/authorize
+#    resource:
+#      token-info-uri: http://localhost:9080/oauth/check_token
+#    authorization:
+#      check-token-access: http://localhost:9080/oauth/check_token
 
 management:
   endpoints:

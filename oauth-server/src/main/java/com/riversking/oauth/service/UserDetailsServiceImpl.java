@@ -68,7 +68,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     private User mockGuest() {
-        User user = new User("guest", passwordEncoder.encode("123456"), AuthorityUtils.commaSeparatedStringToAuthorityList("res1"));
+        User user = new User("guest", passwordEncoder.encode("123456"), AuthorityUtils.commaSeparatedStringToAuthorityList("res2"));
         return user;
     }
 }

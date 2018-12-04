@@ -27,10 +27,13 @@ import java.util.Map;
 
 /**
  * 认证服务器
- * Created by hwj on 2018/9/10.
+ *
+ * @author hwj
+ * @date 2018/9/10
+ * 加上这个注解则会生成oauth2的几个endpoint
  */
 @Configuration
-@EnableAuthorizationServer//加上这个注解则会生成oauth2的几个endpoint
+@EnableAuthorizationServer
 public class AuthorizationServerConfigurer extends AuthorizationServerConfigurerAdapter {
 
     @Autowired

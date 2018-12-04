@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: gateway
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config
+      label: master
+      name: gateway-server
+    bus:
+      enabled: true

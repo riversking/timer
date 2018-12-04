@@ -13,6 +13,7 @@ import com.rivers.core.view.RequestVo;
 import com.rivers.core.view.ResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,6 +46,7 @@ public class CdAccountController {
      * @return
      */
     @RequestMapping(value = "list")
+    @PreAuthorize("hasAuthority('res1')")
     public ResponseVo accountList(@RequestBody RequestVo<CdAccount> vo) {
         ResponseVo rvo = ResponseVo.ok();
         CdAccount cdAccount = vo.getParam();

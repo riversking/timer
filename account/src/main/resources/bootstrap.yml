@@ -5,15 +5,8 @@ logging:
 spring:
     application:
         name: cd-account
-    cloud:
-      config:
-        discovery:
-          enabled: true
-          service-id: config
-        label: master
-        name: account
-      bus:
-        enabled: true
+    profiles:
+      active: local
 
 
 

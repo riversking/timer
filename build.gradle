@@ -21,7 +21,6 @@ repositories {
     maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
 //    maven { url "https://repo.spring.io/snapshot" }
 //    maven { url "https://repo.spring.io/milestone" }
-//    maven { url 'http://10.135.81.160:8081/repository/maven-public/' }
 }
 
 
@@ -66,7 +65,8 @@ subprojects {
     }
 
     dependencies {
-        compileOnly group: 'org.projectlombok', name: 'lombok', version:'1.18.0'
+        annotationProcessor 'org.projectlombok:lombok:1.18.2'
+        compileOnly 'org.projectlombok:lombok:1.18.2'
         compile group: 'de.codecentric', name: 'spring-boot-admin-starter-client', version: '2.0.3'
         compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-sleuth', version: '2.0.2.RELEASE'
         compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-zipkin', version: '2.0.2.RELEASE'

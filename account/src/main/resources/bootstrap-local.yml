@@ -1,0 +1,36 @@
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    default-property-inclusion: non_null
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port:  ${REDIS_PORT:6379}
+    password:
+    timeout: 2000ms
+    # 服务或应用名
+    sysName: account
+    enable: true
+    database: 0
+    jedis:
+      pool:
+        max-active: 300
+        max-idle: 100
+        max-wait: -1s
+  datasource:
+    name: cd-account
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/cloud_deer_account?useUnicode=true&characterEncoding=UTF8&useSSL=false&autoReconnect=true&failOverReadOnly=false
+    username: root
+    password: root
+    # 使用druid数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+  sleuth:
+    enabled: true
+    http:
+      legacy:
+        enabled: true
+    sampler:
+      probability: 1.0
+  zipkin:
+    base-url: http://localhost:9000

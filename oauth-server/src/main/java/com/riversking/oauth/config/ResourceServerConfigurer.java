@@ -74,7 +74,8 @@ public class ResourceServerConfigurer extends ResourceServerConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/open/**").permitAll()//开放的资源不用授权
+                //开放的资源不用授权
+                .antMatchers("/open/**","/actuator/**").permitAll()
                 .anyRequest().authenticated().and().httpBasic()//其他任何请求都需要授权
         ;
     }

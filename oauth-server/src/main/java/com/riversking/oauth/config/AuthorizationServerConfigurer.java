@@ -65,20 +65,27 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
     @Bean
     DefaultTokenServices tokenServices() {
         DefaultTokenServices d = new DefaultTokenServices();
-        d.setAccessTokenValiditySeconds(600);//设置token有效期
+        //设置token有效期
+        d.setAccessTokenValiditySeconds(600);
         d.setRefreshTokenValiditySeconds(1000);
         d.setTokenStore(tokenStore());
-        d.setReuseRefreshToken(false);//是否重复使用token
-        d.setSupportRefreshToken(true);//是否支持refresh token
+        //是否重复使用token
+        d.setReuseRefreshToken(false);
+        //是否支持refresh token
+        d.setSupportRefreshToken(true);
         return d;
     }
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        security.tokenKeyAccess("permitAll()")//对于CheckEndpoint控制器[框架自带的校验]的/oauth/token端点允许所有客户端发送器请求而不会被Spring-security拦截
-                .checkTokenAccess("permitAll()")//要访问/oauth/check_token必须设置为permitAll()，但这样所有人都可以访问了，设为isAuthenticated()又导致访问不了，这个问题暂时没找到解决方案
-                .allowFormAuthenticationForClients()//允许客户表单认证,不加的话/oauth/token无法访问
-                .passwordEncoder(passwordEncoder);//设置oauth_client_details中的密码编码器
+        //对于CheckEndpoint控制器[框架自带的校验]的/oauth/token端点允许所有客户端发送器请求而不会被Spring-security拦截
+        security.tokenKeyAccess("permitAll()")
+                //要访问/oauth/check_token必须设置为permitAll()，但这样所有人都可以访问了，设为isAuthenticated()又导致访问不了，这个问题暂时没找到解决方案
+                .checkTokenAccess("permitAll()")
+                //允许客户表单认证,不加的话/oauth/token无法访问
+                .allowFormAuthenticationForClients()
+                //设置oauth_client_details中的密码编码器
+                .passwordEncoder(passwordEncoder);
 
     }
 
@@ -94,9 +101,11 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
                 .userDetailsService(userDetailsService)
                 .authenticationManager(authenticationManager);
         // endpoints.pathMapping("/oauth/token","/oauth/token3");//可以修改默认的endpoint路径
-        endpoints.tokenEnhancer(tokenEnhancer());//增加token返回内容
+        //增加token返回内容
+        endpoints.tokenEnhancer(tokenEnhancer());
 //        endpoints.accessTokenConverter();
-        endpoints.exceptionTranslator(customWebResponseExceptionTranslator);//修改异常时返回格式
+        //修改异常时返回格式
+        endpoints.exceptionTranslator(customWebResponseExceptionTranslator);
     }
 
 

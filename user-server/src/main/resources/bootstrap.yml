@@ -1,10 +1,6 @@
-server:
-  port:
-    9080
-
 spring:
   application:
-    name: oauth-server
+    name: user-server
   datasource:
     name: oauth-server
     url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/cloud_deer_admin?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=GMT
@@ -25,13 +21,11 @@ spring:
         max-idle: 100
         max-wait: -1s
 
+
 mybatis-plus:
   mapper-locations: classpath*:/mapper/*.xml
   typeAliasesPackage: com.riversking.oauth.entity
   global-config:
-#    id: 0  #0:数据库ID自增   1:用户输入id  2:全局唯一id(IdWorker)  3:全局唯一ID(uuid)
-#    db-column-underline: false
-#    refresh-mapper: true
     db-config:
       id-type: auto
       column-like: false
@@ -52,18 +46,3 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
-
-logging:
-  level:
-    com.riversking: debug
-  path: classpath:logback.xml
-
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-  endpoint:
-    health:
-      show-details: ALWAYS

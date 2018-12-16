@@ -43,7 +43,7 @@ public class ResController {
      * @return
      */
     @GetMapping("/res1/{value}")
-    @PreAuthorize("hasAuthority('res1') or  #oauth2.hasScope('scope2')")//@PreAuthorize需要有这个才能生效@EnableGlobalMethodSecurity(prePostEnabled = true)
+    @PreAuthorize("hasAuthority('res1') or  #oauth2.hasScope('scope2')")
     public String res1(@PathVariable String value){
         Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
         return value;

@@ -1,19 +1,13 @@
 logging:
-    level:
-#        tk.mybatis: DEBUG
-        com.clouddeer: DEBUG
+  level:
+    #        tk.mybatis: DEBUG
+    com.clouddeer: DEBUG
+#    path: classpath:logback.xml
 spring:
-    application:
-        name: cd-account
-    cloud:
-      config:
-        discovery:
-          enabled: true
-          service-id: config
-        label: master
-        name: account
-      bus:
-        enabled: true
+  application:
+    name: cd-account
+  profiles:
+    active: local
 
 
 
@@ -23,13 +17,13 @@ sample:
     enabled: false
 
 mybatis:
-#    basepackage: com.clouddeer.account.mapper
-#    xmlLocation: classpath:mapper/**/*.xml
-    mapper-locations: "classpath*:mapper/*.xml"
+  #    basepackage: com.clouddeer.account.mapper
+  #    xmlLocation: classpath:mapper/**/*.xml
+  mapper-locations: "classpath*:mapper/*.xml"
 
 
 server:
-    port: 11000
+  port: 11000
 
 
 eureka:
@@ -81,7 +75,7 @@ swagger:
   version: 1.0.0.SNAPSHOT
   description: 公共设施服务
   contact:
-        name: material
+    name: material
 
 security:
   oauth2:
@@ -105,3 +99,7 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
+#配置此项可读取日志 在spring boot admin中
+#    logfile:
+#      enabled: true
+#      external-file: log4j

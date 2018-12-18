@@ -1,20 +1,17 @@
-package com.rivers.gateway;
+package com.rivers.oauth;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 
-/**
- * @author wangyichuan
- */
-@RefreshScope
 @EnableEurekaClient
+@MapperScan(basePackages = {"com.riversking.oauth.mapper"})
 @SpringBootApplication
-public class GatewayApplication {
+public class OauthServerApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(GatewayApplication.class, args);
+        SpringApplication.run(OauthServerApplication.class, args);
     }
 }

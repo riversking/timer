@@ -14,6 +14,7 @@ dependencies {
     compile group: 'com.github.riversking', name: 'core', version: '1.0.6'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
     compile group: 'org.jolokia', name: 'jolokia-core', version: '1.6.0'
+    compile project(':user-api')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 configurations {

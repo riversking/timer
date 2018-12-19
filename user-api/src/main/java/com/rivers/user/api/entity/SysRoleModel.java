@@ -1,11 +1,13 @@
 package com.rivers.user.api.entity;
 
-
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 
 import java.io.Serializable;
+
 
 import java.io.Serializable;
 import java.util.Date;
@@ -14,16 +16,16 @@ import java.util.Date;
  * SysRole
  *
  * @author rivers
- * @Date 2018-12-19 10:39
+ * @Date 2018-12-19 10:46
  */
 @TableName("sys_role")
 public class SysRoleModel extends Model<SysRoleModel> {
 	private static final long serialVersionUID = 1L;
 	/**
-	 * RoleId
+	 * Id
 	 *
 	 */
-	@TableField(value="id")
+	@TableId(value = "id",type = IdType.AUTO)
 	private Integer id;
 
 	/**
@@ -70,21 +72,19 @@ public class SysRoleModel extends Model<SysRoleModel> {
 
 
 	/**
-	 * 获取: RoleId
+	 * 获取: Id
 	 *
 	 */
 	public Integer getId() {
 		return id;
 	}
-
 	/**
-	 * 设置: RoleId
+	 * 设置: Id
 	 *
 	 */
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
 	/**
 	 * 获取: RoleName
 	 *

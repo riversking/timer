@@ -33,7 +33,7 @@ public class CustomOAuth2AccessDeniedHandler extends AbstractOAuth2SecurityExcep
         map.put("code", "405");
         map.put("message", authException.getMessage());
         map.put("data", "");
-        map.put("timestamp", String.valueOf(new Date().getTime()));
+        map.put("timestamp", String.valueOf(System.currentTimeMillis()));
         response.setContentType("application/json");
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.getWriter().write(objectMapper.writeValueAsString(map));

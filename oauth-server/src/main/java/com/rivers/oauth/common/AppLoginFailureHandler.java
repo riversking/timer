@@ -27,7 +27,7 @@ public class AppLoginFailureHandler extends SimpleUrlAuthenticationFailureHandle
         Map map = new HashMap();
         map.put("code", 400);
         map.put("data", "");
-        map.put("timestamp", String.valueOf(new Date().getTime()));
+        map.put("timestamp", System.currentTimeMillis());
         if(exception instanceof BadCredentialsException){
             map.put("message", "用户名或密码错误");
 

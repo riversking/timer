@@ -1,7 +1,7 @@
 package com.rivers.oauth.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.rivers.oauth.entity.SysOauthClientModel;
+import com.rivers.user.api.entity.SysOauthClientModel;
 
 /**
  * SysOauthClientDao

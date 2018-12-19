@@ -1,4 +1,4 @@
-package com.rivers.oauth.entity;
+package com.rivers.user.api.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;

@@ -7,7 +7,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 
 @EnableEurekaClient
-@MapperScan(basePackages = {"com.riversking.oauth.mapper"})
+@MapperScan(basePackages = {"com.rivers.oauth.mapper"})
 @SpringBootApplication
 public class OauthServerApplication {
 

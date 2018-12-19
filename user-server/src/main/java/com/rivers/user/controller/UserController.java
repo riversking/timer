@@ -1,4 +1,4 @@
-package com.rivers.user;
+package com.rivers.user.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 

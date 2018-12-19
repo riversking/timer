@@ -1,7 +1,8 @@
 package com.rivers.oauth.config;
 
 import com.rivers.oauth.common.CustomWebResponseExceptionTranslator;
-import com.rivers.oauth.service.ClientDetailsServiceImpl;
+import com.rivers.oauth.common.SecurityConstants;
+//import com.rivers.oauth.service.ClientDetailsServiceImpl;
 import com.rivers.oauth.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +20,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 
@@ -44,9 +46,12 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
+//
+//    @Autowired
+//    private ClientDetailsServiceImpl clientDetailsService;
 
     @Autowired
-    private ClientDetailsServiceImpl clientDetailsService;
+    private DataSource dataSource;
 
     @Autowired
     private CustomWebResponseExceptionTranslator customWebResponseExceptionTranslator;
@@ -67,7 +72,7 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
     DefaultTokenServices tokenServices() {
         DefaultTokenServices d = new DefaultTokenServices();
         //设置token有效期
-        d.setAccessTokenValiditySeconds(600);
+        d.setAccessTokenValiditySeconds(600000);
         d.setRefreshTokenValiditySeconds(1000);
         d.setTokenStore(tokenStore());
         //是否重复使用token
@@ -92,6 +97,9 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+        JdbcClientDetailsService clientDetailsService = new JdbcClientDetailsService(dataSource);
+        clientDetailsService.setSelectClientDetailsSql(SecurityConstants.DEFAULT_SELECT_STATEMENT);
+        clientDetailsService.setFindClientDetailsSql(SecurityConstants.DEFAULT_FIND_STATEMENT);
         clients.withClientDetails(clientDetailsService);
     }
 

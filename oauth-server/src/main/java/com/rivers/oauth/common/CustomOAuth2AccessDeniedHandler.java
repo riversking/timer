@@ -26,10 +26,11 @@ public class CustomOAuth2AccessDeniedHandler extends AbstractOAuth2SecurityExcep
     public CustomOAuth2AccessDeniedHandler() {
     }
 
+    @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException authException) throws IOException {
         //this.doHandle(request, response, authException);
         response.setContentType("application/json;charset=UTF-8");
-        Map<String,String> map = new HashMap<>();
+        Map<String, String> map = new HashMap<>();
         map.put("code", "405");
         map.put("message", authException.getMessage());
         map.put("data", "");

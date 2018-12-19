@@ -5,6 +5,10 @@ server:
 spring:
   application:
     name: oauth-server
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    default-property-inclusion: non_null
   datasource:
     name: oauth-server
     url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/cloud_deer_admin?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=GMT

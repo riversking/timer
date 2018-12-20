@@ -24,6 +24,9 @@ public class ClientDetailsServiceImpl implements ClientDetailsService {
     @Resource
     private SysOauthClientDao sysOauthClientDao;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     /**
      * 注意secret需要BCrypt加密，否则会报Encoded password does not look like BCrypt
      *
@@ -44,7 +47,7 @@ public class ClientDetailsServiceImpl implements ClientDetailsService {
         SysOauthClientModel sysOauthClientModel = sysOauthClientDao.selectOne(wrapper);
         if (sysOauthClientModel.getClientId().equals(s)) {
             BaseClientDetails  bcd = new BaseClientDetails(s, "", sysOauthClientModel.getScope(), sysOauthClientModel.getAuthorizedGrantTypes(), "");
-            bcd.setClientSecret(sysOauthClientModel.getClientSecret());
+            bcd.setClientSecret(passwordEncoder.encode("secret"));
             return bcd;
         }
         return new BaseClientDetails();

@@ -75,7 +75,7 @@ public class ResourceServerConfigurer extends ResourceServerConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 //开放的资源不用授权
-                .antMatchers("/open/**","/actuator/**").permitAll()
+                .antMatchers("/open/**","/actuator/**","/user/login").permitAll()
                 .anyRequest().authenticated().and().httpBasic()//其他任何请求都需要授权
         ;
     }

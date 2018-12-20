@@ -38,7 +38,7 @@ public interface SecurityConstants {
 	/**
 	 * sys_oauth_client_details 表的字段，不包括client_id、client_secret
 	 */
-	String CLIENT_FIELDS = "client_id, CONCAT('{noop}',client_secret) as client_secret, resource_ids, scope, "
+	String CLIENT_FIELDS = "client_id, client_secret as client_secret, resource_ids, scope, "
 		+ "authorized_grant_types, web_server_redirect_uri, authorities, access_token_validity, "
 		+ "refresh_token_validity, additional_information, autoapprove";
 

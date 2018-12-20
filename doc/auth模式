@@ -43,3 +43,36 @@ if ("client5".equals(s)) {
 //client模式
 //http://ip:port/oauth/token?grant_type=client_credentials&scope=**&client_id=**&client_secret=**
 //response示例：{"access_token":"56465b41-429d-436c-ad8d-613d476ff322","token_type":"bearer","expires_in":25074,"scope":"a
+
+
+  //BCrypt 生成
+  public static void main(String[] args) {
+        // Hash a password for the first time
+        String password = "secret";
+        String hashed = BCrypt.hashpw(password, BCrypt.gensalt());
+        System.out.println(hashed);
+// gensalt's log_rounds parameter determines the complexity
+// the work factor is 2**log_rounds, and the default is 10
+        String hashed2 = BCrypt.hashpw(password, BCrypt.gensalt(12));
+
+// Check that an unencrypted password matches one that has
+// previously been hashed
+        String candidate = "testpassword";
+//String candidate = "wrongtestpassword";
+        if (BCrypt.checkpw(candidate, hashed)) {
+            System.out.println("It matches");
+
+        } else {
+            System.out.println("It does not match");
+
+        }
+    }
+
+
+        /**
+             * 纯jdbc实现
+             */
+    //        JdbcClientDetailsService clientDetailsService = new JdbcClientDetailsService(dataSource);
+    //        clientDetailsService.setSelectClientDetailsSql(SecurityConstants.DEFAULT_SELECT_STATEMENT);
+    //        clientDetailsService.setFindClientDetailsSql(SecurityConstants.DEFAULT_FIND_STATEMENT);
+    //        clients.withClientDetails(clientDetailsService);

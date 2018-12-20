@@ -2,7 +2,7 @@ package com.rivers.oauth.config;
 
 import com.rivers.oauth.common.CustomWebResponseExceptionTranslator;
 import com.rivers.oauth.common.SecurityConstants;
-//import com.rivers.oauth.service.ClientDetailsServiceImpl;
+import com.rivers.oauth.service.ClientDetailsServiceImpl;
 import com.rivers.oauth.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -20,11 +20,10 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
-import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 
-import javax.sql.DataSource;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -46,12 +45,10 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
-//
-//    @Autowired
-//    private ClientDetailsServiceImpl clientDetailsService;
 
     @Autowired
-    private DataSource dataSource;
+    private ClientDetailsServiceImpl clientDetailsService;
+
 
     @Autowired
     private CustomWebResponseExceptionTranslator customWebResponseExceptionTranslator;
@@ -77,6 +74,8 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
         d.setTokenStore(tokenStore());
         //是否重复使用token
         d.setReuseRefreshToken(false);
+        //增加token返回内容
+        d.setTokenEnhancer(tokenEnhancer());
         //是否支持refresh token
         d.setSupportRefreshToken(true);
         return d;
@@ -95,12 +94,11 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
 
     }
 
+
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        JdbcClientDetailsService clientDetailsService = new JdbcClientDetailsService(dataSource);
-        clientDetailsService.setSelectClientDetailsSql(SecurityConstants.DEFAULT_SELECT_STATEMENT);
-        clientDetailsService.setFindClientDetailsSql(SecurityConstants.DEFAULT_FIND_STATEMENT);
         clients.withClientDetails(clientDetailsService);
+
     }
 
     @Override
@@ -110,21 +108,36 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
                 .userDetailsService(userDetailsService)
                 .authenticationManager(authenticationManager);
         // endpoints.pathMapping("/oauth/token","/oauth/token3");//可以修改默认的endpoint路径
-        //增加token返回内容
-        endpoints.tokenEnhancer(tokenEnhancer());
 //        endpoints.accessTokenConverter();
         //修改异常时返回格式
         endpoints.exceptionTranslator(customWebResponseExceptionTranslator);
     }
 
 
+    /**
+     * 增加token返回内容
+     *
+     * @return
+     */
     @Bean
     public TokenEnhancer tokenEnhancer() {
+             /* {
+                "access_token": "f067da15-91f9-4fda-bbe4-6344ae3aefa7",
+                "token_type": "bearer",
+                "refresh_token": "592dc245-ab20-4433-9060-247ca1f3c6d4",
+                "expires_in": 43199,
+                "scope": "scope",
+                "username": "guest",
+                "data": {
+                    "s1": "123",
+                    "d1": 123.456
+        }
+        }*/
         return (OAuth2AccessToken accessToken, OAuth2Authentication authentication) -> {
             if (accessToken instanceof DefaultOAuth2AccessToken) {
                 DefaultOAuth2AccessToken token = (DefaultOAuth2AccessToken) accessToken;
                 Map<String, Object> additionalInformation = new LinkedHashMap<>();
-                additionalInformation.put("username", authentication.getDetails());
+                additionalInformation.put("username", authentication.getName());
                 token.setAdditionalInformation(additionalInformation);
             }
             return accessToken;
@@ -136,5 +149,6 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 
 }

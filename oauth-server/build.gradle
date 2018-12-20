@@ -8,7 +8,7 @@ dependencies {
     compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '2.0.2.RELEASE'
     compile group: 'mysql', name: 'mysql-connector-java'
 //    compile group: 'org.springframework', name: 'spring-jdbc'
-    // https://mvnrepository.com/artifact/com.baomidou/mybatisplus-spring-boot-starter
+//     https://mvnrepository.com/artifact/com.baomidou/mybatisplus-spring-boot-starter
     compile group: 'com.baomidou', name: 'mybatis-plus'
     compile group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.0.5'
     compile group: 'com.github.riversking', name: 'core', version: '1.0.6'

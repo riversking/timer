@@ -4,4 +4,5 @@ dependencies {
 	compile group: 'com.baomidou', name: 'mybatis-plus'
 	compile group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.0.5'
 	compile group: 'com.github.riversking', name: 'core', version: '1.0.6'
+	compile group: 'com.alibaba', name: 'fastjson', version: '1.2.47'
 }

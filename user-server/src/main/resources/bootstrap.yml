@@ -1,3 +1,4 @@
+
 spring:
   application:
     name: user-server
@@ -28,6 +29,15 @@ feign:
   okhttp:
     enabled: true
 
+ribbon:
+  eureka:
+    enabled: true
+  ReadTimeout: 100000
+  ConnectTimeout: 100000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1
+  OkToRetryOnAllOperations: false
+
 
 mybatis-plus:
   mapper-locations: classpath*:/mapper/*.xml
@@ -53,3 +63,22 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
+
+
+#security:
+#  oauth2:
+#    client:
+#      client-id: admin
+#      client-secret: secret
+#      scope: server
+#    resource:
+#      token-info-uri: http://localhost:9080/oauth/check_token
+
+
+logging:
+  level:
+    #        tk.mybatis: DEBUG
+    com.rivers: DEBUG
+
+server:
+  port: 6080

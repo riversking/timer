@@ -20,27 +20,27 @@ import java.security.Principal;
 @RestController
 public class AuthorizeController {
 
-    @Autowired
-    @Qualifier("consumerTokenServices")
-    ConsumerTokenServices consumerTokenServices;
-
-    @Autowired
-    TokenEndpoint tokenEndpoint;
-    @GetMapping( "/user/logout")
-    public String logout(@RequestParam String token) {
-        if (consumerTokenServices.revokeToken(token)){
-            return "注销成功";
-        }else{
-            return "注销失败";
-        }
-    }
-    /**
-     * 获取用户凭证（供客户端使用）
-     * @param principal
-     * @return
-     */
-    @PostMapping("/user")
-    public Principal user(Principal principal){
-        return principal;
-    }
+//    @Autowired
+//    @Qualifier("consumerTokenServices")
+//    ConsumerTokenServices consumerTokenServices;
+//
+//    @Autowired
+//    TokenEndpoint tokenEndpoint;
+//    @GetMapping( "/user/logout")
+//    public String logout(@RequestParam String token) {
+//        if (consumerTokenServices.revokeToken(token)){
+//            return "注销成功";
+//        }else{
+//            return "注销失败";
+//        }
+//    }
+//    /**
+//     * 获取用户凭证（供客户端使用）
+//     * @param principal
+//     * @return
+//     */
+//    @PostMapping("/user")
+//    public Principal user(Principal principal){
+//        return principal;
+//    }
 }

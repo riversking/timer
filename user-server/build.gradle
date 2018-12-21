@@ -14,7 +14,7 @@ dependencies {
 	compile(group: 'org.springframework.boot', name: 'spring-boot-starter-web')
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-undertow'
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.0.5.RELEASE'
-	compile group: 'com.github.riversking', name: 'core', version: '1.0.6'
+	compile group: 'com.github.riversking', name: 'core', version: '1.0.8'
 	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-config'
 	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-bus-amqp'
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-webflux'

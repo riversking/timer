@@ -22,7 +22,6 @@ spring:
         max-idle: 100
         max-wait: -1s
 
-
 feign:
   httpclient:
     enabled: false
@@ -65,14 +64,16 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
 
 
-#security:
-#  oauth2:
-#    client:
-#      client-id: admin
-#      client-secret: secret
-#      scope: server
-#    resource:
-#      token-info-uri: http://localhost:9080/oauth/check_token
+
+security:
+  oauth2:
+    client:
+      client-id: admin
+      client-secret: secret
+      scope: server
+    resource:
+      token-info-uri: http://localhost:9080/oauth/check_token
+      service-id: oauth-server
 
 
 logging:

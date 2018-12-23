@@ -40,7 +40,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 //                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 //                .addFilterAt(getOpenIdAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers("/oauth/**","/user/login","/account/**").permitAll()
+                .antMatchers("/oauth/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/sso/login")

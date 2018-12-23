@@ -53,7 +53,7 @@ public class CdAccountController {
      * @return
      */
     @RequestMapping(value = "list")
-//    @PreAuthorize("hasAuthority('res1')")
+    @PreAuthorize("hasAuthority('res1')")
     public ResponseVo accountList(@RequestBody RequestVo<CdAccount> vo) {
         ResponseVo rvo = ResponseVo.ok();
         CdAccount cdAccount = vo.getParam();

@@ -8,7 +8,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.Date;
 import java.util.Map;
 
 public class CustomOauthExceptionSerializer extends StdSerializer<CustomOauthException> {

@@ -1,7 +1,6 @@
 package com.rivers.oauth.config;
 
 import com.rivers.oauth.common.CustomWebResponseExceptionTranslator;
-import com.rivers.oauth.common.SecurityConstants;
 import com.rivers.oauth.service.ClientDetailsServiceImpl;
 import com.rivers.oauth.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;

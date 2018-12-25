@@ -1,4 +1,4 @@
-package com.rivers.user.config;
+package com.rivers.common.config;
 
 import com.rivers.core.oath.common.AuthExceptionEntryPoint;
 import com.rivers.core.oath.common.CustomAccessDeniedHandler;

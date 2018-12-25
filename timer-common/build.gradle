@@ -1,0 +1,4 @@
+dependencies {
+    compile group: 'com.github.riversking', name: 'core', version: '1.0.6'
+}
+

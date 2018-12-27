@@ -6,20 +6,25 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 
+/**
+ * @author riversking
+ */
 @FeignClient("OAUTH-SERVER")
 public interface OauthClientFeign {
 
+
     /**
-     * 获取token
-     * @param Authorization
-     * @param username
-     * @param password
+     * 获取TOKEN
+     * @param authorization  authorization
+     * @param username username
+     * @param password password
+     * @param grantType grantType
      * @return
      */
     @PostMapping("/oauth/token")
-    JSONObject getAccessToken(@RequestHeader("Authorization") String Authorization,
+    JSONObject getAccessToken(@RequestHeader("Authorization") String authorization,
                               @RequestParam("username") String username,
                               @RequestParam("password") String password,
-                              @RequestParam("grant_type") String grant_type);
+                              @RequestParam("grant_type") String grantType);
 
 }

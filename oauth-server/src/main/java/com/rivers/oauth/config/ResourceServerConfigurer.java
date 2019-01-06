@@ -2,8 +2,9 @@ package com.rivers.oauth.config;
 
 
 
-import com.rivers.core.oath.common.AuthExceptionEntryPoint;
-import com.rivers.core.oath.common.CustomAccessDeniedHandler;
+
+import com.rivers.oauth.common.AuthExceptionEntryPoint;
+import com.rivers.oauth.common.CustomAccessDeniedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -69,7 +70,7 @@ public class ResourceServerConfigurer extends ResourceServerConfigurerAdapter {
         http
                 .formLogin()
                 //.successHandler(appLoginInSuccessHandler))//如果有必要，在这里可以自定义成功处理器
-               // .failureHandler(appLoginFailureHandler)//如果有必要，在这里可以自定义错误处理器
+                // .failureHandler(appLoginFailureHandler)//如果有必要，在这里可以自定义错误处理器
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 .and()
@@ -78,9 +79,10 @@ public class ResourceServerConfigurer extends ResourceServerConfigurerAdapter {
                 .antMatchers("/open/**","/actuator/**").permitAll()
                 .anyRequest().authenticated().and().httpBasic()//其他任何请求都需要授权
         ;
+        ;
     }
 
-    private static final String DEMO_RESOURCE_ID = "resource1";
+    private static final String DEMO_RESOURCE_ID = "oauth-server";
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) {

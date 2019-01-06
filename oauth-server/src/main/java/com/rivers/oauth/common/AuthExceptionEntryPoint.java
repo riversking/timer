@@ -7,7 +7,6 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,7 +29,7 @@ public class AuthExceptionEntryPoint implements AuthenticationEntryPoint {
         map.put("message", authException.getMessage());
         map.put("data", "");
         //map.put("path", request.getServletPath());
-        map.put("timestamp", String.valueOf(new Date().getTime()));
+        map.put("timestamp", System.currentTimeMillis());
         response.setContentType("application/json");
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         try {

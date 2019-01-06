@@ -72,7 +72,7 @@ public class MyRedisTokenStore extends RedisTokenStore {
     }
 
     private OAuth2RefreshToken deserializeRefreshToken(byte[] bytes) {
-        return (OAuth2RefreshToken)this.serializationStrategy.deserialize(bytes, OAuth2RefreshToken.class);
+        return (OAuth2RefreshToken) this.serializationStrategy.deserialize(bytes, OAuth2RefreshToken.class);
     }
 
     private byte[] serialize(String string) {
@@ -127,6 +127,7 @@ public class MyRedisTokenStore extends RedisTokenStore {
         return this.readAuthenticationForRefreshToken(token.getValue());
     }
 
+    @Override
     public OAuth2Authentication readAuthenticationForRefreshToken(String token) {
         RedisConnection conn = getConnection();
         try {
@@ -192,7 +193,7 @@ public class MyRedisTokenStore extends RedisTokenStore {
     }
 
     private static String getApprovalKey(OAuth2Authentication authentication) {
-        String userName = authentication.getUserAuthentication() == null ? "": authentication.getUserAuthentication().getName();
+        String userName = authentication.getUserAuthentication() == null ? "" : authentication.getUserAuthentication().getName();
         return getApprovalKey(authentication.getOAuth2Request().getClientId(), userName);
     }
 
@@ -354,14 +355,14 @@ public class MyRedisTokenStore extends RedisTokenStore {
             conn.close();
         }
         if (byteList == null || byteList.size() == 0) {
-            return Collections.<OAuth2AccessToken> emptySet();
+            return Collections.<OAuth2AccessToken>emptySet();
         }
         List<OAuth2AccessToken> accessTokens = new ArrayList<OAuth2AccessToken>(byteList.size());
         for (byte[] bytes : byteList) {
             OAuth2AccessToken accessToken = deserializeAccessToken(bytes);
             accessTokens.add(accessToken);
         }
-        return Collections.<OAuth2AccessToken> unmodifiableCollection(accessTokens);
+        return Collections.<OAuth2AccessToken>unmodifiableCollection(accessTokens);
     }
 
     @Override
@@ -375,14 +376,14 @@ public class MyRedisTokenStore extends RedisTokenStore {
             conn.close();
         }
         if (byteList == null || byteList.size() == 0) {
-            return Collections.<OAuth2AccessToken> emptySet();
+            return Collections.<OAuth2AccessToken>emptySet();
         }
         List<OAuth2AccessToken> accessTokens = new ArrayList<OAuth2AccessToken>(byteList.size());
         for (byte[] bytes : byteList) {
             OAuth2AccessToken accessToken = deserializeAccessToken(bytes);
             accessTokens.add(accessToken);
         }
-        return Collections.<OAuth2AccessToken> unmodifiableCollection(accessTokens);
+        return Collections.<OAuth2AccessToken>unmodifiableCollection(accessTokens);
     }
 
 }

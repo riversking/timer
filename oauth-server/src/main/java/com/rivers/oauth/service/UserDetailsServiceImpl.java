@@ -14,8 +14,9 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 import java.util.HashSet;
 
+
 /**
- * Created by hwj on 2018/9/10.
+ * @author rivers
  */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {

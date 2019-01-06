@@ -1,10 +1,14 @@
 server:
-  port:
-    9080
+ port:
+  9080
 
 spring:
   application:
     name: oauth-server
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    default-property-inclusion: non_null
   datasource:
     name: oauth-server
     url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/cloud_deer_admin?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=GMT
@@ -29,9 +33,9 @@ mybatis-plus:
   mapper-locations: classpath*:/mapper/*.xml
   typeAliasesPackage: com.riversking.oauth.entity
   global-config:
-#    id: 0  #0:数据库ID自增   1:用户输入id  2:全局唯一id(IdWorker)  3:全局唯一ID(uuid)
-#    db-column-underline: false
-#    refresh-mapper: true
+    #    id: 0  #0:数据库ID自增   1:用户输入id  2:全局唯一id(IdWorker)  3:全局唯一ID(uuid)
+    #    db-column-underline: false
+    #    refresh-mapper: true
     db-config:
       id-type: auto
       column-like: false
@@ -41,7 +45,21 @@ mybatis-plus:
     lazyLoadingEnabled: true #延时加载的开关
     multipleResultSetsEnabled: true #开启的话
 
+# 必须配置
+feign:
+  httpclient:
+    enabled: false
+  okhttp:
+    enabled: true
 
+ribbon:
+  eureka:
+    enabled: true
+  ReadTimeout: 100000
+  ConnectTimeout: 100000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1
+  OkToRetryOnAllOperations: false
 
 eureka:
   instance:

@@ -8,7 +8,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.Date;
 import java.util.Map;
 
 public class CustomOauthExceptionSerializer extends StdSerializer<CustomOauthException> {
@@ -37,7 +36,7 @@ public class CustomOauthExceptionSerializer extends StdSerializer<CustomOauthExc
         gen.writeNumberField("code", value.getHttpErrorCode());
         gen.writeStringField("message", value.getMessage());
         //gen.writeStringField("path", request.getServletPath());
-        gen.writeStringField("timestamp", String.valueOf(new Date().getTime()));
+        gen.writeStringField("timestamp", String.valueOf(System.currentTimeMillis()));
         gen.writeStringField("data", "");
         if (value.getAdditionalInformation() != null) {
             for (Map.Entry<String, String> entry : value.getAdditionalInformation().entrySet()) {

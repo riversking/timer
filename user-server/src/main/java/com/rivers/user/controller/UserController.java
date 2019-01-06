@@ -34,5 +34,10 @@ public class UserController {
         return responseVo;
     }
 
+    @PostMapping("addUser")
+    public ResponseVo addUser(@RequestBody RequestVo<SysUserModel> requestVo) {
+        return ResponseVo.ok();
+    }
+
 
 }

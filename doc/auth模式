@@ -76,3 +76,15 @@ if ("client5".equals(s)) {
     //        clientDetailsService.setSelectClientDetailsSql(SecurityConstants.DEFAULT_SELECT_STATEMENT);
     //        clientDetailsService.setFindClientDetailsSql(SecurityConstants.DEFAULT_FIND_STATEMENT);
     //        clients.withClientDetails(clientDetailsService);
+
+
+
+resources.resourceId("authorize-server"); //重点，设置资源id
+
+把资源id加到clientdetails中 手动添加resourceId （JDBC模式）
+
+否则会报以下错误
+{
+ "error":"access_denied",
+ "error_description":"Invalid token does not contain resource id (oauth2-resource)"
+}

@@ -46,7 +46,7 @@ public class ClientDetailsServiceImpl implements ClientDetailsService {
         wrapper.eq("client_id", s);
         SysOauthClientModel sysOauthClientModel = sysOauthClientDao.selectOne(wrapper);
         if (sysOauthClientModel.getClientId().equals(s)) {
-            BaseClientDetails  bcd = new BaseClientDetails(s, "oauth-server", sysOauthClientModel.getScope(), sysOauthClientModel.getAuthorizedGrantTypes(), "");
+            BaseClientDetails  bcd = new BaseClientDetails(s, "", sysOauthClientModel.getScope(), sysOauthClientModel.getAuthorizedGrantTypes(), "");
             bcd.setClientSecret(passwordEncoder.encode("secret"));
             return bcd;
         }

@@ -25,7 +25,7 @@ public class UserController {
 
 
     @PostMapping("login")
-    public ResponseVo login(@RequestBody RequestVo<SysUserModel> requestVo) {
+    public ResponseVo login() {
         ResponseVo responseVo = ResponseVo.ok();
         JSONObject jsonObject = oauthClientFeign.getAccessToken("Basic YWRtaW46c2VjcmV0", "admin", "123456", "password");
         TokenVo token = JSONObject.toJavaObject(jsonObject, TokenVo.class);

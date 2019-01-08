@@ -17,11 +17,11 @@ spring:
         filters:
         - StripPrefix=2
       - id: user-server
-          uri: lb://user-server
-          predicates:
-            - Path=/api/v1/user/**
-          filters:
-            - StripPrefix=2
+        uri: lb://user-server
+        predicates:
+          - Path=/api/v1/user/**
+        filters:
+          - StripPrefix=2
 #请求和响应GZIP压缩支持
 feign:
   httpclient:

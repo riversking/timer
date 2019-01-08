@@ -25,9 +25,11 @@ public class UserController {
 
 
     @PostMapping("login")
-    public ResponseVo login() {
+    public ResponseVo login(@RequestBody RequestVo<SysUserModel> requestVo) {
         ResponseVo responseVo = ResponseVo.ok();
-        JSONObject jsonObject = oauthClientFeign.getAccessToken("Basic YWRtaW46c2VjcmV0", "admin", "123456", "password");
+        SysUserModel sysUserModel = requestVo.getParam();
+        JSONObject jsonObject = oauthClientFeign.getAccessToken("Basic YWRtaW46c2VjcmV0",
+                sysUserModel.getUsername(), sysUserModel.getPassword(), "password");
         TokenVo token = JSONObject.toJavaObject(jsonObject, TokenVo.class);
         responseVo.setRsp(token);
         responseVo.setMsg("请求成功");
@@ -36,6 +38,7 @@ public class UserController {
 
     @PostMapping("addUser")
     public ResponseVo addUser(@RequestBody RequestVo<SysUserModel> requestVo) {
+
         return ResponseVo.ok();
     }
 

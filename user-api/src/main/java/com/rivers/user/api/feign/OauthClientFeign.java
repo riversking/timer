@@ -19,7 +19,7 @@ public interface OauthClientFeign {
      * @param username username
      * @param password password
      * @param grantType grantType
-     * @return
+     * @return JSONObject
      */
     @PostMapping("/oauth/token")
     JSONObject getAccessToken(@RequestHeader("Authorization") String authorization,

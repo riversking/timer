@@ -1,11 +1,13 @@
 package com.rivers.user.controller;
 
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.rivers.core.view.RequestVo;
 import com.rivers.core.view.ResponseVo;
 import com.rivers.user.api.entity.SysUserModel;
 import com.rivers.user.api.feign.OauthClientFeign;
 import com.rivers.user.api.vo.TokenVo;
+import com.rivers.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +25,9 @@ public class UserController {
     @Autowired
     private OauthClientFeign oauthClientFeign;
 
+    @Autowired
+    private UserService userService;
+
 
     @PostMapping("login")
     public ResponseVo login(@RequestBody RequestVo<SysUserModel> requestVo) {
@@ -38,7 +43,14 @@ public class UserController {
 
     @PostMapping("addUser")
     public ResponseVo addUser(@RequestBody RequestVo<SysUserModel> requestVo) {
-
+        SysUserModel sysUserModel = requestVo.getParam();
+        if (StrUtil.isBlank(sysUserModel.getUsername())) {
+            return ResponseVo.fail("-101001","用户名为空");
+        }
+        if (StrUtil.isBlank(sysUserModel.getPassword())) {
+            return ResponseVo.fail("-101001","密码为空");
+        }
+        userService.addUser(sysUserModel);
         return ResponseVo.ok();
     }
 

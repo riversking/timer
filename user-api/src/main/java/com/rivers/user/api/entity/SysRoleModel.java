@@ -1,9 +1,6 @@
 package com.rivers.user.api.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 
 import java.io.Serializable;
@@ -19,7 +16,7 @@ import java.util.Date;
  * @Date 2018-12-19 10:46
  */
 @TableName("sys_role")
-public class SysRoleModel extends Model<SysRoleModel> {
+public class SysRoleModel extends Model<SysRoleModel>  {
 	private static final long serialVersionUID = 1L;
 	/**
 	 * Id
@@ -67,6 +64,7 @@ public class SysRoleModel extends Model<SysRoleModel> {
 	 * 删除标识（0-正常
 	 * 删除标识（0-正常,1-删除）
 	 */
+	@TableLogic
 	@TableField(value="del_flag")
 	private String delFlag;
 

@@ -45,5 +45,22 @@ public class RoleController {
         return responseVo;
     }
 
+    @PostMapping("roleDetail")
+    public ResponseVo roleDetail(@RequestBody RequestVo<Integer> requestVo) {
+        Integer id = requestVo.getParam();
+        ResponseVo responseVo = ResponseVo.ok();
+        SysRoleModel sysRoleModel = roleService.getRoleDetailById(id);
+        responseVo.setRsp(sysRoleModel);
+        return responseVo;
+    }
+
+
+    @PostMapping("deleteRole")
+    public ResponseVo deleteRole(@RequestBody RequestVo<Integer> requestVo) {
+        Integer id = requestVo.getParam();
+        ResponseVo responseVo = ResponseVo.ok();
+        roleService.deleteRoleById(id);
+        return responseVo;
+    }
 
 }

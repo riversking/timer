@@ -4,9 +4,12 @@ server:
 spring:
   application:
     name: user-server
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
   datasource:
     name: user-server
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/cloud_deer_admin?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=GMT
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/cloud_deer_admin?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=GMT%2B8
     username: root
     password: root
     # 使用druid数据源
@@ -83,7 +86,7 @@ security:
 logging:
   level:
     #        tk.mybatis: DEBUG
-    com.rivers: DEBUG
+    com.rivers: info
 
 
 

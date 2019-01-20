@@ -46,12 +46,18 @@ public class SysRoleModel extends Model<SysRoleModel>  {
 	@TableField(value="role_desc")
 	private String roleDesc;
 
+	@TableField(value = "create_user")
+	private String createUser;
+
 	/**
 	 * CreateTime
 	 *
 	 */
 	@TableField(value="create_time")
 	private Date createTime;
+
+	@TableField(value = "update_user")
+	private String updateUser;
 
 	/**
 	 * UpdateTime
@@ -66,7 +72,7 @@ public class SysRoleModel extends Model<SysRoleModel>  {
 	 */
 	@TableLogic
 	@TableField(value="del_flag")
-	private String delFlag;
+	private Integer delFlag;
 
 
 	/**
@@ -125,6 +131,16 @@ public class SysRoleModel extends Model<SysRoleModel>  {
 	public void setRoleDesc(String roleDesc) {
 		this.roleDesc = roleDesc;
 	}
+
+
+	public String getCreateUser() {
+		return createUser;
+	}
+
+	public void setCreateUser(String createUser) {
+		this.createUser = createUser;
+	}
+
 	/**
 	 * 获取: CreateTime
 	 *
@@ -139,6 +155,15 @@ public class SysRoleModel extends Model<SysRoleModel>  {
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
+
+	public String getUpdateUser() {
+		return updateUser;
+	}
+
+	public void setUpdateUser(String updateUser) {
+		this.updateUser = updateUser;
+	}
+
 	/**
 	 * 获取: UpdateTime
 	 *
@@ -157,14 +182,14 @@ public class SysRoleModel extends Model<SysRoleModel>  {
 	 * 获取: 删除标识（0-正常
 	 * 删除标识（0-正常,1-删除）
 	 */
-	public String getDelFlag() {
+	public Integer getDelFlag() {
 		return delFlag;
 	}
 	/**
 	 * 设置: 删除标识（0-正常
 	 * 删除标识（0-正常,1-删除）
 	 */
-	public void setDelFlag(String delFlag) {
+	public void setDelFlag(Integer delFlag) {
 		this.delFlag = delFlag;
 	}
 

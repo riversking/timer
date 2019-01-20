@@ -68,12 +68,20 @@ public class SysUserModel extends Model<SysUserModel> {
 	@TableField(value="dept_id")
 	private Integer deptId;
 
+
+	@TableField(value = "create_user")
+	private String createUser;
+
 	/**
 	 * 创建时间
 	 *
 	 */
 	@TableField(value="create_time")
 	private Date createTime;
+
+
+	@TableField(value = "update_user")
+	private String updateUser;
 
 	/**
 	 * 修改时间
@@ -87,7 +95,7 @@ public class SysUserModel extends Model<SysUserModel> {
 	 *
 	 */
 	@TableField(value="del_flag")
-	private String delFlag;
+	private Integer delFlag;
 
 
 	/**
@@ -188,6 +196,16 @@ public class SysUserModel extends Model<SysUserModel> {
 	public void setDeptId(Integer deptId) {
 		this.deptId = deptId;
 	}
+
+
+	public String getCreateUser() {
+		return createUser;
+	}
+
+	public void setCreateUser(String createUser) {
+		this.createUser = createUser;
+	}
+
 	/**
 	 * 获取: 创建时间
 	 *
@@ -202,6 +220,15 @@ public class SysUserModel extends Model<SysUserModel> {
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
+
+	public String getUpdateUser() {
+		return updateUser;
+	}
+
+	public void setUpdateUser(String updateUser) {
+		this.updateUser = updateUser;
+	}
+
 	/**
 	 * 获取: 修改时间
 	 *
@@ -220,14 +247,14 @@ public class SysUserModel extends Model<SysUserModel> {
 	 * 获取: 0-正常，1-删除
 	 *
 	 */
-	public String getDelFlag() {
+	public Integer getDelFlag() {
 		return delFlag;
 	}
 	/**
 	 * 设置: 0-正常，1-删除
 	 *
 	 */
-	public void setDelFlag(String delFlag) {
+	public void setDelFlag(Integer delFlag) {
 		this.delFlag = delFlag;
 	}
 

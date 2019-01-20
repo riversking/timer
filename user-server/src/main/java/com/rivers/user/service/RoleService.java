@@ -1,7 +1,5 @@
 package com.rivers.user.service;
 
-import cn.hutool.core.date.DateUnit;
-import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -11,13 +9,9 @@ import com.rivers.user.api.dto.RoleDto;
 import com.rivers.user.api.entity.SysRoleModel;
 import com.rivers.user.mapper.SysRoleDao;
 import lombok.extern.log4j.Log4j2;
-import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author riversking
@@ -31,6 +25,8 @@ public class RoleService extends ServiceImpl<SysRoleDao, SysRoleModel> {
 
     public void addRole(SysRoleModel sysRoleModel) {
         try {
+            sysRoleModel.setCreateUser("tester");
+            sysRoleModel.setUpdateUser("tester");
             sysRoleModel.insert();
         } catch (Exception e) {
             log.error("Add Role Exception {}", e);
@@ -51,6 +47,7 @@ public class RoleService extends ServiceImpl<SysRoleDao, SysRoleModel> {
 
     /**
      * 通过id查询角色详情
+     *
      * @param id id
      * @return SysRoleModel
      */
@@ -66,7 +63,7 @@ public class RoleService extends ServiceImpl<SysRoleDao, SysRoleModel> {
         try {
             sysRoleDao.deleteById(id);
         } catch (Exception e) {
-            ExceptionUtil.throwBusinessException("101002",e);
+            ExceptionUtil.throwBusinessException("101002", e);
         }
     }
 

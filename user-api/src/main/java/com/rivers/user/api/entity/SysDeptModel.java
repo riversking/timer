@@ -1,10 +1,7 @@
 package com.rivers.user.api.entity;
 
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 
 import java.io.Serializable;
@@ -40,12 +37,18 @@ public class SysDeptModel extends Model<SysDeptModel> {
 	@TableField(value="order_num")
 	private Integer orderNum;
 
+	@TableField(value = "create_user")
+	private String createUser;
+
 	/**
 	 * 创建时间
 	 *
 	 */
 	@TableField(value="create_time")
 	private Date createTime;
+
+	@TableField(value = "update_user")
+	private String updateUser;
 
 	/**
 	 * 修改时间
@@ -58,8 +61,9 @@ public class SysDeptModel extends Model<SysDeptModel> {
 	 * 是否删除  -1：已删除  0：正常
 	 *
 	 */
+	@TableLogic
 	@TableField(value="del_flag")
-	private String delFlag;
+	private Integer delFlag;
 
 	/**
 	 * ParentId
@@ -111,6 +115,15 @@ public class SysDeptModel extends Model<SysDeptModel> {
 	public void setOrderNum(Integer orderNum) {
 		this.orderNum = orderNum;
 	}
+
+	public String getCreateUser() {
+		return createUser;
+	}
+
+	public void setCreateUser(String createUser) {
+		this.createUser = createUser;
+	}
+
 	/**
 	 * 获取: 创建时间
 	 *
@@ -125,6 +138,15 @@ public class SysDeptModel extends Model<SysDeptModel> {
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
+
+	public String getUpdateUser() {
+		return updateUser;
+	}
+
+	public void setUpdateUser(String updateUser) {
+		this.updateUser = updateUser;
+	}
+
 	/**
 	 * 获取: 修改时间
 	 *
@@ -143,14 +165,14 @@ public class SysDeptModel extends Model<SysDeptModel> {
 	 * 获取: 是否删除  -1：已删除  0：正常
 	 *
 	 */
-	public String getDelFlag() {
+	public Integer getDelFlag() {
 		return delFlag;
 	}
 	/**
 	 * 设置: 是否删除  -1：已删除  0：正常
 	 *
 	 */
-	public void setDelFlag(String delFlag) {
+	public void setDelFlag(Integer delFlag) {
 		this.delFlag = delFlag;
 	}
 	/**

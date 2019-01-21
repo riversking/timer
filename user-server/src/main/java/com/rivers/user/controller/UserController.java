@@ -2,12 +2,15 @@ package com.rivers.user.controller;
 
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
+import com.rivers.core.util.ExceptionUtil;
 import com.rivers.core.view.RequestVo;
 import com.rivers.core.view.ResponseVo;
+import com.rivers.user.api.dto.UserDto;
 import com.rivers.user.api.entity.SysUserModel;
 import com.rivers.user.api.feign.OauthClientFeign;
 import com.rivers.user.api.vo.TokenVo;
 import com.rivers.user.service.UserService;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/user")
+@Log4j2
 public class UserController {
 
     @Autowired
@@ -42,16 +46,19 @@ public class UserController {
     }
 
     @PostMapping("addUser")
-    public ResponseVo addUser(@RequestBody RequestVo<SysUserModel> requestVo) {
-        SysUserModel sysUserModel = requestVo.getParam();
-        if (StrUtil.isBlank(sysUserModel.getUsername())) {
-            return ResponseVo.fail("-101001","用户名为空");
+    public ResponseVo addUser(@RequestBody RequestVo<UserDto> requestVo) {
+        log.info("getParam {}", requestVo.getParam());
+        ResponseVo vo = ResponseVo.ok();
+        UserDto userDto = requestVo.getParam();
+        if (StrUtil.isBlank(userDto.getUsername())) {
+            return ResponseVo.fail("-101001", "用户名为空");
         }
-        if (StrUtil.isBlank(sysUserModel.getPassword())) {
-            return ResponseVo.fail("-101001","密码为空");
+        if (StrUtil.isBlank(userDto.getPassword())) {
+            return ResponseVo.fail("-101001", "密码为空");
         }
-        userService.addUser(sysUserModel);
-        return ResponseVo.ok();
+        userService.addUser(userDto);
+        vo.setMsg("操作成功");
+        return vo;
     }
 
 

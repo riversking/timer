@@ -61,13 +61,6 @@ public class SysUserModel extends Model<SysUserModel> {
 	@TableField(value="avatar")
 	private String avatar;
 
-	/**
-	 * 部门ID
-	 *
-	 */
-	@TableField(value="dept_id")
-	private Integer deptId;
-
 
 	@TableField(value = "create_user")
 	private String createUser;
@@ -182,21 +175,6 @@ public class SysUserModel extends Model<SysUserModel> {
 	public void setAvatar(String avatar) {
 		this.avatar = avatar;
 	}
-	/**
-	 * 获取: 部门ID
-	 *
-	 */
-	public Integer getDeptId() {
-		return deptId;
-	}
-	/**
-	 * 设置: 部门ID
-	 *
-	 */
-	public void setDeptId(Integer deptId) {
-		this.deptId = deptId;
-	}
-
 
 	public String getCreateUser() {
 		return createUser;

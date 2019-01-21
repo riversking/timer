@@ -1,9 +1,9 @@
-·spring:
+spring:
   cloud:
     gateway:
-      default-filters:
+     default-filters:
       - AddResponseHeader=X-Response-Default-Foo, Default-Bar
-      routes:
+     routes:
       - id: oauth-server
         uri: lb://oauth-server
         predicates:

@@ -86,7 +86,7 @@ security:
 logging:
   level:
     #        tk.mybatis: DEBUG
-    com.rivers: info
+    com.rivers: debug
 
 
 

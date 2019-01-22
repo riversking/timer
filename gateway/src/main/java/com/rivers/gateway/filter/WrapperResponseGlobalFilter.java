@@ -62,7 +62,7 @@ public class WrapperResponseGlobalFilter implements GlobalFilter, Ordered {
         ServerHttpResponseDecorator decoratedResponse = new ServerHttpResponseDecorator(originalResponse) {
             @Override
             public Mono<Void> writeWith(Publisher<? extends DataBuffer> body) {
-                if (Objects.equals(getStatusCode(), HttpStatus.OK) && body instanceof Flux) {
+                if (body instanceof Flux) {
                     Flux<? extends DataBuffer> fluxBody = Flux.from(body);
                     return super.writeWith(fluxBody.map(dataBuffer -> {
                         byte[] content = new byte[dataBuffer.readableByteCount()];
@@ -71,12 +71,19 @@ public class WrapperResponseGlobalFilter implements GlobalFilter, Ordered {
                         DataBufferUtils.release(dataBuffer);
                         //responseData就是下游系统返回的内容,可以查看修改
                         String responseData = new String(content, Charset.forName("UTF-8"));
-                        log.info("响应内容:{}", responseData);
-                        byte[] uppedContent = new String(content, Charset.forName("UTF-8")).getBytes();
-                        return bufferFactory.wrap(uppedContent);
+                        if (Objects.equals(getStatusCode(), HttpStatus.OK)) {
+                            log.info("响应内容:{}", responseData);
+                            byte[] uppedContent = new String(content, Charset.forName("UTF-8")).getBytes();
+                            return bufferFactory.wrap(uppedContent);
+                        } else {
+                            JSONObject jsonObject = JSON.parseObject(responseData);
+                            JSONObject message = new JSONObject();
+                            message.put("code", jsonObject.get("code"));
+                            message.put("msg", jsonObject.get("message"));
+                            byte[] uppedContent = message.toJSONString().getBytes(StandardCharsets.UTF_8);
+                            return bufferFactory.wrap(uppedContent);
+                        }
                     }));
-                } else {
-                    log.error("响应code异常:{}", getStatusCode());
                 }
                 return super.writeWith(body);
             }

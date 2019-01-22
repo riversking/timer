@@ -22,6 +22,9 @@ spring:
           - Path=/api/v1/user/**
         filters:
           - StripPrefix=2
+     discovery:
+       locator:
+         enabled: true
 #请求和响应GZIP压缩支持
 feign:
   httpclient:

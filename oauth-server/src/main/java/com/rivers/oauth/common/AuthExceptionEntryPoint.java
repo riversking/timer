@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author riversking
+ */
 public class AuthExceptionEntryPoint implements AuthenticationEntryPoint {
     /**
      * token错误时进入到这里
@@ -24,10 +27,10 @@ public class AuthExceptionEntryPoint implements AuthenticationEntryPoint {
                          AuthenticationException authException)
             throws ServletException {
 
-        Map map = new HashMap();
+        Map map = new HashMap(16);
         map.put("code", 401);
-        map.put("message", authException.getMessage());
-        map.put("data", "");
+        map.put("msg", authException.getMessage());
+        map.put("rsp", "");
         //map.put("path", request.getServletPath());
         map.put("timestamp", System.currentTimeMillis());
         response.setContentType("application/json");

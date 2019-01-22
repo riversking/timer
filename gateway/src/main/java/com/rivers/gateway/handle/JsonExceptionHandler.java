@@ -119,9 +119,9 @@ public class JsonExceptionHandler extends DefaultErrorWebExceptionHandler {
 
         map.put("code", status);
 
-        map.put("message", errorMessage);
+        map.put("msg", errorMessage);
 
-        map.put("data", null);
+        map.put("rsp", null);
 
         return map;
     }

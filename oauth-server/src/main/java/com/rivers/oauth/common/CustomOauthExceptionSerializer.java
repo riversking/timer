@@ -34,7 +34,7 @@ public class CustomOauthExceptionSerializer extends StdSerializer<CustomOauthExc
 
         gen.writeStartObject();
         gen.writeNumberField("code", value.getHttpErrorCode());
-        gen.writeStringField("message", value.getMessage());
+        gen.writeStringField("msg", value.getMessage());
         //gen.writeStringField("path", request.getServletPath());
         gen.writeStringField("timestamp", String.valueOf(System.currentTimeMillis()));
         gen.writeStringField("data", "");

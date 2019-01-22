@@ -13,6 +13,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author riversking
+ */
 @Component("customAccessDeniedHandler")
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
@@ -22,7 +25,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
         response.setContentType("application/json;charset=UTF-8");
-            Map<String,String> map = new HashMap<>();
+            Map<String,String> map = new HashMap<>(16);
             map.put("code", "400");
             map.put("message", accessDeniedException.getMessage());
             map.put("data", "");

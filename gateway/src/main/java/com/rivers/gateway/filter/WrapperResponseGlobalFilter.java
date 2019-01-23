@@ -71,16 +71,18 @@ public class WrapperResponseGlobalFilter implements GlobalFilter, Ordered {
                         DataBufferUtils.release(dataBuffer);
                         //responseData就是下游系统返回的内容,可以查看修改
                         String responseData = new String(content, Charset.forName("UTF-8"));
-                        if (Objects.equals(getStatusCode(), HttpStatus.OK)) {
-                            log.info("响应内容:{}", responseData);
-                            byte[] uppedContent = new String(content, Charset.forName("UTF-8")).getBytes();
+                        log.info("响应内容:{}", responseData);
+                        log.info("getStatusCode() {}", getStatusCode());
+                        byte[] uppedContent;
+                        if (Objects.equals(getStatusCode(), HttpStatus.OK) || Objects.equals(getStatusCode() , HttpStatus.UNAUTHORIZED)) {
+                            uppedContent = new String(content, Charset.forName("UTF-8")).getBytes();
                             return bufferFactory.wrap(uppedContent);
                         } else {
                             JSONObject jsonObject = JSON.parseObject(responseData);
                             JSONObject message = new JSONObject();
-                            message.put("code", jsonObject.get("code"));
+                            message.put("code", jsonObject.get("status"));
                             message.put("msg", jsonObject.get("message"));
-                            byte[] uppedContent = message.toJSONString().getBytes(StandardCharsets.UTF_8);
+                            uppedContent = message.toJSONString().getBytes(StandardCharsets.UTF_8);
                             return bufferFactory.wrap(uppedContent);
                         }
                     }));

@@ -14,7 +14,6 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 @MapperScan(basePackages = {"com.rivers.user.mapper"})
 @EnableFeignClients
 @SpringBootApplication
-@EnableOAuth2Client
 public class UserServerApplication {
 
 	public static void main(String[] args) {

@@ -22,6 +22,12 @@ spring:
           - Path=/api/v1/user/**
         filters:
           - StripPrefix=2
+      - id: file-server
+        uri: lb://file-server
+        predicates:
+        - Path=/api/v1/file/**
+        filters:
+        - StripPrefix=2
      discovery:
        locator:
          enabled: true

@@ -82,6 +82,7 @@ public class WrapperResponseGlobalFilter implements GlobalFilter, Ordered {
                             JSONObject message = new JSONObject();
                             message.put("code", jsonObject.get("status"));
                             message.put("msg", jsonObject.get("message"));
+                            log.info("响应内容:{}", responseData);
                             uppedContent = message.toJSONString().getBytes(StandardCharsets.UTF_8);
                             return bufferFactory.wrap(uppedContent);
                         }

@@ -12,6 +12,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author riversking
@@ -38,7 +39,7 @@ public class RoleService extends ServiceImpl<SysRoleDao, SysRoleModel> {
      * @param roleDto roleDto
      * @return IPage
      */
-    public IPage<SysRoleModel> getRoleList(RoleDto roleDto) {
+    public IPage<SysRoleModel> getRolePage(RoleDto roleDto) {
         QueryWrapper<SysRoleModel> wrapper = new QueryWrapper<>();
         wrapper.eq("del_flag", 0);
         Page<SysRoleModel> page = new Page<>(roleDto.getPage(), roleDto.getPageSize());
@@ -59,12 +60,21 @@ public class RoleService extends ServiceImpl<SysRoleDao, SysRoleModel> {
         return sysRoleDao.selectOne(wrapper);
     }
 
+
+    /**
+     * 通过id删除角色
+     * @param id
+     */
     public void deleteRoleById(Integer id) {
         try {
             sysRoleDao.deleteById(id);
         } catch (Exception e) {
             ExceptionUtil.throwBusinessException("101002", e);
         }
+    }
+
+    public List<SysRoleModel> getRoleList() {
+        return sysRoleDao.selectRoleList();
     }
 
 }

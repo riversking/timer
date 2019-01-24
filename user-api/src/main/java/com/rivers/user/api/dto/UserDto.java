@@ -8,9 +8,8 @@ import java.util.List;
 /**
  * @author rivers
  */
-//@EqualsAndHashCode(callSuper = true)
 @Data
-public class UserDto {
+public class UserDto extends Page{
 
     /**
      * 用户名

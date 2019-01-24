@@ -18,11 +18,16 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 
+/**
+ *
+ * 图片读取
+ * @author riversking
+ */
 @Component
 @Log4j2
 public class ImageHandle implements HandlerFunction<ServerResponse> {
 
-    public static final String ROOT = "C:\\Users\\wangyichuan\\Desktop\\upload";
+    private static final String ROOT = "C:\\Users\\wangyichuan\\Desktop\\upload";
 
 
     @Override

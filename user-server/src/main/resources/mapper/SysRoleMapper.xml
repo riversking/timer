@@ -14,4 +14,9 @@
 		<result column="del_flag" property="delFlag" />
 	</resultMap>
 
+	<select id="selectRoleList" resultMap="BaseResultMap">
+		SELECT id, role_name FROM sys_role
+		WHERE del_flag = 0
+	</select>
+
 </mapper>

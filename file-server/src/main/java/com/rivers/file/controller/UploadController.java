@@ -20,10 +20,10 @@ public class UploadController {
 
     @PostMapping("/upload")
     @ResponseBody
-    public ResponseVo upload(@RequestParam(value = "file",required = false) MultipartFile file) {
+    public ResponseVo upload(@RequestParam(value = "file", required = false) MultipartFile file) {
         ResponseVo vo = ResponseVo.ok();
         if (file.isEmpty()) {
-            return ResponseVo.fail("301001","上传失败，请选择文件");
+            return ResponseVo.fail("301001", "上传失败，请选择文件");
         }
         String fileName = UUID.randomUUID().toString();
         String filePath = "C:\\Users\\wangyichuan\\Desktop\\upload\\";
@@ -31,14 +31,15 @@ public class UploadController {
         try {
             file.transferTo(dest);
             vo.setCode("0");
+            vo.setRsp(fileName + ".png");
             vo.setMsg("上传成功");
             log.info("上传成功");
             return vo;
         } catch (IOException e) {
             log.error(e.toString(), e);
-            ExceptionUtil.throwBusinessException("301001",e);
+            ExceptionUtil.throwBusinessException("301001", e);
         }
-        return ResponseVo.fail("301001","上传失败，请选择文件");
+        return ResponseVo.fail("301001", "上传失败，请选择文件");
     }
 
 }

@@ -12,4 +12,5 @@ import com.rivers.user.api.entity.SysUserRoleModel;
  */
 public interface SysUserRoleDao extends BaseMapper<SysUserRoleModel> {
 
+
 }

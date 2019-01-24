@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.io.Serializable;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * SysUser
@@ -90,6 +91,8 @@ public class SysUserModel extends Model<SysUserModel> {
 	@TableField(value="del_flag")
 	private Integer delFlag;
 
+	@TableField(exist = false)
+	private List<SysRoleModel> sysRoleModels;
 
 	/**
 	 * 获取: 主键ID
@@ -234,6 +237,14 @@ public class SysUserModel extends Model<SysUserModel> {
 	 */
 	public void setDelFlag(Integer delFlag) {
 		this.delFlag = delFlag;
+	}
+
+	public List<SysRoleModel> getSysRoleModels() {
+		return sysRoleModels;
+	}
+
+	public void setSysRoleModels(List<SysRoleModel> sysRoleModels) {
+		this.sysRoleModels = sysRoleModels;
 	}
 
 	@Override

@@ -16,32 +16,22 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 
 /**
  * 路由配置信息
+ * @author riversking
  */
 @Slf4j
 @Configuration
 @AllArgsConstructor
 public class RouterFunctionConfiguration {
 
-	private final ImageCodeHandler imageCodeHandler;
 
 	@Autowired
     private ImageHandle imageHandle;
-
-//	@Bean
-//	public RouterFunction routerFunction() {
-//		return RouterFunctions.route(
-//			RequestPredicates.GET("/fallback")
-//				.and(RequestPredicates.accept(MediaType.TEXT_PLAIN)), imageCodeHandler)
-//			.andRoute(RequestPredicates.path("/code")
-//				.and(RequestPredicates.accept(MediaType.TEXT_PLAIN)), imageCodeHandler);
-//
-//	}
 
 
 	@Bean
 	public RouterFunction<ServerResponse> getImage() {
 		return RouterFunctions.route(
-                RequestPredicates.path("/image/{filename}"),
+                RequestPredicates.path("/api/v1/image/{filename}"),
                 imageHandle);
 	}
 

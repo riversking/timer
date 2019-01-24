@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * @author riversking
  */
@@ -36,11 +38,11 @@ public class RoleController {
         return responseVo;
     }
 
-    @PostMapping("roleList")
+    @PostMapping("rolePage")
     public ResponseVo roleList(@RequestBody RequestVo<RoleDto> requestVo) {
         RoleDto roleDto = requestVo.getParam();
         ResponseVo responseVo = ResponseVo.ok();
-        IPage<SysRoleModel> pageInfo = roleService.getRoleList(roleDto);
+        IPage<SysRoleModel> pageInfo = roleService.getRolePage(roleDto);
         responseVo.setRsp(pageInfo);
         return responseVo;
     }
@@ -62,5 +64,16 @@ public class RoleController {
         roleService.deleteRoleById(id);
         return responseVo;
     }
+
+    @PostMapping("roleList")
+    public ResponseVo roleList() {
+        ResponseVo responseVo = ResponseVo.ok();
+        List<SysRoleModel> list = roleService.getRoleList();
+        responseVo.setCode("0");
+        responseVo.setMsg("查询成功");
+        responseVo.setRsp(list);
+        return responseVo;
+    }
+
 
 }

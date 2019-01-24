@@ -8,4 +8,8 @@
 		<result column="role_id" property="roleId" />
 	</resultMap>
 
+	<select id="selectRoleId" resultType="java.lang.Integer">
+
+	</select>
+
 </mapper>

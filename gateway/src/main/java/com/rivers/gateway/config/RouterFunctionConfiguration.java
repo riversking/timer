@@ -1,8 +1,10 @@
 package com.rivers.gateway.config;
 
 import com.rivers.gateway.handle.ImageCodeHandler;
+import com.rivers.gateway.handle.ImageHandle;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -22,6 +24,9 @@ public class RouterFunctionConfiguration {
 
 	private final ImageCodeHandler imageCodeHandler;
 
+	@Autowired
+    private ImageHandle imageHandle;
+
 //	@Bean
 //	public RouterFunction routerFunction() {
 //		return RouterFunctions.route(
@@ -34,11 +39,10 @@ public class RouterFunctionConfiguration {
 
 
 	@Bean
-	public RouterFunction<ServerResponse> testFunRouterFunction() {
-		RouterFunction<ServerResponse> route = RouterFunctions.route(
-				RequestPredicates.path("/testfun"),
-				request -> ServerResponse.ok().body(BodyInserters.fromObject("hello")));
-		return route;
+	public RouterFunction<ServerResponse> getImage() {
+		return RouterFunctions.route(
+                RequestPredicates.path("/image/{filename}"),
+                imageHandle);
 	}
 
 

@@ -94,6 +94,9 @@ public class SysUserModel extends Model<SysUserModel> {
 	@TableField(exist = false)
 	private List<SysRoleModel> sysRoleModels;
 
+	@TableField(exist = false)
+	private List<Integer> roleIds;
+
 	/**
 	 * 获取: 主键ID
 	 *
@@ -245,6 +248,14 @@ public class SysUserModel extends Model<SysUserModel> {
 
 	public void setSysRoleModels(List<SysRoleModel> sysRoleModels) {
 		this.sysRoleModels = sysRoleModels;
+	}
+
+	public List<Integer> getRoleIds() {
+		return roleIds;
+	}
+
+	public void setRoleIds(List<Integer> roleIds) {
+		this.roleIds = roleIds;
 	}
 
 	@Override

@@ -92,8 +92,7 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
         wrapper.eq("id", id);
         SysUserModel user = sysUserDao.selectOne(wrapper);
         List<Integer> idList = sysUserRoleDao.selectRoleId(id);
-        List<SysRoleModel> roleModels = sysRoleDao.selectBatchIds(idList);
-        user.setSysRoleModels(roleModels);
+        user.setRoleIds(idList);
         return user;
     }
 }

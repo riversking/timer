@@ -15,6 +15,7 @@ public class UserDto extends Page{
      * 用户名
      */
     private String username;
+
     /**
      * 密码
      */
@@ -33,6 +34,7 @@ public class UserDto extends Page{
      * 角色
      */
     private List<Integer> roleIds;
+
 
     private String createUser;
 

@@ -48,6 +48,7 @@ subprojects {
     }
 
 //    jar {
+//        baseName = 'user-api'
 //        enabled = true
 //    }
 //
@@ -55,7 +56,10 @@ subprojects {
 //        manifest {
 //            attributes 'Start-Class': 'com.clouddeer.account.Application'
 //        }
+//        baseName = 'user-api'
+//        enabled = true
 //    }
+
 
     configurations {
         // 所有需要忽略的包定义在此

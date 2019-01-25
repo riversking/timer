@@ -19,4 +19,5 @@
 		WHERE del_flag = 0
 	</select>
 
+
 </mapper>

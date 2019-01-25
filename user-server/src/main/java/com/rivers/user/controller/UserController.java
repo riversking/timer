@@ -2,7 +2,7 @@ package com.rivers.user.controller;
 
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
-import com.rivers.core.util.ExceptionUtil;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.rivers.core.view.RequestVo;
 import com.rivers.core.view.ResponseVo;
 import com.rivers.user.api.dto.UserDto;
@@ -34,11 +34,21 @@ public class UserController {
 
 
     @PostMapping("login")
-    public ResponseVo login(@RequestBody RequestVo<SysUserModel> requestVo) {
+    public ResponseVo login(@RequestBody RequestVo<UserDto> requestVo) {
         ResponseVo responseVo = ResponseVo.ok();
-        SysUserModel sysUserModel = requestVo.getParam();
+        UserDto userDto = requestVo.getParam();
+        if (StrUtil.isBlank(userDto.getUsername())) {
+            return ResponseVo.fail("-101001", "用户名为空");
+        }
+        if (StrUtil.isBlank(userDto.getPassword())) {
+            return ResponseVo.fail("-101002", "密码为空");
+        }
+        SysUserModel userModel = userService.getUserDetail(userDto);
+        if (userModel == null) {
+            return ResponseVo.fail("-101003", "用户名或密码错误");
+        }
         JSONObject jsonObject = oauthClientFeign.getAccessToken("Basic YWRtaW46c2VjcmV0",
-                sysUserModel.getUsername(), sysUserModel.getPassword(), "password");
+                userDto.getUsername(), userDto.getPassword(), "password");
         TokenVo token = JSONObject.toJavaObject(jsonObject, TokenVo.class);
         responseVo.setRsp(token);
         responseVo.setMsg("请求成功");
@@ -54,15 +64,30 @@ public class UserController {
             return ResponseVo.fail("-101001", "用户名为空");
         }
         if (StrUtil.isBlank(userDto.getPassword())) {
-            return ResponseVo.fail("-101001", "密码为空");
+            return ResponseVo.fail("-101002", "密码为空");
         }
         userService.addUser(userDto);
         vo.setMsg("操作成功");
         return vo;
     }
 
+    @PostMapping("userPage")
+    public ResponseVo userPage(@RequestBody RequestVo<UserDto> requestVo) {
+        ResponseVo vo = ResponseVo.ok();
+        UserDto userDto = requestVo.getParam();
+        IPage<SysUserModel> pageInfo = userService.getUserPage(userDto);
+        vo.setRsp(pageInfo);
+        return vo;
+    }
 
-
+    @PostMapping("getUserById")
+    public ResponseVo getUserById(@RequestBody RequestVo<Integer> requestVo) {
+        ResponseVo vo = ResponseVo.ok();
+        Integer id = requestVo.getParam();
+        SysUserModel user = userService.getUserById(id);
+        vo.setRsp(user);
+        return vo;
+    }
 
 
 }

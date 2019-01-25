@@ -14,4 +14,6 @@ public class TokenVo {
     private String expiresIn;
 
     private String scope;
+
+    private String username;
 }

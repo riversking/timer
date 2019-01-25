@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -60,17 +61,39 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
         });
     }
 
-    public IPage<SysUserModel> userPage(UserDto userDto) {
+    public IPage<SysUserModel> getUserPage(UserDto userDto) {
         QueryWrapper<SysUserModel> wrapper = new QueryWrapper<>();
         wrapper.eq("del_flag", 0);
         Page<SysUserModel> page = new Page<>(userDto.getPage(), userDto.getPageSize());
         IPage<SysUserModel> sysUserPage = sysUserDao.selectPage(page, wrapper);
         sysUserPage.getRecords().forEach(i -> {
-            QueryWrapper<SysRoleModel> roleWrapper = new QueryWrapper<>();
-            roleWrapper.eq("del_flag", 0);
-            roleWrapper.eq("user_id", i.getId());
-
+            List<Integer> idList = sysUserRoleDao.selectRoleId(i.getId());
+            List<SysRoleModel> roleModels = sysRoleDao.selectBatchIds(idList);
+            i.setSysRoleModels(roleModels);
         });
-        return sysUserDao.selectPage(page, wrapper);
+        return sysUserPage;
+    }
+
+    public SysUserModel getUserDetail(UserDto userDto) {
+        QueryWrapper<SysUserModel> wrapper = new QueryWrapper<>();
+        wrapper.eq("del_flag", 0);
+        wrapper.eq("username", userDto.getUsername());
+        SysUserModel user = sysUserDao.selectOne(wrapper);
+        if (new BCryptPasswordEncoder().matches(userDto.getPassword(), user.getPassword())) {
+            log.info("is Right {}", userDto.getPassword());
+            return user;
+        }
+        return new SysUserModel();
+    }
+
+    public SysUserModel getUserById(Integer id) {
+        QueryWrapper<SysUserModel> wrapper = new QueryWrapper<>();
+        wrapper.eq("del_flag", 0);
+        wrapper.eq("id", id);
+        SysUserModel user = sysUserDao.selectOne(wrapper);
+        List<Integer> idList = sysUserRoleDao.selectRoleId(id);
+        List<SysRoleModel> roleModels = sysRoleDao.selectBatchIds(idList);
+        user.setSysRoleModels(roleModels);
+        return user;
     }
 }

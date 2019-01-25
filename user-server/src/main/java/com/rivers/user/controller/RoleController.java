@@ -39,7 +39,7 @@ public class RoleController {
     }
 
     @PostMapping("rolePage")
-    public ResponseVo roleList(@RequestBody RequestVo<RoleDto> requestVo) {
+    public ResponseVo rolePage(@RequestBody RequestVo<RoleDto> requestVo) {
         RoleDto roleDto = requestVo.getParam();
         ResponseVo responseVo = ResponseVo.ok();
         IPage<SysRoleModel> pageInfo = roleService.getRolePage(roleDto);

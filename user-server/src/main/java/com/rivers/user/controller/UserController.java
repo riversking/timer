@@ -37,12 +37,6 @@ public class UserController {
     public ResponseVo login(@RequestBody RequestVo<UserDto> requestVo) {
         ResponseVo responseVo = ResponseVo.ok();
         UserDto userDto = requestVo.getParam();
-        if (StrUtil.isBlank(userDto.getUsername())) {
-            return ResponseVo.fail("-101001", "用户名为空");
-        }
-        if (StrUtil.isBlank(userDto.getPassword())) {
-            return ResponseVo.fail("-101002", "密码为空");
-        }
         SysUserModel userModel = userService.getUserDetail(userDto);
         if (userModel == null) {
             return ResponseVo.fail("-101003", "用户名或密码错误");
@@ -59,14 +53,12 @@ public class UserController {
     public ResponseVo addUser(@RequestBody RequestVo<UserDto> requestVo) {
         log.info("getParam {}", requestVo.getParam());
         ResponseVo vo = ResponseVo.ok();
-        UserDto userDto = requestVo.getParam();
-        if (StrUtil.isBlank(userDto.getUsername())) {
-            return ResponseVo.fail("-101001", "用户名为空");
+        UserDto user = requestVo.getParam();
+
+        if (StrUtil.isBlank(user.getPhone())) {
+            return ResponseVo.fail("-101003","手机号为空");
         }
-        if (StrUtil.isBlank(userDto.getPassword())) {
-            return ResponseVo.fail("-101002", "密码为空");
-        }
-        userService.addUser(userDto);
+        userService.addUser(user);
         vo.setMsg("操作成功");
         return vo;
     }
@@ -88,6 +80,7 @@ public class UserController {
         vo.setRsp(user);
         return vo;
     }
+    
 
 
 }

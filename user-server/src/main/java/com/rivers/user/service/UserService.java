@@ -95,4 +95,8 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
         user.setRoleIds(idList);
         return user;
     }
+
+    public void deleteById(Integer id) {
+
+    }
 }

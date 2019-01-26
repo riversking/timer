@@ -2,6 +2,7 @@ package com.rivers.file.controller;
 
 import com.rivers.core.util.ExceptionUtil;
 import com.rivers.core.view.ResponseVo;
+import com.rivers.file.config.WindowsorMac;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,7 +27,7 @@ public class UploadController {
             return ResponseVo.fail("301001", "上传失败，请选择文件");
         }
         String fileName = UUID.randomUUID().toString();
-        String filePath = "C:\\Users\\wangyichuan\\Desktop\\upload\\";
+        String filePath = WindowsorMac.pathName();
         File dest = new File(filePath + fileName + ".png");
         try {
             file.transferTo(dest);

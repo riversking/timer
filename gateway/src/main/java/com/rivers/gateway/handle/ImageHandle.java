@@ -1,5 +1,6 @@
 package com.rivers.gateway.handle;
 
+import com.rivers.gateway.config.WindowsorMac;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpStatus;
@@ -27,7 +28,7 @@ import java.nio.file.Paths;
 @Log4j2
 public class ImageHandle implements HandlerFunction<ServerResponse> {
 
-    private static final String ROOT = "C:\\Users\\wangyichuan\\Desktop\\upload";
+    private static final String ROOT = WindowsorMac.pathName();
 
 
     @Override

@@ -26,7 +26,8 @@ public class RoleService extends ServiceImpl<SysRoleDao, SysRoleModel> {
 
     public void addRole(SysRoleModel sysRoleModel) {
         try {
-            sysRoleModel.setCreateUser("tester");
+            sysRoleModel.setCreateUser("tester" +
+                    "");
             sysRoleModel.setUpdateUser("tester");
             sysRoleModel.insert();
         } catch (Exception e) {

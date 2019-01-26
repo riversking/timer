@@ -36,7 +36,7 @@ public class UserController {
     @PostMapping("login")
     public ResponseVo login(@RequestBody RequestVo<UserDto> requestVo) {
         ResponseVo responseVo = ResponseVo.ok();
-        UserDto userDto = requestVo.getParam();
+       UserDto userDto = requestVo.getParam();
         SysUserModel userModel = userService.getUserDetail(userDto);
         if (userModel == null) {
             return ResponseVo.fail("-101003", "用户名或密码错误");
@@ -80,7 +80,7 @@ public class UserController {
         vo.setRsp(user);
         return vo;
     }
-    
+
 
 
 }

@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 
 /**
  * @author riversking
@@ -36,7 +38,7 @@ public class UserController {
     @PostMapping("login")
     public ResponseVo login(@RequestBody RequestVo<UserDto> requestVo) {
         ResponseVo responseVo = ResponseVo.ok();
-       UserDto userDto = requestVo.getParam();
+        UserDto userDto = requestVo.getParam();
         SysUserModel userModel = userService.getUserDetail(userDto);
         if (userModel == null) {
             return ResponseVo.fail("-101003", "用户名或密码错误");
@@ -54,12 +56,16 @@ public class UserController {
         log.info("getParam {}", requestVo.getParam());
         ResponseVo vo = ResponseVo.ok();
         UserDto user = requestVo.getParam();
-
+        List<SysUserModel> userModels = userService.getUserByName(user);
         if (StrUtil.isBlank(user.getPhone())) {
-            return ResponseVo.fail("-101003","手机号为空");
+            return ResponseVo.fail("-101003", "手机号为空");
         }
-        userService.addUser(user);
-        vo.setMsg("操作成功");
+        if (userModels.isEmpty()) {
+            userService.addUser(user);
+            vo.setMsg("操作成功");
+        } else {
+            return ResponseVo.fail("-101004", "用户名/手机号已存在");
+        }
         return vo;
     }
 
@@ -78,9 +84,18 @@ public class UserController {
         Integer id = requestVo.getParam();
         SysUserModel user = userService.getUserById(id);
         vo.setRsp(user);
+        vo.setMsg("查询成功");
         return vo;
     }
 
+    @PostMapping("deleteUser")
+    public ResponseVo deleteUser(@RequestBody RequestVo<Integer> requestVo) {
+        ResponseVo vo = ResponseVo.ok();
+        Integer id = requestVo.getParam();
+        userService.deleteById(id);
+        vo.setMsg("删除成功");
+        return vo;
+    }
 
 
 }

@@ -1,9 +1,6 @@
 package com.rivers.user.api.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 
 import java.io.Serializable;
@@ -88,6 +85,7 @@ public class SysUserModel extends Model<SysUserModel> {
 	 * 0-正常，1-删除
 	 *
 	 */
+	@TableLogic
 	@TableField(value="del_flag")
 	private Integer delFlag;
 

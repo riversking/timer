@@ -75,5 +75,15 @@ public class RoleController {
         return responseVo;
     }
 
+    @PostMapping("updateRoleById")
+    public ResponseVo updateRoleById(@RequestBody RequestVo<SysRoleModel> requestVo) {
+        ResponseVo responseVo = ResponseVo.ok();
+        SysRoleModel sysRoleModel = requestVo.getParam();
+        roleService.updateRoleById(sysRoleModel);
+        responseVo.setCode("0");
+        responseVo.setMsg("更新成功");
+        return responseVo;
+    }
+
 
 }

@@ -26,8 +26,7 @@ public class RoleService extends ServiceImpl<SysRoleDao, SysRoleModel> {
 
     public void addRole(SysRoleModel sysRoleModel) {
         try {
-            sysRoleModel.setCreateUser("tester" +
-                    "");
+            sysRoleModel.setCreateUser("tester");
             sysRoleModel.setUpdateUser("tester");
             sysRoleModel.insert();
         } catch (Exception e) {
@@ -64,6 +63,7 @@ public class RoleService extends ServiceImpl<SysRoleDao, SysRoleModel> {
 
     /**
      * 通过id删除角色
+     *
      * @param id
      */
     public void deleteRoleById(Integer id) {
@@ -72,6 +72,17 @@ public class RoleService extends ServiceImpl<SysRoleDao, SysRoleModel> {
         } catch (Exception e) {
             ExceptionUtil.throwBusinessException("101002", e);
         }
+    }
+
+    public void updateRoleById(SysRoleModel sysRoleModel) {
+        try {
+            sysRoleModel.setUpdateUser("tester");
+            sysRoleDao.updateById(sysRoleModel);
+        } catch (Exception e) {
+            log.error("Update Role Exception {}", e);
+            ExceptionUtil.throwBusinessException("101006", e);
+        }
+
     }
 
     public List<SysRoleModel> getRoleList() {

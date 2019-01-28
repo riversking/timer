@@ -1,9 +1,11 @@
 package com.rivers.user.service;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.rivers.core.util.ExceptionUtil;
 import com.rivers.user.api.dto.UserDto;
 import com.rivers.user.api.entity.SysRoleModel;
 import com.rivers.user.api.entity.SysUserModel;
@@ -40,6 +42,8 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
     @Resource
     private SysRoleMenuDao sysRoleMenuDao;
 
+    private static String DEL_FLAG = "del_flag";
+
 
     @Transactional(rollbackFor = Exception.class)
     public void addUser(UserDto userDto) {
@@ -63,7 +67,7 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
 
     public IPage<SysUserModel> getUserPage(UserDto userDto) {
         QueryWrapper<SysUserModel> wrapper = new QueryWrapper<>();
-        wrapper.eq("del_flag", 0);
+        wrapper.eq(DEL_FLAG, 0);
         Page<SysUserModel> page = new Page<>(userDto.getPage(), userDto.getPageSize());
         IPage<SysUserModel> sysUserPage = sysUserDao.selectPage(page, wrapper);
         sysUserPage.getRecords().forEach(i -> {
@@ -76,7 +80,7 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
 
     public SysUserModel getUserDetail(UserDto userDto) {
         QueryWrapper<SysUserModel> wrapper = new QueryWrapper<>();
-        wrapper.eq("del_flag", 0);
+        wrapper.eq(DEL_FLAG, 0);
         wrapper.eq("username", userDto.getUsername());
         SysUserModel user = sysUserDao.selectOne(wrapper);
         if (new BCryptPasswordEncoder().matches(userDto.getPassword(), user.getPassword())) {
@@ -88,7 +92,7 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
 
     public SysUserModel getUserById(Integer id) {
         QueryWrapper<SysUserModel> wrapper = new QueryWrapper<>();
-        wrapper.eq("del_flag", 0);
+        wrapper.eq(DEL_FLAG, 0);
         wrapper.eq("id", id);
         SysUserModel user = sysUserDao.selectOne(wrapper);
         List<Integer> idList = sysUserRoleDao.selectRoleId(id);
@@ -96,7 +100,20 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
         return user;
     }
 
-    public void deleteById(Integer id) {
+    public List<SysUserModel> getUserByName(UserDto user) {
+        QueryWrapper<SysUserModel> wrapper = new QueryWrapper<>();
+        if (StrUtil.isNotBlank(user.getUsername()) || StrUtil.isNotBlank(user.getPhone())) {
+            wrapper.eq("username", user.getUsername()).or().eq("phone", user.getPhone());
+        }
+        wrapper.eq(DEL_FLAG, 0);
+        return sysUserDao.selectList(wrapper);
+    }
 
+    public void deleteById(Integer id) {
+        try {
+            sysUserDao.deleteById(id);
+        } catch (Exception e) {
+            ExceptionUtil.throwBusinessException("101005", "删除失败");
+        }
     }
 }

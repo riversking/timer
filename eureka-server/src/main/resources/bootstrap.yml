@@ -18,6 +18,7 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
   server:
     enable-self-preservation: false
+    peer-node-connect-timeout-ms: 200
 
 management:
   endpoint:

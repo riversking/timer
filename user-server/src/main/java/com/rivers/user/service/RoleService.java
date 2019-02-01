@@ -1,5 +1,6 @@
 package com.rivers.user.service;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author riversking
@@ -41,6 +43,18 @@ public class RoleService extends ServiceImpl<SysRoleDao, SysRoleModel> {
      */
     public IPage<SysRoleModel> getRolePage(RoleDto roleDto) {
         QueryWrapper<SysRoleModel> wrapper = new QueryWrapper<>();
+        if (StrUtil.isNotBlank(roleDto.getRoleName())) {
+            wrapper.eq("role_name", roleDto.getRoleName());
+        }
+        if (StrUtil.isNotBlank(roleDto.getRoleCode())) {
+            wrapper.eq("role_code", roleDto.getRoleCode());
+        }
+        if (StrUtil.isNotBlank(roleDto.getCreateTime())) {
+            wrapper.ge("create_time", roleDto.getCreateTime());
+        }
+        if (StrUtil.isNotBlank(roleDto.getUpdateTime())) {
+            wrapper.le("update_time", roleDto.getUpdateTime());
+        }
         wrapper.eq("del_flag", 0);
         Page<SysRoleModel> page = new Page<>(roleDto.getPage(), roleDto.getPageSize());
         return sysRoleDao.selectPage(page, wrapper);

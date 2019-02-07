@@ -67,6 +67,18 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
 
     public IPage<SysUserModel> getUserPage(UserDto userDto) {
         QueryWrapper<SysUserModel> wrapper = new QueryWrapper<>();
+        if (StrUtil.isNotBlank(userDto.getUsername())) {
+            wrapper.eq("username",userDto.getUsername());
+        }
+        if (StrUtil.isNotBlank(userDto.getPhone())) {
+            wrapper.eq("phone",userDto.getPhone());
+        }
+        if (StrUtil.isNotBlank(userDto.getCreateTime())) {
+            wrapper.ge("create_time", userDto.getCreateTime());
+        }
+        if (StrUtil.isNotBlank(userDto.getUpdateTime())) {
+            wrapper.le("update_time", userDto.getUpdateTime());
+        }
         wrapper.eq(DEL_FLAG, 0);
         Page<SysUserModel> page = new Page<>(userDto.getPage(), userDto.getPageSize());
         IPage<SysUserModel> sysUserPage = sysUserDao.selectPage(page, wrapper);

@@ -30,6 +30,10 @@ public class UserDto extends Page{
      */
     private String avatar;
 
+    private String createTime;
+
+    private String updateTime;
+
     /**
      * 角色
      */

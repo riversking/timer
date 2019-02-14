@@ -21,10 +21,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 
+/**
+ * @author riversking
+ */
 @Component("appLoginInSuccessHandler")
 public class AppLoginInSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 
-    Logger logger= LoggerFactory.getLogger(this.getClass());
+    Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     private ObjectMapper objectMapper;
 

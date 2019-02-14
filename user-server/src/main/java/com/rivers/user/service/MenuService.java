@@ -2,6 +2,7 @@ package com.rivers.user.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.rivers.user.api.dto.MenuDto;
 import com.rivers.user.api.dto.MenuTree;
 import com.rivers.user.api.entity.SysMenuModel;
 import com.rivers.user.mapper.SysMenuDao;
@@ -48,11 +49,20 @@ public class MenuService extends ServiceImpl<SysMenuDao, SysMenuModel> {
         return sysMenuDao.selectOne(wrapper);
     }
 
-    public void addMenu(MenuTree menuTree) {
-        SysMenuModel sysMenuModel = new SysMenuModel();
-        sysMenuModel.setParentId(menuTree.getParentId());
-        sysMenuModel.setName(menuTree.getName());
 
+    public void addMenu(MenuDto menuDto) {
+        SysMenuModel sysMenuModel = new SysMenuModel();
+        sysMenuModel.setParentId(menuDto.getParentId());
+        sysMenuModel.setName(menuDto.getName());
+        sysMenuModel.setComponent(menuDto.getComponent());
+        sysMenuModel.setIcon(menuDto.getIcon());
+        sysMenuModel.setIframe(menuDto.getIFrame());
+        sysMenuModel.setPath(menuDto.getPath());
+        sysMenuModel.setIsContent(menuDto.getIsContent());
+        sysMenuModel.setPermission(menuDto.getPermission());
+        sysMenuModel.setCreateUser(menuDto.getCreateUser());
+        sysMenuModel.setUpdateUser(menuDto.getUpdateUser());
+        sysMenuDao.insert(sysMenuModel);
     }
 
     /**

@@ -2,6 +2,7 @@ package com.rivers.user.controller;
 
 import com.rivers.core.view.RequestVo;
 import com.rivers.core.view.ResponseVo;
+import com.rivers.user.api.dto.MenuDto;
 import com.rivers.user.api.entity.SysMenuModel;
 import com.rivers.user.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,14 @@ public class MenuController {
         SysMenuModel sysMenuModel = menuService.selectMenuById(vo.getParam());
         rvo.setMessage("查询成功");
         rvo.setDatas(sysMenuModel);
+        return rvo;
+    }
+
+    @PostMapping("addMenu")
+    public ResponseVo addMenu(@RequestBody RequestVo<MenuDto> requestVo) {
+        ResponseVo rvo = ResponseVo.ok();
+        menuService.addMenu(requestVo.getParam());
+        rvo.setMessage("插入成功");
         return rvo;
     }
 

@@ -16,7 +16,7 @@ public class MenuDto extends Page {
     private String name;
     private String path;
     private String component;
-    private String authority;
+    private String permission;
     private String redirect;
     private String code;
     private String type;

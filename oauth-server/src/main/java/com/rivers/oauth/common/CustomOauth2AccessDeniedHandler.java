@@ -14,20 +14,23 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by hwj on 2018/9/16.
+ *
+ * @author riversking
+ * @date 2018/9/16
  */
 @Component
-public class CustomOAuth2AccessDeniedHandler extends AbstractOAuth2SecurityExceptionHandler implements AccessDeniedHandler {
+public class CustomOauth2AccessDeniedHandler extends AbstractOAuth2SecurityExceptionHandler implements AccessDeniedHandler {
+
     @Autowired
     private ObjectMapper objectMapper;
 
-    public CustomOAuth2AccessDeniedHandler() {
+    public CustomOauth2AccessDeniedHandler() {
     }
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException authException) throws IOException {
         response.setContentType("application/json;charset=UTF-8");
-        Map<String, String> map = new HashMap<>();
+        Map<String, String> map = new HashMap<>(16);
         map.put("code", "405");
         map.put("message", authException.getMessage());
         map.put("timestamp", String.valueOf(System.currentTimeMillis()));

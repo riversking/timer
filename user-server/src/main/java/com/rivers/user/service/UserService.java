@@ -45,6 +45,11 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
     private static String DEL_FLAG = "del_flag";
 
 
+    /**
+     * 添加用户
+     *
+     * @param userDto userDto
+     */
     @Transactional(rollbackFor = Exception.class)
     public void addUser(UserDto userDto) {
         SysUserModel sysUserModel = new SysUserModel();
@@ -65,13 +70,19 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
         });
     }
 
+    /**
+     * 分页查询用户
+     *
+     * @param userDto userDto
+     * @return
+     */
     public IPage<SysUserModel> getUserPage(UserDto userDto) {
         QueryWrapper<SysUserModel> wrapper = new QueryWrapper<>();
         if (StrUtil.isNotBlank(userDto.getUsername())) {
-            wrapper.eq("username",userDto.getUsername());
+            wrapper.eq("username", userDto.getUsername());
         }
         if (StrUtil.isNotBlank(userDto.getPhone())) {
-            wrapper.eq("phone",userDto.getPhone());
+            wrapper.eq("phone", userDto.getPhone());
         }
         if (StrUtil.isNotBlank(userDto.getCreateTime())) {
             wrapper.ge("create_time", userDto.getCreateTime());
@@ -90,6 +101,12 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
         return sysUserPage;
     }
 
+    /**
+     * 根据用户名查询用户详情
+     *
+     * @param userDto userDto
+     * @return SysUserModel
+     */
     public SysUserModel getUserDetail(UserDto userDto) {
         QueryWrapper<SysUserModel> wrapper = new QueryWrapper<>();
         wrapper.eq(DEL_FLAG, 0);
@@ -102,6 +119,12 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
         return new SysUserModel();
     }
 
+    /**
+     * 根据id查询用户详情
+     *
+     * @param id id
+     * @return SysUserModel
+     */
     public SysUserModel getUserById(Integer id) {
         QueryWrapper<SysUserModel> wrapper = new QueryWrapper<>();
         wrapper.eq(DEL_FLAG, 0);
@@ -112,7 +135,13 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
         return user;
     }
 
-    public List<SysUserModel> getUserByName(UserDto user) {
+    /**
+     * 获取用户
+     *
+     * @param user user
+     * @return List
+     */
+    public List<SysUserModel> getUser(UserDto user) {
         QueryWrapper<SysUserModel> wrapper = new QueryWrapper<>();
         if (StrUtil.isNotBlank(user.getUsername()) || StrUtil.isNotBlank(user.getPhone())) {
             wrapper.eq("username", user.getUsername()).or().eq("phone", user.getPhone());
@@ -121,6 +150,11 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
         return sysUserDao.selectList(wrapper);
     }
 
+    /**
+     * 通过id删除用户
+     *
+     * @param id
+     */
     public void deleteById(Integer id) {
         try {
             sysUserDao.deleteById(id);

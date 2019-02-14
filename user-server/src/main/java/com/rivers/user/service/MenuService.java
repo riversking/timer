@@ -29,7 +29,7 @@ public class MenuService extends ServiceImpl<SysMenuDao, SysMenuModel> {
     }
 
 
-    public SysMenuModel selectById(Integer id) {
+    public SysMenuModel selectMenuById(Integer id) {
         QueryWrapper<SysMenuModel> wrapper = new QueryWrapper<>();
         wrapper.eq("id", id);
         wrapper.eq("del_flag", 0);
@@ -39,8 +39,8 @@ public class MenuService extends ServiceImpl<SysMenuDao, SysMenuModel> {
     /**
      * 通过sysMenu创建树形节点
      *
-     * @param menus
-     * @param root
+     * @param menus menus
+     * @param root root
      * @return
      */
     private List<MenuTree> bulidTree(List<SysMenuModel> menus, int root) {
@@ -59,7 +59,7 @@ public class MenuService extends ServiceImpl<SysMenuDao, SysMenuModel> {
             node.setTitle(menu.getName());
             node.setExpand(true);
             node.setIsContent(menu.getIsContent());
-            node.setIframe(menu.getIframe());
+            node.setIFrame(menu.getIframe());
             trees.add(node);
         }
         return TreeUtil.bulid(trees, root);

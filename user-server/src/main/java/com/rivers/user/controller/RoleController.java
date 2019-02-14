@@ -26,6 +26,12 @@ public class RoleController {
     @Autowired
     private RoleService roleService;
 
+    /**
+     * 添加角色
+     *
+     * @param requestVo requestVo
+     * @return ResponseVo
+     */
     @PostMapping("addRole")
     public ResponseVo addRole(@RequestBody RequestVo<SysRoleModel> requestVo) {
         SysRoleModel sysRoleModel = requestVo.getParam();
@@ -38,6 +44,12 @@ public class RoleController {
         return responseVo;
     }
 
+    /**
+     * 分页查询角色
+     *
+     * @param requestVo requestVo
+     * @return ResponseVo
+     */
     @PostMapping("rolePage")
     public ResponseVo rolePage(@RequestBody RequestVo<RoleDto> requestVo) {
         RoleDto roleDto = requestVo.getParam();
@@ -47,6 +59,12 @@ public class RoleController {
         return responseVo;
     }
 
+    /**
+     * 角色详情
+     *
+     * @param requestVo requestVo
+     * @return ResponseVo
+     */
     @PostMapping("roleDetail")
     public ResponseVo roleDetail(@RequestBody RequestVo<Integer> requestVo) {
         Integer id = requestVo.getParam();
@@ -56,7 +74,12 @@ public class RoleController {
         return responseVo;
     }
 
-
+    /**
+     * 删除角色
+     *
+     * @param requestVo requestVo
+     * @return ResponseVo
+     */
     @PostMapping("deleteRole")
     public ResponseVo deleteRole(@RequestBody RequestVo<Integer> requestVo) {
         Integer id = requestVo.getParam();

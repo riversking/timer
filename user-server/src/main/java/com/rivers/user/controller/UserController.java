@@ -35,6 +35,12 @@ public class UserController {
     private UserService userService;
 
 
+    /**
+     * 登录
+     *
+     * @param requestVo requestVo
+     * @return ResponseVo
+     */
     @PostMapping("login")
     public ResponseVo login(@RequestBody RequestVo<UserDto> requestVo) {
         ResponseVo responseVo = ResponseVo.ok();
@@ -51,12 +57,18 @@ public class UserController {
         return responseVo;
     }
 
+    /**
+     * 添加用户
+     *
+     * @param requestVo requestVo
+     * @return ResponseVo
+     */
     @PostMapping("addUser")
     public ResponseVo addUser(@RequestBody RequestVo<UserDto> requestVo) {
         log.info("getParam {}", requestVo.getParam());
         ResponseVo vo = ResponseVo.ok();
         UserDto user = requestVo.getParam();
-        List<SysUserModel> userModels = userService.getUserByName(user);
+        List<SysUserModel> userModels = userService.getUser(user);
         if (StrUtil.isBlank(user.getPhone())) {
             return ResponseVo.fail("-101003", "手机号为空");
         }
@@ -69,6 +81,12 @@ public class UserController {
         return vo;
     }
 
+    /**
+     * 用户分页查询
+     *
+     * @param requestVo requestVo
+     * @return ResponseVo
+     */
     @PostMapping("userPage")
     public ResponseVo userPage(@RequestBody RequestVo<UserDto> requestVo) {
         ResponseVo vo = ResponseVo.ok();
@@ -78,6 +96,12 @@ public class UserController {
         return vo;
     }
 
+    /**
+     * 通过id查询用户
+     *
+     * @param requestVo requestVo
+     * @return ResponseVo
+     */
     @PostMapping("getUserById")
     public ResponseVo getUserById(@RequestBody RequestVo<Integer> requestVo) {
         ResponseVo vo = ResponseVo.ok();
@@ -87,7 +111,11 @@ public class UserController {
         vo.setMsg("查询成功");
         return vo;
     }
-
+    /**
+     * 删除用户
+     * @param requestVo requestVo
+     * @return ResponseVo
+     */
     @PostMapping("deleteUser")
     public ResponseVo deleteUser(@RequestBody RequestVo<Integer> requestVo) {
         ResponseVo vo = ResponseVo.ok();

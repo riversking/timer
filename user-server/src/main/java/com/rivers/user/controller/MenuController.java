@@ -37,7 +37,7 @@ public class MenuController {
         if (Objects.isNull(vo.getParam())) {
             return ResponseVo.fail("105001", "菜单id为空");
         }
-        SysMenuModel sysMenuModel = menuService.selectById(vo.getParam());
+        SysMenuModel sysMenuModel = menuService.selectMenuById(vo.getParam());
         rvo.setMsg("查询成功");
         rvo.setRsp(sysMenuModel);
         return rvo;

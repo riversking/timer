@@ -37,6 +37,8 @@ public class RoleService extends ServiceImpl<SysRoleDao, SysRoleModel> {
     }
 
     /**
+     * 分页查询角色
+     *
      * @param roleDto roleDto
      * @return IPage
      */

@@ -16,7 +16,7 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 
 /**
  * 路由配置信息
- * @author riversking
+ * @author riverskingking
  */
 @Slf4j
 @Configuration

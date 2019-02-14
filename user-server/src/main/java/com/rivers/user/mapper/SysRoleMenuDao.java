@@ -7,7 +7,7 @@ import com.rivers.user.api.entity.SysRoleMenuModel;
 /**
  * SysRoleMenuDao
  *
- * @author rivers
+ * @author riversking
  * @Date 2019-01-09 15:09
  */
 public interface SysRoleMenuDao extends BaseMapper<SysRoleMenuModel> {

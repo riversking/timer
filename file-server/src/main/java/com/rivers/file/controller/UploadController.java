@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 /**
- * @author rivers
+ * @author riversking
  */
 @RestController
 @RequestMapping("file")

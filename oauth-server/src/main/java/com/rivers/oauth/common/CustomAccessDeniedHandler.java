@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author riversking
+ * @author riverskingking
  */
 @Component("customAccessDeniedHandler")
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {

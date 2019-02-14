@@ -7,7 +7,7 @@ import com.rivers.user.api.entity.SysMenuModel;
 /**
  * SysMenuDao
  *
- * @author rivers
+ * @author riversking
  * @Date 2019-01-09 15:06
  */
 public interface SysMenuDao extends BaseMapper<SysMenuModel> {

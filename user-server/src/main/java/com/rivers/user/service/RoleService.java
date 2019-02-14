@@ -16,7 +16,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * @author riversking
+ * @author riverskingking
  */
 @Service
 @Log4j2

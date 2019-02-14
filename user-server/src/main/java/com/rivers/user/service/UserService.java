@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * @author riversking
+ * @author riverskingking
  */
 @Service
 @Log4j2

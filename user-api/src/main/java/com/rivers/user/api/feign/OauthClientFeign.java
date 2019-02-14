@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * @author riversking
+ * @author riverskingking
  */
 @FeignClient("OAUTH-SERVER")
 public interface OauthClientFeign {

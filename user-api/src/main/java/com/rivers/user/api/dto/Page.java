@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 
 /**
- * @author riversking
+ * @author riverskingking
  */
 @Data
 public class Page implements Serializable {

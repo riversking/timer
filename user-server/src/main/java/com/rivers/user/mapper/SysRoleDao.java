@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * SysRoleDao
  *
- * @author rivers
+ * @author riversking
  * @Date 2018-12-19 10:46
  */
 public interface SysRoleDao extends BaseMapper<SysRoleModel> {

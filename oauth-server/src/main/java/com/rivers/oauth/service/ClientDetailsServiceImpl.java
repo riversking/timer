@@ -15,7 +15,7 @@ import javax.annotation.Resource;
 
 
 /**
- * @author rivers
+ * @author riversking
  * 重写了ClientDetailsService
  */
 @Service

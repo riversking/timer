@@ -7,7 +7,7 @@ import com.rivers.user.api.entity.SysDeptModel;
 /**
  * SysDeptDao
  *
- * @author rivers
+ * @author riversking
  * @Date 2019-01-09 14:45
  */
 public interface SysDeptDao extends BaseMapper<SysDeptModel> {

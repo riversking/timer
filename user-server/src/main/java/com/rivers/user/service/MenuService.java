@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author riversking
+ * @author riverskingking
  */
 @Service
 public class MenuService extends ServiceImpl<SysMenuDao, SysMenuModel> {

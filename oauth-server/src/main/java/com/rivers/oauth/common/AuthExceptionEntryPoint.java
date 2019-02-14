@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author riversking
+ * @author riverskingking
  */
 public class AuthExceptionEntryPoint implements AuthenticationEntryPoint {
     /**

@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * SysUser
  *
- * @author rivers
+ * @author riversking
  * @Date 2018-12-19 14:51
  */
 @TableName("sys_user")

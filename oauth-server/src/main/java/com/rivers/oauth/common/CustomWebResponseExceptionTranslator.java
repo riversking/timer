@@ -6,7 +6,7 @@ import org.springframework.security.oauth2.provider.error.WebResponseExceptionTr
 import org.springframework.stereotype.Component;
 
 /**
- * @author riversking
+ * @author riverskingking
  */
 @Component("customWebResponseExceptionTranslator")
 public class CustomWebResponseExceptionTranslator implements WebResponseExceptionTranslator {

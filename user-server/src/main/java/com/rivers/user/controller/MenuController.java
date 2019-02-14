@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Objects;
 
 /**
- * @author riversking
+ * @author riverskingking
  */
 @RestController
 @RequestMapping("/user/menu")

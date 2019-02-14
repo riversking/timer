@@ -13,7 +13,7 @@ import java.util.Date;
 /**
  * SysUserRole
  *
- * @author rivers
+ * @author riversking
  * @Date 2019-01-09 14:43
  */
 @TableName("sys_user_role")

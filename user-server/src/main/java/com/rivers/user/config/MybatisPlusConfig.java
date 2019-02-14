@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author rivers
+ * @author riversking
  */
 @Configuration
 public class MybatisPlusConfig {

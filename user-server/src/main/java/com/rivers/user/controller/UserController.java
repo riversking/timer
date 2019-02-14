@@ -21,7 +21,7 @@ import java.util.List;
 
 
 /**
- * @author riversking
+ * @author riverskingking
  */
 @RestController
 @RequestMapping("/user")

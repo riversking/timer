@@ -16,7 +16,7 @@ import java.util.HashSet;
 
 
 /**
- * @author rivers
+ * @author riversking
  */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {

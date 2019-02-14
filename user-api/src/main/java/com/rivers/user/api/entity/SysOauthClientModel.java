@@ -9,7 +9,7 @@ import java.io.Serializable;
 /**
  * SysOauthClient
  *
- * @author riversking
+ * @author riverskingking
  * @Date 2018-11-03 01:03
  */
 @TableName("sys_oauth_client")

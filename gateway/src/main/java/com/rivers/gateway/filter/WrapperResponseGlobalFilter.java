@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * @author riversking
+ * @author riverskingking
  */
 @Component
 @Log4j2

@@ -6,9 +6,10 @@ import lombok.EqualsAndHashCode;
 import java.util.List;
 
 /**
- * @author rivers
+ * @author riversking
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class UserDto extends Page{
 
     /**

@@ -22,7 +22,7 @@ import java.nio.file.Paths;
 /**
  *
  * 图片读取
- * @author riversking
+ * @author riverskingking
  */
 @Component
 @Log4j2

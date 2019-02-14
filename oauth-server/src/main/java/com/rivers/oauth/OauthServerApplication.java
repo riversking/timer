@@ -8,7 +8,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 
 /**
- * @author rivers
+ * @author riversking
  */
 @EnableEurekaClient
 @EnableFeignClients

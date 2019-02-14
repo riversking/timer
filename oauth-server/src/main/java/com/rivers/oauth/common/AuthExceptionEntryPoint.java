@@ -27,11 +27,9 @@ public class AuthExceptionEntryPoint implements AuthenticationEntryPoint {
                          AuthenticationException authException)
             throws ServletException {
 
-        Map map = new HashMap(16);
+        Map<String,Object> map = new HashMap<>(16);
         map.put("code", 401);
-        map.put("msg", authException.getMessage());
-        map.put("rsp", "");
-        //map.put("path", request.getServletPath());
+        map.put("message", authException.getMessage());
         map.put("timestamp", System.currentTimeMillis());
         response.setContentType("application/json");
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);

@@ -2,7 +2,6 @@ package com.rivers.user.controller;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.github.pagehelper.PageInfo;
 import com.rivers.core.view.RequestVo;
 import com.rivers.core.view.ResponseVo;
 import com.rivers.user.api.dto.RoleDto;
@@ -40,7 +39,7 @@ public class RoleController {
             return ResponseVo.fail("102001", "角色名称为空");
         }
         roleService.addRole(sysRoleModel);
-        responseVo.setMsg("成功");
+        responseVo.setMessage("添加成功");
         return responseVo;
     }
 
@@ -55,7 +54,7 @@ public class RoleController {
         RoleDto roleDto = requestVo.getParam();
         ResponseVo responseVo = ResponseVo.ok();
         IPage<SysRoleModel> pageInfo = roleService.getRolePage(roleDto);
-        responseVo.setRsp(pageInfo);
+        responseVo.setDatas(pageInfo);
         return responseVo;
     }
 
@@ -70,7 +69,7 @@ public class RoleController {
         Integer id = requestVo.getParam();
         ResponseVo responseVo = ResponseVo.ok();
         SysRoleModel sysRoleModel = roleService.getRoleDetailById(id);
-        responseVo.setRsp(sysRoleModel);
+        responseVo.setDatas(sysRoleModel);
         return responseVo;
     }
 
@@ -93,8 +92,8 @@ public class RoleController {
         ResponseVo responseVo = ResponseVo.ok();
         List<SysRoleModel> list = roleService.getRoleList();
         responseVo.setCode("0");
-        responseVo.setMsg("查询成功");
-        responseVo.setRsp(list);
+        responseVo.setMessage("查询成功");
+        responseVo.setDatas(list);
         return responseVo;
     }
 
@@ -104,7 +103,7 @@ public class RoleController {
         SysRoleModel sysRoleModel = requestVo.getParam();
         roleService.updateRoleById(sysRoleModel);
         responseVo.setCode("0");
-        responseVo.setMsg("更新成功");
+        responseVo.setMessage("更新成功");
         return responseVo;
     }
 

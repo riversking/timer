@@ -52,8 +52,8 @@ public class UserController {
         JSONObject jsonObject = oauthClientFeign.getAccessToken("Basic YWRtaW46c2VjcmV0",
                 userDto.getUsername(), userDto.getPassword(), "password");
         TokenVo token = JSONObject.toJavaObject(jsonObject, TokenVo.class);
-        responseVo.setRsp(token);
-        responseVo.setMsg("请求成功");
+        responseVo.setDatas(token);
+        responseVo.setMessage("请求成功");
         return responseVo;
     }
 
@@ -74,7 +74,7 @@ public class UserController {
         }
         if (userModels.isEmpty()) {
             userService.addUser(user);
-            vo.setMsg("操作成功");
+            vo.setMessage("操作成功");
         } else {
             return ResponseVo.fail("-101004", "用户名/手机号已存在");
         }
@@ -92,7 +92,8 @@ public class UserController {
         ResponseVo vo = ResponseVo.ok();
         UserDto userDto = requestVo.getParam();
         IPage<SysUserModel> pageInfo = userService.getUserPage(userDto);
-        vo.setRsp(pageInfo);
+        vo.setMessage("查询成功");
+        vo.setDatas(pageInfo);
         return vo;
     }
 
@@ -107,8 +108,8 @@ public class UserController {
         ResponseVo vo = ResponseVo.ok();
         Integer id = requestVo.getParam();
         SysUserModel user = userService.getUserById(id);
-        vo.setRsp(user);
-        vo.setMsg("查询成功");
+        vo.setDatas(user);
+        vo.setMessage("查询成功");
         return vo;
     }
     /**
@@ -121,7 +122,7 @@ public class UserController {
         ResponseVo vo = ResponseVo.ok();
         Integer id = requestVo.getParam();
         userService.deleteById(id);
-        vo.setMsg("删除成功");
+        vo.setMessage("删除成功");
         return vo;
     }
 

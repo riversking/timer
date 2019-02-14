@@ -148,68 +148,71 @@ CREATE TABLE `sys_log` (
 -- Table structure for sys_menu
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_menu`;
-CREATE TABLE `sys_menu` (
+CREATE TABLE `sys_menu`  (
   `id` int(11) NOT NULL COMMENT '菜单ID',
   `name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '菜单名称',
-  `permission` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '菜单权限标识',
-  `path` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '前端URL',
-  `parent_id` int(11) DEFAULT '0' COMMENT '父菜单ID',
-  `icon` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '图标',
-  `component` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT 'VUE页面',
-  `sort` int(11) DEFAULT '1' COMMENT '排序值',
-  `type` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '菜单类型 （0菜单 1按钮）',
-  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `del_flag` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '0' COMMENT '0--正常 1--删除',
-  `iframe` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT 'iframe路径',
-  `is_content` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '0表示有 1表示没有',
+  `permission` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '菜单权限标识',
+  `path` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '前端URL',
+  `parent_id` int(11) NOT NULL DEFAULT 0 COMMENT '父菜单ID',
+  `icon` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '图标',
+  `component` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT 'VUE页面',
+  `sort` int(11) NULL DEFAULT 1 COMMENT '排序值',
+  `type` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '菜单类型 （0菜单 1按钮）',
+  `create_user` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '创建人',
+  `create_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_user` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '修改人',
+  `update_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
+  `iframe` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT 'iframe路径',
+  `is_content` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '0表示有 1表示没有',
+  `del_flag` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '0--正常 1--删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_menu
 -- ----------------------------
-BEGIN;
-INSERT INTO `sys_menu` VALUES (1, '系统管理', '', '/setting', -1, 'settings', 'Main', 1, '0', '2017-11-07 20:56:00', '2018-07-25 05:43:12', '0', '', '1');
-INSERT INTO `sys_menu` VALUES (2, '用户管理', '', 'user', 1, 'person-add', 'Setting/User', 2, '0', '2017-11-02 22:24:37', '2018-07-25 03:16:40', '0', '', '0');
-INSERT INTO `sys_menu` VALUES (3, '菜单管理', '', 'menu', 1, 'ios-list-outline', 'Setting/Menu', 3, '0', '2017-11-08 09:57:27', '2018-07-25 03:16:54', '0', '', '1');
-INSERT INTO `sys_menu` VALUES (4, '角色管理', '', 'role', 1, 'person-stalker', 'Setting/Role', 4, '0', '2017-11-08 10:13:37', '2018-07-25 03:25:28', '0', '', '0');
-INSERT INTO `sys_menu` VALUES (5, '日志管理', '', 'log', 1, 'ios-eye', 'Setting/Log', 5, '0', '2017-11-20 14:06:22', '2018-07-25 03:27:09', '0', '', '1');
-INSERT INTO `sys_menu` VALUES (6, '字典管理', '', 'dict', 1, 'ios-book-outline', 'Setting/Dict', 6, '0', '2017-11-29 11:30:52', '2018-07-26 09:30:31', '0', '', '0');
-INSERT INTO `sys_menu` VALUES (7, '部门管理', '', 'dept', 1, 'ios-people-outline', 'Setting/Dept', 7, '0', '2018-01-20 13:17:19', '2018-07-25 03:27:51', '0', '', '1');
-INSERT INTO `sys_menu` VALUES (8, '服务监控', '', 'server', 1, 'stats-bars', 'main-components/iframe', 8, '0', '2018-01-22 12:30:41', '2018-07-25 03:30:45', '0', 'http://127.0.0.1:5000', '1');
-INSERT INTO `sys_menu` VALUES (9, '分布式任务监控', '', 'xxlJob', 1, 'monitor', 'main-components/iframe', 9, '0', '2018-01-23 10:53:33', '2018-07-25 03:32:36', '0', 'http://127.0.0.1:8181', '1');
-INSERT INTO `sys_menu` VALUES (10, 'zipkin监控', '', 'http://139.224.200.249:5002', 8, 'icon-jiankong', '', 11, '0', '2018-01-23 10:55:18', '2018-06-24 17:10:12', '1', '', '');
-INSERT INTO `sys_menu` VALUES (11, 'pinpoint监控', '', 'https://pinpoint.pig4cloud.com', 8, 'icon-xiazaihuancun', '', 10, '0', '2018-01-25 11:08:52', '2018-06-24 17:10:12', '1', '', '');
-INSERT INTO `sys_menu` VALUES (12, '缓存状态', '', 'http://139.224.200.249:8585', 8, 'icon-ecs-status', '', 12, '0', '2018-01-23 10:56:11', '2018-06-24 17:10:12', '1', '', '');
-INSERT INTO `sys_menu` VALUES (13, 'ELK状态', '', 'http://139.224.200.249:5601', 8, 'icon-ecs-status', '', 13, '0', '2018-01-23 10:55:47', '2018-06-24 17:10:12', '1', '', '');
-INSERT INTO `sys_menu` VALUES (14, '接口文档', '', 'http://139.224.200.249:9999/swagger-ui.html', 8, 'icon-wendangdocument72', '', 14, '0', '2018-01-23 10:56:43', '2018-06-24 17:10:12', '1', '', '');
-INSERT INTO `sys_menu` VALUES (15, '任务监控', '', 'http://139.224.200.249:8899', 8, 'icon-jiankong', '', 15, '0', '2018-01-23 10:55:18', '2018-06-24 17:10:12', '1', '', '');
-INSERT INTO `sys_menu` VALUES (22, '用户新增', 'sys_user_add', '', 2, 'null', '', NULL, '1', '2017-11-08 09:52:09', '2017-12-04 16:31:10', '0', '', '');
-INSERT INTO `sys_menu` VALUES (23, '用户修改', 'sys_user_edit', '', 2, '', '', NULL, '1', '2017-11-08 09:52:48', '2018-06-26 21:16:57', '0', '', '');
-INSERT INTO `sys_menu` VALUES (24, '用户删除', 'sys_user_del', '', 2, '', '', NULL, '1', '2017-11-08 09:54:01', '2017-12-04 16:31:18', '0', '', '');
-INSERT INTO `sys_menu` VALUES (25, 'haha', 'sys', '', 2, '', '', 1, '', '2018-07-20 05:53:35', '2018-07-20 06:05:27', '1', '', '');
-INSERT INTO `sys_menu` VALUES (32, '菜单新增', 'sys_menu_add', '', 3, '', '', NULL, '1', '2017-11-08 10:15:53', '2018-01-20 14:37:50', '0', '', '');
-INSERT INTO `sys_menu` VALUES (33, '菜单修改', 'sys_menu_edit', '', 3, '', '', NULL, '1', '2017-11-08 10:16:23', '2018-01-20 14:37:56', '0', '', '');
-INSERT INTO `sys_menu` VALUES (34, '菜单删除', 'sys_menu_del', '', 3, '', '', NULL, '1', '2017-11-08 10:16:43', '2018-01-20 14:38:03', '0', '', '');
-INSERT INTO `sys_menu` VALUES (42, '角色新增', 'sys_role_add', '', 4, '', '', NULL, '1', '2017-11-08 10:14:18', '2018-04-20 07:21:38', '0', '', '');
-INSERT INTO `sys_menu` VALUES (43, '角色修改', 'sys_role_edit', '', 4, '', '', NULL, '1', '2017-11-08 10:14:41', '2018-04-20 07:21:50', '0', '', '');
-INSERT INTO `sys_menu` VALUES (44, '角色删除', 'sys_role_del', '', 4, '', '', NULL, '1', '2017-11-08 10:14:59', '2018-04-20 07:22:00', '0', '', '');
-INSERT INTO `sys_menu` VALUES (45, '分配权限', 'sys_role_perm', '', 4, '', '', NULL, '1', '2018-04-20 07:22:55', '2018-04-20 07:24:40', '0', '', '');
-INSERT INTO `sys_menu` VALUES (52, '日志删除', 'sys_log_del', '', 5, '', '', NULL, '1', '2017-11-20 20:37:37', '2017-11-28 17:36:52', '0', '', '');
-INSERT INTO `sys_menu` VALUES (56, '哈哈', 'sys_user_del', '', 24, '', '', 1, '', '2018-07-24 07:51:18', '2018-07-24 07:51:43', '1', '', '');
-INSERT INTO `sys_menu` VALUES (62, '字典删除', 'sys_dict_del', '', 6, '', '', NULL, '1', '2017-11-29 11:30:11', '2018-01-07 15:40:51', '0', '', '');
-INSERT INTO `sys_menu` VALUES (63, '字典新增', 'sys_dict_add', '', 6, '', '', NULL, '1', '2018-05-11 22:34:55', '2018-06-26 21:17:36', '0', '', '');
-INSERT INTO `sys_menu` VALUES (64, '字典修改', 'sys_dict_edit', '', 6, '', '', NULL, '1', '2018-05-11 22:36:03', '2018-06-26 21:17:36', '0', '', '');
-INSERT INTO `sys_menu` VALUES (72, '部门新增', 'sys_dept_add', '', 7, '', '', NULL, '1', '2018-01-20 14:56:16', '2018-01-20 21:17:57', '0', '', '');
-INSERT INTO `sys_menu` VALUES (73, '部门修改', 'sys_dept_edit', '', 7, '', '', NULL, '1', '2018-01-20 14:56:59', '2018-01-20 21:17:59', '0', '', '');
-INSERT INTO `sys_menu` VALUES (74, '部门删除', 'sys_dept_del', '', 7, '', '', NULL, '1', '2018-01-20 14:57:28', '2018-01-20 21:18:05', '0', '', '');
-INSERT INTO `sys_menu` VALUES (100, '客户端管理', '', 'client', 1, 'steam', 'Setting/Client', 10, '0', '2018-01-20 13:17:19', '2018-07-25 06:44:24', '0', '', '0');
-INSERT INTO `sys_menu` VALUES (101, '客户端新增', 'sys_client_add', '', 100, '1', '', NULL, '1', '2018-05-15 21:35:18', '2018-05-16 10:35:26', '0', '', '');
-INSERT INTO `sys_menu` VALUES (102, '客户端修改', 'sys_client_edit', '', 100, '', '', NULL, '1', '2018-05-15 21:37:06', '2018-06-26 21:17:17', '0', '', '');
-INSERT INTO `sys_menu` VALUES (103, '客户端删除', 'sys_client_del', '', 100, '', '', NULL, '1', '2018-05-15 21:39:16', '2018-05-15 21:52:34', '0', '', '');
-INSERT INTO `sys_menu` VALUES (200, '服务监控', '', 'http://127.0.0.1:5001', 1, 'icon-msnui-supervise', '', 9, '0', '2018-06-26 10:50:32', '2018-07-25 05:50:07', '1', '', '');
+INSERT INTO `sys_menu` VALUES (1, '系统管理', '', '/setting', -1, 'settings', 'Main', 1, '0', 'admin', '2017-11-07 20:56:00', 'admin', '2019-02-14 14:10:01', '', '1', '0');
+INSERT INTO `sys_menu` VALUES (2, '用户管理', '', 'user', 1, 'person-add', 'Setting/User', 2, '0', 'admin', '2017-11-02 22:24:37', 'admin', '2019-02-14 14:10:01', '', '0', '0');
+INSERT INTO `sys_menu` VALUES (3, '菜单管理', '', 'menu', 1, 'ios-list-outline', 'Setting/Menu', 3, '0', 'admin', '2017-11-08 09:57:27', 'admin', '2019-02-14 14:10:01', '', '1', '0');
+INSERT INTO `sys_menu` VALUES (4, '角色管理', '', 'role', 1, 'person-stalker', 'Setting/Role', 4, '0', 'admin', '2017-11-08 10:13:37', 'admin', '2019-02-14 14:10:01', '', '0', '0');
+INSERT INTO `sys_menu` VALUES (5, '日志管理', '', 'log', 1, 'ios-eye', 'Setting/Log', 5, '0', 'admin', '2017-11-20 14:06:22', 'admin', '2019-02-14 14:10:01', '', '1', '1');
+INSERT INTO `sys_menu` VALUES (6, '字典管理', '', 'dict', 1, 'ios-book-outline', 'Setting/Dict', 6, '0', 'admin', '2017-11-29 11:30:52', 'admin', '2019-02-14 14:10:01', '', '0', '1');
+INSERT INTO `sys_menu` VALUES (7, '部门管理', '', 'dept', 1, 'ios-people-outline', 'Setting/Dept', 7, '0', 'admin', '2018-01-20 13:17:19', 'admin', '2019-02-14 14:10:01', '', '1', '1');
+INSERT INTO `sys_menu` VALUES (8, '服务监控', '', 'server', 1, 'stats-bars', 'main-components/iframe', 8, '0', 'admin', '2018-01-22 12:30:41', 'admin', '2019-02-14 14:10:01', 'http://127.0.0.1:5000', '1', '1');
+INSERT INTO `sys_menu` VALUES (9, '分布式任务监控', '', 'xxlJob', 1, 'monitor', 'main-components/iframe', 9, '0', 'admin', '2018-01-23 10:53:33', 'admin', '2019-02-14 14:10:01', 'http://127.0.0.1:8181', '1', '1');
+INSERT INTO `sys_menu` VALUES (10, 'zipkin监控', '', 'http://139.224.200.249:5002', 8, 'icon-jiankong', '', 11, '0', 'admin', '2018-01-23 10:55:18', 'admin', '2019-02-14 14:10:01', '', '', '1');
+INSERT INTO `sys_menu` VALUES (11, 'pinpoint监控', '', 'https://pinpoint.pig4cloud.com', 8, 'icon-xiazaihuancun', '', 10, '0', 'admin', '2018-01-25 11:08:52', 'admin', '2019-02-14 14:10:01', '', '', '1');
+INSERT INTO `sys_menu` VALUES (12, '缓存状态', '', 'http://139.224.200.249:8585', 8, 'icon-ecs-status', '', 12, '0', 'admin', '2018-01-23 10:56:11', 'admin', '2019-02-14 14:10:01', '', '', '1');
+INSERT INTO `sys_menu` VALUES (13, 'ELK状态', '', 'http://139.224.200.249:5601', 8, 'icon-ecs-status', '', 13, '0', 'admin', '2018-01-23 10:55:47', 'admin', '2019-02-14 14:10:01', '', '', '1');
+INSERT INTO `sys_menu` VALUES (14, '接口文档', '', 'http://139.224.200.249:9999/swagger-ui.html', 8, 'icon-wendangdocument72', '', 14, '0', 'admin', '2018-01-23 10:56:43', 'admin', '2019-02-14 14:10:01', '', '', '1');
+INSERT INTO `sys_menu` VALUES (15, '任务监控', '', 'http://139.224.200.249:8899', 8, 'icon-jiankong', '', 15, '0', 'admin', '2018-01-23 10:55:18', 'admin', '2019-02-14 14:10:01', '', '', '1');
+INSERT INTO `sys_menu` VALUES (22, '用户新增', 'sys_user_add', '', 2, '', '', NULL, '1', 'admin', '2017-11-08 09:52:09', 'admin', '2019-02-14 14:10:01', '', '', '0');
+INSERT INTO `sys_menu` VALUES (23, '用户修改', 'sys_user_edit', '', 2, '', '', NULL, '1', 'admin', '2017-11-08 09:52:48', 'admin', '2019-02-14 14:10:01', '', '', '0');
+INSERT INTO `sys_menu` VALUES (24, '用户删除', 'sys_user_del', '', 2, '', '', NULL, '1', 'admin', '2017-11-08 09:54:01', 'admin', '2019-02-14 14:10:01', '', '', '0');
+INSERT INTO `sys_menu` VALUES (25, 'haha', 'sys', '', 2, '', '', 1, '', 'admin', '2018-07-20 05:53:35', 'admin', '2019-02-14 14:10:01', '', '', '1');
+INSERT INTO `sys_menu` VALUES (32, '菜单新增', 'sys_menu_add', '', 3, '', '', NULL, '1', 'admin', '2017-11-08 10:15:53', 'admin', '2019-02-14 14:10:01', '', '', '0');
+INSERT INTO `sys_menu` VALUES (33, '菜单修改', 'sys_menu_edit', '', 3, '', '', NULL, '1', 'admin', '2017-11-08 10:16:23', 'admin', '2019-02-14 14:10:01', '', '', '0');
+INSERT INTO `sys_menu` VALUES (34, '菜单删除', 'sys_menu_del', '', 3, '', '', NULL, '1', 'admin', '2017-11-08 10:16:43', 'admin', '2019-02-14 14:10:01', '', '', '0');
+INSERT INTO `sys_menu` VALUES (42, '角色新增', 'sys_role_add', '', 4, '', '', NULL, '1', 'admin', '2017-11-08 10:14:18', 'admin', '2019-02-14 14:10:01', '', '', '0');
+INSERT INTO `sys_menu` VALUES (43, '角色修改', 'sys_role_edit', '', 4, '', '', NULL, '1', 'admin', '2017-11-08 10:14:41', 'admin', '2019-02-14 14:10:01', '', '', '0');
+INSERT INTO `sys_menu` VALUES (44, '角色删除', 'sys_role_del', '', 4, '', '', NULL, '1', 'admin', '2017-11-08 10:14:59', 'admin', '2019-02-14 14:10:01', '', '', '0');
+INSERT INTO `sys_menu` VALUES (45, '分配权限', 'sys_role_perm', '', 4, '', '', NULL, '1', 'admin', '2018-04-20 07:22:55', 'admin', '2019-02-14 14:10:01', '', '', '0');
+INSERT INTO `sys_menu` VALUES (52, '日志删除', 'sys_log_del', '', 5, '', '', NULL, '1', 'admin', '2017-11-20 20:37:37', 'admin', '2019-02-14 14:10:01', '', '', '0');
+INSERT INTO `sys_menu` VALUES (56, '哈哈', 'sys_user_del', '', 24, '', '', 1, '', 'admin', '2018-07-24 07:51:18', 'admin', '2019-02-14 14:10:01', '', '', '1');
+INSERT INTO `sys_menu` VALUES (62, '字典删除', 'sys_dict_del', '', 6, '', '', NULL, '1', 'admin', '2017-11-29 11:30:11', 'admin', '2019-02-14 14:10:01', '', '', '0');
+INSERT INTO `sys_menu` VALUES (63, '字典新增', 'sys_dict_add', '', 6, '', '', NULL, '1', 'admin', '2018-05-11 22:34:55', 'admin', '2019-02-14 14:10:01', '', '', '0');
+INSERT INTO `sys_menu` VALUES (64, '字典修改', 'sys_dict_edit', '', 6, '', '', NULL, '1', 'admin', '2018-05-11 22:36:03', 'admin', '2019-02-14 14:10:01', '', '', '0');
+INSERT INTO `sys_menu` VALUES (72, '部门新增', 'sys_dept_add', '', 7, '', '', NULL, '1', 'admin', '2018-01-20 14:56:16', 'admin', '2019-02-14 14:10:01', '', '', '0');
+INSERT INTO `sys_menu` VALUES (73, '部门修改', 'sys_dept_edit', '', 7, '', '', NULL, '1', 'admin', '2018-01-20 14:56:59', 'admin', '2019-02-14 14:10:01', '', '', '0');
+INSERT INTO `sys_menu` VALUES (74, '部门删除', 'sys_dept_del', '', 7, '', '', NULL, '1', 'admin', '2018-01-20 14:57:28', 'admin', '2019-02-14 14:10:01', '', '', '0');
+INSERT INTO `sys_menu` VALUES (100, '客户端管理', '', 'client', 1, 'steam', 'Setting/Client', 10, '0', 'admin', '2018-01-20 13:17:19', 'admin', '2019-02-14 14:10:01', '', '0', '0');
+INSERT INTO `sys_menu` VALUES (101, '客户端新增', 'sys_client_add', '', 100, '1', '', NULL, '1', 'admin', '2018-05-15 21:35:18', 'admin', '2019-02-14 14:10:01', '', '', '0');
+INSERT INTO `sys_menu` VALUES (102, '客户端修改', 'sys_client_edit', '', 100, '', '', NULL, '1', 'admin', '2018-05-15 21:37:06', 'admin', '2019-02-14 14:10:01', '', '', '0');
+INSERT INTO `sys_menu` VALUES (103, '客户端删除', 'sys_client_del', '', 100, '', '', NULL, '1', 'admin', '2018-05-15 21:39:16', 'admin', '2019-02-14 14:10:01', '', '', '0');
+INSERT INTO `sys_menu` VALUES (200, '服务监控', '', 'http://127.0.0.1:5001', 1, 'icon-msnui-supervise', '', 9, '0', 'admin', '2018-06-26 10:50:32', 'admin', '2019-02-14 14:10:01', '', '', '1');
 COMMIT;
+
+
 
 -- ----------------------------
 -- Table structure for sys_oauth_client

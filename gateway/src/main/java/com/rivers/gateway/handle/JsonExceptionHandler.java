@@ -48,7 +48,7 @@ public class JsonExceptionHandler extends DefaultErrorWebExceptionHandler {
 
      * 指定响应处理方法为JSON处理的方法
 
-     * @param errorAttributes
+     * @param errorAttributes errorAttributes
 
      */
 
@@ -115,13 +115,13 @@ public class JsonExceptionHandler extends DefaultErrorWebExceptionHandler {
      * @return
      */
     private Map<String, Object> response(int status, String errorMessage) {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(16);
 
         map.put("code", status);
 
-        map.put("msg", errorMessage);
+        map.put("message", errorMessage);
 
-        map.put("rsp", null);
+        map.put("datas", null);
 
         return map;
     }

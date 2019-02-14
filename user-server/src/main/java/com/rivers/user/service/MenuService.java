@@ -6,6 +6,8 @@ import com.rivers.user.api.dto.MenuTree;
 import com.rivers.user.api.entity.SysMenuModel;
 import com.rivers.user.mapper.SysMenuDao;
 import com.rivers.utils.tree.TreeUtil;
+import org.springframework.beans.BeanUtils;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -21,14 +23,24 @@ public class MenuService extends ServiceImpl<SysMenuDao, SysMenuModel> {
     @Resource
     private SysMenuDao sysMenuDao;
 
+
+    /**
+     * 获取树形menu
+     * @return List
+     */
     public List<MenuTree> getMenuTree() {
         QueryWrapper<SysMenuModel> wrapper = new QueryWrapper<>();
         wrapper.eq("del_flag", 0);
         List<SysMenuModel> list = sysMenuDao.selectList(wrapper);
-        return bulidTree(list, -1);
+        return buildTree(list, -1);
     }
 
 
+    /**
+     * 通过id获取menu详情
+     * @param id id
+     * @return SysMenuModel
+     */
     public SysMenuModel selectMenuById(Integer id) {
         QueryWrapper<SysMenuModel> wrapper = new QueryWrapper<>();
         wrapper.eq("id", id);
@@ -36,14 +48,21 @@ public class MenuService extends ServiceImpl<SysMenuDao, SysMenuModel> {
         return sysMenuDao.selectOne(wrapper);
     }
 
+    public void addMenu(MenuTree menuTree) {
+        SysMenuModel sysMenuModel = new SysMenuModel();
+        sysMenuModel.setParentId(menuTree.getParentId());
+        sysMenuModel.setName(menuTree.getName());
+
+    }
+
     /**
      * 通过sysMenu创建树形节点
      *
      * @param menus menus
      * @param root root
-     * @return
+     * @return List
      */
-    private List<MenuTree> bulidTree(List<SysMenuModel> menus, int root) {
+    private List<MenuTree> buildTree(List<SysMenuModel> menus, int root) {
         List<MenuTree> trees = new ArrayList<>();
         MenuTree node;
         for (SysMenuModel menu : menus) {

@@ -12,11 +12,13 @@
 		<result column="component" property="component" />
 		<result column="sort" property="sort" />
 		<result column="type" property="type" />
+		<result column="create_user" property="createUser" />
 		<result column="create_time" property="createTime" />
+		<result column="update_user" property="updateUser" />
 		<result column="update_time" property="updateTime" />
-		<result column="del_flag" property="delFlag" />
 		<result column="iframe" property="iframe" />
 		<result column="is_content" property="isContent" />
+		<result column="del_flag" property="delFlag" />
 	</resultMap>
 
 </mapper>

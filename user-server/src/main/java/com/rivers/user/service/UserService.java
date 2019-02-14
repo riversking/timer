@@ -45,6 +45,8 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
     private static String DEL_FLAG = "del_flag";
 
 
+
+
     /**
      * 添加用户
      *
@@ -74,7 +76,7 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
      * 分页查询用户
      *
      * @param userDto userDto
-     * @return
+     * @return IPage
      */
     public IPage<SysUserModel> getUserPage(UserDto userDto) {
         QueryWrapper<SysUserModel> wrapper = new QueryWrapper<>();
@@ -94,6 +96,7 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
         Page<SysUserModel> page = new Page<>(userDto.getPage(), userDto.getPageSize());
         IPage<SysUserModel> sysUserPage = sysUserDao.selectPage(page, wrapper);
         sysUserPage.getRecords().forEach(i -> {
+            i.setPassword("");
             List<Integer> idList = sysUserRoleDao.selectRoleId(i.getId());
             List<SysRoleModel> roleModels = sysRoleDao.selectBatchIds(idList);
             i.setSysRoleModels(roleModels);

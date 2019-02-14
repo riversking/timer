@@ -10,7 +10,7 @@ import java.util.List;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class UserDto extends Page{
+public class UserDto extends Page {
 
     /**
      * 用户名

@@ -26,8 +26,8 @@ public class MenuController {
     public ResponseVo getMenuTree() {
         ResponseVo vo = ResponseVo.ok();
         vo.setCode("0");
-        vo.setMsg("查询成功");
-        vo.setRsp(menuService.getMenuTree());
+        vo.setMessage("查询成功");
+        vo.setDatas(menuService.getMenuTree());
         return vo;
     }
 
@@ -38,8 +38,8 @@ public class MenuController {
             return ResponseVo.fail("105001", "菜单id为空");
         }
         SysMenuModel sysMenuModel = menuService.selectMenuById(vo.getParam());
-        rvo.setMsg("查询成功");
-        rvo.setRsp(sysMenuModel);
+        rvo.setMessage("查询成功");
+        rvo.setDatas(sysMenuModel);
         return rvo;
     }
 

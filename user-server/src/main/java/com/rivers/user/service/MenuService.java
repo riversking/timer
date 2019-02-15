@@ -63,6 +63,8 @@ public class MenuService extends ServiceImpl<SysMenuDao, SysMenuModel> {
         sysMenuDao.insert(sysMenuModel);
     }
 
+
+
     /**
      * 通过sysMenu创建树形节点
      *

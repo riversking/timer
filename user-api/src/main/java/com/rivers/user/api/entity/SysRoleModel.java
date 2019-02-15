@@ -2,6 +2,8 @@ package com.rivers.user.api.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 
@@ -16,6 +18,8 @@ import java.util.Date;
  * @Date 2018-12-19 10:46
  */
 @TableName("sys_role")
+@Data
+@EqualsAndHashCode(callSuper = true)
 public class SysRoleModel extends Model<SysRoleModel>  {
 	private static final long serialVersionUID = 1L;
 	/**
@@ -72,126 +76,8 @@ public class SysRoleModel extends Model<SysRoleModel>  {
 	 */
 	@TableLogic
 	@TableField(value="is_delete")
-	private Integer delFlag;
+	private Integer isDelete;
 
-
-	/**
-	 * 获取: Id
-	 *
-	 */
-	public Integer getId() {
-		return id;
-	}
-	/**
-	 * 设置: Id
-	 *
-	 */
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	/**
-	 * 获取: RoleName
-	 *
-	 */
-	public String getRoleName() {
-		return roleName;
-	}
-	/**
-	 * 设置: RoleName
-	 *
-	 */
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
-	}
-	/**
-	 * 获取: RoleCode
-	 *
-	 */
-	public String getRoleCode() {
-		return roleCode;
-	}
-	/**
-	 * 设置: RoleCode
-	 *
-	 */
-	public void setRoleCode(String roleCode) {
-		this.roleCode = roleCode;
-	}
-	/**
-	 * 获取: RoleDesc
-	 *
-	 */
-	public String getRoleDesc() {
-		return roleDesc;
-	}
-	/**
-	 * 设置: RoleDesc
-	 *
-	 */
-	public void setRoleDesc(String roleDesc) {
-		this.roleDesc = roleDesc;
-	}
-
-
-	public String getCreateUser() {
-		return createUser;
-	}
-
-	public void setCreateUser(String createUser) {
-		this.createUser = createUser;
-	}
-
-	/**
-	 * 获取: CreateTime
-	 *
-	 */
-	public Date getCreateTime() {
-		return createTime;
-	}
-	/**
-	 * 设置: CreateTime
-	 *
-	 */
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-
-	public String getUpdateUser() {
-		return updateUser;
-	}
-
-	public void setUpdateUser(String updateUser) {
-		this.updateUser = updateUser;
-	}
-
-	/**
-	 * 获取: UpdateTime
-	 *
-	 */
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-	/**
-	 * 设置: UpdateTime
-	 *
-	 */
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
-	/**
-	 * 获取: 删除标识（0-正常
-	 * 删除标识（0-正常,1-删除）
-	 */
-	public Integer getDelFlag() {
-		return delFlag;
-	}
-	/**
-	 * 设置: 删除标识（0-正常
-	 * 删除标识（0-正常,1-删除）
-	 */
-	public void setDelFlag(Integer delFlag) {
-		this.delFlag = delFlag;
-	}
 
 	@Override
 	protected Serializable pkVal() {

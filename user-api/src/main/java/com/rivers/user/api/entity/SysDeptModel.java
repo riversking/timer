@@ -19,60 +19,59 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class SysDeptModel extends Model<SysDeptModel> {
-	private static final long serialVersionUID = 1L;
-	/**
-	 * Id
-	 *
-	 */
-	@TableId(value = "id",type = IdType.AUTO)
-	private Integer id;
+    private static final long serialVersionUID = 1L;
+    /**
+     * Id
+     */
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
 
-	/**
-	 * 部门名称
-	 *
-	 */
-	@TableField(value="name")
-	private String name;
+    /**
+     * 部门名称
+     */
+    @TableField(value = "name")
+    private String name;
 
-	/**
-	 * 排序
-	 *
-	 */
-	@TableField(value="order_num")
-	private Integer orderNum;
+    /**
+     * 排序
+     */
+    @TableField(value = "order_num")
+    private Integer orderNum;
 
-	@TableField(value = "create_user")
-	private String createUser;
+    @TableField(value = "create_user")
+    private String createUser;
 
-	/**
-	 * 创建时间
-	 *
-	 */
-	@TableField(value="create_time")
-	private Date createTime;
+    /**
+     * 创建时间
+     */
+    @TableField(value = "create_time")
+    private Date createTime;
 
-	@TableField(value = "update_user")
-	private String updateUser;
+    @TableField(value = "update_user")
+    private String updateUser;
 
-	/**
-	 * 修改时间
-	 *
-	 */
-	@TableField(value="update_time")
-	private Date updateTime;
+    /**
+     * 修改时间
+     */
+    @TableField(value = "update_time")
+    private Date updateTime;
 
-	/**
-	 * 是否删除  -1：已删除  0：正常
-	 *
-	 */
-	@TableLogic
-	@TableField(value="is_delete")
-	private Integer isDelete;
+    /**
+     * 父菜单ID
+     */
+    @TableField(value = "parent_id")
+    private Integer parentId;
+
+    /**
+     * 是否删除  -1：已删除  0：正常
+     */
+    @TableLogic
+    @TableField(value = "is_delete")
+    private Integer isDelete;
 
 
-
-	@Override
-	protected Serializable pkVal() {
-		return this.id;
-	}
+    @Override
+    protected Serializable pkVal() {
+        return this.id;
+    }
 }

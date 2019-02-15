@@ -10,7 +10,7 @@
 		<result column="create_user" property="createUser" />
 		<result column="update_user" property="updateUser" />
 		<result column="update_time" property="updateTime" />
-		<result column="is_delete" property="delFlag" />
+		<result column="is_delete" property="isDelete" />
 		<result column="parent_id" property="parentId" />
 	</resultMap>
 

@@ -18,7 +18,7 @@
 		<result column="update_time" property="updateTime" />
 		<result column="iframe" property="iframe" />
 		<result column="is_content" property="isContent" />
-		<result column="is_delete" property="delFlag" />
+		<result column="is_delete" property="isDelete" />
 	</resultMap>
 
 

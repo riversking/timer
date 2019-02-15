@@ -20,6 +20,6 @@ public class RoleDto extends Page {
 
     private String updateTime;
 
-    private String delFlag;
+    private Integer isDelete;
 
 }

@@ -3,6 +3,7 @@ package com.rivers.oauth.config;
 import com.rivers.oauth.common.CustomWebResponseExceptionTranslator;
 import com.rivers.oauth.service.ClientDetailsServiceImpl;
 import com.rivers.oauth.service.UserDetailsServiceImpl;
+import com.rivers.oauth.tokenStore.MyRedisTokenStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,7 +31,7 @@ import java.util.Map;
 /**
  * 认证服务器
  *
- * @author hwj
+ * @author rversking
  * @date 2018/9/10
  * 加上这个注解则会生成oauth2的几个endpoint
  */

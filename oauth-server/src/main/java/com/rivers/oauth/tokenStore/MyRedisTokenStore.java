@@ -1,4 +1,4 @@
-package com.rivers.oauth.config;
+package com.rivers.oauth.tokenStore;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.RedisConnection;
@@ -16,6 +16,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 
+/**
+ * @author riversking
+ */
 @Component
 public class MyRedisTokenStore extends RedisTokenStore {
 
@@ -38,15 +41,17 @@ public class MyRedisTokenStore extends RedisTokenStore {
         super(connectionFactory);
     }
 
-
+    @Override
     public void setAuthenticationKeyGenerator(AuthenticationKeyGenerator authenticationKeyGenerator) {
         this.authenticationKeyGenerator = authenticationKeyGenerator;
     }
 
+    @Override
     public void setSerializationStrategy(RedisTokenStoreSerializationStrategy serializationStrategy) {
         this.serializationStrategy = serializationStrategy;
     }
 
+    @Override
     public void setPrefix(String prefix) {
         this.prefix = prefix;
     }
@@ -300,6 +305,7 @@ public class MyRedisTokenStore extends RedisTokenStore {
         this.removeRefreshToken(refreshToken.getValue());
     }
 
+    @Override
     public void removeRefreshToken(String tokenValue) {
         byte[] refreshKey = serializeKey(REFRESH + tokenValue);
         byte[] refreshAuthKey = serializeKey(REFRESH_AUTH + tokenValue);
@@ -345,6 +351,7 @@ public class MyRedisTokenStore extends RedisTokenStore {
         }
     }
 
+    @Override
     public Collection<OAuth2AccessToken> findTokensByClientIdAndUserName(String clientId, String userName) {
         byte[] approvalKey = serializeKey(UNAME_TO_ACCESS + getApprovalKey(clientId, userName));
         List<byte[]> byteList = null;
@@ -376,7 +383,7 @@ public class MyRedisTokenStore extends RedisTokenStore {
             conn.close();
         }
         if (byteList == null || byteList.size() == 0) {
-            return Collections.<OAuth2AccessToken>emptySet();
+            return Collections.emptySet();
         }
         List<OAuth2AccessToken> accessTokens = new ArrayList<OAuth2AccessToken>(byteList.size());
         for (byte[] bytes : byteList) {

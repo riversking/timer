@@ -59,11 +59,13 @@ public class MenuService extends ServiceImpl<SysMenuDao, SysMenuModel> {
      */
     public void addMenu(MenuDto menuDto) {
         SysMenuModel sysMenuModel = new SysMenuModel();
-        BeanUtils.copyProperties(menuDto,sysMenuModel);
+        BeanUtils.copyProperties(menuDto, sysMenuModel);
         sysMenuDao.insert(sysMenuModel);
     }
 
-
+    public void deleteMenuById(Integer id) {
+        sysMenuDao.deleteById(id);
+    }
 
     /**
      * 通过sysMenu创建树形节点

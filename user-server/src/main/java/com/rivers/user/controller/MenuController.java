@@ -60,5 +60,13 @@ public class MenuController {
         return rvo;
     }
 
+    @PostMapping("deleteMenu")
+    public ResponseVo deleteMenu(@RequestBody RequestVo<Integer> requestVo) {
+        ResponseVo vo = ResponseVo.ok();
+        Integer id = requestVo.getParam();
+        menuService.deleteMenuById(id);
+        vo.setMessage("删除成功");
+        return vo;
+    }
 
 }

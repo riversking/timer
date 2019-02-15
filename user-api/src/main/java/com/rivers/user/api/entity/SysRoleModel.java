@@ -71,7 +71,7 @@ public class SysRoleModel extends Model<SysRoleModel>  {
 	 * 删除标识（0-正常,1-删除）
 	 */
 	@TableLogic
-	@TableField(value="del_flag")
+	@TableField(value="is_delete")
 	private Integer delFlag;
 
 

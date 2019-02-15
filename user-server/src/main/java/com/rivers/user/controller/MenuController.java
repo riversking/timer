@@ -1,5 +1,6 @@
 package com.rivers.user.controller;
 
+import cn.hutool.core.util.StrUtil;
 import com.rivers.core.view.RequestVo;
 import com.rivers.core.view.ResponseVo;
 import com.rivers.user.api.dto.MenuDto;
@@ -47,8 +48,15 @@ public class MenuController {
     @PostMapping("addMenu")
     public ResponseVo addMenu(@RequestBody RequestVo<MenuDto> requestVo) {
         ResponseVo rvo = ResponseVo.ok();
-        menuService.addMenu(requestVo.getParam());
-        rvo.setMessage("插入成功");
+        MenuDto menuDto = requestVo.getParam();
+        if (menuDto.getId() == 0) {
+            return ResponseVo.fail("103001", "id为空");
+        }
+        if (StrUtil.isBlank(menuDto.getName())) {
+            return ResponseVo.fail("103002", "菜单名称为空");
+        }
+        menuService.addMenu(menuDto);
+        rvo.setMessage("添加成功");
         return rvo;
     }
 

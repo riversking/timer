@@ -27,11 +27,12 @@ public class MenuService extends ServiceImpl<SysMenuDao, SysMenuModel> {
 
     /**
      * 获取树形menu
+     *
      * @return List
      */
     public List<MenuTree> getMenuTree() {
         QueryWrapper<SysMenuModel> wrapper = new QueryWrapper<>();
-        wrapper.eq("del_flag", 0);
+        wrapper.eq("is_delete", 0);
         List<SysMenuModel> list = sysMenuDao.selectList(wrapper);
         return buildTree(list, -1);
     }
@@ -39,29 +40,26 @@ public class MenuService extends ServiceImpl<SysMenuDao, SysMenuModel> {
 
     /**
      * 通过id获取menu详情
+     *
      * @param id id
      * @return SysMenuModel
      */
     public SysMenuModel selectMenuById(Integer id) {
         QueryWrapper<SysMenuModel> wrapper = new QueryWrapper<>();
         wrapper.eq("id", id);
-        wrapper.eq("del_flag", 0);
+        wrapper.eq("is_delete", 0);
         return sysMenuDao.selectOne(wrapper);
     }
 
 
+    /**
+     * 新增菜单
+     *
+     * @param menuDto
+     */
     public void addMenu(MenuDto menuDto) {
         SysMenuModel sysMenuModel = new SysMenuModel();
-        sysMenuModel.setParentId(menuDto.getParentId());
-        sysMenuModel.setName(menuDto.getName());
-        sysMenuModel.setComponent(menuDto.getComponent());
-        sysMenuModel.setIcon(menuDto.getIcon());
-        sysMenuModel.setIframe(menuDto.getIFrame());
-        sysMenuModel.setPath(menuDto.getPath());
-        sysMenuModel.setIsContent(menuDto.getIsContent());
-        sysMenuModel.setPermission(menuDto.getPermission());
-        sysMenuModel.setCreateUser(menuDto.getCreateUser());
-        sysMenuModel.setUpdateUser(menuDto.getUpdateUser());
+        BeanUtils.copyProperties(menuDto,sysMenuModel);
         sysMenuDao.insert(sysMenuModel);
     }
 
@@ -69,7 +67,7 @@ public class MenuService extends ServiceImpl<SysMenuDao, SysMenuModel> {
      * 通过sysMenu创建树形节点
      *
      * @param menus menus
-     * @param root root
+     * @param root  root
      * @return List
      */
     private List<MenuTree> buildTree(List<SysMenuModel> menus, int root) {

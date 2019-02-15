@@ -86,7 +86,7 @@ public class SysUserModel extends Model<SysUserModel> {
 	 *
 	 */
 	@TableLogic
-	@TableField(value="del_flag")
+	@TableField(value="is_delete")
 	private Integer delFlag;
 
 	@TableField(exist = false)

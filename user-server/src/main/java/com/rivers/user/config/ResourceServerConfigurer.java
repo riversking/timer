@@ -10,6 +10,9 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 
+/**
+ * @author riversking
+ */
 @Configuration
 @EnableResourceServer
 @AllArgsConstructor
@@ -26,13 +29,13 @@ public class ResourceServerConfigurer extends ResourceServerConfigurerAdapter {
 
     /**
      * why add  resourceId
+     * <p>
      * https://stackoverflow.com/questions/28703847/how-do-you-set-a-resource-id-for-a-token
      *
-     * @param resources
-     * @throws Exception
+     * @param resources resources
      */
     @Override
-    public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
+    public void configure(ResourceServerSecurityConfigurer resources) {
         resources.authenticationEntryPoint(new AuthExceptionEntryPoint())
                 .accessDeniedHandler(new CustomAccessDeniedHandler());
     }

@@ -62,7 +62,7 @@ public class SysDeptModel extends Model<SysDeptModel> {
 	 *
 	 */
 	@TableLogic
-	@TableField(value="del_flag")
+	@TableField(value="is_delete")
 	private Integer delFlag;
 
 	/**

@@ -13,7 +13,7 @@
 		<result column="update_time" property="updateTime" />
 		<result column="create_user" property="createUser" />
 		<result column="update_user" property="updateUser" />
-		<result column="del_flag" property="delFlag" />
+		<result column="is_delete" property="delFlag" />
 	</resultMap>
 
 </mapper>

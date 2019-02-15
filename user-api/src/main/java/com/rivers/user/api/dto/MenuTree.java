@@ -22,7 +22,7 @@ public class MenuTree extends TreeNode {
     private String authority;
     private String redirect;
     private String code;
-    private String type;
+    private Integer type;
     private String title;
     private String label;
     private Integer sort;

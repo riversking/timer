@@ -19,7 +19,7 @@ public class MenuDto extends Page {
     private String permission;
     private String redirect;
     private String code;
-    private String type;
+    private Integer type;
     private Integer sort;
     private String isContent;
     private String iFrame;

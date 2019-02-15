@@ -42,7 +42,7 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
     @Resource
     private SysRoleMenuDao sysRoleMenuDao;
 
-    private static String DEL_FLAG = "del_flag";
+    private static String IS_DELETE = "is_delete";
 
 
 
@@ -92,7 +92,7 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
         if (StrUtil.isNotBlank(userDto.getUpdateTime())) {
             wrapper.le("update_time", userDto.getUpdateTime());
         }
-        wrapper.eq(DEL_FLAG, 0);
+        wrapper.eq(IS_DELETE, 0);
         Page<SysUserModel> page = new Page<>(userDto.getPage(), userDto.getPageSize());
         IPage<SysUserModel> sysUserPage = sysUserDao.selectPage(page, wrapper);
         sysUserPage.getRecords().forEach(i -> {
@@ -112,7 +112,7 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
      */
     public SysUserModel getUserDetail(UserDto userDto) {
         QueryWrapper<SysUserModel> wrapper = new QueryWrapper<>();
-        wrapper.eq(DEL_FLAG, 0);
+        wrapper.eq(IS_DELETE, 0);
         wrapper.eq("username", userDto.getUsername());
         SysUserModel user = sysUserDao.selectOne(wrapper);
         if (new BCryptPasswordEncoder().matches(userDto.getPassword(), user.getPassword())) {
@@ -130,7 +130,7 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
      */
     public SysUserModel getUserById(Integer id) {
         QueryWrapper<SysUserModel> wrapper = new QueryWrapper<>();
-        wrapper.eq(DEL_FLAG, 0);
+        wrapper.eq(IS_DELETE, 0);
         wrapper.eq("id", id);
         SysUserModel user = sysUserDao.selectOne(wrapper);
         List<Integer> idList = sysUserRoleDao.selectRoleId(id);
@@ -149,7 +149,7 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
         if (StrUtil.isNotBlank(user.getUsername()) || StrUtil.isNotBlank(user.getPhone())) {
             wrapper.eq("username", user.getUsername()).or().eq("phone", user.getPhone());
         }
-        wrapper.eq(DEL_FLAG, 0);
+        wrapper.eq(IS_DELETE, 0);
         return sysUserDao.selectList(wrapper);
     }
 

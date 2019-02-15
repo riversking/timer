@@ -11,12 +11,12 @@
 		<result column="update_time" property="updateTime" />
 		<result column="create_user" property="createUser" />
 		<result column="update_user" property="updateUser" />
-		<result column="del_flag" property="delFlag" />
+		<result column="is_delete" property="delFlag" />
 	</resultMap>
 
 	<select id="selectRoleList" resultMap="BaseResultMap">
 		SELECT id, role_name FROM sys_role
-		WHERE del_flag = 0
+		WHERE is_delete = 0
 	</select>
 
 

@@ -23,7 +23,7 @@ public class SysMenuModel extends Model<SysMenuModel> {
     /**
      * 菜单ID
      */
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id")
     private Integer id;
 
     /**
@@ -72,7 +72,7 @@ public class SysMenuModel extends Model<SysMenuModel> {
      * 菜单类型 （0菜单 1按钮）
      */
     @TableField(value = "type")
-    private String type;
+    private Integer type;
 
     /**
      * 创建人
@@ -113,7 +113,7 @@ public class SysMenuModel extends Model<SysMenuModel> {
     /**
      * 0--正常 1--删除
      */
-    @TableField(value = "del_flag")
+    @TableField(value = "is_delete")
     private String delFlag;
 
 
@@ -232,14 +232,14 @@ public class SysMenuModel extends Model<SysMenuModel> {
     /**
      * 获取: 菜单类型 （0菜单 1按钮）
      */
-    public String getType() {
+    public Integer getType() {
         return type;
     }
 
     /**
      * 设置: 菜单类型 （0菜单 1按钮）
      */
-    public void setType(String type) {
+    public void setType(Integer type) {
         this.type = type;
     }
 
@@ -341,8 +341,4 @@ public class SysMenuModel extends Model<SysMenuModel> {
         this.delFlag = delFlag;
     }
 
-    @Override
-    protected Serializable pkVal() {
-        return this.id;
-    }
 }

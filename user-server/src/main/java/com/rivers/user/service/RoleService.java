@@ -56,7 +56,7 @@ public class RoleService extends ServiceImpl<SysRoleDao, SysRoleModel> {
         if (StrUtil.isNotBlank(roleDto.getUpdateTime())) {
             wrapper.le("update_time", roleDto.getUpdateTime());
         }
-        wrapper.eq("del_flag", 0);
+        wrapper.eq("is_delete", 0);
         Page<SysRoleModel> page = new Page<>(roleDto.getPage(), roleDto.getPageSize());
         return sysRoleDao.selectPage(page, wrapper);
     }
@@ -70,7 +70,7 @@ public class RoleService extends ServiceImpl<SysRoleDao, SysRoleModel> {
     public SysRoleModel getRoleDetailById(Integer id) {
         log.info("RoleId {}", id);
         QueryWrapper<SysRoleModel> wrapper = new QueryWrapper<>();
-        wrapper.eq("del_flag", 0);
+        wrapper.eq("is_delete", 0);
         wrapper.eq("id", id);
         return sysRoleDao.selectOne(wrapper);
     }

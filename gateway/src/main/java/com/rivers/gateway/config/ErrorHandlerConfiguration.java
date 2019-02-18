@@ -18,6 +18,9 @@ import org.springframework.web.reactive.result.view.ViewResolver;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * @author riversking
+ */
 @Configuration
 @EnableConfigurationProperties({ServerProperties.class, ResourceProperties.class})
 public class ErrorHandlerConfiguration {
@@ -60,19 +63,13 @@ public class ErrorHandlerConfiguration {
 
 
     @Bean
-
     @Order(Ordered.HIGHEST_PRECEDENCE)
-
     public ErrorWebExceptionHandler errorWebExceptionHandler(ErrorAttributes errorAttributes) {
 
         JsonExceptionHandler exceptionHandler = new JsonExceptionHandler(
-
                 errorAttributes,
-
                 this.resourceProperties,
-
                 this.serverProperties.getError(),
-
                 this.applicationContext);
 
         exceptionHandler.setViewResolvers(this.viewResolvers);

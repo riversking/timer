@@ -92,8 +92,14 @@ public class MenuController {
         return vo;
     }
 
+    /**
+     * 通过id更新 menu & button
+     *
+     * @param requestVo requestVo
+     * @return ResponseVo
+     */
     @PostMapping("updateMenu")
-    public  ResponseVo updateMenu(@RequestBody RequestVo<MenuDto> requestVo) {
+    public ResponseVo updateMenu(@RequestBody RequestVo<MenuDto> requestVo) {
         ResponseVo vo = ResponseVo.ok();
         MenuDto menuDto = requestVo.getParam();
         menuService.updateMenuById(menuDto);

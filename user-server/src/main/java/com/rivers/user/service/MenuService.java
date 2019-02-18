@@ -55,7 +55,7 @@ public class MenuService extends ServiceImpl<SysMenuDao, SysMenuModel> {
     /**
      * 新增菜单
      *
-     * @param menuDto
+     * @param menuDto menuDto
      */
     public void addMenu(MenuDto menuDto) {
         SysMenuModel sysMenuModel = new SysMenuModel();
@@ -65,6 +65,12 @@ public class MenuService extends ServiceImpl<SysMenuDao, SysMenuModel> {
 
     public void deleteMenuById(Integer id) {
         sysMenuDao.deleteById(id);
+    }
+
+    public void updateMenuById(MenuDto menuDto) {
+        SysMenuModel sysMenuModel = new SysMenuModel();
+        BeanUtils.copyProperties(menuDto, sysMenuModel);
+        sysMenuDao.updateById(sysMenuModel);
     }
 
     /**

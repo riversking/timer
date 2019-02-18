@@ -24,6 +24,11 @@ public class MenuController {
     @Autowired
     private MenuService menuService;
 
+    /**
+     * 获取menu树
+     *
+     * @return ResponseVo
+     */
     @PostMapping("getMenuTree")
     public ResponseVo getMenuTree() {
         ResponseVo vo = ResponseVo.ok();
@@ -33,6 +38,11 @@ public class MenuController {
         return vo;
     }
 
+    /**
+     * 通过id获取menu详情
+     *
+     * @return ResponseVo
+     */
     @PostMapping("getMenuById")
     public ResponseVo getMenuById(@RequestBody RequestVo<Integer> vo) {
         ResponseVo rvo = ResponseVo.ok();
@@ -45,6 +55,11 @@ public class MenuController {
         return rvo;
     }
 
+    /**
+     * 添加menu & button
+     *
+     * @return ResponseVo
+     */
     @PostMapping("addMenu")
     public ResponseVo addMenu(@RequestBody RequestVo<MenuDto> requestVo) {
         ResponseVo rvo = ResponseVo.ok();
@@ -60,12 +75,30 @@ public class MenuController {
         return rvo;
     }
 
+    /**
+     * 通过id删除 menu & button
+     *
+     * @return ResponseVo
+     */
     @PostMapping("deleteMenu")
     public ResponseVo deleteMenu(@RequestBody RequestVo<Integer> requestVo) {
         ResponseVo vo = ResponseVo.ok();
         Integer id = requestVo.getParam();
+        if (id == 0) {
+            return ResponseVo.fail("103001", "id为空");
+        }
         menuService.deleteMenuById(id);
         vo.setMessage("删除成功");
+        return vo;
+    }
+
+    @PostMapping("updateMenu")
+    public  ResponseVo updateMenu(@RequestBody RequestVo<MenuDto> requestVo) {
+        ResponseVo vo = ResponseVo.ok();
+        MenuDto menuDto = requestVo.getParam();
+        menuService.updateMenuById(menuDto);
+        vo.setCode("0");
+        vo.setMessage("更新成功");
         return vo;
     }
 

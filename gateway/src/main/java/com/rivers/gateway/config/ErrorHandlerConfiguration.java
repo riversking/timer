@@ -23,6 +23,7 @@ import java.util.List;
  */
 @Configuration
 @EnableConfigurationProperties({ServerProperties.class, ResourceProperties.class})
+@Deprecated
 public class ErrorHandlerConfiguration {
     private final ServerProperties serverProperties;
 

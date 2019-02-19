@@ -87,6 +87,10 @@ public class RoleController {
         return responseVo;
     }
 
+    /**
+     * 角色列表
+     * @return ResponseVo
+     */
     @PostMapping("roleList")
     public ResponseVo roleList() {
         ResponseVo responseVo = ResponseVo.ok();
@@ -106,6 +110,8 @@ public class RoleController {
         responseVo.setMessage("更新成功");
         return responseVo;
     }
+
+
 
 
 }

@@ -3,15 +3,15 @@
 
  Source Server         : localhost
  Source Server Type    : MySQL
- Source Server Version : 80013
+ Source Server Version : 80012
  Source Host           : localhost:3306
  Source Schema         : cloud_deer_admin
 
  Target Server Type    : MySQL
- Target Server Version : 80013
+ Target Server Version : 80012
  File Encoding         : 65001
 
- Date: 20/01/2019 09:03:32
+ Date: 20/02/2019 14:36:03
 */
 
 SET NAMES utf8mb4;
@@ -21,23 +21,22 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- Table structure for sys_dept
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dept`;
-CREATE TABLE `sys_dept` (
+CREATE TABLE `sys_dept`  (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '部门名称',
-  `order_num` int(11) NOT NULL DEFAULT '0' COMMENT '排序',
+  `order_num` int(11) NOT NULL DEFAULT 0 COMMENT '排序',
   `create_user` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '创建人',
-  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_user` varchar(50) NOT NULL COMMENT '修改人',
-  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-  `is_delete` int(1) NOT NULL DEFAULT '0' COMMENT '是否删除  -1：已删除  0：正常',
-  `parent_id` int(11) NOT NULL DEFAULT '0',
+  `create_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_user` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '修改人',
+  `update_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '修改时间',
+  `is_delete` int(1) NOT NULL DEFAULT 0 COMMENT '是否删除  -1：已删除  0：正常',
+  `parent_id` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_dept
 -- ----------------------------
-BEGIN;
 INSERT INTO `sys_dept` VALUES (1, '山东农信', 1, 'tester', '2018-01-22 19:00:23', 'tester', '2019-01-20 08:59:09', 0, 0);
 INSERT INTO `sys_dept` VALUES (2, '沙县国际', 1, 'tester', '2018-01-22 19:00:38', 'tester', '2019-01-20 08:59:10', 0, 0);
 INSERT INTO `sys_dept` VALUES (3, '潍坊农信', 1, 'tester', '2018-01-22 19:00:44', 'tester', '2019-01-20 08:59:12', 0, 1);
@@ -48,22 +47,20 @@ INSERT INTO `sys_dept` VALUES (7, '山东沙县', 1, 'tester', '2018-01-22 19:01
 INSERT INTO `sys_dept` VALUES (8, '潍坊沙县', 1, 'tester', '2018-01-22 19:02:03', 'tester', '2019-01-20 08:59:18', 0, 7);
 INSERT INTO `sys_dept` VALUES (9, '高新沙县', 1, 'tester', '2018-01-22 19:02:14', 'tester', '2019-01-20 08:59:17', 0, 8);
 INSERT INTO `sys_dept` VALUES (10, '测试', 110, 'tester', '2018-06-26 21:26:59', 'tester', '2019-01-20 08:59:21', 1, 5);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_dept_relation
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dept_relation`;
-CREATE TABLE `sys_dept_relation` (
+CREATE TABLE `sys_dept_relation`  (
   `ancestor` int(11) NOT NULL COMMENT '祖先节点',
   `descendant` int(11) NOT NULL COMMENT '后代节点',
-  PRIMARY KEY (`ancestor`,`descendant`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`ancestor`, `descendant`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_dept_relation
 -- ----------------------------
-BEGIN;
 INSERT INTO `sys_dept_relation` VALUES (1, 1);
 INSERT INTO `sys_dept_relation` VALUES (1, 3);
 INSERT INTO `sys_dept_relation` VALUES (1, 4);
@@ -93,175 +90,165 @@ INSERT INTO `sys_dept_relation` VALUES (8, 9);
 INSERT INTO `sys_dept_relation` VALUES (8, 11);
 INSERT INTO `sys_dept_relation` VALUES (9, 9);
 INSERT INTO `sys_dept_relation` VALUES (11, 11);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_dict
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dict`;
-CREATE TABLE `sys_dict` (
+CREATE TABLE `sys_dict`  (
   `id` int(64) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `value` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '数据值',
   `label` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '标签名',
   `type` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '类型',
   `description` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '描述',
-  `sort` decimal(10,0) NOT NULL COMMENT '排序（升序）',
-  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `remarks` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '备注信息',
+  `sort` decimal(10, 0) NOT NULL COMMENT '排序（升序）',
+  `create_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
+  `remarks` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '备注信息',
   `is_delete` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0' COMMENT '删除标记',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_dict
 -- ----------------------------
-BEGIN;
 INSERT INTO `sys_dict` VALUES (2, '9', '异常', 'log_type', '日志异常', 1, '2017-12-28 13:06:39', '2018-01-06 10:54:41', '', '0');
 INSERT INTO `sys_dict` VALUES (3, '0', '正常', 'log_type', '正常', 1, '2018-05-11 23:52:57', '2018-05-11 23:52:57', '123', '0');
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_log
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_log`;
-CREATE TABLE `sys_log` (
+CREATE TABLE `sys_log`  (
   `id` bigint(64) NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `type` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '1' COMMENT '日志类型',
-  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '日志标题',
-  `service_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '服务ID',
-  `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '创建者',
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-  `remote_addr` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '操作IP地址',
-  `user_agent` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '用户代理',
-  `request_uri` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '请求URI',
-  `method` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '操作方式',
-  `params` text CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT '操作提交的数据',
-  `time` mediumtext CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT '执行时间',
-  `is_delete` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '0' COMMENT '删除标记',
-  `exception` text CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT '异常信息',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `type` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '1' COMMENT '日志类型',
+  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '日志标题',
+  `service_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '服务ID',
+  `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '创建者',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '更新时间',
+  `remote_addr` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '操作IP地址',
+  `user_agent` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '用户代理',
+  `request_uri` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '请求URI',
+  `method` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '操作方式',
+  `params` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '操作提交的数据',
+  `time` mediumtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '执行时间',
+  `is_delete` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '删除标记',
+  `exception` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '异常信息',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sys_menu
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_menu`;
-CREATE TABLE `sys_menu` (
+CREATE TABLE `sys_menu`  (
   `id` int(11) NOT NULL COMMENT '菜单ID',
-  `name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '菜单名称',
-  `permission` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '菜单权限标识',
-  `path` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '前端URL',
-  `parent_id` int(11) NOT NULL DEFAULT '0' COMMENT '父菜单ID',
-  `icon` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '图标',
-  `component` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT 'VUE页面',
-  `sort` int(11) DEFAULT '1' COMMENT '排序值',
-  `type` int(1) NOT NULL DEFAULT '0' COMMENT '菜单类型 （0菜单 1按钮）',
-  `create_user` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '创建人',
-  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_user` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '修改人',
-  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `iframe` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT 'iframe路径',
-  `is_content` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '0表示有 1表示没有',
-  `is_delete` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '0' COMMENT '0--正常 1--删除',
+  `name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '菜单名称',
+  `permission` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '菜单权限标识',
+  `path` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '前端URL',
+  `parent_id` int(11) NULL DEFAULT NULL COMMENT '父菜单ID',
+  `icon` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '图标',
+  `component` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'VUE页面',
+  `sort` int(11) NULL DEFAULT 1 COMMENT '排序值',
+  `keep_alive` int(1) NULL DEFAULT 0 COMMENT '0-开启，1- 关闭',
+  `type` int(1) NULL DEFAULT NULL COMMENT '菜单类型 （0菜单 1按钮）',
+  `create_user` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '创建人',
+  `create_time` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_user` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '更新人',
+  `update_time` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
+  `is_delete` int(1) NULL DEFAULT 0 COMMENT '逻辑删除标记(0--正常 1--删除)',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '菜单权限表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_menu
 -- ----------------------------
-INSERT INTO `sys_menu` VALUES (1, '系统管理', '', '/setting', -1, 'settings', 'Main', 1, '0', 'admin', '2017-11-07 20:56:00', 'admin', '2019-02-14 14:10:01', '', '1', '0');
-INSERT INTO `sys_menu` VALUES (2, '用户管理', '', 'user', 1, 'person-add', 'Setting/User', 2, '0', 'admin', '2017-11-02 22:24:37', 'admin', '2019-02-14 14:10:01', '', '0', '0');
-INSERT INTO `sys_menu` VALUES (3, '菜单管理', '', 'menu', 1, 'ios-list-outline', 'Setting/Menu', 3, '0', 'admin', '2017-11-08 09:57:27', 'admin', '2019-02-14 14:10:01', '', '1', '0');
-INSERT INTO `sys_menu` VALUES (4, '角色管理', '', 'role', 1, 'person-stalker', 'Setting/Role', 4, '0', 'admin', '2017-11-08 10:13:37', 'admin', '2019-02-14 14:10:01', '', '0', '0');
-INSERT INTO `sys_menu` VALUES (5, '日志管理', '', 'log', 1, 'ios-eye', 'Setting/Log', 5, '0', 'admin', '2017-11-20 14:06:22', 'admin', '2019-02-14 14:10:01', '', '1', '1');
-INSERT INTO `sys_menu` VALUES (6, '字典管理', '', 'dict', 1, 'ios-book-outline', 'Setting/Dict', 6, '0', 'admin', '2017-11-29 11:30:52', 'admin', '2019-02-14 14:10:01', '', '0', '1');
-INSERT INTO `sys_menu` VALUES (7, '部门管理', '', 'dept', 1, 'ios-people-outline', 'Setting/Dept', 7, '0', 'admin', '2018-01-20 13:17:19', 'admin', '2019-02-14 14:10:01', '', '1', '1');
-INSERT INTO `sys_menu` VALUES (8, '服务监控', '', 'server', 1, 'stats-bars', 'main-components/iframe', 8, '0', 'admin', '2018-01-22 12:30:41', 'admin', '2019-02-14 14:10:01', 'http://127.0.0.1:5000', '1', '1');
-INSERT INTO `sys_menu` VALUES (9, '分布式任务监控', '', 'xxlJob', 1, 'monitor', 'main-components/iframe', 9, '0', 'admin', '2018-01-23 10:53:33', 'admin', '2019-02-14 14:10:01', 'http://127.0.0.1:8181', '1', '1');
-INSERT INTO `sys_menu` VALUES (10, 'zipkin监控', '', 'http://139.224.200.249:5002', 8, 'icon-jiankong', '', 11, '0', 'admin', '2018-01-23 10:55:18', 'admin', '2019-02-14 14:10:01', '', '', '1');
-INSERT INTO `sys_menu` VALUES (11, 'pinpoint监控', '', 'https://pinpoint.pig4cloud.com', 8, 'icon-xiazaihuancun', '', 10, '0', 'admin', '2018-01-25 11:08:52', 'admin', '2019-02-14 14:10:01', '', '', '1');
-INSERT INTO `sys_menu` VALUES (12, '缓存状态', '', 'http://139.224.200.249:8585', 8, 'icon-ecs-status', '', 12, '0', 'admin', '2018-01-23 10:56:11', 'admin', '2019-02-14 14:10:01', '', '', '1');
-INSERT INTO `sys_menu` VALUES (13, 'ELK状态', '', 'http://139.224.200.249:5601', 8, 'icon-ecs-status', '', 13, '0', 'admin', '2018-01-23 10:55:47', 'admin', '2019-02-14 14:10:01', '', '', '1');
-INSERT INTO `sys_menu` VALUES (14, '接口文档', '', 'http://139.224.200.249:9999/swagger-ui.html', 8, 'icon-wendangdocument72', '', 14, '0', 'admin', '2018-01-23 10:56:43', 'admin', '2019-02-14 14:10:01', '', '', '1');
-INSERT INTO `sys_menu` VALUES (15, '任务监控', '', 'http://139.224.200.249:8899', 8, 'icon-jiankong', '', 15, '0', 'admin', '2018-01-23 10:55:18', 'admin', '2019-02-14 14:10:01', '', '', '1');
-INSERT INTO `sys_menu` VALUES (22, '用户新增', 'sys_user_add', '', 2, '', '', NULL, '1', 'admin', '2017-11-08 09:52:09', 'admin', '2019-02-14 14:10:01', '', '', '0');
-INSERT INTO `sys_menu` VALUES (23, '用户修改', 'sys_user_edit', '', 2, '', '', NULL, '1', 'admin', '2017-11-08 09:52:48', 'admin', '2019-02-14 14:10:01', '', '', '0');
-INSERT INTO `sys_menu` VALUES (24, '用户删除', 'sys_user_del', '', 2, '', '', NULL, '1', 'admin', '2017-11-08 09:54:01', 'admin', '2019-02-14 14:10:01', '', '', '0');
-INSERT INTO `sys_menu` VALUES (25, 'haha', 'sys', '', 2, '', '', 1, '', 'admin', '2018-07-20 05:53:35', 'admin', '2019-02-14 14:10:01', '', '', '1');
-INSERT INTO `sys_menu` VALUES (32, '菜单新增', 'sys_menu_add', '', 3, '', '', NULL, '1', 'admin', '2017-11-08 10:15:53', 'admin', '2019-02-14 14:10:01', '', '', '0');
-INSERT INTO `sys_menu` VALUES (33, '菜单修改', 'sys_menu_edit', '', 3, '', '', NULL, '1', 'admin', '2017-11-08 10:16:23', 'admin', '2019-02-14 14:10:01', '', '', '0');
-INSERT INTO `sys_menu` VALUES (34, '菜单删除', 'sys_menu_del', '', 3, '', '', NULL, '1', 'admin', '2017-11-08 10:16:43', 'admin', '2019-02-14 14:10:01', '', '', '0');
-INSERT INTO `sys_menu` VALUES (42, '角色新增', 'sys_role_add', '', 4, '', '', NULL, '1', 'admin', '2017-11-08 10:14:18', 'admin', '2019-02-14 14:10:01', '', '', '0');
-INSERT INTO `sys_menu` VALUES (43, '角色修改', 'sys_role_edit', '', 4, '', '', NULL, '1', 'admin', '2017-11-08 10:14:41', 'admin', '2019-02-14 14:10:01', '', '', '0');
-INSERT INTO `sys_menu` VALUES (44, '角色删除', 'sys_role_del', '', 4, '', '', NULL, '1', 'admin', '2017-11-08 10:14:59', 'admin', '2019-02-14 14:10:01', '', '', '0');
-INSERT INTO `sys_menu` VALUES (45, '分配权限', 'sys_role_perm', '', 4, '', '', NULL, '1', 'admin', '2018-04-20 07:22:55', 'admin', '2019-02-14 14:10:01', '', '', '0');
-INSERT INTO `sys_menu` VALUES (52, '日志删除', 'sys_log_del', '', 5, '', '', NULL, '1', 'admin', '2017-11-20 20:37:37', 'admin', '2019-02-14 14:10:01', '', '', '0');
-INSERT INTO `sys_menu` VALUES (56, '哈哈', 'sys_user_del', '', 24, '', '', 1, '', 'admin', '2018-07-24 07:51:18', 'admin', '2019-02-14 14:10:01', '', '', '1');
-INSERT INTO `sys_menu` VALUES (62, '字典删除', 'sys_dict_del', '', 6, '', '', NULL, '1', 'admin', '2017-11-29 11:30:11', 'admin', '2019-02-14 14:10:01', '', '', '0');
-INSERT INTO `sys_menu` VALUES (63, '字典新增', 'sys_dict_add', '', 6, '', '', NULL, '1', 'admin', '2018-05-11 22:34:55', 'admin', '2019-02-14 14:10:01', '', '', '0');
-INSERT INTO `sys_menu` VALUES (64, '字典修改', 'sys_dict_edit', '', 6, '', '', NULL, '1', 'admin', '2018-05-11 22:36:03', 'admin', '2019-02-14 14:10:01', '', '', '0');
-INSERT INTO `sys_menu` VALUES (72, '部门新增', 'sys_dept_add', '', 7, '', '', NULL, '1', 'admin', '2018-01-20 14:56:16', 'admin', '2019-02-14 14:10:01', '', '', '0');
-INSERT INTO `sys_menu` VALUES (73, '部门修改', 'sys_dept_edit', '', 7, '', '', NULL, '1', 'admin', '2018-01-20 14:56:59', 'admin', '2019-02-14 14:10:01', '', '', '0');
-INSERT INTO `sys_menu` VALUES (74, '部门删除', 'sys_dept_del', '', 7, '', '', NULL, '1', 'admin', '2018-01-20 14:57:28', 'admin', '2019-02-14 14:10:01', '', '', '0');
-INSERT INTO `sys_menu` VALUES (100, '客户端管理', '', 'client', 1, 'steam', 'Setting/Client', 10, '0', 'admin', '2018-01-20 13:17:19', 'admin', '2019-02-14 14:10:01', '', '0', '0');
-INSERT INTO `sys_menu` VALUES (101, '客户端新增', 'sys_client_add', '', 100, '1', '', NULL, '1', 'admin', '2018-05-15 21:35:18', 'admin', '2019-02-14 14:10:01', '', '', '0');
-INSERT INTO `sys_menu` VALUES (102, '客户端修改', 'sys_client_edit', '', 100, '', '', NULL, '1', 'admin', '2018-05-15 21:37:06', 'admin', '2019-02-14 14:10:01', '', '', '0');
-INSERT INTO `sys_menu` VALUES (103, '客户端删除', 'sys_client_del', '', 100, '', '', NULL, '1', 'admin', '2018-05-15 21:39:16', 'admin', '2019-02-14 14:10:01', '', '', '0');
-INSERT INTO `sys_menu` VALUES (200, '服务监控', '', 'http://127.0.0.1:5001', 1, 'icon-msnui-supervise', '', 9, '0', 'admin', '2018-06-26 10:50:32', 'admin', '2019-02-14 14:10:01', '', '', '1');
-COMMIT;
-
-
+INSERT INTO `sys_menu` VALUES (1000, '系统管理', NULL, '/setting', -1, 'icon-quanxianguanli', 'Layout', 0, 0, 0, NULL, '2018-09-28 08:29:53', NULL, '2019-02-20 10:56:08', 0);
+INSERT INTO `sys_menu` VALUES (1100, '用户管理', NULL, 'user', 1000, 'icon-yonghuguanli', 'views/admin/user/index', 1, 0, 0, NULL, '2017-11-02 22:24:37', NULL, '2018-09-28 09:00:41', 0);
+INSERT INTO `sys_menu` VALUES (1101, '用户新增', 'sys_user_add', NULL, 1100, NULL, NULL, NULL, 0, 1, NULL, '2017-11-08 09:52:09', NULL, '2018-09-28 09:06:34', 0);
+INSERT INTO `sys_menu` VALUES (1102, '用户修改', 'sys_user_edit', NULL, 1100, NULL, NULL, NULL, 0, 1, NULL, '2017-11-08 09:52:48', NULL, '2018-09-28 09:06:37', 0);
+INSERT INTO `sys_menu` VALUES (1103, '用户删除', 'sys_user_del', NULL, 1100, NULL, NULL, NULL, 0, 1, NULL, '2017-11-08 09:54:01', NULL, '2018-09-28 09:06:42', 0);
+INSERT INTO `sys_menu` VALUES (1200, '菜单管理', NULL, 'menu', 1000, 'icon-caidanguanli', 'views/admin/menu/index', 2, 0, 0, NULL, '2017-11-08 09:57:27', NULL, '2018-09-28 09:00:45', 0);
+INSERT INTO `sys_menu` VALUES (1201, '菜单新增', 'sys_menu_add', NULL, 1200, NULL, NULL, NULL, 0, 1, NULL, '2017-11-08 10:15:53', NULL, '2018-09-28 09:07:16', 0);
+INSERT INTO `sys_menu` VALUES (1202, '菜单修改', 'sys_menu_edit', NULL, 1200, NULL, NULL, NULL, 0, 1, NULL, '2017-11-08 10:16:23', NULL, '2018-09-28 09:07:18', 0);
+INSERT INTO `sys_menu` VALUES (1203, '菜单删除', 'sys_menu_del', NULL, 1200, NULL, NULL, NULL, 0, 1, NULL, '2017-11-08 10:16:43', NULL, '2018-09-28 09:07:22', 0);
+INSERT INTO `sys_menu` VALUES (1300, '角色管理', NULL, 'role', 1000, 'icon-jiaoseguanli', 'views/admin/role/index', 3, 0, 0, NULL, '2017-11-08 10:13:37', NULL, '2018-09-28 09:00:48', 0);
+INSERT INTO `sys_menu` VALUES (1301, '角色新增', 'sys_role_add', NULL, 1300, NULL, NULL, NULL, 0, 1, NULL, '2017-11-08 10:14:18', NULL, '2018-09-28 09:07:46', 0);
+INSERT INTO `sys_menu` VALUES (1302, '角色修改', 'sys_role_edit', NULL, 1300, NULL, NULL, NULL, 0, 1, NULL, '2017-11-08 10:14:41', NULL, '2018-09-28 09:07:49', 0);
+INSERT INTO `sys_menu` VALUES (1303, '角色删除', 'sys_role_del', NULL, 1300, NULL, NULL, NULL, 0, 1, NULL, '2017-11-08 10:14:59', NULL, '2018-09-28 09:07:53', 0);
+INSERT INTO `sys_menu` VALUES (1304, '分配权限', 'sys_role_perm', NULL, 1300, NULL, NULL, NULL, 0, 1, NULL, '2018-04-20 07:22:55', NULL, '2018-09-28 09:13:23', 0);
+INSERT INTO `sys_menu` VALUES (1400, '部门管理', NULL, 'dept', 1000, 'icon-web-icon-', 'views/admin/dept/index', 4, 0, 0, NULL, '2018-01-20 13:17:19', NULL, '2018-12-09 16:35:12', 0);
+INSERT INTO `sys_menu` VALUES (1401, '部门新增', 'sys_dept_add', NULL, 1400, NULL, NULL, NULL, 0, 1, NULL, '2018-01-20 14:56:16', NULL, '2018-09-28 09:08:13', 0);
+INSERT INTO `sys_menu` VALUES (1402, '部门修改', 'sys_dept_edit', NULL, 1400, NULL, NULL, NULL, 0, 1, NULL, '2018-01-20 14:56:59', NULL, '2018-09-28 09:08:16', 0);
+INSERT INTO `sys_menu` VALUES (1403, '部门删除', 'sys_dept_del', NULL, 1400, NULL, NULL, NULL, 0, 1, NULL, '2018-01-20 14:57:28', NULL, '2018-09-28 09:08:18', 0);
+INSERT INTO `sys_menu` VALUES (2000, 'admin管理', NULL, '/admin', -1, 'icon-xitongguanli', 'Layout', 1, 0, 0, NULL, '2017-11-07 20:56:00', NULL, '2019-02-20 10:56:31', 0);
+INSERT INTO `sys_menu` VALUES (2100, '日志管理', NULL, 'log', 2000, 'icon-rizhiguanli', 'views/admin/log/index', 5, 0, 0, NULL, '2017-11-20 14:06:22', NULL, '2018-09-28 09:01:52', 0);
+INSERT INTO `sys_menu` VALUES (2101, '日志删除', 'sys_log_del', NULL, 2100, NULL, NULL, NULL, 0, 1, NULL, '2017-11-20 20:37:37', NULL, '2018-09-28 09:08:44', 0);
+INSERT INTO `sys_menu` VALUES (2200, '字典管理', NULL, 'dict', 2000, 'icon-navicon-zdgl', 'views/admin/dict/index', 6, 0, 0, NULL, '2017-11-29 11:30:52', NULL, '2018-09-28 09:01:47', 0);
+INSERT INTO `sys_menu` VALUES (2201, '字典删除', 'sys_dict_del', NULL, 2200, NULL, NULL, NULL, 0, 1, NULL, '2017-11-29 11:30:11', NULL, '2018-09-28 09:09:10', 0);
+INSERT INTO `sys_menu` VALUES (2202, '字典新增', 'sys_dict_add', NULL, 2200, NULL, NULL, NULL, 0, 1, NULL, '2018-05-11 22:34:55', NULL, '2018-09-28 09:09:12', 0);
+INSERT INTO `sys_menu` VALUES (2203, '字典修改', 'sys_dict_edit', NULL, 2200, NULL, NULL, NULL, 0, 1, NULL, '2018-05-11 22:36:03', NULL, '2018-09-28 09:09:16', 0);
+INSERT INTO `sys_menu` VALUES (2300, '代码生成', '', 'gen', 2000, 'icon-weibiaoti46', 'views/gen/index', 8, 0, 0, NULL, '2018-01-20 13:17:19', NULL, '2018-11-24 05:21:01', 0);
+INSERT INTO `sys_menu` VALUES (2400, '终端管理', '', 'client', 2000, 'icon-shouji', 'views/admin/client/index', 9, 0, 0, NULL, '2018-01-20 13:17:19', NULL, '2018-09-28 09:01:43', 0);
+INSERT INTO `sys_menu` VALUES (2401, '客户端新增', 'sys_client_add', NULL, 2400, '1', NULL, NULL, 0, 1, NULL, '2018-05-15 21:35:18', NULL, '2018-09-28 09:10:25', 0);
+INSERT INTO `sys_menu` VALUES (2402, '客户端修改', 'sys_client_edit', NULL, 2400, NULL, NULL, NULL, 0, 1, NULL, '2018-05-15 21:37:06', NULL, '2018-09-28 09:10:27', 0);
+INSERT INTO `sys_menu` VALUES (2403, '客户端删除', 'sys_client_del', NULL, 2400, NULL, NULL, NULL, 0, 1, NULL, '2018-05-15 21:39:16', NULL, '2018-09-28 09:10:30', 0);
+INSERT INTO `sys_menu` VALUES (2500, '服务监控', NULL, 'http://139.224.200.249:15001', 2000, 'icon-server', NULL, 10, 0, 0, NULL, '2018-06-26 10:50:32', NULL, '2019-02-01 20:41:30', 0);
+INSERT INTO `sys_menu` VALUES (2600, '令牌管理', NULL, 'token', 2000, 'icon-denglvlingpai', 'views/admin/token/index', 11, 0, 0, NULL, '2018-09-04 05:58:41', NULL, '2018-09-28 09:01:38', 0);
+INSERT INTO `sys_menu` VALUES (2601, '令牌删除', 'sys_token_del', NULL, 2600, NULL, NULL, 1, 0, 1, NULL, '2018-09-04 05:59:50', NULL, '2018-09-28 09:11:24', 0);
+INSERT INTO `sys_menu` VALUES (5000, '一级菜单', NULL, '/crud', -1, 'icon-caidanguanli', '', 4, 0, 0, NULL, '2018-08-28 01:50:22', NULL, '2018-09-28 08:58:20', 0);
+INSERT INTO `sys_menu` VALUES (5001, '一级菜单', NULL, 'index', 5000, 'icon-caidanguanli', 'views/crud/index', 1, 0, 0, NULL, '2018-08-28 01:50:48', NULL, '2018-11-21 17:48:19', 1);
+INSERT INTO `sys_menu` VALUES (5002, '二级菜单', NULL, 'crud', 5001, 'icon-caidanguanli', 'views/crud/index', 1, 0, 0, NULL, '2018-08-28 01:51:23', NULL, '2018-11-21 17:47:40', 1);
+INSERT INTO `sys_menu` VALUES (5003, '二级菜单', NULL, '', 5000, 'icon-caidanguanli', '', 1, 0, 0, NULL, '2018-11-21 17:49:18', NULL, '2018-11-21 17:53:25', 0);
+INSERT INTO `sys_menu` VALUES (5004, '二级菜单', NULL, 'index', 5003, 'icon-caidanguanli', 'views/crud/index', 1, 0, 0, NULL, '2018-11-21 17:53:51', NULL, '2018-12-20 14:26:53', 1);
+INSERT INTO `sys_menu` VALUES (9999, '系统官网', NULL, 'https://pig4cloud.com/#/', -1, 'icon-guanwangfangwen', NULL, 9, 0, 0, NULL, '2019-01-17 17:05:19', NULL, '2019-01-17 17:29:06', 0);
 
 -- ----------------------------
 -- Table structure for sys_oauth_client
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_oauth_client`;
-CREATE TABLE `sys_oauth_client` (
-  `client_id` varchar(32) NOT NULL,
-  `resource_ids` varchar(256) DEFAULT '',
-  `client_secret` varchar(256) DEFAULT '',
-  `scope` varchar(256) DEFAULT '',
-  `authorized_grant_types` varchar(256) DEFAULT '',
-  `web_server_redirect_uri` varchar(256) DEFAULT '',
-  `authorities` varchar(256) DEFAULT '',
-  `access_token_validity` int(11) DEFAULT '0',
-  `refresh_token_validity` int(11) DEFAULT '0',
-  `additional_information` varchar(4096) DEFAULT '',
-  `autoapprove` varchar(256) DEFAULT '',
-  PRIMARY KEY (`client_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `sys_oauth_client`  (
+  `client_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `resource_ids` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '',
+  `client_secret` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '',
+  `scope` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '',
+  `authorized_grant_types` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '',
+  `web_server_redirect_uri` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '',
+  `authorities` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '',
+  `access_token_validity` int(11) NULL DEFAULT 0,
+  `refresh_token_validity` int(11) NULL DEFAULT 0,
+  `additional_information` varchar(4096) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '',
+  `autoapprove` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '',
+  PRIMARY KEY (`client_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_oauth_client
 -- ----------------------------
-BEGIN;
 INSERT INTO `sys_oauth_client` VALUES ('admin', '', '97db7920a2894341b8642d628b3b192d', 'server', 'password,refresh_token', '', '', NULL, NULL, '', 'true');
 INSERT INTO `sys_oauth_client` VALUES ('app', '', '283fef90f24a457b9f698cba972b16ec', 'server', 'password,refresh_token', '', '', NULL, NULL, '', 'true');
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_role
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role`;
-CREATE TABLE `sys_role` (
+CREATE TABLE `sys_role`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `role_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `role_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `role_desc` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '',
   `create_user` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '创建人',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
   `update_user` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '修改人',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `is_delete` int(1) NOT NULL DEFAULT '0' COMMENT '删除标识（0-正常,1-删除）',
+  `update_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0),
+  `is_delete` int(1) NOT NULL DEFAULT 0 COMMENT '删除标识（0-正常,1-删除）',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
-BEGIN;
 INSERT INTO `sys_role` VALUES (1, 'admin', 'ROLE_ADMIN', '超级管理员', '', '2017-10-29 15:45:51', '', '2018-04-22 11:40:29', 0);
 INSERT INTO `sys_role` VALUES (14, 'demo', 'demo', 'demo用户', '', '2018-04-20 07:14:32', '', '2018-06-12 18:43:22', 0);
 INSERT INTO `sys_role` VALUES (15, 'demo2222222', 'demo2', 'demo2', '', '2018-06-12 18:59:38', '', '2018-08-02 10:48:09', 0);
@@ -270,39 +257,92 @@ INSERT INTO `sys_role` VALUES (17, 'manager', 'ROLE_MANAGER', '经理级', '', '
 INSERT INTO `sys_role` VALUES (18, 'root', 'ROLE_ROOT', '超级管理员', '', '2019-01-19 19:31:19', '', '2019-01-19 19:31:19', 0);
 INSERT INTO `sys_role` VALUES (19, '123321', '123123', 'ddddd', '', '2019-01-19 20:21:15', '', '2019-01-19 21:30:46', 1);
 INSERT INTO `sys_role` VALUES (20, 'aa', 'aaaaaaa', 'aaaaaaaa', '', '2019-01-19 20:47:20', '', '2019-01-19 21:30:44', 1);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_role_dept
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_dept`;
-CREATE TABLE `sys_role_dept` (
+CREATE TABLE `sys_role_dept`  (
   `id` int(20) NOT NULL AUTO_INCREMENT,
-  `role_id` int(20) DEFAULT '0' COMMENT '角色ID',
-  `dept_id` int(20) DEFAULT '0' COMMENT '部门ID',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `role_id` int(20) NULL DEFAULT 0 COMMENT '角色ID',
+  `dept_id` int(20) NULL DEFAULT 0 COMMENT '部门ID',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_role_dept
 -- ----------------------------
-BEGIN;
 INSERT INTO `sys_role_dept` VALUES (11, 1, 1);
 INSERT INTO `sys_role_dept` VALUES (16, 14, 6);
 INSERT INTO `sys_role_dept` VALUES (18, 16, 8);
 INSERT INTO `sys_role_dept` VALUES (23, 15, 5);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_role_menu
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_menu`;
-CREATE TABLE `sys_role_menu` (
+CREATE TABLE `sys_role_menu`  (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `role_id` int(11) NOT NULL COMMENT '角色ID',
   `menu_id` int(11) NOT NULL COMMENT '菜单ID',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 89 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sys_role_menu
+-- ----------------------------
+INSERT INTO `sys_role_menu` VALUES (1, 1, 1000);
+INSERT INTO `sys_role_menu` VALUES (2, 1, 1100);
+INSERT INTO `sys_role_menu` VALUES (3, 1, 1101);
+INSERT INTO `sys_role_menu` VALUES (4, 1, 1102);
+INSERT INTO `sys_role_menu` VALUES (5, 1, 1103);
+INSERT INTO `sys_role_menu` VALUES (6, 1, 1200);
+INSERT INTO `sys_role_menu` VALUES (7, 1, 1201);
+INSERT INTO `sys_role_menu` VALUES (8, 1, 1202);
+INSERT INTO `sys_role_menu` VALUES (9, 1, 1203);
+INSERT INTO `sys_role_menu` VALUES (10, 1, 1300);
+INSERT INTO `sys_role_menu` VALUES (11, 1, 1301);
+INSERT INTO `sys_role_menu` VALUES (12, 1, 1302);
+INSERT INTO `sys_role_menu` VALUES (13, 1, 1303);
+INSERT INTO `sys_role_menu` VALUES (14, 1, 1304);
+INSERT INTO `sys_role_menu` VALUES (15, 1, 1400);
+INSERT INTO `sys_role_menu` VALUES (16, 1, 1401);
+INSERT INTO `sys_role_menu` VALUES (17, 1, 1402);
+INSERT INTO `sys_role_menu` VALUES (18, 1, 1403);
+INSERT INTO `sys_role_menu` VALUES (19, 1, 2000);
+INSERT INTO `sys_role_menu` VALUES (20, 1, 2100);
+INSERT INTO `sys_role_menu` VALUES (21, 1, 2101);
+INSERT INTO `sys_role_menu` VALUES (22, 1, 2200);
+INSERT INTO `sys_role_menu` VALUES (23, 1, 2201);
+INSERT INTO `sys_role_menu` VALUES (24, 1, 2202);
+INSERT INTO `sys_role_menu` VALUES (25, 1, 2203);
+INSERT INTO `sys_role_menu` VALUES (26, 1, 2300);
+INSERT INTO `sys_role_menu` VALUES (27, 1, 2400);
+INSERT INTO `sys_role_menu` VALUES (28, 1, 2401);
+INSERT INTO `sys_role_menu` VALUES (29, 1, 2402);
+INSERT INTO `sys_role_menu` VALUES (30, 1, 2403);
+INSERT INTO `sys_role_menu` VALUES (31, 1, 2500);
+INSERT INTO `sys_role_menu` VALUES (32, 1, 2600);
+INSERT INTO `sys_role_menu` VALUES (33, 1, 2601);
+INSERT INTO `sys_role_menu` VALUES (34, 1, 9999);
+INSERT INTO `sys_role_menu` VALUES (35, 2, 1000);
+INSERT INTO `sys_role_menu` VALUES (36, 2, 1100);
+INSERT INTO `sys_role_menu` VALUES (37, 2, 1101);
+INSERT INTO `sys_role_menu` VALUES (38, 2, 1102);
+INSERT INTO `sys_role_menu` VALUES (39, 2, 1103);
+INSERT INTO `sys_role_menu` VALUES (40, 2, 1200);
+INSERT INTO `sys_role_menu` VALUES (41, 2, 1201);
+INSERT INTO `sys_role_menu` VALUES (42, 2, 1202);
+INSERT INTO `sys_role_menu` VALUES (43, 2, 1203);
+INSERT INTO `sys_role_menu` VALUES (44, 2, 1300);
+INSERT INTO `sys_role_menu` VALUES (45, 2, 1301);
+INSERT INTO `sys_role_menu` VALUES (46, 2, 1302);
+INSERT INTO `sys_role_menu` VALUES (47, 2, 1303);
+INSERT INTO `sys_role_menu` VALUES (48, 2, 1304);
+INSERT INTO `sys_role_menu` VALUES (49, 2, 1400);
+INSERT INTO `sys_role_menu` VALUES (50, 2, 1401);
+INSERT INTO `sys_role_menu` VALUES (51, 2, 1402);
+INSERT INTO `sys_role_menu` VALUES (52, 2, 1403);
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -337,7 +377,7 @@ CREATE TABLE `sys_user_role`  (
   `user_id` int(11) NOT NULL COMMENT '用户ID',
   `role_id` int(11) NOT NULL COMMENT '角色ID',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_user_role

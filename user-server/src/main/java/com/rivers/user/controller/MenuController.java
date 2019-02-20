@@ -108,4 +108,17 @@ public class MenuController {
         return vo;
     }
 
+    @PostMapping("getMenuByRoleId")
+    public ResponseVo getMenuByRoleId(@RequestBody RequestVo<Integer> requestVo) {
+        ResponseVo vo = ResponseVo.ok();
+        Integer roleId = requestVo.getParam();
+        if (roleId == 0) {
+            return ResponseVo.fail("103002", "roleId为空");
+        }
+        vo.setCode("0");
+        vo.setMessage("查询成功");
+        vo.setDatas(menuService.getMenuByRoleId(roleId));
+        return vo;
+    }
+
 }

@@ -4,7 +4,9 @@ import cn.hutool.core.util.StrUtil;
 import com.rivers.core.view.RequestVo;
 import com.rivers.core.view.ResponseVo;
 import com.rivers.user.api.dto.MenuDto;
+import com.rivers.user.api.dto.MenuRoleDto;
 import com.rivers.user.api.entity.SysMenuModel;
+import com.rivers.user.api.entity.SysRoleMenuModel;
 import com.rivers.user.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -118,6 +120,16 @@ public class MenuController {
         vo.setCode("0");
         vo.setMessage("查询成功");
         vo.setDatas(menuService.getMenuByRoleId(roleId));
+        return vo;
+    }
+
+    @PostMapping("updateByRoleId")
+    public ResponseVo updateByRoleId(@RequestBody RequestVo<MenuRoleDto> requestVo) {
+        ResponseVo vo = ResponseVo.ok();
+        MenuRoleDto menuRoleDto = requestVo.getParam();
+        menuService.updateMenuByRoleId(menuRoleDto);
+        vo.setCode("0");
+        vo.setMessage("更新成功");
         return vo;
     }
 

@@ -16,4 +16,6 @@ public interface SysRoleMenuDao extends BaseMapper<SysRoleMenuModel> {
 
     List<Integer> getMenuIdByRoleId(Integer roleId);
 
+    int updateByRoleId(SysRoleMenuModel sysRoleMenuModel);
+
 }

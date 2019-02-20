@@ -3,6 +3,7 @@ package com.rivers.user.service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.rivers.user.api.dto.MenuDto;
+import com.rivers.user.api.dto.MenuRoleDto;
 import com.rivers.user.api.dto.MenuTree;
 import com.rivers.user.api.entity.SysMenuModel;
 import com.rivers.user.api.entity.SysRoleMenuModel;
@@ -10,8 +11,8 @@ import com.rivers.user.mapper.SysMenuDao;
 import com.rivers.user.mapper.SysRoleMenuDao;
 import com.rivers.utils.tree.TreeUtil;
 import org.springframework.beans.BeanUtils;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -106,6 +107,19 @@ public class MenuService extends ServiceImpl<SysMenuDao, SysMenuModel> {
             }
         }).collect(Collectors.toList());
         return buildTree(menuList, -1);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void updateMenuByRoleId(MenuRoleDto menuRoleDto) {
+        SysRoleMenuModel sysRoleMenuModel = new SysRoleMenuModel();
+        sysRoleMenuModel.setIsDelete(1);
+        sysRoleMenuModel.setRoleId(menuRoleDto.getRoleId());
+        sysRoleMenuDao.updateByRoleId(sysRoleMenuModel);
+        menuRoleDto.getMenuIds().forEach(i -> {
+            sysRoleMenuModel.setIsDelete(0);
+            sysRoleMenuModel.setMenuId(i);
+            sysRoleMenuDao.insert(sysRoleMenuModel);
+        });
     }
 
 

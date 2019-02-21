@@ -45,8 +45,6 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
     private static String IS_DELETE = "is_delete";
 
 
-
-
     /**
      * 添加用户
      *
@@ -105,7 +103,7 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
     }
 
     /**
-     * 根据用户名查询用户详情
+     * 检验用户是否正确
      *
      * @param userDto userDto
      * @return SysUserModel
@@ -151,6 +149,18 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
         }
         wrapper.eq(IS_DELETE, 0);
         return sysUserDao.selectList(wrapper);
+    }
+
+    /**
+     * 通过用户名查询用户信息
+     * @param username username
+     * @return List
+     */
+    public SysUserModel getUserInfo(String username) {
+        QueryWrapper<SysUserModel> wrapper = new QueryWrapper<>();
+        wrapper.eq("username", username);
+        wrapper.eq(IS_DELETE, 0);
+        return sysUserDao.selectOne(wrapper);
     }
 
     /**

@@ -112,8 +112,10 @@ public class UserController {
         vo.setMessage("查询成功");
         return vo;
     }
+
     /**
      * 删除用户
+     *
      * @param requestVo requestVo
      * @return ResponseVo
      */
@@ -123,6 +125,22 @@ public class UserController {
         Integer id = requestVo.getParam();
         userService.deleteById(id);
         vo.setMessage("删除成功");
+        return vo;
+    }
+
+    /**
+     * 用户信息
+     *
+     * @param requestVo requestVo
+     * @return ResponseVo
+     */
+    @PostMapping("userInfo")
+    public ResponseVo userInfo(@RequestBody RequestVo<String> requestVo) {
+        ResponseVo vo = ResponseVo.ok();
+        String username = requestVo.getParam();
+        SysUserModel userList = userService.getUserInfo(username);
+        vo.setDatas(userList);
+        vo.setMessage("查询成功");
         return vo;
     }
 

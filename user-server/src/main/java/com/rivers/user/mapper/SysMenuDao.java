@@ -21,4 +21,7 @@ public interface SysMenuDao extends BaseMapper<SysMenuModel> {
      */
     List<SysMenuModel> getMenuByRoleId(Integer id);
 
+
+    List<SysMenuModel> getMenuByUserId(Integer id);
+
 }

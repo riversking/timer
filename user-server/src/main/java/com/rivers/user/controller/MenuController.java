@@ -133,4 +133,18 @@ public class MenuController {
         return vo;
     }
 
+    @PostMapping("getMenuByUserId")
+    public ResponseVo getMenuByUserId(@RequestBody RequestVo<Integer> requestVo) {
+        ResponseVo vo = ResponseVo.ok();
+        Integer userId = requestVo.getParam();
+        if (userId == 0) {
+            return ResponseVo.fail("103005", "userId为空");
+        }
+        vo.setCode("0");
+        vo.setMessage("查询成功");
+        vo.setDatas(menuService.getMenuByUserId(userId));
+        return vo;
+    }
+
+
 }

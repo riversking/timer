@@ -122,9 +122,8 @@ public class MenuService extends ServiceImpl<SysMenuDao, SysMenuModel> {
         });
     }
 
-    public List<MenuTree> getMenuByUserId(Integer userId) {
-        List<SysMenuModel> list = sysMenuDao.getMenuByUserId(userId);
-        return buildTree(list, -1);
+    public List<Integer> getMenuByUserId(Integer userId) {
+        return sysMenuDao.getMenuByUserId(userId).stream().map(SysMenuModel::getId).collect(Collectors.toList());
     }
 
 

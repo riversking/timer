@@ -33,7 +33,6 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 node_modules/
-logs/
 .sass-cache/
 bower_components/
 app/bower_components
@@ -59,3 +58,4 @@ Thumbs.db
 ehthumbs.db
 # Folder config file
 Desktop.ini
+logs/

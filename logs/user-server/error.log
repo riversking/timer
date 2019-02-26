@@ -1,2 +1,0 @@
-2019-02-26 15:27:02,757 [main] ERROR [o.s.b.context.logging.LoggingApplicationListener] LoggingApplicationListener.java:317 - Cannot set level: classpath:logback.xml for 'path'
-2019-02-26 15:27:03,181 [main] ERROR [o.s.b.context.logging.LoggingApplicationListener] LoggingApplicationListener.java:317 - Cannot set level: classpath:logback.xml for 'path'

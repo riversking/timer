@@ -87,7 +87,9 @@ logging:
   level:
     #        tk.mybatis: DEBUG
     com.rivers: debug
-
+  path: D:\project\timer\logs\user-server\debug.log
+#  spring-admin 读取应用的日志 关键
+  file: ./logs/${spring.application.name}/debug.log
 
 
 management:
@@ -98,3 +100,7 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
+    logfile:
+      enabled: true
+    loggers:
+      enabled: true

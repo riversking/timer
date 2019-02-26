@@ -3,6 +3,7 @@ package com.rivers.user.config;
 import com.rivers.core.oath.common.AuthExceptionEntryPoint;
 import com.rivers.core.oath.common.CustomAccessDeniedHandler;
 import lombok.AllArgsConstructor;
+import org.aspectj.lang.annotation.Aspect;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,6 +18,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 @EnableResourceServer
 @AllArgsConstructor
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@Aspect
 public class ResourceServerConfigurer extends ResourceServerConfigurerAdapter {
 
     @Override

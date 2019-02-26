@@ -99,6 +99,9 @@ public class SysUserModel extends Model<SysUserModel> {
 	@TableField(exist = false)
 	private List<Integer> roleIds;
 
+//	@TableField(exist = false)
+//	private List<Integer> access;
+
 
 	@Override
 	protected Serializable pkVal() {

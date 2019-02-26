@@ -2,11 +2,13 @@ package com.rivers.user.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.google.common.collect.Lists;
 import com.rivers.user.api.dto.MenuDto;
 import com.rivers.user.api.dto.MenuRoleDto;
 import com.rivers.user.api.dto.MenuTree;
 import com.rivers.user.api.entity.SysMenuModel;
 import com.rivers.user.api.entity.SysRoleMenuModel;
+import com.rivers.user.api.vo.MenuVo;
 import com.rivers.user.mapper.SysMenuDao;
 import com.rivers.user.mapper.SysRoleMenuDao;
 import com.rivers.utils.tree.TreeUtil;
@@ -122,8 +124,11 @@ public class MenuService extends ServiceImpl<SysMenuDao, SysMenuModel> {
         });
     }
 
-    public List<Integer> getMenuByUserId(Integer userId) {
-        return sysMenuDao.getMenuByUserId(userId).stream().map(SysMenuModel::getId).collect(Collectors.toList());
+    public MenuVo getMenuByUserId(Integer userId) {
+        List<Integer> collect = sysMenuDao.getMenuByUserId(userId).stream().map(SysMenuModel::getId).collect(Collectors.toList());
+        MenuVo menuVo = new MenuVo();
+        menuVo.setAccess(collect);
+        return menuVo;
     }
 
 

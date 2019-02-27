@@ -2,6 +2,7 @@ package com.rivers.user.controller;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.rivers.core.log.annotation.SysLog;
 import com.rivers.core.view.RequestVo;
 import com.rivers.core.view.ResponseVo;
 import com.rivers.user.api.dto.RoleDto;
@@ -32,6 +33,7 @@ public class RoleController {
      * @return ResponseVo
      */
     @PostMapping("addRole")
+    @SysLog("添加角色")
     public ResponseVo addRole(@RequestBody RequestVo<SysRoleModel> requestVo) {
         SysRoleModel sysRoleModel = requestVo.getParam();
         ResponseVo responseVo = ResponseVo.ok();

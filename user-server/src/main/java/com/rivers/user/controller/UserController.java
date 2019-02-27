@@ -140,8 +140,8 @@ public class UserController {
     public ResponseVo userInfo(@RequestBody RequestVo<String> requestVo) {
         ResponseVo vo = ResponseVo.ok();
         String username = requestVo.getParam();
-        SysUserModel userList = userService.getUserInfo(username);
-        vo.setDatas(userList);
+        SysUserModel user = userService.getUserInfo(username);
+        vo.setDatas(user);
         vo.setMessage("查询成功");
         return vo;
     }

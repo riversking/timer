@@ -281,12 +281,13 @@ INSERT INTO `sys_role_dept` VALUES (23, 15, 5);
 -- Table structure for sys_role_menu
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_menu`;
-CREATE TABLE `sys_role_menu`  (
+CREATE TABLE `sys_role_menu` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `role_id` int(11) NOT NULL COMMENT '角色ID',
   `menu_id` int(11) NOT NULL COMMENT '菜单ID',
+  `is_delete` int(2) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 89 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_role_menu

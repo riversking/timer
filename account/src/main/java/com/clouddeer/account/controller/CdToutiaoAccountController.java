@@ -55,7 +55,7 @@ public class CdToutiaoAccountController {
         }
         cdAccount.setCdAccountToutiao(toutiaoUtil.getToutiaoInfo(cdAccount));
         accountService.addToutiaoAccount(cdAccount);
-        rvo.setMsg("操作成功");
+        rvo.setMessage("操作成功");
         return rvo;
     }
 
@@ -87,7 +87,7 @@ public class CdToutiaoAccountController {
         }
         cdAccount.setCdAccountToutiao(toutiaoUtil.getToutiaoInfo(cdAccount));
         accountService.updateToutiaoAccount(cdAccount);
-        rvo.setMsg("操作成功");
+        rvo.setMessage("操作成功");
         return rvo;
     }
 

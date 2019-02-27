@@ -52,7 +52,7 @@ public class CdZhihuAccountController {
         }
         cdAccount.setCdAccountZhihu(zhihuUtil.getZhihuInfo(cdAccount));
         accountService.addAccountZhihu(cdAccount);
-        rvo.setMsg("操作成功");
+        rvo.setMessage("操作成功");
         return rvo;
     }
 }

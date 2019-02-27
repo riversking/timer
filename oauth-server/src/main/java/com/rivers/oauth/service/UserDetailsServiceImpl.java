@@ -1,5 +1,6 @@
 package com.rivers.oauth.service;
 
+import com.rivers.user.api.feign.UserClientFeign;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -23,6 +24,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private UserClientFeign userClientFeign;
 
     /**
      * 注意password需要BCrypt加密，否则会报Encoded password does not look like BCrypt

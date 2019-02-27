@@ -5,11 +5,11 @@ server:
 spring:
   application:
     name: config-client
-  rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
+#  rabbitmq:
+#    host: localhost
+#    port: 5672
+#    username: guest
+#    password: guest
   cloud:
     config:
       discovery:
@@ -18,8 +18,8 @@ spring:
       label: master
       name: gateway-server
       fail-fast: true
-    bus:
-      enabled: true
+#    bus:
+#      enabled: true
 
 
 

@@ -58,7 +58,7 @@ public class CdBtimeAccountController {
         }
         cdAccount.setCdAccountBtime(btimeUtil.getBtimeInfo(cdAccount));
         accountService.addAccountBtime(cdAccount);
-        rvo.setMsg("操作成功");
+        rvo.setMessage("操作成功");
         return rvo;
     }
 
@@ -108,7 +108,7 @@ public class CdBtimeAccountController {
         }
         cdAccount.setCdAccountBtime(btimeUtil.getBtimeInfo(cdAccount));
         accountService.updateBtimeAccount(cdAccount);
-        rvo.setMsg("操作成功");
+        rvo.setMessage("操作成功");
         return rvo;
     }
 }

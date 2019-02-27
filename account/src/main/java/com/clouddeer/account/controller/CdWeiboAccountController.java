@@ -65,7 +65,7 @@ public class CdWeiboAccountController {
         }
         cdAccount.setCdAccountWeibo(weboUtil.getWeboInfo(cdAccount));
         accountService.addWeiboAccount(cdAccount);
-        rvo.setMsg("操作成功");
+        rvo.setMessage("操作成功");
         return rvo;
     }
 
@@ -95,7 +95,7 @@ public class CdWeiboAccountController {
         }
         cdAccount.setCdAccountWeibo(weboUtil.getWeboInfo(cdAccount));
         accountService.updateWeiboAccount(cdAccount);
-        rvo.setMsg("操作成功");
+        rvo.setMessage("操作成功");
         return rvo;
     }
 
@@ -122,7 +122,7 @@ public class CdWeiboAccountController {
             CdAccount cdAccount = accountService.getAccountById(la.getAccountId());
             weboUtil.sendWeiBo(cdAccount,la.getCdArticle());
         }
-        rvo.setMsg("操作成功");
+        rvo.setMessage("操作成功");
         return rvo;
     }
 

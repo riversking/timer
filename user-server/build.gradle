@@ -33,7 +33,7 @@ configurations {
 sourceSets {
 	main {
 		java {
-			srcDirs = ['src/main/java','../user-api/src/main/java']
+			srcDirs = ['src/main/java','../user-api']
 		}
 	}
 }

@@ -17,7 +17,7 @@
 package com.rivers.log.event;
 
 import com.rivers.user.api.entity.SysLog;
-import com.rivers.user.api.feign.RemoteLogService;
+import com.rivers.user.api.client.RemoteLogService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;

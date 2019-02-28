@@ -4,7 +4,7 @@ package com.rivers.log;
 
 import com.rivers.log.aspect.SysLogAspect;
 import com.rivers.log.event.SysLogListener;
-import com.rivers.user.api.feign.RemoteLogService;
+import com.rivers.user.api.client.RemoteLogService;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

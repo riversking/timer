@@ -1,4 +1,4 @@
-package com.rivers.oauth.feign;
+package com.rivers.user.api.client;
 
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 /**
  * @author riverskingking
  */
-@FeignClient("OAUTH-SERVER")
+@FeignClient(name ="OAUTH-SERVER")
 public interface OauthClientFeign {
 
 

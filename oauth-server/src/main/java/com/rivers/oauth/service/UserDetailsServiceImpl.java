@@ -1,6 +1,9 @@
 package com.rivers.oauth.service;
 
-import com.rivers.user.api.feign.UserClientFeign;
+import com.alibaba.fastjson.JSONObject;
+import com.rivers.core.view.RequestVo;
+import com.rivers.user.api.client.UserClientFeign;
+import com.rivers.user.api.constant.SecurityConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -43,6 +46,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         //这里为了方便演示，创建了两个用户，一个admin，拥有res1,res2和res3
         //一个user,只拥有res1和res2
         //一个guest,只拥有res1
+        RequestVo<String> vo = new RequestVo<>();
+        vo.setParam(s);
+//        JSONObject result = userClientFeign.userInfo(SecurityConstants.FROM_IN, vo);
+//        UserDetails userDetails = getUserDetails(result);
         User user = null;
         if ("admin".equalsIgnoreCase(s)) {
             user = mockAdmin();
@@ -54,6 +61,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             user = mockGuest();
         }
         return user;
+    }
+
+
+    private UserDetails getUserDetails(JSONObject result) {
+        System.out.println("resultresultresultresultresultresultresultresult" + result);
+        return null;
     }
 
 

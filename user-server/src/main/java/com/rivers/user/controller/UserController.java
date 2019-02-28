@@ -6,9 +6,10 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.rivers.core.log.annotation.SysLog;
 import com.rivers.core.view.RequestVo;
 import com.rivers.core.view.ResponseVo;
+import com.rivers.user.api.annotation.Inner;
 import com.rivers.user.api.dto.UserDto;
 import com.rivers.user.api.entity.SysUserModel;
-import com.rivers.user.api.feign.OauthClientFeign;
+import com.rivers.user.api.client.OauthClientFeign;
 import com.rivers.user.api.vo.TokenVo;
 import com.rivers.user.service.UserService;
 import lombok.extern.log4j.Log4j2;
@@ -137,6 +138,7 @@ public class UserController {
      * @return ResponseVo
      */
     @PostMapping("userInfo")
+    @Inner
     public ResponseVo userInfo(@RequestBody RequestVo<String> requestVo) {
         ResponseVo vo = ResponseVo.ok();
         String username = requestVo.getParam();

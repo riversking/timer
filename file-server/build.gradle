@@ -7,6 +7,7 @@ dependencies {
     compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-config'
 //	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-bus-amqp'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-webflux'
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '2.0.2.RELEASE'
 }
 configurations {
     compile.exclude module: 'spring-boot-starter-tomcat'

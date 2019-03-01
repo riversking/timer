@@ -7,6 +7,7 @@ import com.rivers.core.log.annotation.SysLog;
 import com.rivers.core.view.RequestVo;
 import com.rivers.core.view.ResponseVo;
 import com.rivers.user.api.annotation.Inner;
+import com.rivers.user.api.constant.SecurityConstants;
 import com.rivers.user.api.dto.UserDto;
 import com.rivers.user.api.entity.SysUserModel;
 import com.rivers.user.api.client.OauthClientFeign;
@@ -35,6 +36,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private TestController testController;
 
 
     /**
@@ -138,7 +142,6 @@ public class UserController {
      * @return ResponseVo
      */
     @PostMapping("userInfo")
-    @Inner
     public ResponseVo userInfo(@RequestBody RequestVo<String> requestVo) {
         ResponseVo vo = ResponseVo.ok();
         String username = requestVo.getParam();

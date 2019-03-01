@@ -48,8 +48,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         //一个guest,只拥有res1
         RequestVo<String> vo = new RequestVo<>();
         vo.setParam(s);
-//        JSONObject result = userClientFeign.userInfo(SecurityConstants.FROM_IN, vo);
-//        UserDetails userDetails = getUserDetails(result);
+        JSONObject result = userClientFeign.userInfo(SecurityConstants.FROM_IN, vo);
+        UserDetails userDetails = getUserDetails(result);
         User user = null;
         if ("admin".equalsIgnoreCase(s)) {
             user = mockAdmin();

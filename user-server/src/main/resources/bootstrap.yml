@@ -28,10 +28,14 @@ spring:
         max-wait: -1s
 
 feign:
+  hystrix:
+    enabled: false
   httpclient:
     enabled: false
   okhttp:
     enabled: true
+
+
 
 ribbon:
   eureka:
@@ -81,11 +85,11 @@ security:
     resource:
       token-info-uri: http://localhost:9080/oauth/check_token
       service-id: oauth-server
+#      user-info-uri:
 
 
 logging:
   level:
-    #        tk.mybatis: DEBUG
     com.rivers: debug
   path: D:\project\timer\logs\user-server\debug.log
 #  spring-admin 读取应用的日志 关键

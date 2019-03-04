@@ -6,7 +6,12 @@ import org.springframework.web.bind.annotation.RequestHeader;
 
 @FeignClient("FILE-SERVER")
 public interface TestController {
-
+    /**
+     * 测试
+     *
+     * @param hear
+     * @return String
+     */
     @PostMapping("/file/test")
     String test(@RequestHeader("FROM") String hear);
 }

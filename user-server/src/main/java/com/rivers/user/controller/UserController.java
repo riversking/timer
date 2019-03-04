@@ -147,6 +147,7 @@ public class UserController {
         ResponseVo vo = ResponseVo.ok();
         String username = requestVo.getParam();
         SysUserModel user = userService.getUserInfo(username);
+        testController.test("Y");
         vo.setDatas(user);
         vo.setMessage("查询成功");
         return vo;

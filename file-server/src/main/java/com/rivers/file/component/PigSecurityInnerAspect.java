@@ -1,8 +1,7 @@
-package com.rivers.user.api.component;
+package com.rivers.file.component;
 
 import cn.hutool.core.util.StrUtil;
-import com.rivers.user.api.annotation.Inner;
-import com.rivers.user.api.constant.SecurityConstants;
+import com.rivers.file.annotation.Inner;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -10,10 +9,10 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.core.Ordered;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
+import java.nio.file.AccessDeniedException;
 
 /**
  * @author lengleng
@@ -31,12 +30,13 @@ public class PigSecurityInnerAspect implements Ordered {
 	@SneakyThrows
 	@Around("@annotation(inner)")
 	public Object around(ProceedingJoinPoint point, Inner inner) {
-		String header = request.getHeader(SecurityConstants.FROM);
-		log.warn("访问接口 HEADER {}", header);
-		if (inner.value() && !StrUtil.equals(SecurityConstants.FROM_IN, header)) {
+		String header = request.getHeader("From");
+		log.info("访问接口 header {}", header);
+		if (inner.value() && !StrUtil.equals("Y", header)) {
 			log.warn("访问接口 {} 没有权限", point.getSignature().getName());
 			throw new AccessDeniedException("Access is denied");
 		}
+		log.info("访问接口 {}", point.getSignature().getName());
 		return point.proceed();
 	}
 

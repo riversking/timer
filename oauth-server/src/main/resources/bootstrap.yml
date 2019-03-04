@@ -47,6 +47,8 @@ mybatis-plus:
 
 # 必须配置
 feign:
+  hystrix:
+    enabled: false
   httpclient:
     enabled: false
   okhttp:

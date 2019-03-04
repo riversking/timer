@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.rivers.user.api.component.PigSecurityInnerAspect
+  com.rivers.user.api.component.PigSecurityInnerAspect,\
+  com.rivers.user.api.config.RequestInterceptorConfig

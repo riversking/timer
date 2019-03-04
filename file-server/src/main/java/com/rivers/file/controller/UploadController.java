@@ -2,6 +2,7 @@ package com.rivers.file.controller;
 
 import com.rivers.core.util.ExceptionUtil;
 import com.rivers.core.view.ResponseVo;
+import com.rivers.file.annotation.Inner;
 import com.rivers.file.config.WindowsorMac;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.*;
@@ -44,6 +45,7 @@ public class UploadController {
     }
 
     @PostMapping("test")
+    @Inner
     public String test() {
         log.info("上传成功");
         return "test";

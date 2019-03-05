@@ -141,8 +141,8 @@ public class UserController {
      * @param requestVo requestVo
      * @return ResponseVo
      */
-    @PostMapping("userInfo")
     @Inner
+    @PostMapping("userInfo")
     public ResponseVo userInfo(@RequestBody RequestVo<String> requestVo) {
         ResponseVo vo = ResponseVo.ok();
         String username = requestVo.getParam();

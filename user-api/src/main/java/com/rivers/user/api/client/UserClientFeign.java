@@ -23,7 +23,7 @@ public interface UserClientFeign {
      * @param vo   vo
      * @return JSONObject
      */
-    @PostMapping(value = "userInfo")
+    @PostMapping(value = "/user/userInfo")
     JSONObject userInfo(@RequestHeader(SecurityConstants.FROM) String from, @RequestBody RequestVo<String> vo);
 
 }

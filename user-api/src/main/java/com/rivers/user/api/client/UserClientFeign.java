@@ -1,8 +1,8 @@
 package com.rivers.user.api.client;
 
 import com.alibaba.fastjson.JSONObject;
+import com.rivers.core.constant.SecurityConstants;
 import com.rivers.core.view.RequestVo;
-import com.rivers.user.api.constant.SecurityConstants;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,5 +24,4 @@ public interface UserClientFeign {
      */
     @PostMapping(value = "/user/userInfo")
     JSONObject userInfo(@RequestHeader(SecurityConstants.FROM) String from, @RequestBody RequestVo<String> vo);
-
 }

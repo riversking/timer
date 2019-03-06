@@ -20,7 +20,7 @@ public interface OauthClientFeign {
      * @param grantType     grantType
      * @return JSONObject
      */
-    @RequestMapping(value = "/oauth/token", method = RequestMethod.POST)
+    @PostMapping(value = "/oauth/token")
     JSONObject getAccessToken(@RequestHeader("Authorization") String authorization,
                               @RequestParam("username") String username,
                               @RequestParam("password") String password,

@@ -24,7 +24,7 @@ public class ResourceServerConfigurer extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/actuator/**", "/user/login").permitAll()
+                .antMatchers("/actuator/**", "/user/login","/user/userInfo").permitAll()
                 .anyRequest().authenticated()
                 .and().csrf().disable();
     }

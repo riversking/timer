@@ -28,8 +28,6 @@ spring:
         max-wait: -1s
 
 feign:
-  hystrix:
-    enabled: false
   httpclient:
     enabled: false
   okhttp:

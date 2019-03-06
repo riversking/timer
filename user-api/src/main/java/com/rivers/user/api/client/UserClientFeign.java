@@ -2,7 +2,6 @@ package com.rivers.user.api.client;
 
 import com.alibaba.fastjson.JSONObject;
 import com.rivers.core.view.RequestVo;
-import com.rivers.user.api.config.RequestInterceptorConfig;
 import com.rivers.user.api.constant.SecurityConstants;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 /**
  * @author riversking
  */
-@FeignClient(name = "USER-SERVER", configuration = RequestInterceptorConfig.class)
+@FeignClient(name = "USER-SERVER")
 public interface UserClientFeign {
 
 

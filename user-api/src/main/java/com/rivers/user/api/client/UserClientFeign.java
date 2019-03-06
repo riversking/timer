@@ -18,10 +18,10 @@ public interface UserClientFeign {
     /**
      * 用户查询
      *
-     * @param from from
-     * @param vo   vo
+     * @param from     from
+     * @param username username
      * @return JSONObject
      */
-    @PostMapping(value = "/user/userInfo")
-    JSONObject userInfo(@RequestHeader(SecurityConstants.FROM) String from, @RequestBody RequestVo<String> vo);
+    @PostMapping(value = "/user/info")
+    JSONObject userInfo(@RequestHeader(SecurityConstants.FROM) String from, @RequestBody String username);
 }

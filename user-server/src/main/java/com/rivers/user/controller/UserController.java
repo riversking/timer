@@ -9,6 +9,7 @@ import com.rivers.core.view.RequestVo;
 import com.rivers.core.view.ResponseVo;
 import com.rivers.user.api.client.OauthClientFeign;
 import com.rivers.user.api.dto.UserDto;
+import com.rivers.user.api.dto.UserInfo;
 import com.rivers.user.api.entity.SysUserModel;
 import com.rivers.user.api.vo.TokenVo;
 import com.rivers.user.service.UserService;
@@ -140,7 +141,6 @@ public class UserController {
      * @param requestVo requestVo
      * @return ResponseVo
      */
-    @Inner
     @PostMapping("userInfo")
     public ResponseVo userInfo(@RequestBody RequestVo<String> requestVo) {
         ResponseVo vo = ResponseVo.ok();
@@ -148,6 +148,15 @@ public class UserController {
         SysUserModel user = userService.getUserInfo(username);
         testController.test("Y");
         vo.setDatas(user);
+        vo.setMessage("查询成功");
+        return vo;
+    }
+
+    @PostMapping("info")
+    public ResponseVo info(@RequestBody String username) {
+        ResponseVo vo = ResponseVo.ok();
+        UserInfo userInfo = userService.queryUserInfo(username);
+        vo.setDatas(userInfo);
         vo.setMessage("查询成功");
         return vo;
     }

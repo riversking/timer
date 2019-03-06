@@ -1,27 +1,32 @@
 package com.rivers.user.service;
 
+import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.rivers.core.util.ExceptionUtil;
 import com.rivers.user.api.dto.UserDto;
+import com.rivers.user.api.dto.UserInfo;
+import com.rivers.user.api.entity.SysMenuModel;
 import com.rivers.user.api.entity.SysRoleModel;
 import com.rivers.user.api.entity.SysUserModel;
 import com.rivers.user.api.entity.SysUserRoleModel;
-import com.rivers.user.mapper.SysRoleDao;
-import com.rivers.user.mapper.SysRoleMenuDao;
-import com.rivers.user.mapper.SysUserDao;
-import com.rivers.user.mapper.SysUserRoleDao;
+import com.rivers.user.mapper.*;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.BeanUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * @author riverskingking
@@ -41,6 +46,9 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
 
     @Resource
     private SysRoleMenuDao sysRoleMenuDao;
+
+    @Resource
+    private SysMenuDao sysMenuDao;
 
     private static String IS_DELETE = "is_delete";
 
@@ -153,6 +161,7 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
 
     /**
      * 通过用户名查询用户信息
+     *
      * @param username username
      * @return List
      */
@@ -161,6 +170,29 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
         wrapper.eq("username", username);
         wrapper.eq(IS_DELETE, 0);
         return sysUserDao.selectOne(wrapper);
+    }
+
+    public UserInfo queryUserInfo(String username) {
+        UserInfo userInfo = new UserInfo();
+        QueryWrapper<SysUserModel> wrapper = new QueryWrapper<>();
+        wrapper.eq("username", username);
+        wrapper.eq(IS_DELETE, 0);
+        SysUserModel sysUserModel = sysUserDao.selectOne(wrapper);
+        Integer userId = sysUserModel.getId();
+        List<Integer> roleIds = sysUserRoleDao.selectRoleId(userId);
+        Set<String> permission = Sets.newHashSet();
+        roleIds.forEach(roleId -> {
+            List<String> permissionList = sysMenuDao.getMenuByRoleId(roleId)
+                    .stream()
+                    .filter(i -> StrUtil.isNotBlank(i.getPermission()))
+                    .map(SysMenuModel::getPermission)
+                    .collect(Collectors.toList());
+            permission.addAll(permissionList);
+        });
+        userInfo.setSysUser(sysUserModel);
+        userInfo.setPermissions(Lists.newArrayList(permission));
+        userInfo.setRoles(roleIds);
+        return userInfo;
     }
 
     /**

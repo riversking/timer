@@ -106,3 +106,9 @@ management:
       enabled: true
     loggers:
       enabled: true
+
+ignore:
+  urls:
+    - /actuator/**
+    - /user/login
+    - /user/info

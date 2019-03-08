@@ -58,6 +58,7 @@ Thumbs.db
 ehthumbs.db
 # Folder config file
 Desktop.ini
+<<<<<<< HEAD
 api/v1/advertising/src/test/
 api/v1/comment/src/test/java/
 api/v1/logistics/src/test/
@@ -76,3 +77,6 @@ logs/user-server/2019-02/debug.2019-02-28.0.log.gz
 logs/user-server/2019-03/debug.2019-03-07.0.log.gz
 logs/user-server/2019-03/debug.2019-03-05.0.log.gz
 logs/user-server/2019-03/debug.2019-03-01.0.log.gz
+logs/
+sh.exe.stackdump
+

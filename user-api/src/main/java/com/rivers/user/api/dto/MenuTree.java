@@ -28,8 +28,6 @@ public class MenuTree extends TreeNode {
     private Integer sort;
     private boolean checked = false;
     private boolean expand = false;
-    private String isContent;
-    private String iFrame;
     private Map<String, String> props;
     private boolean show = true;
     private String createUser;
@@ -66,7 +64,5 @@ public class MenuTree extends TreeNode {
         this.label = menuVo.getName();
         this.sort = menuVo.getSort();
         this.title = menuVo.getName();
-        this.isContent = menuVo.getIsContent();
-        this.iFrame = menuVo.getIframe();
     }
 }

@@ -12,7 +12,7 @@ import org.springframework.web.reactive.function.server.*;
 
 import java.util.HashMap;
 import java.util.Map;
-
+@Deprecated
 public class JsonExceptionHandler extends DefaultErrorWebExceptionHandler {
     /**
      * Create a new {@code DefaultErrorWebExceptionHandler} instance.

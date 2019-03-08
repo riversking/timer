@@ -3,11 +3,13 @@ package com.rivers.user.controller;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.rivers.core.annotation.SysLog;
 import com.rivers.core.view.RequestVo;
 import com.rivers.core.view.ResponseVo;
+import com.rivers.user.api.client.OauthClientFeign;
 import com.rivers.user.api.dto.UserDto;
+import com.rivers.user.api.dto.UserInfo;
 import com.rivers.user.api.entity.SysUserModel;
-import com.rivers.user.api.feign.OauthClientFeign;
 import com.rivers.user.api.vo.TokenVo;
 import com.rivers.user.service.UserService;
 import lombok.extern.log4j.Log4j2;
@@ -33,6 +35,7 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
 
 
     /**
@@ -88,6 +91,7 @@ public class UserController {
      * @return ResponseVo
      */
     @PostMapping("userPage")
+    @SysLog("用户分页查询")
     public ResponseVo userPage(@RequestBody RequestVo<UserDto> requestVo) {
         ResponseVo vo = ResponseVo.ok();
         UserDto userDto = requestVo.getParam();
@@ -112,8 +116,10 @@ public class UserController {
         vo.setMessage("查询成功");
         return vo;
     }
+
     /**
      * 删除用户
+     *
      * @param requestVo requestVo
      * @return ResponseVo
      */
@@ -123,6 +129,31 @@ public class UserController {
         Integer id = requestVo.getParam();
         userService.deleteById(id);
         vo.setMessage("删除成功");
+        return vo;
+    }
+
+    /**
+     * 用户信息
+     *
+     * @param requestVo requestVo
+     * @return ResponseVo
+     */
+    @PostMapping("userInfo")
+    public ResponseVo userInfo(@RequestBody RequestVo<String> requestVo) {
+        ResponseVo vo = ResponseVo.ok();
+        String username = requestVo.getParam();
+        SysUserModel user = userService.getUserInfo(username);
+        vo.setDatas(user);
+        vo.setMessage("查询成功");
+        return vo;
+    }
+
+    @PostMapping("info")
+    public ResponseVo info(@RequestBody String username) {
+        ResponseVo vo = ResponseVo.ok();
+        UserInfo userInfo = userService.queryUserInfo(username);
+        vo.setDatas(userInfo);
+        vo.setMessage("查询成功");
         return vo;
     }
 

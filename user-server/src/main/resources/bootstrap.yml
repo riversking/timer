@@ -33,6 +33,8 @@ feign:
   okhttp:
     enabled: true
 
+
+
 ribbon:
   eureka:
     enabled: true
@@ -81,13 +83,15 @@ security:
     resource:
       token-info-uri: http://localhost:9080/oauth/check_token
       service-id: oauth-server
+#      user-info-uri:
 
 
 logging:
   level:
-    #        tk.mybatis: DEBUG
     com.rivers: debug
-
+  path: D:\project\timer\logs\user-server\debug.log
+#  spring-admin 读取应用的日志 关键
+  file: ./logs/${spring.application.name}/debug.log
 
 
 management:
@@ -98,3 +102,13 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
+    logfile:
+      enabled: true
+    loggers:
+      enabled: true
+
+ignore:
+  urls:
+    - /actuator/**
+    - /user/login
+    - /user/info

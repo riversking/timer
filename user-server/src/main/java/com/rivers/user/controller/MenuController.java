@@ -4,7 +4,9 @@ import cn.hutool.core.util.StrUtil;
 import com.rivers.core.view.RequestVo;
 import com.rivers.core.view.ResponseVo;
 import com.rivers.user.api.dto.MenuDto;
+import com.rivers.user.api.dto.MenuRoleDto;
 import com.rivers.user.api.entity.SysMenuModel;
+import com.rivers.user.api.entity.SysRoleMenuModel;
 import com.rivers.user.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -107,5 +109,42 @@ public class MenuController {
         vo.setMessage("更新成功");
         return vo;
     }
+
+    @PostMapping("getMenuByRoleId")
+    public ResponseVo getMenuByRoleId(@RequestBody RequestVo<Integer> requestVo) {
+        ResponseVo vo = ResponseVo.ok();
+        Integer roleId = requestVo.getParam();
+        if (roleId == 0) {
+            return ResponseVo.fail("103002", "roleId为空");
+        }
+        vo.setCode("0");
+        vo.setMessage("查询成功");
+        vo.setDatas(menuService.getMenuByRoleId(roleId));
+        return vo;
+    }
+
+    @PostMapping("updateByRoleId")
+    public ResponseVo updateByRoleId(@RequestBody RequestVo<MenuRoleDto> requestVo) {
+        ResponseVo vo = ResponseVo.ok();
+        MenuRoleDto menuRoleDto = requestVo.getParam();
+        menuService.updateMenuByRoleId(menuRoleDto);
+        vo.setCode("0");
+        vo.setMessage("更新成功");
+        return vo;
+    }
+
+    @PostMapping("getMenuByUserId")
+    public ResponseVo getMenuByUserId(@RequestBody RequestVo<Integer> requestVo) {
+        ResponseVo vo = ResponseVo.ok();
+        Integer userId = requestVo.getParam();
+        if (userId == 0) {
+            return ResponseVo.fail("103005", "userId为空");
+        }
+        vo.setCode("0");
+        vo.setMessage("查询成功");
+        vo.setDatas(menuService.getMenuByUserId(userId));
+        return vo;
+    }
+
 
 }

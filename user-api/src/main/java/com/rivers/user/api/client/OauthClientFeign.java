@@ -1,27 +1,26 @@
-package com.rivers.user.api.feign;
+package com.rivers.user.api.client;
 
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author riverskingking
  */
-@FeignClient("OAUTH-SERVER")
+@FeignClient(name = "OAUTH-SERVER")
 public interface OauthClientFeign {
 
 
     /**
      * 获取TOKEN
-     * @param authorization  authorization
-     * @param username username
-     * @param password password
-     * @param grantType grantType
+     *
+     * @param authorization authorization
+     * @param username      username
+     * @param password      password
+     * @param grantType     grantType
      * @return JSONObject
      */
-    @PostMapping("/oauth/token")
+    @PostMapping(value = "/oauth/token")
     JSONObject getAccessToken(@RequestHeader("Authorization") String authorization,
                               @RequestParam("username") String username,
                               @RequestParam("password") String password,

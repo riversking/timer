@@ -1,14 +1,14 @@
 package com.rivers.user.config;
 
+import com.rivers.core.oath.adaper.BaseResourceServerConfigurerAdapter;
 import com.rivers.core.oath.common.AuthExceptionEntryPoint;
 import com.rivers.core.oath.common.CustomAccessDeniedHandler;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
-import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
+
 
 /**
  * @author riversking
@@ -17,15 +17,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 @EnableResourceServer
 @AllArgsConstructor
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class ResourceServerConfigurer extends ResourceServerConfigurerAdapter {
-
-    @Override
-    public void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/actuator/**", "/user/login").permitAll()
-                .anyRequest().authenticated()
-                .and().csrf().disable();
-    }
+public class ResourceServerConfigurer extends BaseResourceServerConfigurerAdapter {
 
     /**
      * why add  resourceId
@@ -39,4 +31,5 @@ public class ResourceServerConfigurer extends ResourceServerConfigurerAdapter {
         resources.authenticationEntryPoint(new AuthExceptionEntryPoint())
                 .accessDeniedHandler(new CustomAccessDeniedHandler());
     }
+
 }

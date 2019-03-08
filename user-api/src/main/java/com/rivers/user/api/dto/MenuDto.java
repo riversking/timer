@@ -21,8 +21,6 @@ public class MenuDto extends Page {
     private String code;
     private Integer type;
     private Integer sort;
-    private String isContent;
-    private String iFrame;
     private String createUser;
     private String updateUser;
 }

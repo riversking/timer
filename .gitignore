@@ -69,3 +69,10 @@ api/core/out/
 api/core/build/
 api/utils/out/
 api/utils/build/
+logs/user-server/2019-03/debug.2019-03-06.0.log.gz
+logs/user-server/2019-03/debug.2019-03-04.0.log.gz
+logs/user-server/2019-02/error.2019-02-28.0.log.gz
+logs/user-server/2019-02/debug.2019-02-28.0.log.gz
+logs/user-server/2019-03/debug.2019-03-07.0.log.gz
+logs/user-server/2019-03/debug.2019-03-05.0.log.gz
+logs/user-server/2019-03/debug.2019-03-01.0.log.gz

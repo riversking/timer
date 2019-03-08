@@ -3,7 +3,6 @@ package com.rivers.user.controller;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.rivers.core.annotation.Inner;
 import com.rivers.core.annotation.SysLog;
 import com.rivers.core.view.RequestVo;
 import com.rivers.core.view.ResponseVo;
@@ -37,8 +36,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private TestController testController;
 
 
     /**
@@ -146,7 +143,6 @@ public class UserController {
         ResponseVo vo = ResponseVo.ok();
         String username = requestVo.getParam();
         SysUserModel user = userService.getUserInfo(username);
-        testController.test("Y");
         vo.setDatas(user);
         vo.setMessage("查询成功");
         return vo;

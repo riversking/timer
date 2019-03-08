@@ -43,10 +43,5 @@ public class UploadController {
         return ResponseVo.fail("301001", "上传失败，请选择文件");
     }
 
-    @PostMapping("test")
-    public String test() {
-        log.info("上传成功");
-        return "test";
-    }
 
 }

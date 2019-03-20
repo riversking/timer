@@ -146,5 +146,14 @@ public class MenuController {
         return vo;
     }
 
+    @PostMapping("getMenu")
+    public ResponseVo getMenu(@RequestBody RequestVo<Integer> requestVo) {
+        ResponseVo vo = ResponseVo.ok();
+        vo.setCode("0");
+        vo.setMessage("查询成功");
+        vo.setDatas(menuService.getMenu(requestVo.getParam()));
+        return vo;
+    }
+
 
 }

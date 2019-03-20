@@ -131,6 +131,18 @@ public class MenuService extends ServiceImpl<SysMenuDao, SysMenuModel> {
         return menuVo;
     }
 
+    public List<MenuTree> getMenu(Integer id) {
+        List<Integer> list = sysRoleMenuDao.getMenuIdByRoleId(id);
+        QueryWrapper<SysMenuModel> wrapper = new QueryWrapper<>();
+        wrapper.eq("is_delete", 0);
+        List<SysMenuModel> menuList = sysMenuDao.selectList(wrapper).stream().filter(i -> i.getType() == 0).map(j->{
+            SysMenuModel sysMenuModel = new SysMenuModel();
+            BeanUtils.copyProperties(j,sysMenuModel);
+            return sysMenuModel;
+        }).collect(Collectors.toList());
+        return buildTree(menuList, -1);
+    }
+
 
     /**
      * 通过sysMenu创建树形节点

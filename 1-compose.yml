@@ -1,29 +1,53 @@
 version: '3'
 services:
-#  consul:
-#    image: consul
+  #  consul:
+  #    image: consul
+  #    ports:
+  #      - "8400:8400"
+  #      - "8500:8500"
+  #      - "8600:8600"
+
+#  eureka-server:
+#    build:
+#      context: ./
+#      dockerfile: ./eureka-server/Dockerfile
+#    restart: always
 #    ports:
-#      - "8400:8400"
-#      - "8500:8500"
-#      - "8600:8600"
+#      - 8761:8761
+#    container_name: eureka-server
+#    hostname: 127.0.0.1
+#    image: timer/eureka-server
 
   eureka-server:
-    image: timer/eureka-server
-    hostname: eureka-server
+    build:
+      context: ./
+      dockerfile: ./admin-server/Dockerfile
+    restart: always
     ports:
-      - "8761:8761"
+      - 8761:8761
+    container_name: eureka-server
+    hostname: 127.0.0.1
+    image: timer/eureka-server
 
   admin-server:
-    image: timer/admin-server
+    build:
+      context: ./
+      dockerfile: ./admin-server/Dockerfile
+    restart: always
     ports:
-      - "7086:7086"
-    depends_on:
-        - "eureka-server"
-    healthcheck:
-       test: ["CMD", "curl", "-f", "http://locahost:8761"]
-       interval: 30s
-       timeout: 30s
-       retries: 3
+      - 7086:7086
+    container_name: admin-server
+    hostname: 127.0.0.1
+    image: timer/admin-server
 
-
+  file-server:
+    build:
+      context: ./
+      dockerfile: ./file-server/Dockerfile
+    restart: always
+    ports:
+      - 5080:5080
+    container_name: file-server
+    hostname: 127.0.0.1
+    image: timer/file-server
 

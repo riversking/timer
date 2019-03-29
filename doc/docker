@@ -1,2 +1,7 @@
 
 https://www.cnblogs.com/sishang/p/6402295.html
+
+清除所有none的images
+docker rmi $(docker images -f "dangling=true" -q)
+清除所有
+docker rm $(docker ps -aq)

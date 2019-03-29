@@ -1,4 +1,4 @@
-package com.rivers.oauth.tokenStore;
+package com.rivers.oauth.token;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.RedisConnection;

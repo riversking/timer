@@ -78,8 +78,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         Set<String> dbAuthsSet = new HashSet<>(userInfo.getPermissions());
         Collection<? extends GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(dbAuthsSet.toArray(new String[0]));
         SysUserModel sysUserModel = userInfo.getSysUser();
-        User user = new User(sysUserModel.getUsername(), sysUserModel.getPassword(), authorities);
-        return user;
+        return new User(sysUserModel.getUsername(), sysUserModel.getPassword(), authorities);
     }
 
 }

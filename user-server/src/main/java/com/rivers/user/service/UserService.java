@@ -121,6 +121,9 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
         wrapper.eq(IS_DELETE, 0);
         wrapper.eq("username", userDto.getUsername());
         SysUserModel user = sysUserDao.selectOne(wrapper);
+        if (null == user) {
+            return new SysUserModel();
+        }
         if (new BCryptPasswordEncoder().matches(userDto.getPassword(), user.getPassword())) {
             log.info("is Right {}", userDto.getPassword());
             return user;

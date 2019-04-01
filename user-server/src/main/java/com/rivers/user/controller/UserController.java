@@ -49,7 +49,7 @@ public class UserController {
         ResponseVo responseVo = ResponseVo.ok();
         UserDto userDto = requestVo.getParam();
         SysUserModel userModel = userService.getUserDetail(userDto);
-        if (userModel == null) {
+        if (userModel.getId() == null) {
             return ResponseVo.fail("-101003", "用户名或密码错误");
         }
         JSONObject jsonObject = oauthClientFeign.getAccessToken("Basic YWRtaW46c2VjcmV0",

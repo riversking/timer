@@ -5,3 +5,7 @@ https://www.cnblogs.com/sishang/p/6402295.html
 docker rmi $(docker images -f "dangling=true" -q)
 清除所有
 docker rm $(docker ps -aq)
+docker 运行项目
+docker run -p 9081:9080  timer/oauth-server
+ps: timer/oauth-server image
+    -p 端口号

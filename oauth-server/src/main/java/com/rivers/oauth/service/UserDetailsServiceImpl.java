@@ -48,7 +48,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      * 授权的时候是对角色授权，而认证的时候应该基于资源，而不是角色，因为资源是不变的，而用户的角色是会变的
      * 因此这里授予的是用户的资源权限而非角色（角色是变化的，而系统的资源是固定的）
      *
-     * @param username
+     * @param username username
      * @return UserDetails
      * @throws UsernameNotFoundException
      */
@@ -58,8 +58,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         //这里为了方便演示，创建了两个用户，一个admin，拥有res1,res2和res3
         //一个user,只拥有res1和res2
         //一个guest,只拥有res1
-        UserDetails user = (UserDetails) redisTemplate.opsForValue().get("user_details");
+        UserDetails user = (UserDetails) redisTemplate.opsForValue().get(username);
         if (user != null) {
+            log.info("USER {}", JSONObject.toJSONString(user));
             return user;
         }
         JSONObject result = userClientFeign.userInfo(SecurityConstants.FROM_IN, username);

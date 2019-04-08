@@ -17,8 +17,6 @@ dependencies {
 //	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-bus-amqp'
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-webflux'
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis'
-	compile group: 'com.baomidou', name: 'mybatis-plus'
-	compile group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.0.5'
 	compile project(':user-api')
 //	compile('org.springframework.cloud:spring-cloud-starter-oauth2')
 //	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-security'

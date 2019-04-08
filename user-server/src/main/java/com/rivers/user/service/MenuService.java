@@ -132,7 +132,6 @@ public class MenuService extends ServiceImpl<SysMenuDao, SysMenuModel> {
     }
 
     public List<MenuTree> getMenu(Integer id) {
-        List<Integer> list = sysRoleMenuDao.getMenuIdByRoleId(id);
         QueryWrapper<SysMenuModel> wrapper = new QueryWrapper<>();
         wrapper.eq("is_delete", 0);
         List<SysMenuModel> menuList = sysMenuDao.selectList(wrapper).stream().filter(i -> i.getType() == 0).map(j->{

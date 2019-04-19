@@ -2,7 +2,7 @@
 
 set -eo pipefail
 
-modules=(eureka-server)
+modules=(user-server)
 
 for module in "${modules[@]}"; do
     docker build -t "timer/${module}:latest" ${module}

@@ -58,6 +58,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         //这里为了方便演示，创建了两个用户，一个admin，拥有res1,res2和res3
         //一个user,只拥有res1和res2
         //一个guest,只拥有res1
+//        redisTemplate.delete("admin");
         UserDetails user = (UserDetails) redisTemplate.opsForValue().get(username);
         if (user != null) {
             log.info("USER {}", JSONObject.toJSONString(user));

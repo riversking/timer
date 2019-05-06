@@ -12,7 +12,7 @@ import org.springframework.web.reactive.function.server.*;
 
 import java.util.HashMap;
 import java.util.Map;
-
+@Deprecated
 public class JsonExceptionHandler extends DefaultErrorWebExceptionHandler {
     /**
      * Create a new {@code DefaultErrorWebExceptionHandler} instance.
@@ -48,7 +48,7 @@ public class JsonExceptionHandler extends DefaultErrorWebExceptionHandler {
 
      * 指定响应处理方法为JSON处理的方法
 
-     * @param errorAttributes
+     * @param errorAttributes errorAttributes
 
      */
 
@@ -70,7 +70,6 @@ public class JsonExceptionHandler extends DefaultErrorWebExceptionHandler {
      */
 
     @Override
-
     protected HttpStatus getHttpStatus(Map<String, Object> errorAttributes) {
 
         int statusCode = (int) errorAttributes.get("code");
@@ -115,13 +114,13 @@ public class JsonExceptionHandler extends DefaultErrorWebExceptionHandler {
      * @return
      */
     private Map<String, Object> response(int status, String errorMessage) {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(16);
 
         map.put("code", status);
 
         map.put("message", errorMessage);
 
-        map.put("data", null);
+        map.put("datas", null);
 
         return map;
     }

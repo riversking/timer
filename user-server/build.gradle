@@ -1,5 +1,4 @@
 dependencies {
-	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '2.0.2.RELEASE'
 //    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-hystrix', version:'2.0.0.M7'
 	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client'
 //    compile group: 'org.springframework.cloud', name: 'spring-cloud-sleuth-zipkin', version:'2.0.0.M7'
@@ -14,17 +13,24 @@ dependencies {
 	compile(group: 'org.springframework.boot', name: 'spring-boot-starter-web')
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-undertow'
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.0.5.RELEASE'
-	compile group: 'com.github.riversking', name: 'core', version: '1.0.6'
 	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-config'
-	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-bus-amqp'
+//	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-bus-amqp'
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-webflux'
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis'
-	compile group: 'com.baomidou', name: 'mybatis-plus'
-	compile group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.0.5'
 	compile project(':user-api')
-////	compile('org.springframework.cloud:spring-cloud-starter-oauth2')
+//	compile('org.springframework.cloud:spring-cloud-starter-oauth2')
 //	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-security'
 }
 configurations {
 	compile.exclude module: 'spring-boot-starter-tomcat'
+//	compile.exclude module: 'spring-security-config'
 }
+
+sourceSets {
+	main {
+		java {
+			srcDirs = ['src/main/java','../user-api']
+		}
+	}
+}
+

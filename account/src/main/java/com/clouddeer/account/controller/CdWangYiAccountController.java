@@ -60,7 +60,7 @@ public class CdWangYiAccountController {
         }
         cdAccount.setCdAccountWangYi(wangyiUtil.getWangyiInfo(cdAccount));
         accountService.addAccountWangYi(cdAccount);
-        rvo.setMsg("操作成功");
+        rvo.setMessage("操作成功");
         return rvo;
     }
 
@@ -90,7 +90,7 @@ public class CdWangYiAccountController {
         }
         cdAccount.setCdAccountWangYi(wangyiUtil.getWangyiInfo(cdAccount));
         accountService.updateWangYiAccount(cdAccount);
-        rvo.setMsg("操作成功");
+        rvo.setMessage("操作成功");
         return rvo;
     }
 

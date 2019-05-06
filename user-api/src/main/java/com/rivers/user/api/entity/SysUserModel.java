@@ -1,22 +1,24 @@
 package com.rivers.user.api.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * SysUser
  *
- * @author rivers
+ * @author riversking
  * @Date 2018-12-19 14:51
  */
 @TableName("sys_user")
+@Data
+@EqualsAndHashCode(callSuper = true)
 public class SysUserModel extends Model<SysUserModel> {
 	private static final long serialVersionUID = 1L;
 	/**
@@ -61,12 +63,9 @@ public class SysUserModel extends Model<SysUserModel> {
 	@TableField(value="avatar")
 	private String avatar;
 
-	/**
-	 * 部门ID
-	 *
-	 */
-	@TableField(value="dept_id")
-	private Integer deptId;
+
+	@TableField(value = "create_user")
+	private String createUser;
 
 	/**
 	 * 创建时间
@@ -74,6 +73,10 @@ public class SysUserModel extends Model<SysUserModel> {
 	 */
 	@TableField(value="create_time")
 	private Date createTime;
+
+
+	@TableField(value = "update_user")
+	private String updateUser;
 
 	/**
 	 * 修改时间
@@ -86,150 +89,19 @@ public class SysUserModel extends Model<SysUserModel> {
 	 * 0-正常，1-删除
 	 *
 	 */
-	@TableField(value="del_flag")
-	private String delFlag;
+	@TableLogic
+	@TableField(value="is_delete")
+	private Integer isDelete;
 
+	@TableField(exist = false)
+	private List<SysRoleModel> sysRoleModels;
 
-	/**
-	 * 获取: 主键ID
-	 *
-	 */
-	public Integer getId() {
-		return id;
-	}
-	/**
-	 * 设置: 主键ID
-	 *
-	 */
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	/**
-	 * 获取: 用户名
-	 *
-	 */
-	public String getUsername() {
-		return username;
-	}
-	/**
-	 * 设置: 用户名
-	 *
-	 */
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	/**
-	 * 获取: Password
-	 *
-	 */
-	public String getPassword() {
-		return password;
-	}
-	/**
-	 * 设置: Password
-	 *
-	 */
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	/**
-	 * 获取: 随机盐
-	 *
-	 */
-	public String getSalt() {
-		return salt;
-	}
-	/**
-	 * 设置: 随机盐
-	 *
-	 */
-	public void setSalt(String salt) {
-		this.salt = salt;
-	}
-	/**
-	 * 获取: 简介
-	 *
-	 */
-	public String getPhone() {
-		return phone;
-	}
-	/**
-	 * 设置: 简介
-	 *
-	 */
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-	/**
-	 * 获取: 头像
-	 *
-	 */
-	public String getAvatar() {
-		return avatar;
-	}
-	/**
-	 * 设置: 头像
-	 *
-	 */
-	public void setAvatar(String avatar) {
-		this.avatar = avatar;
-	}
-	/**
-	 * 获取: 部门ID
-	 *
-	 */
-	public Integer getDeptId() {
-		return deptId;
-	}
-	/**
-	 * 设置: 部门ID
-	 *
-	 */
-	public void setDeptId(Integer deptId) {
-		this.deptId = deptId;
-	}
-	/**
-	 * 获取: 创建时间
-	 *
-	 */
-	public Date getCreateTime() {
-		return createTime;
-	}
-	/**
-	 * 设置: 创建时间
-	 *
-	 */
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-	/**
-	 * 获取: 修改时间
-	 *
-	 */
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-	/**
-	 * 设置: 修改时间
-	 *
-	 */
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
-	/**
-	 * 获取: 0-正常，1-删除
-	 *
-	 */
-	public String getDelFlag() {
-		return delFlag;
-	}
-	/**
-	 * 设置: 0-正常，1-删除
-	 *
-	 */
-	public void setDelFlag(String delFlag) {
-		this.delFlag = delFlag;
-	}
+	@TableField(exist = false)
+	private List<Integer> roleIds;
+
+//	@TableField(exist = false)
+//	private List<Integer> access;
+
 
 	@Override
 	protected Serializable pkVal() {

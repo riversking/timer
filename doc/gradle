@@ -1,0 +1,9 @@
+sourceSets {
+	main {
+		java {
+			srcDirs = ['src/main/java','../user-api/src/main/java']
+		}
+	}
+}
+
+gradle 使用compile project 需要引用

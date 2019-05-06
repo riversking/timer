@@ -1,9 +1,9 @@
 spring:
   cloud:
     gateway:
-      default-filters:
+     default-filters:
       - AddResponseHeader=X-Response-Default-Foo, Default-Bar
-      routes:
+     routes:
       - id: oauth-server
         uri: lb://oauth-server
         predicates:
@@ -17,11 +17,20 @@ spring:
         filters:
         - StripPrefix=2
       - id: user-server
-          uri: lb://user-server
-          predicates:
-            - Path=/api/v1/user/**
-          filters:
-            - StripPrefix=2
+        uri: lb://user-server
+        predicates:
+          - Path=/api/v1/user/**
+        filters:
+          - StripPrefix=2
+      - id: file-server
+        uri: lb://file-server
+        predicates:
+        - Path=/api/v1/file/**
+        filters:
+        - StripPrefix=2
+     discovery:
+       locator:
+         enabled: true
 #请求和响应GZIP压缩支持
 feign:
   httpclient:

@@ -47,15 +47,15 @@ public class CdWeiboAccountController {
     public ResponseVo weiboAccountAdd(@RequestBody RequestVo<CdAccount> vo) {
         ResponseVo rvo = ResponseVo.ok();
         CdAccount cdAccount = vo.getParam();
-        if (cdAccount.getAccountName().equals("")) {
+        if ("".equals(cdAccount.getAccountName())) {
             rvo = ResponseVo.fail(ErrorCodeConstant.ECODE_0302, "缺少参数--账号");
             return rvo;
         }
-        if (cdAccount.getPlatformName().equals("")) {
+        if ("".equals(cdAccount.getPlatformName())) {
             rvo = ResponseVo.fail(ErrorCodeConstant.ECODE_0302, "缺少参数--类型");
             return rvo;
         }
-        if (cdAccount.getAccountPwd().equals("")) {
+        if ("".equals(cdAccount.getAccountPwd())) {
             rvo = ResponseVo.fail(ErrorCodeConstant.ECODE_0302, "缺少参数--密码");
             return rvo;
         }
@@ -65,7 +65,7 @@ public class CdWeiboAccountController {
         }
         cdAccount.setCdAccountWeibo(weboUtil.getWeboInfo(cdAccount));
         accountService.addWeiboAccount(cdAccount);
-        rvo.setMsg("操作成功");
+        rvo.setMessage("操作成功");
         return rvo;
     }
 
@@ -95,7 +95,7 @@ public class CdWeiboAccountController {
         }
         cdAccount.setCdAccountWeibo(weboUtil.getWeboInfo(cdAccount));
         accountService.updateWeiboAccount(cdAccount);
-        rvo.setMsg("操作成功");
+        rvo.setMessage("操作成功");
         return rvo;
     }
 
@@ -122,7 +122,7 @@ public class CdWeiboAccountController {
             CdAccount cdAccount = accountService.getAccountById(la.getAccountId());
             weboUtil.sendWeiBo(cdAccount,la.getCdArticle());
         }
-        rvo.setMsg("操作成功");
+        rvo.setMessage("操作成功");
         return rvo;
     }
 

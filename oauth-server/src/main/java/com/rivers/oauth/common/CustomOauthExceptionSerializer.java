@@ -3,13 +3,13 @@ package com.rivers.oauth.common;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Map;
 
+/**
+ * @author riversking
+ */
 public class CustomOauthExceptionSerializer extends StdSerializer<CustomOauthException> {
     public CustomOauthExceptionSerializer() {
         super(CustomOauthException.class);
@@ -30,14 +30,10 @@ public class CustomOauthExceptionSerializer extends StdSerializer<CustomOauthExc
             "error": "unauthorized",
                 "error_description": "Full authentication is required to access this resource"
         }*/
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-
         gen.writeStartObject();
         gen.writeNumberField("code", value.getHttpErrorCode());
         gen.writeStringField("message", value.getMessage());
-        //gen.writeStringField("path", request.getServletPath());
         gen.writeStringField("timestamp", String.valueOf(System.currentTimeMillis()));
-        gen.writeStringField("data", "");
         if (value.getAdditionalInformation() != null) {
             for (Map.Entry<String, String> entry : value.getAdditionalInformation().entrySet()) {
                 String key = entry.getKey();

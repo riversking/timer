@@ -9,7 +9,15 @@
 		<result column="role_desc" property="roleDesc" />
 		<result column="create_time" property="createTime" />
 		<result column="update_time" property="updateTime" />
-		<result column="del_flag" property="delFlag" />
+		<result column="create_user" property="createUser" />
+		<result column="update_user" property="updateUser" />
+		<result column="is_delete" property="isDelete" />
 	</resultMap>
+
+	<select id="selectRoleList" resultMap="BaseResultMap">
+		SELECT id, role_name FROM sys_role
+		WHERE is_delete = 0
+	</select>
+
 
 </mapper>

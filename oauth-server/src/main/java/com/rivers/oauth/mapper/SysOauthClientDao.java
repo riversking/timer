@@ -6,7 +6,7 @@ import com.rivers.user.api.entity.SysOauthClientModel;
 /**
  * SysOauthClientDao
  *
- * @author riversking
+ * @author riverskingking
  * @Date 2018-11-03 01:03
  */
 

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rivers.user.mapper.SysRoleMenuDao">
+
+    <resultMap id="BaseResultMap" type="com.rivers.user.api.entity.SysRoleMenuModel">
+        <result column="id" property="id"/>
+        <result column="role_id" property="roleId"/>
+        <result column="menu_id" property="menuId"/>
+        <result column="is_delete" property="isDelete"/>
+    </resultMap>
+
+    <select id="getMenuIdByRoleId" resultType="java.lang.Integer">
+		SELECT menu_id FROM sys_role_menu
+		WHERE role_id = #{roleId}
+		AND   is_delete = 0
+	</select>
+
+    <update id="updateByRoleId" parameterType="com.rivers.user.api.entity.SysRoleMenuModel">
+        UPDATE sys_role_menu SET is_delete = #{isDelete}
+        WHERE role_id = #{roleId}
+    </update>
+
+</mapper>

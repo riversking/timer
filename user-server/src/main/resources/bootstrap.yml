@@ -1,10 +1,15 @@
+server:
+  port: 6080
 
 spring:
   application:
     name: user-server
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
   datasource:
     name: user-server
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/cloud_deer_admin?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=GMT
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/cloud_deer_admin?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=GMT%2B8
     username: root
     password: root
     # 使用druid数据源
@@ -28,6 +33,8 @@ feign:
   okhttp:
     enabled: true
 
+
+
 ribbon:
   eureka:
     enabled: true
@@ -43,8 +50,10 @@ mybatis-plus:
 #  typeAliasesPackage: com.riversking.user.entity
   global-config:
     db-config:
-      id-type: auto
+      id-type: none
       column-like: false
+      logic-not-delete-value: 0
+      logic-delete-value: 1
   configuration:
     map-underscore-to-camel-case: true
     cache-enabled: true #配置的缓存的全局开关
@@ -74,12 +83,32 @@ security:
     resource:
       token-info-uri: http://localhost:9080/oauth/check_token
       service-id: oauth-server
+#      user-info-uri:
 
 
 logging:
   level:
-    #        tk.mybatis: DEBUG
-    com.rivers: DEBUG
+    com.rivers: debug
+  path: D:\project\timer\logs\user-server\debug.log
+#  spring-admin 读取应用的日志 关键
+  file: ./logs/${spring.application.name}/debug.log
 
-server:
-  port: 6080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+    logfile:
+      enabled: true
+    loggers:
+      enabled: true
+
+ignore:
+  urls:
+    - /actuator/**
+    - /user/login
+    - /user/info

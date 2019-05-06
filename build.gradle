@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '2.0.7.RELEASE'
+        springBootVersion = '2.0.8.RELEASE'
         springCloudVersion = 'Finchley.SR2'
 
     }
@@ -46,16 +46,6 @@ subprojects {
             url 'http://jcenter.bintray.com'
         }
     }
-//
-//    jar {
-//        enabled = true
-//    }
-//
-//    bootJar {
-//        manifest {
-//            attributes 'Start-Class': 'com.clouddeer.account.Application'
-//        }
-//    }
 
     configurations {
         // 所有需要忽略的包定义在此
@@ -70,6 +60,8 @@ subprojects {
         compile group: 'de.codecentric', name: 'spring-boot-admin-starter-client', version: '2.0.3'
         compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-sleuth', version: '2.0.2.RELEASE'
         compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-zipkin', version: '2.0.2.RELEASE'
+        compile group: 'cn.hutool', name: 'hutool-all', version:'4.1.2'
+        compile group: 'joda-time', name: 'joda-time',
 //        compileOnly group: 'org.slf4j', name: 'slf4j-log4j12', version:'1.7.25'
         testCompile('org.springframework.boot:spring-boot-starter-test')
     }

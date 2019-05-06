@@ -14,6 +14,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author riversking
+ */
 @Component("appLoginFailureHandler")
 public class AppLoginFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
@@ -23,13 +26,11 @@ public class AppLoginFailureHandler extends SimpleUrlAuthenticationFailureHandle
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         response.setContentType("application/json;charset=UTF-8");
-        Map map = new HashMap();
+        Map<String,Object> map = new HashMap<>(16);
         map.put("code", 400);
-        map.put("data", "");
         map.put("timestamp", System.currentTimeMillis());
         if(exception instanceof BadCredentialsException){
             map.put("message", "用户名或密码错误");
-
         }else{
             map.put("message", exception.getMessage());
         }

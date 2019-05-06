@@ -7,7 +7,7 @@ import com.rivers.user.api.entity.SysUserModel;
 /**
  * SysUserDao
  *
- * @author rivers
+ * @author riversking
  * @Date 2018-12-19 14:51
  */
 public interface SysUserDao extends BaseMapper<SysUserModel> {

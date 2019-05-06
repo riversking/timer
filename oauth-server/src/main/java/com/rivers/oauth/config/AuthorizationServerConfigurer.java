@@ -1,12 +1,16 @@
 package com.rivers.oauth.config;
 
+import com.alibaba.fastjson.JSONObject;
 import com.rivers.oauth.common.CustomWebResponseExceptionTranslator;
 import com.rivers.oauth.service.ClientDetailsServiceImpl;
 import com.rivers.oauth.service.UserDetailsServiceImpl;
+import com.rivers.oauth.token.MyRedisTokenStore;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,20 +26,24 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 
-
+import java.security.KeyPair;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
  * 认证服务器
  *
- * @author hwj
+ * @author rversking
  * @date 2018/9/10
  * 加上这个注解则会生成oauth2的几个endpoint
  */
 @Configuration
 @EnableAuthorizationServer
+@Log4j2
 public class AuthorizationServerConfigurer extends AuthorizationServerConfigurerAdapter {
 
     @Autowired
@@ -74,8 +82,8 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
         d.setTokenStore(tokenStore());
         //是否重复使用token
         d.setReuseRefreshToken(false);
-        //增加token返回内容
-        d.setTokenEnhancer(tokenEnhancer());
+        //增加token返回内容 使用JWT后用户信息放在密文中
+//        d.setTokenEnhancer(tokenEnhancer());
         //是否支持refresh token
         d.setSupportRefreshToken(true);
         return d;
@@ -105,7 +113,9 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints
                 .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST)
-                .tokenServices(tokenServices())
+//                .tokenServices(tokenServices())
+                .accessTokenConverter(jwtAccessTokenConverter())
+                .tokenStore(tokenStore())
                 .userDetailsService(userDetailsService)
                 .authenticationManager(authenticationManager);
         // endpoints.pathMapping("/oauth/token","/oauth/token3");//可以修改默认的endpoint路径
@@ -113,6 +123,30 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
         //修改异常时返回格式
         endpoints.exceptionTranslator(customWebResponseExceptionTranslator);
     }
+
+    @Bean
+    public JwtAccessTokenConverter jwtAccessTokenConverter() {
+        JwtAccessTokenConverter converter = new JwtAccessTokenConverter() {
+            @Override
+            public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
+                String grantType = authentication.getOAuth2Request().getGrantType();
+                //只有如下两种模式才能获取到当前用户信息
+                if("authorization_code".equals(grantType) || "password".equals(grantType)) {
+                    String userName = authentication.getUserAuthentication().getName();
+                    log.info("用户信息 {}", JSONObject.toJSONString(authentication.getUserAuthentication()));
+                    Map<String, Object> additionalInformation = new HashMap<>(16);
+                    additionalInformation.put("user_name", userName);
+                    ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(additionalInformation);
+                }
+                return super.enhance(accessToken, authentication);
+            }
+        };
+        KeyPair keyPair = new KeyStoreKeyFactory(new ClassPathResource("kevin_key.jks"), "123456".toCharArray())
+                .getKeyPair("kevin_key");
+        converter.setKeyPair(keyPair);
+        return converter;
+    }
+
 
 
     /**

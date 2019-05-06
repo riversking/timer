@@ -61,8 +61,8 @@ public class CdAccountController {
             PageHelper.startPage(cdAccount.getPage(), cdAccount.getPageSize());
         }
         PageInfo<CdAccount> cdAccountPage = accountService.getAccountList(cdAccount);
-        rvo.setMsg("操作成功");
-        rvo.setRsp(cdAccountPage);
+        rvo.setMessage("操作成功");
+        rvo.setDatas(cdAccountPage);
         return rvo;
     }
 
@@ -77,7 +77,7 @@ public class CdAccountController {
         ResponseVo rvo = ResponseVo.ok();
         CdAccount cdAccount = vo.getParam();
         accountService.deleteAccount(cdAccount);
-        rvo.setMsg("操作成功");
+        rvo.setMessage("操作成功");
         return rvo;
     }
 
@@ -92,7 +92,7 @@ public class CdAccountController {
         ResponseVo rvo = ResponseVo.ok();
         CdAccount cdAccount = vo.getParam();
         accountService.updateAccountPrice(cdAccount);
-        rvo.setMsg("操作成功");
+        rvo.setMessage("操作成功");
         return rvo;
     }
 
@@ -107,8 +107,8 @@ public class CdAccountController {
         ResponseVo rvo = ResponseVo.ok();
         CdAccount cdAccount = vo.getParam();
         List<CdAccount> cdAccountList = accountService.selectAccountDynamic(cdAccount);
-        rvo.setMsg("操作成功");
-        rvo.setRsp(cdAccountList);
+        rvo.setMessage("操作成功");
+        rvo.setDatas(cdAccountList);
         return rvo;
     }
 
@@ -116,8 +116,8 @@ public class CdAccountController {
     public ResponseVo planAccountList(@RequestBody RequestVo<List<Integer>> vo) {
         ResponseVo rvo = ResponseVo.ok();
         List<CdAccount> planAccounts = accountService.getPlanAccount(vo.getParam());
-        rvo.setMsg("操作成功");
-        rvo.setRsp(planAccounts);
+        rvo.setMessage("操作成功");
+        rvo.setDatas(planAccounts);
         return rvo;
     }
 
@@ -134,8 +134,8 @@ public class CdAccountController {
         account.setPlanList(planList);
         account.setArticleList(articleList);
         account.setTagList(tagList);
-        rvo.setMsg("操作成功");
-        rvo.setRsp(account);
+        rvo.setMessage("操作成功");
+        rvo.setDatas(account);
         return rvo;
     }
 
@@ -143,8 +143,8 @@ public class CdAccountController {
     public ResponseVo getUserIdByAccountId(@RequestBody RequestVo<List<Integer>> vo) {
         ResponseVo rvo = ResponseVo.ok();
         List<Integer> userIdList = accountService.getUserId(vo.getParam());
-        rvo.setMsg("操作成功");
-        rvo.setRsp(userIdList);
+        rvo.setMessage("操作成功");
+        rvo.setDatas(userIdList);
         return rvo;
     }
 

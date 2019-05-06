@@ -1,8 +1,8 @@
 dependencies {
-	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '2.0.2.RELEASE'
+	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '2.0.3.RELEASE'
 	compile group: 'com.baomidou', name: 'mybatis-plus'
-	compile group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.0.5'
+	compile group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.1.0'
 	compile group: 'com.alibaba', name: 'fastjson', version: '1.2.47'
-	compile('org.springframework.cloud:spring-cloud-starter-oauth2')
-	compile('org.springframework.boot:spring-boot-starter-web')
+	compile group: 'com.github.riversking', name: 'utils', version:'1.0.2'
+	compile group: 'com.github.riversking', name: 'core', version: '1.0.9.81'
 }

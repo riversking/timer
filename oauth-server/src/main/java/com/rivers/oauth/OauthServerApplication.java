@@ -8,10 +8,11 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 
 /**
- * @author rivers
+ * 由于使用pom/gradle引入service jar包，如果不加basePackage，会找不到包所在路径
+ * @author riversking
  */
 @EnableEurekaClient
-@EnableFeignClients
+@EnableFeignClients(basePackages = "com.rivers.user.api.client")
 @MapperScan(basePackages = {"com.rivers.oauth.mapper"})
 @SpringBootApplication
 public class OauthServerApplication {

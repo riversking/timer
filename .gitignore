@@ -70,3 +70,5 @@ api/core/build/
 api/utils/out/
 api/utils/build/
 logs/
+logs/
+sh.exe.stackdump

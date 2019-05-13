@@ -2,7 +2,6 @@ dependencies {
 //    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-hystrix', version:'2.0.0.M7'
 	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client'
 //    compile group: 'org.springframework.cloud', name: 'spring-cloud-sleuth-zipkin', version:'2.0.0.M7'
-//    compile group: 'org.springframework.amqp', name: 'spring-rabbit', version:'2.0.2.RELEASE'
 	compile group: 'com.alibaba', name: 'druid-spring-boot-starter', version: '1.1.9'
 	compile group: 'mysql', name: 'mysql-connector-java'
 	compile group: 'com.github.pagehelper', name: 'pagehelper-spring-boot-starter', version: '1.2.3'
@@ -17,7 +16,6 @@ dependencies {
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-webflux'
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis'
 	compile project(':user-api')
-//	compile('org.springframework.cloud:spring-cloud-starter-oauth2')
 //	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-security'
 }
 configurations {

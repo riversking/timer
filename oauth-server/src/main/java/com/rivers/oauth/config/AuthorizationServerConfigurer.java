@@ -117,49 +117,28 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
         // endpoints.pathMapping("/oauth/token","/oauth/token3");//可以修改默认的endpoint路径
     }
 
-//    @Bean
-//    public JwtAccessTokenConverter jwtAccessTokenConverter() {
-//        JwtAccessTokenConverter converter = new JwtAccessTokenConverter() {
-//            @Override
-//            public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
-//                String grantType = authentication.getOAuth2Request().getGrantType();
-//                //只有如下两种模式才能获取到当前用户信息
-//                if("authorization_code".equals(grantType) || "password".equals(grantType)) {
-//                    String userName = authentication.getUserAuthentication().getName();
-//                    log.info("用户信息 {}", JSONObject.toJSONString(authentication.getUserAuthentication()));
-//                    Map<String, Object> additionalInformation = new HashMap<>(16);
-//                    additionalInformation.put("user_name", userName);
-//                    ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(additionalInformation);
-//                }
-//                return super.enhance(accessToken, authentication);
-//            }
-//        };
-//        KeyPair keyPair = new KeyStoreKeyFactory(new ClassPathResource("kevin_key.jks"), "123456".toCharArray())
-//                .getKeyPair("kevin_key");
-//        converter.setKeyPair(keyPair);
-//        return converter;
-//    }
-
 
     /**
      * 增加token返回内容
+     * <p>
+     * {
+     * "access_token": "f067da15-91f9-4fda-bbe4-6344ae3aefa7",
+     * "token_type": "bearer",
+     * "refresh_token": "592dc245-ab20-4433-9060-247ca1f3c6d4",
+     * "expires_in": 43199,
+     * "scope": "scope",
+     * "username": "guest",
+     * "data": {
+     * "s1": "123",
+     * "d1": 123.456
+     * }
+     * }
+     *<p>
      *
-     * @return
+     * @return TokenEnhancer
      */
     @Bean
     public TokenEnhancer tokenEnhancer() {
-             /* {
-                "access_token": "f067da15-91f9-4fda-bbe4-6344ae3aefa7",
-                "token_type": "bearer",
-                "refresh_token": "592dc245-ab20-4433-9060-247ca1f3c6d4",
-                "expires_in": 43199,
-                "scope": "scope",
-                "username": "guest",
-                "data": {
-                    "s1": "123",
-                    "d1": 123.456
-        }
-        }*/
         return (OAuth2AccessToken accessToken, OAuth2Authentication authentication) -> {
             if (accessToken instanceof DefaultOAuth2AccessToken) {
                 DefaultOAuth2AccessToken token = (DefaultOAuth2AccessToken) accessToken;
@@ -176,6 +155,5 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 
 }

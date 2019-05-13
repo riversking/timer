@@ -46,9 +46,9 @@ spring:
                         485TTKPksRiX5peY08OlB4AtwhB9aBfQdJg/EZKg02qta+Z8Ahh1ug==
                         -----END RSA PRIVATE KEY-----
 
-    bus:
-      refresh:
-        enabled: true
+#    bus:
+#      refresh:
+#        enabled: true
 
 
 eureka:
@@ -66,6 +66,6 @@ management:
     web:
       exposure:
         include: '*'
-  endpoint:
-    bus-refresh:
-      enabled: true
+#  endpoint:
+#    bus-refresh:
+#      enabled: true

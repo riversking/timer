@@ -4,11 +4,11 @@ dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-undertow', version: springBootVersion
     //2.0版不用此jar包 无法发现 eureka上的服务
 //    compile group: 'de.codecentric', name: 'spring-boot-admin-server', version: '2.0.3'
-    compile group: 'de.codecentric', name: 'spring-boot-admin-server-ui', version: '2.1.6'
+    compile group: 'de.codecentric', name: 'spring-boot-admin-server-ui', version: '2.2.0-SNAPSHOT'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '2.0.6.RELEASE'
     compile group: 'org.jolokia', name: 'jolokia-core', version: '1.6.0'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
-    compile group: 'de.codecentric', name: 'spring-boot-admin-starter-server', version: '2.1.6'
+    compile group: 'de.codecentric', name: 'spring-boot-admin-starter-server', version: '2.2.0-SNAPSHOT'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-security'
 }
 configurations {

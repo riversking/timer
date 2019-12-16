@@ -16,11 +16,3 @@ configurations {
     compile.exclude module: 'spring-boot-starter-tomcat'
 }
 
-sourceSets {
-    main {
-        java {
-            srcDirs = ['src/main/java','../user-api']
-        }
-    }
-}
-

@@ -23,11 +23,3 @@ configurations {
 //	compile.exclude module: 'spring-security-config'
 }
 
-sourceSets {
-	main {
-		java {
-			srcDirs = ['src/main/java','../user-api']
-		}
-	}
-}
-

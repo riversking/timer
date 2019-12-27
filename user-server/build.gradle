@@ -15,7 +15,7 @@ dependencies {
 	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-config'
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-webflux'
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis'
-	compile project(':user-api')
+	implementation project(':user-api')
 //	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-security'
 }
 configurations {
@@ -23,3 +23,10 @@ configurations {
 //	compile.exclude module: 'spring-security-config'
 }
 
+sourceSets {
+	main {
+		java {
+			srcDirs = ['src/main/java','../user-api']
+		}
+	}
+}

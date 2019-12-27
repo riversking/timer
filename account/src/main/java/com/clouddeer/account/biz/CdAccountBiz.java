@@ -197,10 +197,10 @@ public class CdAccountBiz {
                 cdAccountToutiaoMapper.deleteToutiao(cdAccountToutiao);
             }
             if (cdAccount.getPlatformName().equals("wangyi")) {
-                cdAccountWangYi.setAccountId(cdAccount.getId());
-                cdAccountWangYi.setUpdateDate(new Timestamp(System.currentTimeMillis()));
-                cdAccountWangYi.setUpdateUserId(1);
-                cdAccountWangYiMapper.deleteWangYi(cdAccountWangYi);
+//                cdAccountWangYi.setAccountId(cdAccount.getId());
+//                cdAccountWangYi.setUpdateDate(new Timestamp(System.currentTimeMillis()));
+//                cdAccountWangYi.setUpdateUserId(1);
+//                cdAccountWangYiMapper.deleteWangYi(cdAccountWangYi);
             }
             transactionManager.commit(transactionStatus);
         } catch (Exception e) {
@@ -243,22 +243,22 @@ public class CdAccountBiz {
         TransactionStatus transactionStatus = transactionManager.getTransaction(new DefaultTransactionDefinition());
         CdAccountWangYi cdAccountWangYi = cdAccount.getCdAccountWangYi();
         try {
-            cdAccount.setRecordStatus(AccountConstant.RECORD_STATUS_ON);
-            cdAccount.setIsSort(0);
-            cdAccount.setUuid(UUID.randomUUID().toString());
-            cdAccount.setCreateDate(new Timestamp(System.currentTimeMillis()));
-            cdAccount.setUpdateDate(new Timestamp(System.currentTimeMillis()));
-            cdAccount.setCreateUserId(1);
-            cdAccount.setUpdateUserId(1);
-            cdAccountMapper.insertSelective(cdAccount);
-            cdAccountWangYi.setAccountId(cdAccount.getId());
-            cdAccountWangYi.setRecordStatus(AccountConstant.RECORD_STATUS_ON);
-            cdAccountWangYi.setCreateDate(new Timestamp(System.currentTimeMillis()));
-            cdAccountWangYi.setUpdateDate(new Timestamp(System.currentTimeMillis()));
-            cdAccountWangYi.setCreateUserId(1);
-            cdAccountWangYi.setUpdateUserId(1);
-            cdAccountWangYiMapper.insertSelective(cdAccountWangYi);
-            transactionManager.commit(transactionStatus);
+//            cdAccount.setRecordStatus(AccountConstant.RECORD_STATUS_ON);
+//            cdAccount.setIsSort(0);
+//            cdAccount.setUuid(UUID.randomUUID().toString());
+//            cdAccount.setCreateDate(new Timestamp(System.currentTimeMillis()));
+//            cdAccount.setUpdateDate(new Timestamp(System.currentTimeMillis()));
+//            cdAccount.setCreateUserId(1);
+//            cdAccount.setUpdateUserId(1);
+//            cdAccountMapper.insertSelective(cdAccount);
+//            cdAccountWangYi.setAccountId(cdAccount.getId());
+//            cdAccountWangYi.setRecordStatus(AccountConstant.RECORD_STATUS_ON);
+//            cdAccountWangYi.setCreateDate(new Timestamp(System.currentTimeMillis()));
+//            cdAccountWangYi.setUpdateDate(new Timestamp(System.currentTimeMillis()));
+//            cdAccountWangYi.setCreateUserId(1);
+//            cdAccountWangYi.setUpdateUserId(1);
+//            cdAccountWangYiMapper.insertSelective(cdAccountWangYi);
+//            transactionManager.commit(transactionStatus);
         } catch (Exception e) {
             transactionManager.rollback(transactionStatus);
             ExceptionUtil.throwBusinessException(ErrorCodeConstant.ECODE_0301, e);
@@ -371,24 +371,23 @@ public class CdAccountBiz {
         TransactionStatus transactionStatus = transactionManager.getTransaction(new DefaultTransactionDefinition());
         CdAccountWangYi cdAccountWangYi = cdAccount.getCdAccountWangYi();
         try {
-            cdAccount.setRecordStatus(AccountConstant.RECORD_STATUS_ON);
-            cdAccount.setIsSort(0);
-            cdAccount.setUpdateDate(new Timestamp(System.currentTimeMillis()));
-            cdAccount.setUpdateUserId(1);
-            cdAccountMapper.updateByPrimaryKeySelective(cdAccount);
-            CdAccountWangYi cdAccountWangYi1 = new CdAccountWangYi();
-            cdAccountWangYi1.setAccountId(cdAccount.getId());
-            cdAccountWangYi1.setUpdateDate(new Timestamp(System.currentTimeMillis()));
-            cdAccountWangYi1.setUpdateUserId(1);
-            cdAccountWangYiMapper.deleteWangYi(cdAccountWangYi1);
-            cdAccountWangYi.setAccountId(cdAccount.getId());
-            cdAccountWangYi.setRecordStatus(AccountConstant.RECORD_STATUS_ON);
-            cdAccountWangYi.setCreateDate(new Timestamp(System.currentTimeMillis()));
-            cdAccountWangYi.setCreateUserId(1);
-            cdAccountWangYi.setUpdateDate(new Timestamp(System.currentTimeMillis()));
-            cdAccountWangYi.setUpdateUserId(1);
-            cdAccountWangYiMapper.insertSelective(cdAccountWangYi);
-            transactionManager.commit(transactionStatus);
+//            cdAccount.setRecordStatus(AccountConstant.RECORD_STATUS_ON);
+//            cdAccount.setIsSort(0);
+//            cdAccount.setUpdateDate(new Timestamp(System.currentTimeMillis()));
+//            cdAccount.setUpdateUserId(1);
+//            cdAccountMapper.updateByPrimaryKeySelective(cdAccount);
+//            cdAccountWangYi.setAccountId(cdAccount.getId());
+//            cdAccountWangYi.setUpdateDate(new Timestamp(System.currentTimeMillis()));
+//            cdAccountWangYi.setUpdateUserId(1);
+//            cdAccountWangYiMapper.deleteWangYi(cdAccountWangYi);
+//            cdAccountWangYi.setAccountId(cdAccount.getId());
+//            cdAccountWangYi.setRecordStatus(AccountConstant.RECORD_STATUS_ON);
+//            cdAccountWangYi.setCreateDate(new Timestamp(System.currentTimeMillis()));
+//            cdAccountWangYi.setCreateUserId(1);
+//            cdAccountWangYi.setUpdateDate(new Timestamp(System.currentTimeMillis()));
+//            cdAccountWangYi.setUpdateUserId(1);
+//            cdAccountWangYiMapper.insertSelective(cdAccountWangYi);
+//            transactionManager.commit(transactionStatus);
         } catch (Exception e) {
             transactionManager.rollback(transactionStatus);
             ExceptionUtil.throwBusinessException(ErrorCodeConstant.ECODE_0301, e);

@@ -1,9 +1,10 @@
 dependencies {
-    implementation 'org.springframework.cloud:spring-cloud-config-server'
+    implementation 'org.springframework.cloud:spring-cloud-starter-config'
     compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client'
     compile group: 'mysql', name: 'mysql-connector-java'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc'
     compile group: 'com.alibaba', name: 'druid-spring-boot-starter', version:'1.1.10'
+    compile(group: 'org.springframework.boot', name: 'spring-boot-starter-web')
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-undertow'
 }
 configurations {

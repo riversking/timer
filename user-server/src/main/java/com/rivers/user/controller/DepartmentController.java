@@ -26,7 +26,7 @@ public class DepartmentController {
         List<DeptTree> deptTrees = deptService.getDeptTree();
         vo.setCode("0");
         vo.setMessage("查询成功");
-        vo.setDatas(deptTrees);
+        vo.setData(deptTrees);
         return vo;
     }
 

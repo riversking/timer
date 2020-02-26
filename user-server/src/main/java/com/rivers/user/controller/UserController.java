@@ -55,7 +55,7 @@ public class UserController {
         JSONObject jsonObject = oauthClientFeign.getAccessToken("Basic YWRtaW46c2VjcmV0",
                 userDto.getUsername(), userDto.getPassword(), "password");
         TokenVo token = JSONObject.toJavaObject(jsonObject, TokenVo.class);
-        responseVo.setDatas(token);
+        responseVo.setData(token);
         responseVo.setMessage("请求成功");
         return responseVo;
     }
@@ -97,7 +97,7 @@ public class UserController {
         UserDto userDto = requestVo.getParam();
         IPage<SysUserModel> pageInfo = userService.getUserPage(userDto);
         vo.setMessage("查询成功");
-        vo.setDatas(pageInfo);
+        vo.setData(pageInfo);
         return vo;
     }
 
@@ -112,7 +112,7 @@ public class UserController {
         ResponseVo vo = ResponseVo.ok();
         Integer id = requestVo.getParam();
         SysUserModel user = userService.getUserById(id);
-        vo.setDatas(user);
+        vo.setData(user);
         vo.setMessage("查询成功");
         return vo;
     }
@@ -143,7 +143,7 @@ public class UserController {
         ResponseVo vo = ResponseVo.ok();
         String username = requestVo.getParam();
         SysUserModel user = userService.getUserInfo(username);
-        vo.setDatas(user);
+        vo.setData(user);
         vo.setMessage("查询成功");
         return vo;
     }
@@ -152,7 +152,7 @@ public class UserController {
     public ResponseVo info(@RequestBody String username) {
         ResponseVo vo = ResponseVo.ok();
         UserInfo userInfo = userService.queryUserInfo(username);
-        vo.setDatas(userInfo);
+        vo.setData(userInfo);
         vo.setMessage("查询成功");
         return vo;
     }

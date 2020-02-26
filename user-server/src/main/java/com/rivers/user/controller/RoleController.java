@@ -56,7 +56,7 @@ public class RoleController {
         RoleDto roleDto = requestVo.getParam();
         ResponseVo responseVo = ResponseVo.ok();
         IPage<SysRoleModel> pageInfo = roleService.getRolePage(roleDto);
-        responseVo.setDatas(pageInfo);
+        responseVo.setData(pageInfo);
         return responseVo;
     }
 
@@ -71,7 +71,7 @@ public class RoleController {
         Integer id = requestVo.getParam();
         ResponseVo responseVo = ResponseVo.ok();
         SysRoleModel sysRoleModel = roleService.getRoleDetailById(id);
-        responseVo.setDatas(sysRoleModel);
+        responseVo.setData(sysRoleModel);
         return responseVo;
     }
 
@@ -99,7 +99,7 @@ public class RoleController {
         List<SysRoleModel> list = roleService.getRoleList();
         responseVo.setCode("0");
         responseVo.setMessage("查询成功");
-        responseVo.setDatas(list);
+        responseVo.setData(list);
         return responseVo;
     }
 

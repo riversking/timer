@@ -36,7 +36,7 @@ public class MenuController {
         ResponseVo vo = ResponseVo.ok();
         vo.setCode("0");
         vo.setMessage("查询成功");
-        vo.setDatas(menuService.getMenuTree());
+        vo.setData(menuService.getMenuTree());
         return vo;
     }
 
@@ -53,7 +53,7 @@ public class MenuController {
         }
         SysMenuModel sysMenuModel = menuService.selectMenuById(vo.getParam());
         rvo.setMessage("查询成功");
-        rvo.setDatas(sysMenuModel);
+        rvo.setData(sysMenuModel);
         return rvo;
     }
 
@@ -119,7 +119,7 @@ public class MenuController {
         }
         vo.setCode("0");
         vo.setMessage("查询成功");
-        vo.setDatas(menuService.getMenuByRoleId(roleId));
+        vo.setData(menuService.getMenuByRoleId(roleId));
         return vo;
     }
 
@@ -142,7 +142,7 @@ public class MenuController {
         }
         vo.setCode("0");
         vo.setMessage("查询成功");
-        vo.setDatas(menuService.getMenuByUserId(userId));
+        vo.setData(menuService.getMenuByUserId(userId));
         return vo;
     }
 
@@ -151,7 +151,7 @@ public class MenuController {
         ResponseVo vo = ResponseVo.ok();
         vo.setCode("0");
         vo.setMessage("查询成功");
-        vo.setDatas(menuService.getMenu(requestVo.getParam()));
+        vo.setData(menuService.getMenu(requestVo.getParam()));
         return vo;
     }
 

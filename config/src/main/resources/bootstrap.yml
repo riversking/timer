@@ -7,14 +7,14 @@ spring:
     name: config
   profiles:
     active: dev
-#  rabbitmq:
-#    host: localhost
-#    port: 5672
-#    username: guest
-#    password: guest
-#    bus:
-#      refresh:
-#        enabled: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    bus:
+      refresh:
+        enabled: true
 
 
 eureka:
@@ -32,6 +32,6 @@ management:
     web:
       exposure:
         include: '*'
-#  endpoint:
-#    bus-refresh:
-#      enabled: true
+  endpoint:
+    bus-refresh:
+      enabled: true

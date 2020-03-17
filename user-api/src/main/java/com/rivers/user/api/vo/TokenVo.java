@@ -16,4 +16,10 @@ public class TokenVo {
     private String scope;
 
     private String username;
+
+    private Integer uid;
+
+    private String avatar;
+
+    private String nickname;
 }

@@ -12,8 +12,10 @@ import com.rivers.user.api.dto.UserInfo;
 import com.rivers.user.api.entity.SysUserModel;
 import com.rivers.user.api.vo.TokenVo;
 import com.rivers.user.service.UserService;
+import com.rivers.userservice.proto.AddUserReq;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,7 +39,6 @@ public class UserController {
     private UserService userService;
 
 
-
     /**
      * 登录
      *
@@ -55,6 +56,9 @@ public class UserController {
         JSONObject jsonObject = oauthClientFeign.getAccessToken("Basic YWRtaW46c2VjcmV0",
                 userDto.getUsername(), userDto.getPassword(), "password");
         TokenVo token = JSONObject.toJavaObject(jsonObject, TokenVo.class);
+        token.setUid(userModel.getId());
+        token.setAvatar(userModel.getAvatar());
+        token.setNickname(userModel.getNickname());
         responseVo.setData(token);
         responseVo.setMessage("请求成功");
         return responseVo;
@@ -68,7 +72,6 @@ public class UserController {
      */
     @PostMapping("addUser")
     public ResponseVo addUser(@RequestBody RequestVo<UserDto> requestVo) {
-        log.info("getParam {}", requestVo.getParam());
         ResponseVo vo = ResponseVo.ok();
         UserDto user = requestVo.getParam();
         List<SysUserModel> userModels = userService.getUser(user);
@@ -81,6 +84,13 @@ public class UserController {
         } else {
             return ResponseVo.fail("-101004", "用户名/手机号已存在");
         }
+        return vo;
+    }
+
+    @PostMapping(value = "addUser1")
+    public ResponseVo addUser1(@RequestBody RequestVo<AddUserReq> user) {
+        ResponseVo vo = ResponseVo.ok();
+//        List<SysUserModel> userModels = userService.getUser(user);
         return vo;
     }
 
@@ -155,6 +165,20 @@ public class UserController {
         vo.setData(userInfo);
         vo.setMessage("查询成功");
         return vo;
+    }
+
+    @PostMapping("isDisable")
+    public ResponseVo isDisableByUserId(@RequestBody RequestVo<UserDto> user) {
+        ResponseVo vo = ResponseVo.ok();
+        userService.isDisableByUserId(user.getParam());
+        return vo;
+    }
+
+    @PostMapping("updateUserById")
+    public ResponseVo updateUserById(@RequestBody RequestVo<UserDto> userReq) {
+        UserDto param = userReq.getParam();
+        userService.updateUserById(param);
+        return ResponseVo.ok();
     }
 
 

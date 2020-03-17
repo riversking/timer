@@ -9,11 +9,14 @@
 		<result column="salt" property="salt" />
 		<result column="phone" property="phone" />
 		<result column="avatar" property="avatar" />
+		<result column="nickname" property="nickname" />
+		<result column="mail" property="mail" />
 		<result column="create_time" property="createTime" />
 		<result column="update_time" property="updateTime" />
 		<result column="create_user" property="createUser" />
 		<result column="update_user" property="updateUser" />
 		<result column="is_delete" property="isDelete" />
+		<result column="is_disable" property="isDisable" />
 	</resultMap>
 
 </mapper>

@@ -5,6 +5,7 @@ import com.rivers.core.view.RequestVo;
 import com.rivers.core.view.ResponseVo;
 import com.rivers.user.api.dto.MenuDto;
 import com.rivers.user.api.dto.MenuRoleDto;
+import com.rivers.user.api.dto.MenuTree;
 import com.rivers.user.api.entity.SysMenuModel;
 import com.rivers.user.api.entity.SysRoleMenuModel;
 import com.rivers.user.service.MenuService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -66,9 +68,6 @@ public class MenuController {
     public ResponseVo addMenu(@RequestBody RequestVo<MenuDto> requestVo) {
         ResponseVo rvo = ResponseVo.ok();
         MenuDto menuDto = requestVo.getParam();
-        if (menuDto.getId() == 0) {
-            return ResponseVo.fail("103001", "id为空");
-        }
         if (StrUtil.isBlank(menuDto.getName())) {
             return ResponseVo.fail("103002", "菜单名称为空");
         }
@@ -137,7 +136,7 @@ public class MenuController {
     public ResponseVo getMenuByUserId(@RequestBody RequestVo<Integer> requestVo) {
         ResponseVo vo = ResponseVo.ok();
         Integer userId = requestVo.getParam();
-        if (userId == 0) {
+        if (null == userId || userId == 0) {
             return ResponseVo.fail("103005", "userId为空");
         }
         vo.setCode("0");
@@ -155,5 +154,9 @@ public class MenuController {
         return vo;
     }
 
-
+    @PostMapping("getParentMenu")
+    public ResponseVo getParentMenu() {
+        List<MenuTree> parentMenu = menuService.getParentMenu();
+        return ResponseVo.ok(parentMenu);
+    }
 }

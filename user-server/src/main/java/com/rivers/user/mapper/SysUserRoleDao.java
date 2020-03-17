@@ -15,4 +15,6 @@ import java.util.List;
 public interface SysUserRoleDao extends BaseMapper<SysUserRoleModel> {
 
     List<Integer> selectRoleId(Integer id);
+
+    void deleteByUserId(Integer userId);
 }

@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author riverskingking
@@ -21,5 +22,9 @@ public class RoleDto extends Page {
     private String updateTime;
 
     private Integer isDelete;
+
+    private Integer userId;
+
+    private List<Integer> roleIds;
 
 }

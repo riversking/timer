@@ -7,6 +7,7 @@ import com.rivers.core.view.RequestVo;
 import com.rivers.core.view.ResponseVo;
 import com.rivers.user.api.dto.RoleDto;
 import com.rivers.user.api.entity.SysRoleModel;
+import com.rivers.user.api.entity.SysUserRoleModel;
 import com.rivers.user.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -91,6 +92,7 @@ public class RoleController {
 
     /**
      * 角色列表
+     *
      * @return ResponseVo
      */
     @PostMapping("roleList")
@@ -114,6 +116,18 @@ public class RoleController {
     }
 
 
+    @PostMapping("addRoleByUserId")
+    public ResponseVo addRoleByUserId(@RequestBody RequestVo<RoleDto> req) {
+        RoleDto roleVo = req.getParam();
+        if (roleVo.getRoleIds().isEmpty()) {
+            return ResponseVo.fail("-100001", "角色id为空");
+        }
+        if (roleVo.getUserId() == 0) {
+            return ResponseVo.fail("-100002", "用户id为空");
+        }
+        roleService.addRoleByUserId(roleVo);
+        return ResponseVo.ok();
+    }
 
 
 }

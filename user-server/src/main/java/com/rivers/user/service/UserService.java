@@ -1,7 +1,10 @@
 package com.rivers.user.service;
 
+import cn.hutool.core.date.DateUnit;
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -9,6 +12,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.rivers.core.util.ExceptionUtil;
+import com.rivers.user.api.dto.RoleDto;
 import com.rivers.user.api.dto.UserDto;
 import com.rivers.user.api.dto.UserInfo;
 import com.rivers.user.api.entity.SysMenuModel;
@@ -21,6 +25,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -67,15 +72,9 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
         sysUserModel.setAvatar(userDto.getAvatar());
         sysUserModel.setSalt(UUID.randomUUID().toString());
         sysUserModel.setCreateUser(userDto.getCreateUser());
-        sysUserModel.setUpdateUser(userDto.getUpdateUser());
+        sysUserModel.setUpdateUser(userDto.getCreateUser());
         sysUserDao.insert(sysUserModel);
-        userDto.getRoleIds().forEach(i -> {
-            SysUserRoleModel sysUserRoleModel = new SysUserRoleModel();
-            sysUserRoleModel.setRoleId(i);
-            log.info("userId {}", sysUserModel.getId());
-            sysUserRoleModel.setUserId(sysUserModel.getId());
-            sysUserRoleDao.insert(sysUserRoleModel);
-        });
+        saveUserRole(userDto, sysUserModel);
     }
 
     /**
@@ -92,21 +91,22 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
         if (StrUtil.isNotBlank(userDto.getPhone())) {
             wrapper.eq("phone", userDto.getPhone());
         }
-        if (StrUtil.isNotBlank(userDto.getCreateTime())) {
-            wrapper.ge("create_time", userDto.getCreateTime());
-        }
-        if (StrUtil.isNotBlank(userDto.getUpdateTime())) {
-            wrapper.le("update_time", userDto.getUpdateTime());
+        if (StrUtil.isNotBlank(userDto.getStartDate()) && StrUtil.isNotBlank(userDto.getEndDate())) {
+            wrapper.ge("create_time", userDto.getStartDate())
+                    .le("create_time", userDto.getEndDate());
         }
         wrapper.eq(IS_DELETE, 0);
+        wrapper.select(SysUserModel.class, info -> !"password".equals(info.getColumn()));
         Page<SysUserModel> page = new Page<>(userDto.getPage(), userDto.getPageSize());
         IPage<SysUserModel> sysUserPage = sysUserDao.selectPage(page, wrapper);
-        sysUserPage.getRecords().forEach(i -> {
-            i.setPassword("");
-            List<Integer> idList = sysUserRoleDao.selectRoleId(i.getId());
-            List<SysRoleModel> roleModels = sysRoleDao.selectBatchIds(idList);
-            i.setSysRoleModels(roleModels);
-        });
+        List<SysUserModel> collect = sysUserPage.getRecords()
+                .stream()
+                .peek(i -> {
+                    List<SysRoleModel> roleModels = sysRoleDao.selectRoleByUserId(i.getId());
+                    i.setSysRoleModels(roleModels);
+                    i.setCreateTime(DateUtil.parseDate(DateUtil.formatDate(i.getCreateTime())).toSqlDate());
+                }).collect(Collectors.toList());
+        sysUserPage.setRecords(collect);
         return sysUserPage;
     }
 
@@ -125,7 +125,6 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
             return new SysUserModel();
         }
         if (new BCryptPasswordEncoder().matches(userDto.getPassword(), user.getPassword())) {
-            log.info("is Right {}", userDto.getPassword());
             return user;
         }
         return new SysUserModel();
@@ -141,6 +140,7 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
         QueryWrapper<SysUserModel> wrapper = new QueryWrapper<>();
         wrapper.eq(IS_DELETE, 0);
         wrapper.eq("id", id);
+        wrapper.select("id", "username", "phone", "mail", "nickname", "avatar", "is_disable");
         SysUserModel user = sysUserDao.selectOne(wrapper);
         List<Integer> idList = sysUserRoleDao.selectRoleId(id);
         user.setRoleIds(idList);
@@ -209,5 +209,37 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
         } catch (Exception e) {
             ExceptionUtil.throwBusinessException("101005", "删除失败");
         }
+    }
+
+    public void isDisableByUserId(UserDto user) {
+        SysUserModel userModel = new SysUserModel();
+        userModel.setId(user.getId());
+        userModel.setIsDisable(user.getIsDisable());
+        sysUserDao.updateById(userModel);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void updateUserById(UserDto userDto) {
+        Integer userId = userDto.getId();
+        SysUserModel user = new SysUserModel();
+        user.setId(userId);
+        user.setUsername(userDto.getUsername());
+        user.setPassword(userDto.getPassword());
+        user.setAvatar(userDto.getAvatar());
+        user.setMail(userDto.getMail());
+        user.setNickname(userDto.getNickname());
+        user.setUpdateUser(userDto.getUpdateUser());
+        sysUserDao.updateById(user);
+        sysUserRoleDao.deleteByUserId(userId);
+        saveUserRole(userDto, user);
+    }
+
+    private void saveUserRole(UserDto userDto, SysUserModel user) {
+        userDto.getRoleIds().forEach(i -> {
+            SysUserRoleModel sysUserRoleModel = new SysUserRoleModel();
+            sysUserRoleModel.setRoleId(i);
+            sysUserRoleModel.setUserId(user.getId());
+            sysUserRoleDao.insert(sysUserRoleModel);
+        });
     }
 }

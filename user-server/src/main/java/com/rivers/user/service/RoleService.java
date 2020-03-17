@@ -8,8 +8,11 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.rivers.core.util.ExceptionUtil;
 import com.rivers.user.api.dto.RoleDto;
 import com.rivers.user.api.entity.SysRoleModel;
+import com.rivers.user.api.entity.SysUserRoleModel;
 import com.rivers.user.mapper.SysRoleDao;
+import com.rivers.user.mapper.SysUserRoleDao;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -24,6 +27,9 @@ public class RoleService extends ServiceImpl<SysRoleDao, SysRoleModel> {
 
     @Resource
     private SysRoleDao sysRoleDao;
+
+    @Resource
+    private SysUserRoleDao sysUserRoleDao;
 
     public void addRole(SysRoleModel sysRoleModel) {
         try {
@@ -94,7 +100,7 @@ public class RoleService extends ServiceImpl<SysRoleDao, SysRoleModel> {
             sysRoleModel.setUpdateUser("tester");
             sysRoleDao.updateById(sysRoleModel);
         } catch (Exception e) {
-            log.error("Update Role Exception {}", e);
+            log.error("Update Role Exception ", e);
             ExceptionUtil.throwBusinessException("101006", e);
         }
 
@@ -102,6 +108,15 @@ public class RoleService extends ServiceImpl<SysRoleDao, SysRoleModel> {
 
     public List<SysRoleModel> getRoleList() {
         return sysRoleDao.selectRoleList();
+    }
+
+    public void addRoleByUserId(RoleDto roleDto) {
+        roleDto.getRoleIds().forEach(i -> {
+            SysUserRoleModel userRole = new SysUserRoleModel();
+            userRole.setRoleId(i);
+            userRole.setUserId(roleDto.getUserId());
+            sysUserRoleDao.insert(userRole);
+        });
     }
 
 }

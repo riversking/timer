@@ -7,6 +7,7 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
+    default-property-inclusion: non_null
   datasource:
     name: user-server
     url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/cloud_deer_admin?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=GMT%2B8
@@ -47,7 +48,7 @@ ribbon:
 
 mybatis-plus:
   mapper-locations: classpath*:/mapper/*.xml
-#  typeAliasesPackage: com.riversking.user.entity
+  #  typeAliasesPackage: com.riversking.user.entity
   global-config:
     db-config:
       id-type: none
@@ -59,6 +60,7 @@ mybatis-plus:
     cache-enabled: true #配置的缓存的全局开关
     lazyLoadingEnabled: true #延时加载的开关
     multipleResultSetsEnabled: true #开启的话
+    call-setters-on-nulls: false
 
 
 
@@ -89,9 +91,9 @@ security:
 logging:
   level:
     com.rivers: debug
-  path: D:\project\timer\logs\user-server\debug.log
-#  spring-admin 读取应用的日志 关键
-  file: ./logs/${spring.application.name}/debug.log
+  #  spring-admin 读取应用的日志 关键
+  file:
+    path: D:\project\timer\logs\user-server\debug.log
 
 
 management:

@@ -76,7 +76,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (result == null) {
             throw new UsernameNotFoundException("用户不存在");
         }
-        UserInfo userInfo = result.getObject("datas", UserInfo.class);
+        UserInfo userInfo = result.getObject("data", UserInfo.class);
         Set<String> dbAuthsSet = new HashSet<>(userInfo.getPermissions());
         Collection<? extends GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(dbAuthsSet.toArray(new String[0]));
         SysUserModel sysUserModel = userInfo.getSysUser();

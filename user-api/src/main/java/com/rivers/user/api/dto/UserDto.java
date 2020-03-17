@@ -12,6 +12,8 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class UserDto extends Page {
 
+    private Integer id;
+
     /**
      * 用户名
      */
@@ -44,4 +46,14 @@ public class UserDto extends Page {
     private String createUser;
 
     private String updateUser;
+
+    private String startDate;
+
+    private String endDate;
+
+    private Integer isDisable;
+
+    private String mail;
+
+    private String nickname;
 }

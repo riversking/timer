@@ -73,8 +73,9 @@ eureka:
 logging:
   level:
     com.riversking: debug
-  path: D:\project\timer\logs\oauth-server\debug.log
-  file: ./logs/${spring.application.name}/debug.log
+  file:
+    name: ./logs/${spring.application.name}/debug.log
+    path: D:\project\timer\logs\oauth-server\debug.log
 
 
 management:

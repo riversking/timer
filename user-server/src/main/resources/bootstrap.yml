@@ -93,8 +93,8 @@ logging:
     com.rivers: debug
   #  spring-admin 读取应用的日志 关键
   file:
-    path: D:\project\timer\logs\user-server\debug.log
-
+    path: ./logs/${spring.application.name}/debug.log
+    name: ./logs/${spring.application.name}/debug.log
 
 management:
   endpoints:

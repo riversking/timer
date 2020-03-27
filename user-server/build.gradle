@@ -16,6 +16,7 @@ dependencies {
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-webflux'
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis'
 	implementation project(':user-api')
+	compile group: 'org.apache.poi', name: 'poi', version: '4.1.2'
 //	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-security'
 }
 configurations {

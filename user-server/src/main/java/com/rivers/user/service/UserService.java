@@ -1,10 +1,7 @@
 package com.rivers.user.service;
 
-import cn.hutool.core.date.DateUnit;
 import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -12,7 +9,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.rivers.core.util.ExceptionUtil;
-import com.rivers.user.api.dto.RoleDto;
 import com.rivers.user.api.dto.UserDto;
 import com.rivers.user.api.dto.UserInfo;
 import com.rivers.user.api.entity.SysMenuModel;
@@ -21,11 +17,9 @@ import com.rivers.user.api.entity.SysUserModel;
 import com.rivers.user.api.entity.SysUserRoleModel;
 import com.rivers.user.mapper.*;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.BeanUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -242,4 +236,6 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
             sysUserRoleDao.insert(sysUserRoleModel);
         });
     }
+
+
 }

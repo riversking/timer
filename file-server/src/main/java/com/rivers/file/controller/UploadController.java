@@ -22,8 +22,7 @@ public class UploadController {
     @PostMapping("/upload")
     @ResponseBody
     public ResponseVo upload(@RequestParam(value = "file", required = false) MultipartFile file) {
-        String url = uploadService.uploadFile(file);
-        return ResponseVo.ok(url);
+        return ResponseVo.ok(uploadService.uploadFile(file));
     }
 
 

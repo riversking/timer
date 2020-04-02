@@ -15,7 +15,11 @@ import com.rivers.user.api.entity.SysMenuModel;
 import com.rivers.user.api.entity.SysRoleModel;
 import com.rivers.user.api.entity.SysUserModel;
 import com.rivers.user.api.entity.SysUserRoleModel;
-import com.rivers.user.mapper.*;
+import com.rivers.user.mapper.SysMenuDao;
+import com.rivers.user.mapper.SysRoleDao;
+import com.rivers.user.mapper.SysUserDao;
+import com.rivers.user.mapper.SysUserRoleDao;
+import com.rivers.user.util.ExcelUtils;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -43,8 +48,6 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
     @Resource
     private SysRoleDao sysRoleDao;
 
-    @Resource
-    private SysRoleMenuDao sysRoleMenuDao;
 
     @Resource
     private SysMenuDao sysMenuDao;
@@ -237,5 +240,32 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
         });
     }
 
+    @Transactional(rollbackFor = Exception.class)
+    public void parseUserExcel(String filepath) {
+        List<Map<String, Object>> userMaps = ExcelUtils.importExcel(filepath);
+        QueryWrapper<SysUserModel> wrapper = new QueryWrapper<>();
+        wrapper.eq("is_delete", 0);
+        List<SysUserModel> users = sysUserDao.selectList(wrapper);
+        List<String> userNames = users.stream().map(SysUserModel::getUsername).collect(Collectors.toList());
+        List<String> phones = users.stream().map(SysUserModel::getPhone).collect(Collectors.toList());
+        long isName = userMaps.stream().filter(i -> userNames.contains(String.valueOf(i.get("username")))).count();
+        if (isName > 0) {
+            return;
+        }
+        long isPhone = userMaps.stream().filter(i -> phones.contains(String.valueOf(i.get("phone")))).count();
+        if (isPhone > 0) {
+            return;
+        }
+        userMaps.forEach(i -> {
+            SysUserModel userModel = new SysUserModel();
+            userModel.setUsername(String.valueOf(i.get("username")));
+            userModel.setPhone(String.valueOf(i.get("phone")));
+            userModel.setPassword(String.valueOf(i.get("password")));
+            userModel.setSalt(UUID.randomUUID().toString());
+            userModel.setCreateUser("admin");
+            userModel.setUpdateUser("admin");
+            sysUserDao.insert(userModel);
+        });
+    }
 
 }

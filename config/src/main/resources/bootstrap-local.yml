@@ -7,11 +7,11 @@ spring:
     name: config
   profiles:
     active: dev
-  #  rabbitmq:
-  #    host: localhost
-  #    port: 5672
-  #    username: guest
-  #    password: guest
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
   cloud:
     config:
       server:
@@ -47,5 +47,8 @@ spring:
             tF9CHYdLYuxSCEDawGKCSHXH11ItgLw8N/U4h+EkNZlbuXLGci9D3cgkfviDGzvp
             485TTKPksRiX5peY08OlB4AtwhB9aBfQdJg/EZKg02qta+Z8Ahh1ug==
             -----END RSA PRIVATE KEY-----
+    bus:
+      refresh:
+        enabled: true
 
 

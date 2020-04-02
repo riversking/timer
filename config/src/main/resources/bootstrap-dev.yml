@@ -1,11 +1,11 @@
 spring:
   application:
     name: config
-#  rabbitmq:
-#    host: localhost
-#    port: 5672
-#    username: guest
-#    password: guest
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
   cloud:
     config:
       server:
@@ -43,7 +43,7 @@ spring:
                         -----END RSA PRIVATE KEY-----
 
 
-#    bus:
-#      refresh:
-#        enabled: true
+    bus:
+      refresh:
+        enabled: true
 

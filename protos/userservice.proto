@@ -9,3 +9,7 @@ option java_outer_classname="UserServiceMetas";
 message AddUserReq {
     string username = 1;
 }
+
+message UpdateUserReq {
+    string username = 1;
+}

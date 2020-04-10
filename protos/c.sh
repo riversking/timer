@@ -1,16 +1,15 @@
-
-if [ $# != 1 ]; then 
-echo "USAGE: $0 protofilename (no .proto suffix)" 
+if [ $# != 1 ]; then
+echo "USAGE: $0 protofilename (no .proto suffix)"
 exit 1
-fi 
+fi
 
-if [ `echo $1 | grep -F .` ] ; then 
-echo "USAGE: $0 protofilename (no .proto suffix)" 
+if [ `echo $1 | grep -F .` ] ; then
+echo "USAGE: $0 protofilename (no .proto suffix)"
 exit 1
-fi 
+fi
 
 OS=`uname -s|cut -c 1-3`
-if [ $OS = "CYG" ];  then 
+if [ $OS = "CYG" ];  then
     CP="protobuf-java-3.5.1.jar;krpc-0.1.0.jar;*;."
 else
     CP="protobuf-java-3.5.1.jar:krpc-0.1.0.jar:*:."
@@ -18,11 +17,11 @@ fi
 
 rm -fr target/
 
-mkdir -p target/src  
+mkdir -p target/src
 protoc $1.proto --java_out=target/src --descriptor_set_out=$1.proto.pb
-if [ $? != 0 ] ; then 
+if [ $? != 0 ] ; then
 exit 1
-fi 
+fi
 
 touch  $1.proto.pb -r $1.proto
 jar cf $1_sources.jar -C target/src/ .
@@ -32,7 +31,7 @@ javapackagepath=`grep java_package $1.proto|awk -F\" '{print $2}'|sed 's/\./\//g
 
 find target/src/$javapackagepath -name "*.java" > _sources.txt
 
-mkdir target/classes  
+mkdir target/classes
 javac -encoding utf-8 -cp $CP -d target/classes/ @_sources.txt
 rm _sources.txt
 

@@ -5,9 +5,9 @@ buildscript {
     }
     repositories {
         mavenCentral()
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
         maven { url 'https://repo.spring.io/milestone' }
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
-        maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
         jcenter {
             url 'http://jcenter.bintray.com'
         }
@@ -21,9 +21,9 @@ buildscript {
 
 repositories {
     mavenCentral()
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
     maven { url 'https://repo.spring.io/milestone' }
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
-    maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
 //    maven { url "https://repo.spring.io/snapshot" }
 //    maven { url "https://repo.spring.io/milestone" }
 }
@@ -45,8 +45,8 @@ subprojects {
 
     repositories {
         mavenCentral()
-        maven { url 'https://repo.spring.io/milestone' }
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'https://repo.spring.io/milestone' }
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
 //        maven { url "https://repo.spring.io/snapshot" }
 //        maven { url "https://repo.spring.io/milestone" }

@@ -1,7 +1,7 @@
 package com.rivers.file.service;
 
 import com.rivers.core.util.ExceptionUtil;
-import com.rivers.file.config.WindowsorMac;
+import com.rivers.file.config.WindowsOrMac;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,7 +19,7 @@ public class UploadService {
     public Map<String, String> uploadFile(MultipartFile file) {
         try {
             //准备目标路径
-            String filePath = WindowsorMac.pathName();
+            String filePath = WindowsOrMac.pathName();
             String originalFilename = Objects.requireNonNull(file.getOriginalFilename());
             String extName = originalFilename.substring(originalFilename.lastIndexOf("."));
             String fileName = UUID.randomUUID().toString();

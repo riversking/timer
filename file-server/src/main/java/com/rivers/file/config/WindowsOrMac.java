@@ -1,6 +1,6 @@
 package com.rivers.file.config;
 
-public class WindowsorMac {
+public class WindowsOrMac {
 
     public static String pathName() {
         String os = System.getProperty("os.name");

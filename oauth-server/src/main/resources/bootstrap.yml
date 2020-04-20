@@ -11,7 +11,7 @@ spring:
     default-property-inclusion: non_null
   datasource:
     name: oauth-server
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/cloud_deer_admin?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=GMT
+    url: jdbc:mysql://${MYSQL_HOST:139.9.206.164}:${MYSQL_PORT:3306}/cloud_deer_admin?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=GMT
     username: root
     password: root
     # 使用druid数据源
@@ -69,7 +69,7 @@ eureka:
     ip-address: 139.9.206.164
   client:
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://139.9.206.164:8761/eureka/
 
 logging:
   level:

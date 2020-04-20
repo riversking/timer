@@ -37,9 +37,10 @@ eureka:
       startup: ${random.int}
       "user.name": ${spring.security.user.name}         #These two are needed so that the server
       "user.password": ${spring.security.user.password} #can access the protected client endpoint
+    ip-address: 139.9.206.164
   client:
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://139.9.206.164:8761/eureka/
 
 
 management:

@@ -1,6 +1,6 @@
 package com.rivers.gateway.handle;
 
-import com.rivers.gateway.config.WindowsorMac;
+import com.rivers.gateway.config.WindowsOrMac;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpStatus;
@@ -28,7 +28,7 @@ import java.nio.file.Paths;
 @Log4j2
 public class ImageHandle implements HandlerFunction<ServerResponse> {
 
-    private static final String ROOT = WindowsorMac.pathName();
+    private static final String ROOT = WindowsOrMac.pathName();
 
 
     @Override
@@ -40,7 +40,7 @@ public class ImageHandle implements HandlerFunction<ServerResponse> {
             BufferedImage bimg = ImageIO.read(new File(Paths.get(ROOT, request.pathVariable("filename")).toString()));
             ImageIO.write(bimg, "png", os);
         } catch (IOException e) {
-            log.error("e {}", e);
+            log.error("IOException ", e);
         }
         return ServerResponse
                 .status(HttpStatus.OK)

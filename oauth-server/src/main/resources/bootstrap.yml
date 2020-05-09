@@ -13,14 +13,14 @@ spring:
     name: oauth-server
     url: jdbc:mysql://${MYSQL_HOST:139.9.206.164}:${MYSQL_PORT:3306}/cloud_deer_admin?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=GMT
     username: root
-    password: root
+    password: King1992!
     # 使用druid数据源
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
   redis:
-    host: ${REDIS_HOST:localhost}
+    host: ${REDIS_HOST:139.9.206.164}
     port:  ${REDIS_PORT:6379}
-    password:
+    password: king1278
     timeout: 2000ms
     database: 0
     jedis:
@@ -51,6 +51,8 @@ feign:
     enabled: false
   okhttp:
     enabled: true
+  hystrix:
+    enabled: false
 
 ribbon:
   eureka:

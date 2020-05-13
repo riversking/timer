@@ -8,13 +8,13 @@ spring:
   profiles:
     active: dev
   rabbitmq:
-    host: localhost
+    host: 139.9.206.164
     port: 5672
     username: guest
     password: guest
+  cloud:
     bus:
-      refresh:
-        enabled: true
+      enabled: true
 
 
 eureka:

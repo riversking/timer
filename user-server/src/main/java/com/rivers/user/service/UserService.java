@@ -89,8 +89,8 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
             wrapper.eq("phone", userDto.getPhone());
         }
         if (StrUtil.isNotBlank(userDto.getStartDate()) && StrUtil.isNotBlank(userDto.getEndDate())) {
-            wrapper.ge("create_time", userDto.getStartDate())
-                    .le("create_time", userDto.getEndDate());
+            wrapper.apply("date_format(create_time,'%Y-%m-%d') >= {0}", userDto.getStartDate())
+                    .apply("date_format(create_time,'%Y-%m-%d') <= {0}", userDto.getEndDate());
         }
         wrapper.eq(IS_DELETE, 0);
         wrapper.select(SysUserModel.class, info -> !"password".equals(info.getColumn()));

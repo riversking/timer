@@ -2,7 +2,7 @@ dependencies {
 //    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-hystrix', version:'2.0.0.M7'
 	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client'
 //    compile group: 'org.springframework.cloud', name: 'spring-cloud-sleuth-zipkin', version:'2.0.0.M7'
-	compile group: 'com.alibaba', name: 'druid-spring-boot-starter', version: '1.1.9'
+	compile group: 'com.alibaba', name: 'druid-spring-boot-starter', version: '1.1.22'
 	compile group: 'mysql', name: 'mysql-connector-java'
 	compile group: 'com.github.pagehelper', name: 'pagehelper-spring-boot-starter', version: '1.2.3'
 	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
@@ -11,11 +11,13 @@ dependencies {
 	compile group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.10.0'
 	compile(group: 'org.springframework.boot', name: 'spring-boot-starter-web')
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-undertow'
-	compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.0.5.RELEASE'
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
 	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-config'
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-webflux'
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis'
 	implementation project(':user-api')
+//	compile files('lib/user-api-boot.jar')
+	compile files('lib/demo-0.0.1-SNAPSHOT.jar')
 	compile group: 'org.apache.poi', name: 'poi', version: '4.1.2'
 	compile group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.2'
 //	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-security'

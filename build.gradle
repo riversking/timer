@@ -1,7 +1,8 @@
 buildscript {
     ext {
-        springBootVersion = '2.2.7.RELEASE'
+        springBootVersion = '2.3.0.RELEASE'
         springCloudVersion = 'Hoxton.SR4'
+        wrapperVersion = '1.0.21.RELEASE'
     }
     repositories {
         mavenCentral()
@@ -15,9 +16,9 @@ buildscript {
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath("io.spring.gradle:dependency-management-plugin:1.0.3.RELEASE")
+        classpath("org.springframework.boot.experimental:spring-boot-thin-gradle-plugin:${wrapperVersion}")
     }
 }
-
 
 repositories {
     mavenCentral()
@@ -30,17 +31,39 @@ repositories {
 
 
 subprojects {
+    apply plugin: 'maven-publish'
     apply plugin: 'maven'
     apply plugin: 'java'
     apply plugin: 'idea'
     apply plugin: 'org.springframework.boot'
     apply plugin: "io.spring.dependency-management"
+    apply plugin: 'org.springframework.boot.experimental.thin-launcher'
+
 
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
 
     tasks.withType(JavaCompile) {
         options.encoding = 'UTF-8'
+    }
+
+    bootJar {
+        classifier = 'boot' // 后面带boot的为 fat jar
+        manifest {
+            attributes 'Marker': 'Boot' // manifest 添加标记
+        }
+    }
+
+    thinResolvePrepare {
+        into new File("${buildDir}/thin/deploy")
+    }
+
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                from components.java
+            }
+        }
     }
 
     repositories {
@@ -66,14 +89,31 @@ subprojects {
     dependencies {
         annotationProcessor 'org.projectlombok:lombok:1.18.2'
         compileOnly 'org.projectlombok:lombok:1.18.2'
-        compile group: 'de.codecentric', name: 'spring-boot-admin-starter-client', version: '2.0.3'
+        compile group: 'de.codecentric', name: 'spring-boot-admin-starter-client', version: '2.2.3'
         compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-sleuth'
 //        compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-zipkin'
-        compile group: 'cn.hutool', name: 'hutool-all', version: '4.6.1'
-        compile group: 'joda-time', name: 'joda-time'
+        compile group: 'cn.hutool', name: 'hutool-all', version: '5.3.5'
+        compile group: 'joda-time', name: 'joda-time', version: '2.10.6'
     compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-bus-amqp'
 //        compileOnly group: 'org.slf4j', name: 'slf4j-log4j12', version:'1.7.25'
         testCompile('org.springframework.boot:spring-boot-starter-test')
+    }
+
+    task thinProp{
+        new File("${buildDir}/libs/").mkdirs()
+        def file = new File("${buildDir}/libs/thin.properties")
+        file.text=''
+        configurations.runtime.dependencies.each { def version = it.version ? ":${it.version}" : ""; file << "dependencies.${it.name}=${it.group}:${it.name}${version}\n" }
+        configurations.compile.dependencies.each { def version = it.version ? ":${it.version}" : "";file << "dependencies.${it.name}=${it.group}:${it.name}${version}\n" }
+        println "文件内容：$file.text"
+    }
+
+    task createPom {
+        doLast {
+            pom {
+                withXml(dependencyManagement.pomConfigurer)
+            }.writeTo("build/resources/main/META-INF/maven/${project.group}/${project.name}/pom.xml")
+        }
     }
 
     buildscript {
@@ -92,5 +132,5 @@ subprojects {
             }
         }
     }
-
+    jar.dependsOn = [thinProperties]
 }

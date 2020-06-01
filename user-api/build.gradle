@@ -10,5 +10,5 @@ dependencies {
 	compile group: 'com.googlecode.protobuf-java-format', name: 'protobuf-java-format', version: '1.4'
 	compile group: 'com.google.protobuf', name: 'protobuf-java-util', version: '3.11.4'
 	compile group: 'com.hubspot.jackson', name: 'jackson-datatype-protobuf', version: '0.9.11-jackson2.9'
-	compile group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '2.4.1.RELEASE'
+	compile group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '2.3.0.RELEASE'
 }

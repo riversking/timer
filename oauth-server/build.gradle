@@ -9,6 +9,7 @@ dependencies {
 //    compile group: 'org.springframework', name: 'spring-jdbc'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
     compile group: 'org.jolokia', name: 'jolokia-core', version: '1.6.0'
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-config'
     implementation project(':user-api')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }

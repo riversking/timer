@@ -5,8 +5,29 @@ server:
 spring:
   application:
     name: oauth-server
-  profiles:
-    active: dev
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    default-property-inclusion: non_null
+  datasource:
+    name: oauth-server
+    url: jdbc:mysql://${MYSQL_HOST:139.9.206.164}:${MYSQL_PORT:3306}/cloud_deer_admin?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=GMT
+    username: root
+    password: King1992!
+    # 使用druid数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    host: ${REDIS_HOST:139.9.206.164}
+    port:  ${REDIS_PORT:6379}
+    password: king1278
+    timeout: 2000ms
+    database: 0
+    jedis:
+      pool:
+        max-active: 300
+        max-idle: 100
+        max-wait: -1s
 
 mybatis-plus:
   mapper-locations: classpath*:/mapper/*.xml
@@ -44,7 +65,7 @@ ribbon:
 
 eureka:
   instance:
-    instance-id: ${spring.application.name}:${server.port}:${random.value}
+    instance-id: ${spring.application.name}:${server.port}
     prefer-ip-address: true
     health-check-url-path: /actuator/health
     ip-address: 139.9.206.164

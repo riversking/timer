@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: oauth-server
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config
+      label: master
+      name: oauth-server
+    bus:
+      enabled: true

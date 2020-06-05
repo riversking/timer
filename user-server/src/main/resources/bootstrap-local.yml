@@ -85,7 +85,7 @@ security:
       client-secret: secret
       scope: server
     resource:
-      token-info-uri: http://139.9.206.164:9080/oauth/check_token
+      token-info-uri: http://localhost:9080/oauth/check_token
       service-id: oauth-server
 #      user-info-uri:
 

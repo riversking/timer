@@ -6,7 +6,7 @@ spring:
   application:
     name: oauth-server
   profiles:
-    active: dev
+    active: local
 
 mybatis-plus:
   mapper-locations: classpath*:/mapper/*.xml
@@ -42,15 +42,6 @@ ribbon:
   MaxAutoRetriesNextServer: 1
   OkToRetryOnAllOperations: false
 
-eureka:
-  instance:
-    instance-id: ${spring.application.name}:${server.port}:${random.value}
-    prefer-ip-address: true
-    health-check-url-path: /actuator/health
-    ip-address: 139.9.206.164
-  client:
-    serviceUrl:
-      defaultZone: http://139.9.206.164:8761/eureka/
 
 logging:
   level:

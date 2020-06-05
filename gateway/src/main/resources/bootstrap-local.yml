@@ -44,3 +44,13 @@ feign:
       min-request-size: 2048
     response:
       enabled: true
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${server.port}
+    prefer-ip-address: true
+    ip-address: 127.0.0.1
+    health-check-url-path: /actuator/health
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8761/eureka/

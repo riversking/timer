@@ -16,7 +16,7 @@ buildscript {
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath("io.spring.gradle:dependency-management-plugin:1.0.3.RELEASE")
-        classpath("org.springframework.boot.experimental:spring-boot-thin-gradle-plugin:${wrapperVersion}")
+//        classpath("org.springframework.boot.experimental:spring-boot-thin-gradle-plugin:${wrapperVersion}")
     }
 }
 
@@ -37,7 +37,7 @@ subprojects {
     apply plugin: 'idea'
     apply plugin: 'org.springframework.boot'
     apply plugin: "io.spring.dependency-management"
-    apply plugin: 'org.springframework.boot.experimental.thin-launcher'
+//    apply plugin: 'org.springframework.boot.experimental.thin-launcher'
 
 
     sourceCompatibility = JavaVersion.VERSION_1_8
@@ -47,24 +47,24 @@ subprojects {
         options.encoding = 'UTF-8'
     }
 
-    bootJar {
-        classifier = 'boot' // 后面带boot的为 fat jar
-        manifest {
-            attributes 'Marker': 'Boot' // manifest 添加标记
-        }
-    }
-
-    thinResolvePrepare {
-        into new File("${buildDir}/thin/deploy")
-    }
-
-    publishing {
-        publications {
-            mavenJava(MavenPublication) {
-                from components.java
-            }
-        }
-    }
+//    bootJar {
+//        classifier = 'boot' // 后面带boot的为 fat jar
+//        manifest {
+//            attributes 'Marker': 'Boot' // manifest 添加标记
+//        }
+//    }
+//
+//    thinResolvePrepare {
+//        into new File("${buildDir}/thin/deploy")
+//    }
+//
+//    publishing {
+//        publications {
+//            mavenJava(MavenPublication) {
+//                from components.java
+//            }
+//        }
+//    }
 
     repositories {
         mavenCentral()
@@ -99,22 +99,22 @@ subprojects {
         testCompile('org.springframework.boot:spring-boot-starter-test')
     }
 
-    task thinProp{
-        new File("${buildDir}/libs/").mkdirs()
-        def file = new File("${buildDir}/libs/thin.properties")
-        file.text=''
-        configurations.runtime.dependencies.each { def version = it.version ? ":${it.version}" : ""; file << "dependencies.${it.name}=${it.group}:${it.name}${version}\n" }
-        configurations.compile.dependencies.each { def version = it.version ? ":${it.version}" : "";file << "dependencies.${it.name}=${it.group}:${it.name}${version}\n" }
-        println "文件内容：$file.text"
-    }
-
-    task createPom {
-        doLast {
-            pom {
-                withXml(dependencyManagement.pomConfigurer)
-            }.writeTo("build/resources/main/META-INF/maven/${project.group}/${project.name}/pom.xml")
-        }
-    }
+//    task thinProp{
+//        new File("${buildDir}/libs/").mkdirs()
+//        def file = new File("${buildDir}/libs/thin.properties")
+//        file.text=''
+//        configurations.runtime.dependencies.each { def version = it.version ? ":${it.version}" : ""; file << "dependencies.${it.name}=${it.group}:${it.name}${version}\n" }
+//        configurations.compile.dependencies.each { def version = it.version ? ":${it.version}" : "";file << "dependencies.${it.name}=${it.group}:${it.name}${version}\n" }
+//        println "文件内容：$file.text"
+//    }
+//
+//    task createPom {
+//        doLast {
+//            pom {
+//                withXml(dependencyManagement.pomConfigurer)
+//            }.writeTo("build/resources/main/META-INF/maven/${project.group}/${project.name}/pom.xml")
+//        }
+//    }
 
     buildscript {
         repositories {
@@ -132,5 +132,5 @@ subprojects {
             }
         }
     }
-    jar.dependsOn = [thinProperties]
+//    jar.dependsOn = [thinProperties]
 }

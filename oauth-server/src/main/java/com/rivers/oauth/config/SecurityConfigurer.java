@@ -31,7 +31,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 //                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 //                .addFilterAt(getOpenIdAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
         http.authorizeRequests()
-                .antMatchers("/oauth/**", "/actuator/**").permitAll()
+                .antMatchers("/oauth/**", "/actuator/**", "/user").permitAll()
                 .anyRequest().authenticated()
                 .and().csrf().disable();
     }

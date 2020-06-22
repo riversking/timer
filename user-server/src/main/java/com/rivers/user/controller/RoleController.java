@@ -129,5 +129,12 @@ public class RoleController {
         return ResponseVo.ok();
     }
 
+    @PostMapping("getRoleByUserId")
+    public ResponseVo getRoleByUserId(@RequestBody RequestVo<Integer> req) {
+        Integer userId = req.getParam();
+        List<SysRoleModel> list = roleService.getRoleByUserId(userId);
+        return ResponseVo.ok(list);
+    }
+
 
 }

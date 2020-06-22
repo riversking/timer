@@ -6,7 +6,7 @@ spring:
   application:
     name: oauth-server
   profiles:
-    active: dev
+    active: local
 
 mybatis-plus:
   mapper-locations: classpath*:/mapper/*.xml

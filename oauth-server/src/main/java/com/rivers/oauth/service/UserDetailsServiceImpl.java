@@ -1,5 +1,6 @@
 package com.rivers.oauth.service;
 
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.rivers.core.constant.SecurityConstants;
 import com.rivers.core.view.RequestVo;
@@ -79,8 +80,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         UserInfo userInfo = result.getObject("data", UserInfo.class);
         Set<String> dbAuthsSet = new HashSet<>(userInfo.getPermissions());
         Collection<? extends GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(dbAuthsSet.toArray(new String[0]));
-        SysUserModel sysUserModel = userInfo.getSysUser();
-        return new User(sysUserModel.getUsername(), sysUserModel.getPassword(), authorities);
+        SysUserModel sysUser = userInfo.getSysUser();
+        return new TimerUser(sysUser.getId(), "a", sysUser.getUsername(), sysUser.getPassword(),
+                StrUtil.equals(String.valueOf(sysUser.getIsDisable()), "0"),
+                true, true, true, authorities);
     }
 
 }

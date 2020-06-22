@@ -49,8 +49,8 @@ eureka:
   instance:
     instance-id: ${spring.application.name}:${server.port}
     prefer-ip-address: true
-    ip-address: 127.0.0.1
+    ip-address: 139.9.206.164
     health-check-url-path: /actuator/health
   client:
     serviceUrl:
-      defaultZone: http://127.0.0.1:8761/eureka/
+      defaultZone: http://139.9.206.164:8761/eureka/

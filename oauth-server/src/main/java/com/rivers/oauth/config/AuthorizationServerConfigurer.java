@@ -1,7 +1,10 @@
 package com.rivers.oauth.config;
 
+import com.alibaba.fastjson.JSONObject;
 import com.rivers.oauth.common.CustomWebResponseExceptionTranslator;
+import com.rivers.oauth.enums.SecurityConstants;
 import com.rivers.oauth.service.ClientDetailsServiceImpl;
+import com.rivers.oauth.service.TimerUser;
 import com.rivers.oauth.service.UserDetailsServiceImpl;
 import com.rivers.oauth.token.MyRedisTokenStore;
 import lombok.extern.log4j.Log4j2;
@@ -9,11 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.jwt.JwtHelper;
+import org.springframework.security.jwt.crypto.sign.RsaSigner;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -24,7 +30,11 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 
+import java.security.KeyPair;
+import java.security.interfaces.RSAPrivateKey;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -133,7 +143,7 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
      * "d1": 123.456
      * }
      * }
-     *<p>
+     * <p>
      *
      * @return TokenEnhancer
      */
@@ -142,9 +152,15 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
         return (OAuth2AccessToken accessToken, OAuth2Authentication authentication) -> {
             if (accessToken instanceof DefaultOAuth2AccessToken) {
                 DefaultOAuth2AccessToken token = (DefaultOAuth2AccessToken) accessToken;
-                Map<String, Object> additionalInformation = new LinkedHashMap<>();
-                additionalInformation.put("username", authentication.getName());
-                token.setAdditionalInformation(additionalInformation);
+                TimerUser user = (TimerUser) authentication.getUserAuthentication().getPrincipal();
+                final Map<String, Object> additionalInfo = new HashMap<>(4);
+                additionalInfo.put(SecurityConstants.DETAILS_USER_ID, user.getId());
+                additionalInfo.put(SecurityConstants.DETAILS_USERNAME, user.getUsername());
+                KeyPair keyPair = new KeyStoreKeyFactory(new ClassPathResource("kevin_key.jks"), "123456".toCharArray())
+                        .getKeyPair("kevin_key");
+                RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
+                RsaSigner signer = new RsaSigner(privateKey);
+                token.setValue(JwtHelper.encode(JSONObject.toJSONString(additionalInfo), signer).getEncoded());
             }
             return accessToken;
         };

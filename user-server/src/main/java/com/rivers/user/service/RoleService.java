@@ -119,4 +119,8 @@ public class RoleService extends ServiceImpl<SysRoleDao, SysRoleModel> {
         });
     }
 
+    public List<SysRoleModel> getRoleByUserId(Integer userId) {
+        return sysRoleDao.selectRoleByUserId(userId);
+    }
+
 }

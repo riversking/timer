@@ -6,6 +6,11 @@ option java_generic_services=true;
 option java_package="com.rivers.userservice.proto";
 option java_outer_classname="UserServiceMetas";
 
+
+message LoginUser {
+    int64 userId = 1;
+}
+
 message AddUserReq {
     string username = 1;
 }

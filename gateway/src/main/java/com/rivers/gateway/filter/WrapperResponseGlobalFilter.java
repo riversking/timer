@@ -11,6 +11,7 @@ import org.reactivestreams.Publisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
+import org.springframework.cloud.gateway.filter.NettyWriteResponseFilter;
 import org.springframework.core.Ordered;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferFactory;
@@ -40,11 +41,6 @@ import java.util.Objects;
 @Log4j2
 public class WrapperResponseGlobalFilter implements GlobalFilter, Ordered {
 
-    private final DataBufferFactory dataBufferFactory = new NettyDataBufferFactory(ByteBufAllocator.DEFAULT);
-
-    @Autowired
-    private ObjectMapper objectMapper;
-
     /**
      * HttpHeaders headers = exchange.getRequest().getHeaders();
      * List<String> list = headers.get("Authorization");
@@ -70,8 +66,6 @@ public class WrapperResponseGlobalFilter implements GlobalFilter, Ordered {
         //获取response的 返回数据
         ServerHttpResponse originalResponse = exchange.getResponse();
         DataBufferFactory bufferFactory = originalResponse.bufferFactory();
-        ServerHttpRequest request = exchange.getRequest();
-        ServerHttpRequestDecorator requestDecorator = processRequest(request, bufferFactory);
         ServerHttpResponseDecorator decoratedResponse = new ServerHttpResponseDecorator(originalResponse) {
             @Override
             public Mono<Void> writeWith(Publisher<? extends DataBuffer> body) {
@@ -103,54 +97,11 @@ public class WrapperResponseGlobalFilter implements GlobalFilter, Ordered {
                 return super.writeWith(body);
             }
         };
-        return chain.filter(exchange.mutate().request(requestDecorator).response(decoratedResponse).build());
-    }
-
-
-    private ServerHttpRequestDecorator processRequest(ServerHttpRequest request, DataBufferFactory bufferFactory) {
-        Flux<DataBuffer> body = request.getBody();
-        InputStreamHolder holder = new InputStreamHolder();
-        body.subscribe(buffer -> holder.inputStream = buffer.asInputStream());
-        HttpHeaders headers = new HttpHeaders();
-        headers.putAll(request.getHeaders());
-        headers.remove(HttpHeaders.CONTENT_LENGTH);
-        return new ServerHttpRequestDecorator(request) {
-
-            @Override
-            public Flux<DataBuffer> getBody() {
-                Flux<DataBuffer> body = super.getBody();
-                InputStreamHolder holder = new InputStreamHolder();
-                body.subscribe(buffer -> holder.inputStream = buffer.asInputStream());
-                if (null != holder.inputStream) {
-                    try {
-                        // 解析JSON的节点
-                        JsonNode jsonNode = objectMapper.readTree(holder.inputStream);
-                        Assert.isTrue(jsonNode instanceof ObjectNode, "JSON格式异常");
-                        ObjectNode objectNode = (ObjectNode) jsonNode;
-                        // JSON节点最外层写入新的属性
-                        objectNode.put("userId", "a");
-                        DataBuffer dataBuffer = dataBufferFactory.allocateBuffer();
-                        String json = objectNode.toString();
-                        log.info("最终的JSON数据为:{}", json);
-                        dataBuffer.write(json.getBytes(StandardCharsets.UTF_8));
-                        return Flux.just(dataBuffer);
-                    } catch (Exception e) {
-                        throw new IllegalStateException(e);
-                    }
-                } else {
-                    return super.getBody();
-                }
-            }
-        };
-    }
-
-    private class InputStreamHolder {
-
-        InputStream inputStream;
+        return chain.filter(exchange.mutate().response(decoratedResponse).build());
     }
 
     @Override
     public int getOrder() {
-        return -2;
+        return NettyWriteResponseFilter.WRITE_RESPONSE_FILTER_ORDER - 1;
     }
 }

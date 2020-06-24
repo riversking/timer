@@ -81,7 +81,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         Set<String> dbAuthsSet = new HashSet<>(userInfo.getPermissions());
         Collection<? extends GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(dbAuthsSet.toArray(new String[0]));
         SysUserModel sysUser = userInfo.getSysUser();
-        return new TimerUser(sysUser.getId(), "a", sysUser.getUsername(), sysUser.getPassword(),
+        return new TimerUser(sysUser.getId(), sysUser.getUserId(), sysUser.getUsername(), sysUser.getPassword(),
                 StrUtil.equals(String.valueOf(sysUser.getIsDisable()), "0"),
                 true, true, true, authorities);
     }

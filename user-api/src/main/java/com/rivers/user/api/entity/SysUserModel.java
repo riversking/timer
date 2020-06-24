@@ -33,6 +33,9 @@ public class SysUserModel extends Model<SysUserModel> {
     @TableField(value = "username")
     private String username;
 
+    @TableField(value = "user_id")
+    private String userId;
+
     /**
      * Password
      */

@@ -78,6 +78,8 @@ public class UserController {
             return ResponseVo.fail("-101003", "手机号为空");
         }
         if (userModels.isEmpty()) {
+            user.setCreateUser(requestVo.getUserId());
+            user.setUpdateUser(requestVo.getUserId());
             userService.addUser(user);
             vo.setMessage("操作成功");
         } else {
@@ -176,6 +178,7 @@ public class UserController {
     @PostMapping("updateUserById")
     public ResponseVo updateUserById(@RequestBody RequestVo<UserDto> userReq) {
         UserDto param = userReq.getParam();
+        param.setUpdateUser(userReq.getUserId());
         userService.updateUserById(param);
         return ResponseVo.ok();
     }

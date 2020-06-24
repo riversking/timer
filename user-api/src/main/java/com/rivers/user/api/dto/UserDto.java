@@ -19,6 +19,8 @@ public class UserDto extends Page {
      */
     private String username;
 
+    private String userId;
+
     /**
      * 密码
      */

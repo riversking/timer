@@ -93,7 +93,9 @@ public interface SecurityConstants {
 	/**
 	 * 用户ID字段
 	 */
-	String DETAILS_USER_ID = "id";
+	String DETAILS_USER_ID = "userId";
+
+	String USER_ID = "id";
 
 	/**
 	 * 用户名字段
@@ -101,7 +103,6 @@ public interface SecurityConstants {
 	String DETAILS_USERNAME = "username";
 
 	//公号
-	String USER_ID = "userId";
 
 	/**
 	 * 协议字段

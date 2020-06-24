@@ -65,11 +65,12 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
         SysUserModel sysUserModel = new SysUserModel();
         sysUserModel.setUsername(userDto.getUsername());
         sysUserModel.setPassword(new BCryptPasswordEncoder().encode(userDto.getPassword()));
+        sysUserModel.setUserId(userDto.getUserId());
         sysUserModel.setPhone(userDto.getPhone());
         sysUserModel.setAvatar(userDto.getAvatar());
         sysUserModel.setSalt(UUID.randomUUID().toString());
         sysUserModel.setCreateUser(userDto.getCreateUser());
-        sysUserModel.setUpdateUser(userDto.getCreateUser());
+        sysUserModel.setUpdateUser(userDto.getUpdateUser());
         sysUserDao.insert(sysUserModel);
         saveUserRole(userDto, sysUserModel);
     }

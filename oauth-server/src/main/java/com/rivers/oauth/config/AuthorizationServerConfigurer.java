@@ -154,8 +154,8 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
                 DefaultOAuth2AccessToken token = (DefaultOAuth2AccessToken) accessToken;
                 TimerUser user = (TimerUser) authentication.getUserAuthentication().getPrincipal();
                 final Map<String, Object> additionalInfo = new HashMap<>(4);
-                additionalInfo.put(SecurityConstants.DETAILS_USER_ID, user.getId());
-                additionalInfo.put(SecurityConstants.DETAILS_USERNAME, user.getUsername());
+                additionalInfo.put(SecurityConstants.USER_ID, user.getId());
+                additionalInfo.put(SecurityConstants.DETAILS_USER_ID, user.getUserId());
                 KeyPair keyPair = new KeyStoreKeyFactory(new ClassPathResource("kevin_key.jks"), "123456".toCharArray())
                         .getKeyPair("kevin_key");
                 RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();

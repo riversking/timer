@@ -46,8 +46,8 @@ public class UserAuthenticationConverter implements org.springframework.security
         if (map.containsKey(USERNAME)) {
             Collection<? extends GrantedAuthority> authorities = getAuthorities(map);
             String username = (String) map.get(SecurityConstants.DETAILS_USERNAME);
-            Integer id = (Integer) map.get(SecurityConstants.DETAILS_USER_ID);
-            String userId = (String) map.get(SecurityConstants.USER_ID);
+            Integer id = (Integer) map.get(SecurityConstants.USER_ID);
+            String userId = (String) map.get(SecurityConstants.DETAILS_USER_ID);
             TimerUser user = new TimerUser(id, userId, username, N_A, true
                     , true, true, true, authorities);
             return new UsernamePasswordAuthenticationToken(user, N_A, authorities);

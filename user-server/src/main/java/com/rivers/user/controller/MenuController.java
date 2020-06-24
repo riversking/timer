@@ -135,7 +135,7 @@ public class MenuController {
     @PostMapping("getMenuByUserId")
     public ResponseVo getMenuByUserId(@RequestBody RequestVo<Integer> requestVo) {
         ResponseVo vo = ResponseVo.ok();
-        Integer userId = requestVo.getParam();
+        Integer userId = requestVo.getId();
         if (null == userId || userId == 0) {
             return ResponseVo.fail("103005", "userId为空");
         }

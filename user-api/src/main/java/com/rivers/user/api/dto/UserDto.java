@@ -1,5 +1,6 @@
 package com.rivers.user.api.dto;
 
+import com.rivers.core.bean.LoginUser;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -58,4 +59,6 @@ public class UserDto extends Page {
     private String mail;
 
     private String nickname;
+
+    private LoginUser user;
 }

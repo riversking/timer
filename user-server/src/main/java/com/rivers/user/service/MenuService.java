@@ -155,7 +155,7 @@ public class MenuService extends ServiceImpl<SysMenuDao, SysMenuModel> {
 //        return menuVo;
 //    }
 
-    public List<MenuTree> getMenuByUserId(Integer userId) {
+    public List<MenuTree> getMenuByUserId(String userId) {
         List<MenuTree> menus = sysMenuDao.getMenuByUserId(userId)
                 .stream()
                 .map(this::getMenuTree)

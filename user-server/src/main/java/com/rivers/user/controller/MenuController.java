@@ -6,9 +6,11 @@ import com.rivers.core.view.ResponseVo;
 import com.rivers.user.api.dto.MenuDto;
 import com.rivers.user.api.dto.MenuRoleDto;
 import com.rivers.user.api.dto.MenuTree;
+import com.rivers.user.api.dto.UserDto;
 import com.rivers.user.api.entity.SysMenuModel;
 import com.rivers.user.api.entity.SysRoleMenuModel;
 import com.rivers.user.service.MenuService;
+import com.rivers.userservice.proto.GetMenuByUIdReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -133,10 +135,10 @@ public class MenuController {
     }
 
     @PostMapping("getMenuByUserId")
-    public ResponseVo getMenuByUserId(@RequestBody RequestVo<Integer> requestVo) {
+    public ResponseVo getMenuByUserId(@RequestBody GetMenuByUIdReq user) {
         ResponseVo vo = ResponseVo.ok();
-        Integer userId = requestVo.getId();
-        if (null == userId || userId == 0) {
+        String userId = user.getUser().getUserId();
+        if (StrUtil.isBlank(userId)) {
             return ResponseVo.fail("103005", "userId为空");
         }
         vo.setCode("0");

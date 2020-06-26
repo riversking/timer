@@ -8,7 +8,7 @@ option java_outer_classname="UserServiceMetas";
 
 
 message LoginUser {
-    int64 userId = 1;
+    string userId = 1;
 }
 
 message AddUserReq {
@@ -17,4 +17,8 @@ message AddUserReq {
 
 message UpdateUserReq {
     string username = 1;
+}
+
+message GetMenuByUIdReq {
+    LoginUser user = 1;
 }

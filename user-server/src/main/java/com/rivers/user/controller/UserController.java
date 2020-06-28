@@ -15,7 +15,10 @@ import com.rivers.user.service.UserService;
 import com.rivers.userservice.proto.AddUserReq;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -183,12 +186,6 @@ public class UserController {
     @PostMapping("importUserExcel")
     public ResponseVo importUserExcel(@RequestBody RequestVo<String> filepath) {
         userService.parseUserExcel(filepath.getParam());
-        return ResponseVo.ok();
-    }
-
-    @GetMapping("test")
-    public ResponseVo test(@RequestParam("userId") String userId) {
-        System.out.println(userId);
         return ResponseVo.ok();
     }
 

@@ -13,12 +13,16 @@ import org.springframework.cloud.gateway.filter.factory.rewrite.ModifyRequestBod
 import org.springframework.cloud.gateway.filter.factory.rewrite.RewriteFunction;
 import org.springframework.core.Ordered;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.security.jwt.JwtHelper;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
+import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Mono;
 
 import javax.annotation.PostConstruct;
+import java.net.URI;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -44,6 +48,27 @@ public class RequestEncryptionGlobalFilter implements GlobalFilter, Ordered {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+        if (exchange.getRequest().getMethod() == HttpMethod.GET) {
+            URI uri = exchange.getRequest().getURI();
+            StringBuilder query = new StringBuilder();
+            String originalQuery = uri.getRawQuery();
+            if (org.springframework.util.StringUtils.hasText(originalQuery)) {
+                query.append(originalQuery);
+                if (originalQuery.charAt(originalQuery.length() - 1) != '&') {
+                    query.append('&');
+                }
+            }
+            // 添加查询参数
+            query.append("&" + "userId" + "=" + "a");
+            // 替换查询参数
+            URI newUri = UriComponentsBuilder.fromUri(uri)
+                    .replaceQuery(query.toString())
+                    .build(true)
+                    .toUri();
+            ServerHttpRequest request = exchange.getRequest().mutate().uri(newUri).build();
+            return chain.filter(exchange.mutate().request(request).build());
+        }
+        //post 请求 特殊处理
         return delegate.filter(exchange, chain);
     }
 
@@ -55,8 +80,10 @@ public class RequestEncryptionGlobalFilter implements GlobalFilter, Ordered {
     private RewriteFunction<Object, Object> getRewriteFunction() {
         return (serverWebExchange, body) -> {
             // 这里的body就是请求体参数, 类型是LinkedHashMap, 可以根据需要转成JSON
-            HttpHeaders headers = serverWebExchange.getRequest().getHeaders();
-            if (serverWebExchange.getRequest().getPath().toString().contains("login")) {
+            ServerHttpRequest request = serverWebExchange.getRequest();
+            HttpHeaders headers = request.getHeaders();
+            if (request.getPath().toString().contains("login") ||
+                    request.getPath().toString().contains("upload")) {
                 return Mono.just(body);
             }
             String authorization = Objects.requireNonNull(headers.get("Authorization")).stream().findFirst().orElse(null);

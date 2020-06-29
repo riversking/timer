@@ -100,7 +100,7 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
         List<SysUserModel> collect = sysUserPage.getRecords()
                 .stream()
                 .peek(i -> {
-                    List<SysRoleModel> roleModels = sysRoleDao.selectRoleByUserId(i.getId());
+                    List<SysRoleModel> roleModels = sysRoleDao.selectRoleByUserId(i.getUserId());
                     i.setSysRoleModels(roleModels);
                     i.setCreateTime(DateUtil.parseDate(DateUtil.formatDate(i.getCreateTime())).toSqlDate());
                 }).collect(Collectors.toList());

@@ -21,6 +21,6 @@ public interface SysRoleDao extends BaseMapper<SysRoleModel> {
      */
     List<SysRoleModel> selectRoleList();
 
-    List<SysRoleModel> selectRoleByUserId(Integer userId);
+    List<SysRoleModel> selectRoleByUserId(String userId);
 
 }

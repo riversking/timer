@@ -37,5 +37,3 @@ rm _sources.txt
 
 jar cf $1_protos.jar -C target/classes/ .
 touch  $1_protos.jar -r $1.proto
-
-

@@ -138,9 +138,9 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
         QueryWrapper<SysUserModel> wrapper = new QueryWrapper<>();
         wrapper.eq(IS_DELETE, 0);
         wrapper.eq("id", id);
-        wrapper.select("id", "username", "phone", "mail", "nickname", "avatar", "is_disable");
+        wrapper.select("id", "username", "user_id", "phone", "mail", "nickname", "avatar", "is_disable");
         SysUserModel user = sysUserDao.selectOne(wrapper);
-        List<Integer> idList = sysUserRoleDao.selectRoleId(id);
+        List<Integer> idList = sysUserRoleDao.selectRoleId(user.getUserId());
         user.setRoleIds(idList);
         return user;
     }
@@ -179,7 +179,7 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
         wrapper.eq("username", username);
         wrapper.eq(IS_DELETE, 0);
         SysUserModel sysUserModel = sysUserDao.selectOne(wrapper);
-        Integer userId = sysUserModel.getId();
+        String userId = sysUserModel.getUserId();
         List<Integer> roleIds = sysUserRoleDao.selectRoleId(userId);
         Set<String> permission = Sets.newHashSet();
         roleIds.forEach(roleId -> {

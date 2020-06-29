@@ -10,7 +10,7 @@
 
     <select id="selectRoleId" resultType="java.lang.Integer">
         SELECT role_id FROM sys_user_role
-        WHERE user_id = #{id}
+        WHERE user_id = #{userId}
 	</select>
 
     <delete id="deleteByUserId">

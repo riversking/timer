@@ -2,7 +2,7 @@ spring:
   application:
     name: config
   rabbitmq:
-    host: localhost
+    host: 139.9.206.164
     port: 5672
     username: guest
     password: guest

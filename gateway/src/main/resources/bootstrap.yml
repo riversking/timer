@@ -5,7 +5,11 @@ spring:
   application:
     name: gateway
   profiles:
-    active: local
+    active: dev
+  cloud:
+    bus:
+      refresh:
+        enabled: true
 
 logging:
   level:
@@ -25,4 +29,5 @@ management:
       show-details: ALWAYS
     bus-refresh:
       enabled: true
+
 

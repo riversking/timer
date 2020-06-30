@@ -19,7 +19,7 @@ spring:
 
 eureka:
   instance:
-    instance-id: ${spring.application.name}:${server.port}
+    instance-id: ${spring.application.name}:${server.port}:${random.value}
     prefer-ip-address: true
     ip-address: 139.9.206.164
     health-check-url-path: /actuator/health

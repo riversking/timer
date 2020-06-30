@@ -47,10 +47,25 @@
         </filter>
     </appender>
 
+    <appender name="client" level="DEBUG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.path}/client.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${log.path}/%d{yyyy-MM}/client.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <maxFileSize>50MB</maxFileSize>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%date [%thread] %-5level [%logger{50}] %file:%line - %msg%n</pattern>
+        </encoder>
+    </appender>
+
     <!-- Level: FATAL 0  ERROR 3  WARN 4  INFO 6  DEBUG 7 -->
     <root level="INFO">
         <appender-ref ref="console" />
         <appender-ref ref="debug" />
         <appender-ref ref="error" />
     </root>
+    <logger name="com.rivers.user.api.client" level="DEBUG">
+        <appender-ref ref="client" />
+    </logger>
 </configuration>

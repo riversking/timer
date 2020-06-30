@@ -6,6 +6,10 @@ spring:
     name: user-server
   profiles:
     active: dev
+  cloud:
+    bus:
+      refresh:
+        enabled: true
 
 feign:
   httpclient:

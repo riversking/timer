@@ -10,6 +10,7 @@ import com.rivers.user.api.entity.SysMenuModel;
 import com.rivers.user.api.entity.SysRoleMenuModel;
 import com.rivers.user.mapper.SysMenuDao;
 import com.rivers.user.mapper.SysRoleMenuDao;
+import com.rivers.userservice.proto.Menu;
 import com.rivers.utils.dto.TreeNode;
 import com.rivers.utils.tree.TreeUtil;
 import org.springframework.beans.BeanUtils;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,6 +28,7 @@ import java.util.stream.Collectors;
 @Service
 public class MenuService extends ServiceImpl<SysMenuDao, SysMenuModel> {
 
+    public static final String IS_DELETE = "is_delete";
     @Resource
     private SysMenuDao sysMenuDao;
 
@@ -40,7 +43,7 @@ public class MenuService extends ServiceImpl<SysMenuDao, SysMenuModel> {
      */
     public List<MenuTree> getMenuTree() {
         QueryWrapper<SysMenuModel> wrapper = new QueryWrapper<>();
-        wrapper.eq("is_delete", 0);
+        wrapper.eq(IS_DELETE, 0);
         List<MenuTree> menuTrees = sysMenuDao.selectList(wrapper)
                 .stream()
                 .map(this::getMenuTree)
@@ -53,19 +56,23 @@ public class MenuService extends ServiceImpl<SysMenuDao, SysMenuModel> {
         return roots;
     }
 
-    public static <T extends TreeNode> void buildTrees(List<T> treeNodes, List<T> roots) {
+    public static <T extends Menu> List<Menu> buildTrees(List<T> treeNodes, List<T> roots) {
+        List<Menu> menus = Lists.newArrayList();
         roots.forEach(root -> {
             List<T> children = treeNodes
                     .stream()
                     .filter(i -> root.getId() == i.getParentId())
                     .collect(Collectors.toList());
-            if (root.getChildren() == null || children.isEmpty()) {
-                root.setChildren(Lists.newArrayList(children));
+            List<Menu> list = Lists.newArrayList(root.getChildrenList());
+            if (children.isEmpty()) {
+                root.toBuilder().addAllChildren(Lists.newArrayList(children));
             } else {
-                root.getChildren().addAll(children);
+                list.addAll(children);
             }
+            menus.add(root.toBuilder().addAllChildren(list).build());
             buildTrees(treeNodes, children);
         });
+        return menus;
     }
 
     /**
@@ -77,7 +84,7 @@ public class MenuService extends ServiceImpl<SysMenuDao, SysMenuModel> {
     public SysMenuModel selectMenuById(Integer id) {
         QueryWrapper<SysMenuModel> wrapper = new QueryWrapper<>();
         wrapper.eq("id", id);
-        wrapper.eq("is_delete", 0);
+        wrapper.eq(IS_DELETE, 0);
         return sysMenuDao.selectOne(wrapper);
     }
 
@@ -123,7 +130,7 @@ public class MenuService extends ServiceImpl<SysMenuDao, SysMenuModel> {
     public List<MenuTree> getMenuByRoleId(Integer id) {
         List<Integer> list = sysRoleMenuDao.getMenuIdByRoleId(id);
         QueryWrapper<SysMenuModel> wrapper = new QueryWrapper<>();
-        wrapper.eq("is_delete", 0);
+        wrapper.eq(IS_DELETE, 0);
         List<SysMenuModel> menuList = sysMenuDao.selectList(wrapper).stream().peek(i -> {
             if (list.contains(i.getId())) {
                 i.setChecked(true);
@@ -167,18 +174,20 @@ public class MenuService extends ServiceImpl<SysMenuDao, SysMenuModel> {
 
     public List<MenuTree> getMenu(Integer id) {
         QueryWrapper<SysMenuModel> wrapper = new QueryWrapper<>();
-        wrapper.eq("is_delete", 0);
-        List<SysMenuModel> menuList = sysMenuDao.selectList(wrapper).stream().filter(i -> i.getType() == 0).map(j -> {
-            SysMenuModel sysMenuModel = new SysMenuModel();
-            BeanUtils.copyProperties(j, sysMenuModel);
-            return sysMenuModel;
-        }).collect(Collectors.toList());
+        wrapper.eq(IS_DELETE, 0);
+        List<SysMenuModel> menuList = sysMenuDao.selectList(wrapper)
+                .stream()
+                .filter(i -> i.getType() == 0).map(j -> {
+                    SysMenuModel sysMenuModel = new SysMenuModel();
+                    BeanUtils.copyProperties(j, sysMenuModel);
+                    return sysMenuModel;
+                }).collect(Collectors.toList());
         return buildTree(menuList, -1);
     }
 
     public List<MenuTree> getParentMenu() {
         QueryWrapper<SysMenuModel> wrapper = new QueryWrapper<>();
-        wrapper.eq("is_delete", 0);
+        wrapper.eq(IS_DELETE, 0);
         List<SysMenuModel> sysMenuModels = sysMenuDao.selectList(wrapper);
         return sysMenuModels.stream()
                 .map(this::getMenuTree)
@@ -213,5 +222,23 @@ public class MenuService extends ServiceImpl<SysMenuDao, SysMenuModel> {
         node.setType(menu.getType());
         node.setSort(menu.getSort());
         return node;
+    }
+
+    private Menu getMenu(SysMenuModel menu) {
+        return Menu.newBuilder()
+                .setId(menu.getId())
+                .setParentId(menu.getParentId())
+                .setName(menu.getName())
+                .setPath(menu.getPath())
+                .setCode(menu.getPermission())
+                .setLabel(menu.getName())
+                .setComponent(menu.getComponent())
+                .setIcon(menu.getIcon())
+                .setTitle(menu.getName())
+                .setExpand(true)
+                .setChecked(menu.isChecked())
+                .setType(menu.getType())
+                .setSort(menu.getSort())
+                .build();
     }
 }

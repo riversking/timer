@@ -69,6 +69,8 @@ management:
       enabled: true
     loggers:
       enabled: true
+    bus-refresh:
+      enabled: true
 
 ignore:
   urls:

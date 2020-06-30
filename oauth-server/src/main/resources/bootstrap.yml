@@ -63,3 +63,5 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
+    bus-refresh:
+      enabled: true

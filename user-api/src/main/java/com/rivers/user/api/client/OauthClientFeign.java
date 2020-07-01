@@ -1,7 +1,7 @@
 package com.rivers.user.api.client;
 
 import com.alibaba.fastjson.JSONObject;
-import com.rivers.user.api.config.FeignConfiguration;
+import com.rivers.core.config.FeignConfiguration;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,2 +1,2 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.rivers.user.api.config.FeignConfiguration
+#org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+#  com.rivers.user.api.config.FeignConfiguration

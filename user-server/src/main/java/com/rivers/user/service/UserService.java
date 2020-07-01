@@ -22,6 +22,9 @@ import com.rivers.user.dao.SysRoleDao;
 import com.rivers.user.dao.SysUserDao;
 import com.rivers.user.dao.SysUserRoleDao;
 import com.rivers.user.util.ExcelUtils;
+import com.rivers.userservice.proto.GetUserListReq;
+import com.rivers.userservice.proto.GetUserListRes;
+import com.rivers.userservice.proto.User;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -285,4 +288,43 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
         writer.close();
     }
 
+
+    public List<User> getUserList(GetUserListReq getUserListReq) {
+        IPage<SysUserModel> userList = getUserByPage(getUserListReq);
+        List<User> users = userList.getRecords().stream()
+                .map(i -> User.newBuilder()
+                        .setUserId(i.getUserId())
+                        .setMail(i.getMail())
+                        .setNickname(i.getNickname())
+                        .setPhone(i.getPhone())
+                        .setCreateDate(DateUtil.formatDate(i.getCreateTime()))
+                        .setUsername(i.getUsername())
+                        .build())
+                .collect(Collectors.toList());
+        return users;
+    }
+
+    private IPage<SysUserModel> getUserByPage(GetUserListReq getUserListReq) {
+        QueryWrapper<SysUserModel> wrapper = new QueryWrapper<>();
+        String username = getUserListReq.getUsername();
+        String mobile = getUserListReq.getMobile();
+        String startDate = getUserListReq.getStartDate();
+        String endDate = getUserListReq.getEndDate();
+        if (StrUtil.isNotBlank(username)) {
+            wrapper.eq("username", username);
+        }
+        if (StrUtil.isNotBlank(mobile)) {
+            wrapper.eq("phone", mobile);
+        }
+        if (StrUtil.isNotBlank(startDate)
+                && StrUtil.isNotBlank(endDate)) {
+            wrapper.apply("date_format(create_time,'%Y-%m-%d') >= {0}", startDate)
+                    .apply("date_format(create_time,'%Y-%m-%d') <= {0}", endDate);
+        }
+        wrapper.eq(IS_DELETE, 0);
+        wrapper.select(SysUserModel.class, info -> !"password".equals(info.getColumn()));
+        Page<SysUserModel> page = new Page<>(getUserListReq.getPage().getPageNum(),
+                getUserListReq.getPage().getPageSize());
+        return sysUserDao.selectPage(page, wrapper);
+    }
 }

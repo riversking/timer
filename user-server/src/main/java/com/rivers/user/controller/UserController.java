@@ -13,6 +13,8 @@ import com.rivers.user.api.entity.SysUserModel;
 import com.rivers.user.api.vo.TokenVo;
 import com.rivers.user.service.UserService;
 import com.rivers.userservice.proto.AddUserReq;
+import com.rivers.userservice.proto.GetUserListReq;
+import com.rivers.userservice.proto.GetUserListRes;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -192,6 +194,13 @@ public class UserController {
     @PostMapping("exportUserExcel")
     public void exportUserExcel() {
         userService.exportUserExcel();
+    }
+
+    @PostMapping("getUserPage")
+    public ResponseVo getUserPage(@RequestBody GetUserListReq req) {
+        ResponseVo vo = ResponseVo.ok();
+        vo.setData(userService.getUserList(req));
+        return vo;
     }
 
 

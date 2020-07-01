@@ -1,8 +1,11 @@
 
-Ù
+Õ	
 userservice.proto"#
 	LoginUser
-userId (	RuserId"(
+userId (	RuserId"<
+Page
+pageNum (RpageNum
+pageSize (RpageSize"(
 
 AddUserReq
 username (	Rusername"+
@@ -31,6 +34,27 @@ AddUserReq
 code (	Rcode"^
 GetMenuByUIdRes
 menu (2.MenuRmenu
+retCode (RretCode
+retMsg (	RretMsg" 
+User
+username (	Rusername
+nickname (	Rnickname
+mail (	Rmail
+phone (	Rphone
+userId (	RuserId
+
+createDate (	R
+createDate"·
+GetUserListReq
+username (	Rusername
+mobile (	Rmobile
+	startDate (	R	startDate
+endDate (	RendDate
+user (2
+.LoginUserRuser
+page (2.PageRpage"_
+GetUserListRes
+users (2.UserRusers
 retCode (RretCode
 retMsg (	RretMsgB5
 com.rivers.userservice.protoBUserServiceMetasPˆbproto3

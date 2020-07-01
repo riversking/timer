@@ -1,5 +1,6 @@
 syntax = "proto3";
 
+//import "krpcext.proto";
 option java_multiple_files = true;
 option java_generic_services = true;
 
@@ -8,42 +9,71 @@ option java_outer_classname = "UserServiceMetas";
 
 
 message LoginUser {
-  string userId = 1;
+    string userId = 1;
+}
+
+message Page {
+    int32 pageNum = 1;
+    int32 pageSize = 2;
 }
 
 message AddUserReq {
-  string username = 1;
+    string username = 1;
 }
 
 message UpdateUserReq {
-  string username = 1;
+    string username = 1;
 }
 
 message GetMenuByUIdReq {
-  LoginUser user = 1;
+    LoginUser user = 1;
 }
 
 message Menu {
-  int64 id = 1;
-  bool checked = 2;
-  repeated Menu children = 3;
-  string component = 4;
-  bool expand = 5;
-  string icon = 6;
-  string label = 7;
-  string name = 8;
-  int32 parentId = 9;
-  string  path = 10;
-  bool show = 11;
-  int32 sort = 12;
-  bool  spread = 13;
-  string   title = 14;
-  int32 type = 15;
-  string code = 16;
+    int64 id = 1;
+    bool checked = 2;
+    repeated Menu children = 3;
+    string component = 4;
+    bool expand = 5;
+    string icon = 6;
+    string label = 7;
+    string name = 8;
+    int32 parentId = 9;
+    string path = 10;
+    bool show = 11;
+    int32 sort = 12;
+    bool spread = 13;
+    string title = 14;
+    int32 type = 15;
+    string code = 16;
 }
 
 message GetMenuByUIdRes {
-  repeated Menu menu = 1;
-  int32 retCode = 2;
-  string retMsg = 3;
+    repeated Menu menu = 1;
+    int32 retCode = 2;
+    string retMsg = 3;
+}
+
+message User {
+    string username = 1;
+    string nickname = 2;
+    string mail = 3;
+    string phone = 4;
+    string userId = 5;
+    string createDate = 6;
+}
+
+message GetUserListReq {
+    string username = 1;
+    string mobile = 2;
+    string startDate = 3;
+    string endDate = 4;
+    LoginUser user = 5;
+    Page page = 6;
+}
+
+message GetUserListRes {
+    repeated User users = 1;
+    int32 retCode = 2;
+    string retMsg = 3;
 }

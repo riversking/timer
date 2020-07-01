@@ -20,4 +20,8 @@
 		<result column="is_disable" property="isDisable" />
 	</resultMap>
 
+<!--	<select id="selectUsersByPage" resultMap="BaseResultMap">-->
+
+<!--	</select>-->
+
 </mapper>

@@ -11,7 +11,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @author wangyichuan
  */
 @EnableEurekaClient
-@MapperScan(basePackages = {"com.rivers.user.mapper"})
+@MapperScan(basePackages = {"com.rivers.user.dao"})
 @EnableFeignClients
 @RefreshScope
 @SpringBootApplication

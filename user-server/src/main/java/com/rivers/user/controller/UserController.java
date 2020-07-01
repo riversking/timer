@@ -189,5 +189,10 @@ public class UserController {
         return ResponseVo.ok();
     }
 
+    @PostMapping("exportUserExcel")
+    public void exportUserExcel() {
+        userService.exportUserExcel();
+    }
+
 
 }

@@ -2,6 +2,8 @@ package com.rivers.user.service;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.poi.excel.ExcelWriter;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -15,10 +17,10 @@ import com.rivers.user.api.entity.SysMenuModel;
 import com.rivers.user.api.entity.SysRoleModel;
 import com.rivers.user.api.entity.SysUserModel;
 import com.rivers.user.api.entity.SysUserRoleModel;
-import com.rivers.user.mapper.SysMenuDao;
-import com.rivers.user.mapper.SysRoleDao;
-import com.rivers.user.mapper.SysUserDao;
-import com.rivers.user.mapper.SysUserRoleDao;
+import com.rivers.user.dao.SysMenuDao;
+import com.rivers.user.dao.SysRoleDao;
+import com.rivers.user.dao.SysUserDao;
+import com.rivers.user.dao.SysUserRoleDao;
 import com.rivers.user.util.ExcelUtils;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -39,6 +41,7 @@ import java.util.stream.Collectors;
 @Log4j2
 public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
 
+    public static final String IS_DELETE1 = "is_delete";
     @Resource
     private SysUserDao sysUserDao;
 
@@ -52,7 +55,7 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
     @Resource
     private SysMenuDao sysMenuDao;
 
-    private static String IS_DELETE = "is_delete";
+    private static String IS_DELETE = IS_DELETE1;
 
 
     /**
@@ -245,7 +248,7 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
     public void parseUserExcel(String filepath) {
         List<Map<String, Object>> userMaps = ExcelUtils.importExcel(filepath);
         QueryWrapper<SysUserModel> wrapper = new QueryWrapper<>();
-        wrapper.eq("is_delete", 0);
+        wrapper.eq(IS_DELETE1, 0);
         List<SysUserModel> users = sysUserDao.selectList(wrapper);
         List<String> userNames = users.stream().map(SysUserModel::getUsername).collect(Collectors.toList());
         List<String> phones = users.stream().map(SysUserModel::getPhone).collect(Collectors.toList());
@@ -267,6 +270,19 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
             userModel.setUpdateUser("admin");
             sysUserDao.insert(userModel);
         });
+    }
+
+    public void exportUserExcel() {
+        QueryWrapper<SysUserModel> wrapper = new QueryWrapper<>();
+        wrapper.eq(IS_DELETE1, 0);
+        List<SysUserModel> list = sysUserDao.selectList(wrapper);
+        ExcelWriter writer = ExcelUtil.getWriter();
+        writer.merge(4, "一班成绩单");
+        // 一次性写出内容，使用默认样式，强制输出标题
+        writer.write(list, true);
+        writer.flush();
+        // 关闭writer，释放内存
+        writer.close();
     }
 
 }

@@ -8,17 +8,15 @@ import com.rivers.user.api.dto.MenuRoleDto;
 import com.rivers.user.api.dto.MenuTree;
 import com.rivers.user.api.entity.SysMenuModel;
 import com.rivers.user.api.entity.SysRoleMenuModel;
-import com.rivers.user.mapper.SysMenuDao;
-import com.rivers.user.mapper.SysRoleMenuDao;
+import com.rivers.user.dao.SysMenuDao;
+import com.rivers.user.dao.SysRoleMenuDao;
 import com.rivers.userservice.proto.Menu;
-import com.rivers.utils.dto.TreeNode;
 import com.rivers.utils.tree.TreeUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

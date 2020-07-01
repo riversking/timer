@@ -77,3 +77,6 @@ ignore:
     - /actuator/**
     - /user/login
     - /user/info
+
+hystrix:
+  shareSecurityContext: true

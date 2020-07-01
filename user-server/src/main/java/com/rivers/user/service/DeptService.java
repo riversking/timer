@@ -3,7 +3,7 @@ package com.rivers.user.service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.rivers.user.api.dto.DeptTree;
 import com.rivers.user.api.entity.SysDeptModel;
-import com.rivers.user.mapper.SysDeptDao;
+import com.rivers.user.dao.SysDeptDao;
 import com.rivers.utils.tree.TreeUtil;
 import org.springframework.stereotype.Service;
 

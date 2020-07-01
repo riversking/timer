@@ -1,4 +1,4 @@
-package com.rivers.user.mapper;
+package com.rivers.user.dao;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;

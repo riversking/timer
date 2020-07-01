@@ -9,10 +9,9 @@ import com.rivers.core.util.ExceptionUtil;
 import com.rivers.user.api.dto.RoleDto;
 import com.rivers.user.api.entity.SysRoleModel;
 import com.rivers.user.api.entity.SysUserRoleModel;
-import com.rivers.user.mapper.SysRoleDao;
-import com.rivers.user.mapper.SysUserRoleDao;
+import com.rivers.user.dao.SysRoleDao;
+import com.rivers.user.dao.SysUserRoleDao;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

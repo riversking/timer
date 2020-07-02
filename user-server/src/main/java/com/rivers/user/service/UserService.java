@@ -23,7 +23,6 @@ import com.rivers.user.dao.SysUserDao;
 import com.rivers.user.dao.SysUserRoleDao;
 import com.rivers.user.util.ExcelUtils;
 import com.rivers.userservice.proto.GetUserListReq;
-import com.rivers.userservice.proto.GetUserListRes;
 import com.rivers.userservice.proto.User;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

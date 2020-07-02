@@ -7,7 +7,7 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
-    default-property-inclusion: non_null
+    default-property-inclusion: non_empty
   datasource:
     name: user-server
     url: jdbc:mysql://${MYSQL_HOST:139.9.206.164}:${MYSQL_PORT:3306}/timer_admin?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=GMT%2B8
@@ -68,7 +68,7 @@ mybatis-plus:
 
 eureka:
   instance:
-    instance-id: ${spring.application.name}:${server.port}
+    instance-id: ${spring.application.name}:${server.port}:${random.value}
     prefer-ip-address: true
     ip-address: 139.9.206.164
     health-check-url-path: /actuator/health

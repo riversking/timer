@@ -29,11 +29,11 @@ public class UploadController {
         return ResponseVo.ok(uploadService.uploadFile(file));
     }
 
-    @PostMapping("/test")
-    @ResponseBody
-    public ResponseVo test() {
-        return ResponseVo.ok(userClientFeign.userInfo("admin").get("data"));
-    }
+//    @PostMapping("/test")
+//    @ResponseBody
+//    public ResponseVo test() {
+//        return ResponseVo.ok(userClientFeign.userInfo("admin").get("data"));
+//    }
 
 
 }

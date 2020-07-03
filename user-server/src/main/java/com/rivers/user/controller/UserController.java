@@ -17,6 +17,7 @@ import com.rivers.userservice.proto.GetUserListReq;
 import com.rivers.userservice.proto.GetUserListRes;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -193,7 +194,10 @@ public class UserController {
         userService.exportUserExcel();
     }
 
-    @PostMapping("getUserPage")
+    @PostMapping(value = "getUserPage")
+    @ResponseBody
+
+
     public GetUserListRes getUserPage(@RequestBody GetUserListReq req) {
 //        ResponseVo vo = ResponseVo.ok();
 //        vo.setData(userService.getUserList(req));

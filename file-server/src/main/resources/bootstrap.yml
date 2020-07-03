@@ -4,6 +4,11 @@ server:
 spring:
   application:
     name: file-server
+  rabbitmq:
+    host: 139.9.206.164
+    port: 5672
+    username: guest
+    password: guest
 
 eureka:
   instance:

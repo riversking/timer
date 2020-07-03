@@ -1,14 +1,15 @@
 package com.rivers.user.api.client;
 
 import com.alibaba.fastjson.JSONObject;
-import com.rivers.core.config.FeignConfiguration;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @author riverskingking
  */
-@FeignClient(name = "OAUTH-SERVER", configuration = FeignConfiguration.class)
+@FeignClient(name = "OAUTH-SERVER")
 public interface OauthClientFeign {
 
 

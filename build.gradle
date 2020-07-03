@@ -90,7 +90,7 @@ subprojects {
         annotationProcessor 'org.projectlombok:lombok:1.18.2'
         compileOnly 'org.projectlombok:lombok:1.18.2'
         compile group: 'de.codecentric', name: 'spring-boot-admin-starter-client', version: '2.2.3'
-        compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-sleuth'
+//        compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-sleuth'
 //        compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-zipkin'
         compile group: 'cn.hutool', name: 'hutool-all', version: '5.3.5'
         compile group: 'joda-time', name: 'joda-time', version: '2.10.6'

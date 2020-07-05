@@ -195,12 +195,10 @@ public class UserController {
     }
 
     @PostMapping(value = "getUserPage")
-    @ResponseBody
-
-
     public GetUserListRes getUserPage(@RequestBody GetUserListReq req) {
 //        ResponseVo vo = ResponseVo.ok();
 //        vo.setData(userService.getUserList(req));
+        System.out.println(userService.getUserList(req));
         return GetUserListRes.newBuilder().addAllUsers(userService.getUserList(req)).build();
     }
 

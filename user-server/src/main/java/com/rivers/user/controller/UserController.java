@@ -27,7 +27,7 @@ import java.util.List;
  * @author riverskingking
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping(value = "/user", produces = MediaType.APPLICATION_JSON_VALUE)
 @Log4j2
 public class UserController {
 
@@ -199,7 +199,7 @@ public class UserController {
 //        ResponseVo vo = ResponseVo.ok();
 //        vo.setData(userService.getUserList(req));
         System.out.println(userService.getUserList(req));
-        return GetUserListRes.newBuilder().addAllUsers(userService.getUserList(req)).build();
+        return GetUserListRes.newBuilder().setRetCode(0).addAllUsers(userService.getUserList(req)).build();
     }
 
 

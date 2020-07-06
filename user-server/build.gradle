@@ -25,7 +25,7 @@ dependencies {
 }
 configurations {
 	compile.exclude module: 'spring-boot-starter-tomcat'
-	compile.exclude module: 'spring-boot-starter-json'
+//	compile.exclude module: 'spring-boot-starter-json'
 //	compile.exclude module: 'spring-security-config'
 }
 

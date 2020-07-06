@@ -26,7 +26,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
-
+@Configuration
 public class ProtobufHttpMessageConverter extends AbstractHttpMessageConverter<Message> {
 
 

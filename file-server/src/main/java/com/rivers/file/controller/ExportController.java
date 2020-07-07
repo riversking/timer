@@ -1,5 +1,6 @@
 package com.rivers.file.controller;
 
+import cn.hutool.core.date.DateUtil;
 import com.rivers.core.util.UUIDUtils;
 import com.rivers.file.client.UserClientFeign;
 import com.rivers.file.service.ExportService;
@@ -40,10 +41,11 @@ public class ExportController {
         List<User> usersList = getUserListRes.getUsersList();
         ByteArrayInputStream byteArrayInputStream = exportService.exportToUserExcel(usersList);
         HttpHeaders headers = new HttpHeaders();
-        String fileName = UUIDUtils.generateShortUuid() + ".xlsx";
-        headers.add("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        String fileName = String.format("%s.xslx", DateUtil.date().toDateStr() + "用户信息");
         headers.add("Content-Disposition", "attachment; filename="
-                + fileName);
+                + new String(fileName.getBytes("GB2312"), "ISO_8859_1"));
+        headers.add("Content-Type", "application/x-download");
+        headers.add("Content-Length", String.valueOf(fileName.length()));
         return ResponseEntity
                 .ok()
                 .headers(headers)

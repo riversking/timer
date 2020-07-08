@@ -1,7 +1,6 @@
 package com.rivers.file.controller;
 
 import cn.hutool.core.date.DateUtil;
-import com.rivers.core.util.UUIDUtils;
 import com.rivers.file.client.UserClientFeign;
 import com.rivers.file.service.ExportService;
 import com.rivers.userservice.proto.GetUserListReq;
@@ -15,9 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.io.ByteArrayInputStream;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 @RestController
@@ -31,7 +28,7 @@ public class ExportController {
     private ExportService exportService;
 
     @GetMapping(value = "/exportUser")
-    public ResponseEntity<InputStreamResource> exportUser() throws UnsupportedEncodingException {
+    public ResponseEntity<InputStreamResource> exportUser() {
         GetUserListRes getUserListRes = userClientFeign.userPage(GetUserListReq.newBuilder()
                 .setPage(Page.newBuilder()
                         .setPageNum(1)
@@ -41,15 +38,15 @@ public class ExportController {
         List<User> usersList = getUserListRes.getUsersList();
         ByteArrayInputStream byteArrayInputStream = exportService.exportToUserExcel(usersList);
         HttpHeaders headers = new HttpHeaders();
-        String fileName = String.format("%s.xslx", DateUtil.date().toDateStr() + "用户信息");
         headers.add("Content-Disposition", "attachment; filename="
-                + new String(fileName.getBytes("GB2312"), "ISO_8859_1"));
+                + DateUtil.date().toDateStr() + ".xlsx");
         headers.add("Content-Type", "application/x-download");
-        headers.add("Content-Length", String.valueOf(fileName.length()));
         return ResponseEntity
                 .ok()
                 .headers(headers)
                 .body(new InputStreamResource(byteArrayInputStream));
     }
+
+
 
 }

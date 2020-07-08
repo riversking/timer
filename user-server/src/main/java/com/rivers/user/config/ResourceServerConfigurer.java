@@ -1,8 +1,9 @@
 package com.rivers.user.config;
 
-import com.rivers.core.oath.adaper.BaseResourceServerConfigurerAdapter;
-import com.rivers.core.oath.common.AuthExceptionEntryPoint;
-import com.rivers.core.oath.common.CustomAccessDeniedHandler;
+
+import com.rivers.oauth2.oath.adaper.BaseResourceServerConfigurerAdapter;
+import com.rivers.oauth2.oath.common.AuthExceptionEntryPoint;
+import com.rivers.oauth2.oath.common.CustomAccessDeniedHandler;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;

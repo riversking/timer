@@ -102,7 +102,6 @@ public class UserController {
      * @return ResponseVo
      */
     @PostMapping("userPage")
-    @SysLog("用户分页查询")
     public ResponseVo userPage(@RequestBody RequestVo<UserDto> requestVo) {
         ResponseVo vo = ResponseVo.ok();
         UserDto userDto = requestVo.getParam();

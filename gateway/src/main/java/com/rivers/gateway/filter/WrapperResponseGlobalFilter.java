@@ -69,6 +69,9 @@ public class WrapperResponseGlobalFilter implements GlobalFilter, Ordered {
         ServerHttpResponseDecorator decoratedResponse = new ServerHttpResponseDecorator(originalResponse) {
             @Override
             public Mono<Void> writeWith(Publisher<? extends DataBuffer> body) {
+                if (exchange.getRequest().getPath().toString().contains("export")) {
+                    return super.writeWith(body);
+                }
                 if (body instanceof Flux) {
                     Flux<? extends DataBuffer> fluxBody = Flux.from(body);
                     return super.writeWith(fluxBody.map(dataBuffer -> {

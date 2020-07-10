@@ -83,15 +83,14 @@ public class WrapperResponseGlobalFilter implements GlobalFilter, Ordered {
                         byte[] uppedContent;
                         if (Objects.equals(getStatusCode(), HttpStatus.OK) || Objects.equals(getStatusCode(), HttpStatus.UNAUTHORIZED)) {
                             uppedContent = new String(content, StandardCharsets.UTF_8).getBytes();
-                            return bufferFactory.wrap(uppedContent);
                         } else {
                             JSONObject jsonObject = JSON.parseObject(responseData);
                             jsonObject.put("code", jsonObject.get("status"));
                             jsonObject.remove("status");
                             log.info("响应内容:{}", responseData);
                             uppedContent = jsonObject.toJSONString().getBytes(StandardCharsets.UTF_8);
-                            return bufferFactory.wrap(uppedContent);
                         }
+                        return bufferFactory.wrap(uppedContent);
                     }));
                 }
                 return super.writeWith(body);

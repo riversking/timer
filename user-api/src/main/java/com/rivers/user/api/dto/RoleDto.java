@@ -3,7 +3,6 @@ package com.rivers.user.api.dto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.Date;
 import java.util.List;
 
 /**

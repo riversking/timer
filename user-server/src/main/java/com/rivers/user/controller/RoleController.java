@@ -3,8 +3,10 @@ package com.rivers.user.controller;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.rivers.core.annotation.SysLog;
+import com.rivers.core.bean.LoginUser;
 import com.rivers.core.view.RequestVo;
 import com.rivers.core.view.ResponseVo;
+import com.rivers.user.api.dto.RoleDO;
 import com.rivers.user.api.dto.RoleDto;
 import com.rivers.user.api.entity.SysRoleModel;
 import com.rivers.user.api.entity.SysUserRoleModel;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author riverskingking
@@ -30,18 +33,20 @@ public class RoleController {
     /**
      * 添加角色
      *
-     * @param requestVo requestVo
+     * @param role role
      * @return ResponseVo
      */
     @PostMapping("addRole")
-    @SysLog("添加角色")
-    public ResponseVo addRole(@RequestBody RequestVo<SysRoleModel> requestVo) {
-        SysRoleModel sysRoleModel = requestVo.getParam();
+    public ResponseVo addRole(@RequestBody RoleDO role) {
         ResponseVo responseVo = ResponseVo.ok();
-        if (StrUtil.isBlank(sysRoleModel.getRoleName())) {
+        LoginUser user = role.getUser();
+        if (Objects.isNull(user)) {
+            return ResponseVo.fail("100001", "用户不存在");
+        }
+        if (StrUtil.isBlank(role.getRoleName())) {
             return ResponseVo.fail("102001", "角色名称为空");
         }
-        roleService.addRole(sysRoleModel);
+        roleService.addRole(role);
         responseVo.setMessage("添加成功");
         return responseVo;
     }

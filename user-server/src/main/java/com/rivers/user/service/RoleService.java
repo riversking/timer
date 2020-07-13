@@ -6,12 +6,14 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.rivers.core.util.ExceptionUtil;
+import com.rivers.user.api.dto.RoleDO;
 import com.rivers.user.api.dto.RoleDto;
 import com.rivers.user.api.entity.SysRoleModel;
 import com.rivers.user.api.entity.SysUserRoleModel;
 import com.rivers.user.dao.SysRoleDao;
 import com.rivers.user.dao.SysUserRoleDao;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -30,15 +32,13 @@ public class RoleService extends ServiceImpl<SysRoleDao, SysRoleModel> {
     @Resource
     private SysUserRoleDao sysUserRoleDao;
 
-    public void addRole(SysRoleModel sysRoleModel) {
-        try {
-            sysRoleModel.setCreateUser("tester");
-            sysRoleModel.setUpdateUser("tester");
-            sysRoleModel.insert();
-        } catch (Exception e) {
-            log.error("Add Role Exception {}", e);
-            ExceptionUtil.throwBusinessException("101001", e);
-        }
+    public void addRole(RoleDO role) {
+        SysRoleModel sysRoleModel = new SysRoleModel();
+        BeanUtils.copyProperties(role, sysRoleModel);
+        String userId = role.getUser().getUserId();
+        sysRoleModel.setCreateUser(userId);
+        sysRoleModel.setUpdateUser(userId);
+        sysRoleModel.insert();
     }
 
     /**

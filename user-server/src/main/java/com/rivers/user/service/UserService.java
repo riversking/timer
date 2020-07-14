@@ -267,6 +267,7 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
             userModel.setUsername(String.valueOf(i.get("username")));
             userModel.setPhone(String.valueOf(i.get("phone")));
             userModel.setPassword(String.valueOf(i.get("password")));
+            userModel.setUserId(String.valueOf(i.get("userId")));
             userModel.setSalt(UUID.randomUUID().toString());
             userModel.setCreateUser("admin");
             userModel.setUpdateUser("admin");

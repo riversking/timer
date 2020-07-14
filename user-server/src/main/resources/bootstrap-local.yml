@@ -10,11 +10,11 @@ spring:
     default-property-inclusion: non_empty
   datasource:
     name: user-server
-    url: jdbc:mysql://${MYSQL_HOST:139.9.206.164}:${MYSQL_PORT:3306}/timer_admin?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=GMT%2B8
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/timer_admin?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=GMT%2B8
     username: root
-    password: King1992!
+    password: root
     # 使用druid数据源
-    type: com.alibaba.druid.pool.DruidDataSource
+    type: com.zaxxer.hikari.util.DriverDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
   redis:
     host: ${REDIS_HOST:139.9.206.164}

@@ -118,13 +118,13 @@ public class UserController {
      * @return ResponseVo
      */
     @PostMapping("getUserById")
-    public ResponseVo getUserById(@RequestBody RequestVo<Integer> requestVo) {
-        ResponseVo vo = ResponseVo.ok();
+    public SysUserModel getUserById(@RequestBody RequestVo<Integer> requestVo) {
+//        ResponseVo vo = ResponseVo.ok();
         Integer id = requestVo.getParam();
-        SysUserModel user = userService.getUserById(id);
-        vo.setData(user);
-        vo.setMessage("查询成功");
-        return vo;
+        return userService.getUserById(id);
+//        vo.setData(user);
+//        vo.setMessage("查询成功");
+//        return vo;
     }
 
     /**
@@ -197,6 +197,5 @@ public class UserController {
     public GetUserListRes getUserPage(@RequestBody GetUserListReq req) {
         return GetUserListRes.newBuilder().addAllUsers(userService.getUserList(req)).build();
     }
-
 
 }

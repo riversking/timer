@@ -13,4 +13,6 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface SysUserDao extends BaseMapper<SysUserModel> {
 
+    SysUserModel selectUserById(Integer id);
+
 }

@@ -24,8 +24,10 @@ import reactor.core.publisher.Mono;
 import javax.annotation.PostConstruct;
 import java.net.URI;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Component
@@ -86,20 +88,24 @@ public class RequestEncryptionGlobalFilter implements GlobalFilter, Ordered {
                     request.getPath().toString().contains("upload")) {
                 return Mono.just(body);
             }
-            String authorization = Objects.requireNonNull(headers.get("Authorization")).stream().findFirst().orElse(null);
-            String token = StrUtil.subAfter(authorization, "Bearer ", false);
-            String claims = JwtHelper.decode(token).getClaims();
-            JSONObject json = JSON.parseObject(claims);
-            LinkedHashMap<String, Object> map = (LinkedHashMap<String, Object>) body;
-            if (MapUtil.isEmpty(map)) {
-                map = Maps.newLinkedHashMap();
-            }
             Map<String, Object> user = Maps.newLinkedHashMap();
-            user.put("userId", json.get("userId"));
-            map.put("user", user);
-            map.put("userId", json.get("userId"));
-            log.info("请求体: {}", JSON.toJSONString(map));
-            return Mono.just(map);
+            List<String> list = headers.get("Authorization");
+            if (null != list) {
+                String authorization = Objects.requireNonNull(list).stream().findFirst().orElse(null);
+                String token = StrUtil.subAfter(authorization, "Bearer ", false);
+                String claims = JwtHelper.decode(token).getClaims();
+                JSONObject json = JSON.parseObject(claims);
+                LinkedHashMap<String, Object> map = (LinkedHashMap<String, Object>) body;
+                if (MapUtil.isEmpty(map)) {
+                    map = Maps.newLinkedHashMap();
+                }
+                user.put("userId", json.get("userId"));
+                map.put("user", user);
+                map.put("userId", json.get("userId"));
+                log.info("请求体: {}", JSON.toJSONString(map));
+                return Mono.just(map);
+            }
+            return Mono.just(user);
         };
     }
 

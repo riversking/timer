@@ -89,6 +89,7 @@ public class RoleService extends ServiceImpl<SysRoleDao, SysRoleModel> {
     public void deleteRoleById(Integer id) {
         try {
             sysRoleDao.deleteById(id);
+            sysUserRoleDao.delete(new QueryWrapper<SysUserRoleModel>().eq("role_id", id));
         } catch (Exception e) {
             ExceptionUtil.throwBusinessException("101002", e);
         }

@@ -30,8 +30,8 @@
     <select id="getMenuByUserId" resultMap="BaseResultMap">
 		SELECT menu.* FROM sys_menu menu
 		LEFT JOIN sys_role_menu role_menu ON menu.id = role_menu.menu_id
-		LEFT JOIN sys_user_role user_role ON role_menu.role_id = user_role.role_id
-		WHERE user_role.user_id = #{userId}
+		LEFT JOIN sys_user_role a ON role_menu.role_id = a.role_id AND a.is_delete = 0
+		WHERE a.user_id = #{userId}
 		AND menu.type = 0
 		AND menu.is_delete = 0
 	</select>

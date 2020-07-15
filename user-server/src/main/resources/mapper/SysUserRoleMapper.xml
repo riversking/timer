@@ -6,6 +6,7 @@
         <result column="id" property="id"/>
         <result column="user_id" property="userId"/>
         <result column="role_id" property="roleId"/>
+        <result column="is_delete" property="isDelete" />
     </resultMap>
 
     <select id="selectRoleId" resultType="java.lang.Integer">

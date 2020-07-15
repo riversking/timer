@@ -20,9 +20,12 @@
 	</select>
 
 	<select id="selectRoleByUserId" resultMap="BaseResultMap">
-		SELECT a.id, a.role_name FROM sys_role a
+		SELECT
+		 a.id,
+		 a.role_name
+		FROM sys_role a
 		LEFT JOIN sys_user_role b ON b.role_id = a.id
-		WHERE is_delete = 0
+		WHERE a.is_delete = 0
 		AND b.user_id = #{userId}
 	</select>
 

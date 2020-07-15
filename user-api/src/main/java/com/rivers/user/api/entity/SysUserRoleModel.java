@@ -1,10 +1,7 @@
 package com.rivers.user.api.entity;
 
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -44,6 +41,9 @@ public class SysUserRoleModel extends Model<SysUserRoleModel> {
 	@TableField(value="role_id")
 	private Integer roleId;
 
+	@TableLogic
+	@TableField(value = "is_delete")
+	private Integer isDelete;
 
 	@Override
 	protected Serializable pkVal() {

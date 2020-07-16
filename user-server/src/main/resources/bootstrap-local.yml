@@ -10,12 +10,20 @@ spring:
     default-property-inclusion: non_empty
   datasource:
     name: user-server
-    url: jdbc:mysql://${MYSQL_HOST:139.9.206.164}:${MYSQL_PORT:3306}/timer_admin?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=GMT%2B8
+    url: jdbc:mysql://${MYSQL_HOST:139.9.206.164}:${MYSQL_PORT:3306}/timer_admin?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
     username: root
-    password: root
-    # 使用druid数据源
-    type: com.zaxxer.hikari.util.DriverDataSource
+    password: King1992!
+    # 使用hikari数据源
+    type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      allow-pool-suspension: true
+      minimum-idle: 10
+      maximum-pool-size: 20
+      idle-timeout: 180000
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
   redis:
     host: ${REDIS_HOST:139.9.206.164}
     port:  ${REDIS_PORT:6379}

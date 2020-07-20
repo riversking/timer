@@ -36,8 +36,8 @@ public class ExportService {
                 cell.setCellStyle(headerCellStyle);
             }
             // CellStyle for Age
-            CellStyle ageCellStyle = workbook.createCellStyle();
-            ageCellStyle.setDataFormat(createHelper.createDataFormat().getFormat("#"));
+//            CellStyle ageCellStyle = workbook.createCellStyle();
+//            ageCellStyle.setDataFormat(createHelper.createDataFormat().getFormat("#"));
             int rowIdx = 1;
             for (User customer : list) {
                 Row row = sheet.createRow(rowIdx++);
@@ -45,8 +45,8 @@ public class ExportService {
                 row.createCell(1).setCellValue(customer.getUsername());
                 row.createCell(2).setCellValue(customer.getMail());
                 row.createCell(3).setCellValue(customer.getNickname());
-                Cell ageCell = row.createCell(3);
-                ageCell.setCellStyle(ageCellStyle);
+//                Cell ageCell = row.createCell(3);
+//                ageCell.setCellStyle(ageCellStyle);
             }
             workbook.write(out);
             return new ByteArrayInputStream(out.toByteArray());

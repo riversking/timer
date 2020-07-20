@@ -76,4 +76,18 @@ message GetUserListRes {
     repeated User users = 1;
     int32 retCode = 2;
     string retMsg = 3;
+    int32 total = 4;
+}
+
+message UpdateRoleByIdReq {
+    int32 id = 1;
+    string roleName = 2;
+    string roleCode = 4;
+    string roleDesc = 5;
+    LoginUser user = 100;
+}
+
+message UpdateRoleByIdRes {
+    int32 retCode = 1;
+    string retMsg = 2;
 }

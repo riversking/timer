@@ -11,7 +11,10 @@ import com.rivers.user.api.dto.RoleDto;
 import com.rivers.user.api.entity.SysRoleModel;
 import com.rivers.user.api.entity.SysUserRoleModel;
 import com.rivers.user.service.RoleService;
+import com.rivers.userservice.proto.UpdateRoleByIdReq;
+import com.rivers.userservice.proto.UpdateRoleByIdRes;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +27,7 @@ import java.util.Objects;
  * @author riverskingking
  */
 @RestController
-@RequestMapping("/user/role")
+@RequestMapping(value = "/user/role", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RoleController {
 
     @Autowired
@@ -111,13 +114,13 @@ public class RoleController {
     }
 
     @PostMapping("updateRoleById")
-    public ResponseVo updateRoleById(@RequestBody RequestVo<SysRoleModel> requestVo) {
-        ResponseVo responseVo = ResponseVo.ok();
-        SysRoleModel sysRoleModel = requestVo.getParam();
-        roleService.updateRoleById(sysRoleModel);
-        responseVo.setCode("0");
-        responseVo.setMessage("更新成功");
-        return responseVo;
+    public UpdateRoleByIdRes updateRoleById(@RequestBody UpdateRoleByIdReq req) {
+        com.rivers.userservice.proto.LoginUser user = req.getUser();
+        if (Objects.isNull(user.getUserId())) {
+            return UpdateRoleByIdRes.failed(-10201, "用户id为空");
+        }
+        roleService.updateRoleById(req);
+        return UpdateRoleByIdRes.ok();
     }
 
 

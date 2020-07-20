@@ -1,6 +1,7 @@
 package com.rivers.file.controller;
 
 import cn.hutool.core.date.DateUtil;
+import com.google.common.collect.Lists;
 import com.rivers.file.client.UserClientFeign;
 import com.rivers.file.service.ExportService;
 import com.rivers.userservice.proto.GetUserListReq;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.io.ByteArrayInputStream;
 import java.util.List;
 
@@ -29,14 +31,27 @@ public class ExportController {
 
     @GetMapping(value = "/exportUser")
     public ResponseEntity<InputStreamResource> exportUser() {
+        int pageNum = 1;
+        int pageSize = 20;
         GetUserListRes getUserListRes = userClientFeign.userPage(GetUserListReq.newBuilder()
                 .setPage(Page.newBuilder()
-                        .setPageNum(1)
-                        .setPageSize(10)
+                        .setPageNum(pageNum)
+                        .setPageSize(pageSize)
                         .build())
                 .build());
         List<User> usersList = getUserListRes.getUsersList();
-        ByteArrayInputStream byteArrayInputStream = exportService.exportToUserExcel(usersList);
+        List<User> list = Lists.newArrayList(usersList);
+        while (list.size() != getUserListRes.getTotal()) {
+            pageNum++;
+            getUserListRes = userClientFeign.userPage(GetUserListReq.newBuilder()
+                    .setPage(Page.newBuilder()
+                            .setPageNum(pageNum)
+                            .setPageSize(pageSize)
+                            .build())
+                    .build());
+            list.addAll(getUserListRes.getUsersList());
+        }
+        ByteArrayInputStream byteArrayInputStream = exportService.exportToUserExcel(list);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "attachment; filename="
                 + DateUtil.date().toDateStr() + ".xlsx");
@@ -46,7 +61,5 @@ public class ExportController {
                 .headers(headers)
                 .body(new InputStreamResource(byteArrayInputStream));
     }
-
-
 
 }

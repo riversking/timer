@@ -12,6 +12,7 @@ import com.rivers.user.api.entity.SysRoleModel;
 import com.rivers.user.api.entity.SysUserRoleModel;
 import com.rivers.user.dao.SysRoleDao;
 import com.rivers.user.dao.SysUserRoleDao;
+import com.rivers.userservice.proto.UpdateRoleByIdReq;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -95,15 +96,14 @@ public class RoleService extends ServiceImpl<SysRoleDao, SysRoleModel> {
         }
     }
 
-    public void updateRoleById(SysRoleModel sysRoleModel) {
-        try {
-            sysRoleModel.setUpdateUser("tester");
-            sysRoleDao.updateById(sysRoleModel);
-        } catch (Exception e) {
-            log.error("Update Role Exception ", e);
-            ExceptionUtil.throwBusinessException("101006", e);
-        }
-
+    public void updateRoleById(UpdateRoleByIdReq req) {
+        SysRoleModel role = new SysRoleModel();
+        role.setId(req.getId());
+        role.setRoleCode(req.getRoleCode());
+        role.setRoleName(req.getRoleName());
+        role.setRoleDesc(req.getRoleDesc());
+        role.setUpdateUser(req.getUser().getUserId());
+        sysRoleDao.updateById(role);
     }
 
     public List<SysRoleModel> getRoleList() {

@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.rivers.core.util.ExceptionUtil;
 import com.rivers.user.api.dto.UserDto;
@@ -23,6 +24,7 @@ import com.rivers.user.dao.SysUserDao;
 import com.rivers.user.dao.SysUserRoleDao;
 import com.rivers.user.util.ExcelUtils;
 import com.rivers.userservice.proto.GetUserListReq;
+import com.rivers.userservice.proto.GetUserListRes;
 import com.rivers.userservice.proto.User;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -289,7 +291,7 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
     }
 
 
-    public List<User> getUserList(GetUserListReq getUserListReq) {
+    public GetUserListRes getUserList(GetUserListReq getUserListReq) {
         IPage<SysUserModel> userList = getUserByPage(getUserListReq);
         List<User> users = userList.getRecords().stream()
                 .map(i -> User.newBuilder()
@@ -301,7 +303,7 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
                         .setUsername(i.getUsername())
                         .build())
                 .collect(Collectors.toList());
-        return users;
+        return GetUserListRes.newBuilder().addAllUsers(users).setTotal(Math.toIntExact(userList.getTotal())).build();
     }
 
     private IPage<SysUserModel> getUserByPage(GetUserListReq getUserListReq) {

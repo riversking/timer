@@ -1,5 +1,5 @@
 
-Õ	
+Ì
 userservice.proto"#
 	LoginUser
 userId (	RuserId"<
@@ -52,9 +52,20 @@ createDate"·
 endDate (	RendDate
 user (2
 .LoginUserRuser
-page (2.PageRpage"_
+page (2.PageRpage"u
 GetUserListRes
 users (2.UserRusers
 retCode (RretCode
-retMsg (	RretMsgB5
+retMsg (	RretMsg
+total (Rtotal"—
+UpdateRoleByIdReq
+id (Rid
+roleName (	RroleName
+roleCode (	RroleCode
+roleDesc (	RroleDesc
+userd (2
+.LoginUserRuser"E
+UpdateRoleByIdRes
+retCode (RretCode
+retMsg (	RretMsgB5
 com.rivers.userservice.protoBUserServiceMetasPˆbproto3

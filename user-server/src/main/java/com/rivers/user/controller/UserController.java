@@ -3,7 +3,7 @@ package com.rivers.user.controller;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.rivers.core.annotation.SysLog;
+import com.google.common.collect.Lists;
 import com.rivers.core.view.RequestVo;
 import com.rivers.core.view.ResponseVo;
 import com.rivers.user.api.client.OauthClientFeign;
@@ -15,12 +15,15 @@ import com.rivers.user.service.UserService;
 import com.rivers.userservice.proto.AddUserReq;
 import com.rivers.userservice.proto.GetUserListReq;
 import com.rivers.userservice.proto.GetUserListRes;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -28,7 +31,6 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = "/user", produces = MediaType.APPLICATION_JSON_VALUE)
-@Log4j2
 public class UserController {
 
     @Autowired
@@ -195,7 +197,7 @@ public class UserController {
 
     @PostMapping(value = "getUserPage")
     public GetUserListRes getUserPage(@RequestBody GetUserListReq req) {
-        return GetUserListRes.newBuilder().addAllUsers(userService.getUserList(req)).build();
+        return userService.getUserList(req);
     }
 
 }

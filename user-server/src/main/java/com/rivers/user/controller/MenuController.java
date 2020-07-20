@@ -1,6 +1,7 @@
 package com.rivers.user.controller;
 
 import cn.hutool.core.util.StrUtil;
+import com.google.common.collect.Maps;
 import com.rivers.core.view.RequestVo;
 import com.rivers.core.view.ResponseVo;
 import com.rivers.user.api.dto.MenuDto;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -119,7 +121,6 @@ public class MenuController {
             return ResponseVo.fail("103002", "roleId为空");
         }
         vo.setCode("0");
-        vo.setMessage("查询成功");
         vo.setData(menuService.getMenuByRoleId(roleId));
         return vo;
     }

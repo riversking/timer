@@ -129,12 +129,18 @@ public class MenuService extends ServiceImpl<SysMenuDao, SysMenuModel> {
         List<Integer> list = sysRoleMenuDao.getMenuIdByRoleId(id);
         QueryWrapper<SysMenuModel> wrapper = new QueryWrapper<>();
         wrapper.eq(IS_DELETE, 0);
-        List<SysMenuModel> menuList = sysMenuDao.selectList(wrapper).stream().peek(i -> {
+        List<MenuTree> menuTrees = sysMenuDao.selectList(wrapper).stream().peek(i -> {
             if (list.contains(i.getId())) {
                 i.setChecked(true);
             }
-        }).collect(Collectors.toList());
-        return buildTree(menuList, -1);
+        }).map(this::getMenuTree)
+                .collect(Collectors.toList());
+        List<MenuTree> roots = menuTrees
+                .stream()
+                .filter(i -> -1 == i.getParentId())
+                .collect(Collectors.toList());
+        TreeUtil.buildTree(menuTrees, roots);
+        return roots;
     }
 
     @Transactional(rollbackFor = Exception.class)

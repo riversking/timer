@@ -120,13 +120,12 @@ public class UserController {
      * @return ResponseVo
      */
     @PostMapping("getUserById")
-    public SysUserModel getUserById(@RequestBody RequestVo<Integer> requestVo) {
-//        ResponseVo vo = ResponseVo.ok();
+    public ResponseVo getUserById(@RequestBody RequestVo<Integer> requestVo) {
+        ResponseVo vo = ResponseVo.ok();
         Integer id = requestVo.getParam();
-        return userService.getUserById(id);
-//        vo.setData(user);
-//        vo.setMessage("查询成功");
-//        return vo;
+        vo.setData(userService.getUserById(id));
+        vo.setMessage("查询成功");
+        return vo;
     }
 
     /**

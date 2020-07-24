@@ -3,6 +3,7 @@ package com.rivers.user.service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.rivers.user.api.dto.MenuDto;
 import com.rivers.user.api.dto.MenuRoleDto;
 import com.rivers.user.api.dto.MenuTree;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -40,18 +42,7 @@ public class MenuService extends ServiceImpl<SysMenuDao, SysMenuModel> {
      * @return List
      */
     public List<MenuTree> getMenuTree() {
-        QueryWrapper<SysMenuModel> wrapper = new QueryWrapper<>();
-        wrapper.eq(IS_DELETE, 0);
-        List<MenuTree> menuTrees = sysMenuDao.selectList(wrapper)
-                .stream()
-                .map(this::getMenuTree)
-                .collect(Collectors.toList());
-        List<MenuTree> roots = menuTrees
-                .stream()
-                .filter(i -> -1 == i.getParentId())
-                .collect(Collectors.toList());
-        TreeUtil.buildTree(menuTrees, roots);
-        return roots;
+        return getMenuTrees();
     }
 
     public static <T extends Menu> List<Menu> buildTrees(List<T> treeNodes, List<T> roots) {
@@ -125,15 +116,20 @@ public class MenuService extends ServiceImpl<SysMenuDao, SysMenuModel> {
      * @param id id
      * @return List
      */
-    public List<MenuTree> getMenuByRoleId(Integer id) {
+    public Map<String, Object> getMenuByRoleId(Integer id) {
         List<Integer> list = sysRoleMenuDao.getMenuIdByRoleId(id);
+        List<MenuTree> roots = getMenuTrees();
+        Map<String, Object> map = Maps.newHashMap();
+        map.put("list", roots);
+        map.put("checkedMenu", list);
+        return map;
+    }
+
+    private List<MenuTree> getMenuTrees() {
         QueryWrapper<SysMenuModel> wrapper = new QueryWrapper<>();
         wrapper.eq(IS_DELETE, 0);
-        List<MenuTree> menuTrees = sysMenuDao.selectList(wrapper).stream().peek(i -> {
-            if (list.contains(i.getId())) {
-                i.setChecked(true);
-            }
-        }).map(this::getMenuTree)
+        List<MenuTree> menuTrees = sysMenuDao.selectList(wrapper).stream()
+                .map(this::getMenuTree)
                 .collect(Collectors.toList());
         List<MenuTree> roots = menuTrees
                 .stream()

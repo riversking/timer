@@ -28,12 +28,24 @@
 	</select>
 
     <select id="getMenuByUserId" resultMap="BaseResultMap">
-		SELECT menu.* FROM sys_menu menu
-		LEFT JOIN sys_role_menu role_menu ON menu.id = role_menu.menu_id
-		LEFT JOIN sys_user_role a ON role_menu.role_id = a.role_id AND a.is_delete = 0
-		WHERE a.user_id = #{userId}
-		AND menu.type = 0
-		AND menu.is_delete = 0
+		SELECT
+        	a.id,
+	        a.`name`,
+	        a.path,
+	        a.parent_id,
+	        a.icon,
+	        a.component,
+	        a.sort,
+	        a.type
+        FROM
+        	sys_menu a
+        	LEFT JOIN sys_role_menu b ON a.id = b.menu_id AND b.is_delete = 0
+        	LEFT JOIN sys_user_role c ON b.role_id = c.role_id
+        	AND c.is_delete = 0
+        WHERE
+        	c.user_id = 'T00001'
+        	AND a.type = 0
+        	AND a.is_delete = 0
 	</select>
 
 </mapper>

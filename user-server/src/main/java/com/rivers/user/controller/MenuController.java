@@ -1,15 +1,12 @@
 package com.rivers.user.controller;
 
 import cn.hutool.core.util.StrUtil;
-import com.google.common.collect.Maps;
 import com.rivers.core.view.RequestVo;
 import com.rivers.core.view.ResponseVo;
 import com.rivers.user.api.dto.MenuDto;
-import com.rivers.user.api.dto.MenuRoleDto;
+import com.rivers.user.api.dto.MenuRoleDTO;
 import com.rivers.user.api.dto.MenuTree;
-import com.rivers.user.api.dto.UserDto;
 import com.rivers.user.api.entity.SysMenuModel;
-import com.rivers.user.api.entity.SysRoleMenuModel;
 import com.rivers.user.service.MenuService;
 import com.rivers.userservice.proto.GetMenuByUIdReq;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -126,9 +122,9 @@ public class MenuController {
     }
 
     @PostMapping("updateByRoleId")
-    public ResponseVo updateByRoleId(@RequestBody RequestVo<MenuRoleDto> requestVo) {
+    public ResponseVo updateByRoleId(@RequestBody RequestVo<MenuRoleDTO> requestVo) {
         ResponseVo vo = ResponseVo.ok();
-        MenuRoleDto menuRoleDto = requestVo.getParam();
+        MenuRoleDTO menuRoleDto = requestVo.getParam();
         menuService.updateMenuByRoleId(menuRoleDto);
         vo.setCode("0");
         vo.setMessage("更新成功");

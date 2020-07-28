@@ -3,11 +3,10 @@ package com.rivers.user.controller;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.google.common.collect.Lists;
 import com.rivers.core.view.RequestVo;
 import com.rivers.core.view.ResponseVo;
 import com.rivers.user.api.client.OauthClientFeign;
-import com.rivers.user.api.dto.UserDto;
+import com.rivers.user.api.dto.UserDTO;
 import com.rivers.user.api.dto.UserInfo;
 import com.rivers.user.api.entity.SysUserModel;
 import com.rivers.user.api.vo.TokenVo;
@@ -23,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -47,9 +45,9 @@ public class UserController {
      * @return ResponseVo
      */
     @PostMapping("login")
-    public ResponseVo login(@RequestBody RequestVo<UserDto> requestVo) {
+    public ResponseVo login(@RequestBody RequestVo<UserDTO> requestVo) {
         ResponseVo responseVo = ResponseVo.ok();
-        UserDto userDto = requestVo.getParam();
+        UserDTO userDto = requestVo.getParam();
         SysUserModel userModel = userService.getUserDetail(userDto);
         if (userModel.getId() == null) {
             return ResponseVo.fail("-101003", "用户名或密码错误");
@@ -72,9 +70,9 @@ public class UserController {
      * @return ResponseVo
      */
     @PostMapping("addUser")
-    public ResponseVo addUser(@RequestBody RequestVo<UserDto> requestVo) {
+    public ResponseVo addUser(@RequestBody RequestVo<UserDTO> requestVo) {
         ResponseVo vo = ResponseVo.ok();
-        UserDto user = requestVo.getParam();
+        UserDTO user = requestVo.getParam();
         List<SysUserModel> userModels = userService.getUser(user);
         if (StrUtil.isBlank(user.getPhone())) {
             return ResponseVo.fail("-101003", "手机号为空");
@@ -104,9 +102,9 @@ public class UserController {
      * @return ResponseVo
      */
     @PostMapping("userPage")
-    public ResponseVo userPage(@RequestBody RequestVo<UserDto> requestVo) {
+    public ResponseVo userPage(@RequestBody RequestVo<UserDTO> requestVo) {
         ResponseVo vo = ResponseVo.ok();
-        UserDto userDto = requestVo.getParam();
+        UserDTO userDto = requestVo.getParam();
         IPage<SysUserModel> pageInfo = userService.getUserPage(userDto);
         vo.setMessage("查询成功");
         vo.setData(pageInfo);
@@ -169,15 +167,15 @@ public class UserController {
     }
 
     @PostMapping("isDisable")
-    public ResponseVo isDisableByUserId(@RequestBody RequestVo<UserDto> user) {
+    public ResponseVo isDisableByUserId(@RequestBody RequestVo<UserDTO> user) {
         ResponseVo vo = ResponseVo.ok();
         userService.isDisableByUserId(user.getParam());
         return vo;
     }
 
     @PostMapping("updateUserById")
-    public ResponseVo updateUserById(@RequestBody RequestVo<UserDto> userReq) {
-        UserDto param = userReq.getParam();
+    public ResponseVo updateUserById(@RequestBody RequestVo<UserDTO> userReq) {
+        UserDTO param = userReq.getParam();
         param.setUpdateUser(userReq.getUserId());
         userService.updateUserById(param);
         return ResponseVo.ok();

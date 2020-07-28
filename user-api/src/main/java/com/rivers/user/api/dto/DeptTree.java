@@ -14,6 +14,6 @@ public class DeptTree extends TreeNode {
 
     private String name;
 
-    private String title;
+    private String label;
 
 }

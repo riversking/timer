@@ -9,10 +9,9 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.rivers.core.util.ExceptionUtil;
-import com.rivers.user.api.dto.UserDto;
+import com.rivers.user.api.dto.UserDTO;
 import com.rivers.user.api.dto.UserInfo;
 import com.rivers.user.api.entity.SysMenuModel;
 import com.rivers.user.api.entity.SysRoleModel;
@@ -68,7 +67,7 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
      * @param userDto userDto
      */
     @Transactional(rollbackFor = Exception.class)
-    public void addUser(UserDto userDto) {
+    public void addUser(UserDTO userDto) {
         SysUserModel sysUserModel = new SysUserModel();
         sysUserModel.setUsername(userDto.getUsername());
         sysUserModel.setPassword(new BCryptPasswordEncoder().encode(userDto.getPassword()));
@@ -88,7 +87,7 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
      * @param userDto userDto
      * @return IPage
      */
-    public IPage<SysUserModel> getUserPage(UserDto userDto) {
+    public IPage<SysUserModel> getUserPage(UserDTO userDto) {
         QueryWrapper<SysUserModel> wrapper = new QueryWrapper<>();
         if (StrUtil.isNotBlank(userDto.getUsername())) {
             wrapper.eq("username", userDto.getUsername());
@@ -121,7 +120,7 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
      * @param userDto userDto
      * @return SysUserModel
      */
-    public SysUserModel getUserDetail(UserDto userDto) {
+    public SysUserModel getUserDetail(UserDTO userDto) {
         QueryWrapper<SysUserModel> wrapper = new QueryWrapper<>();
         wrapper.eq(IS_DELETE, 0);
         wrapper.eq("username", userDto.getUsername());
@@ -158,7 +157,7 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
      * @param user user
      * @return List
      */
-    public List<SysUserModel> getUser(UserDto user) {
+    public List<SysUserModel> getUser(UserDTO user) {
         QueryWrapper<SysUserModel> wrapper = new QueryWrapper<>();
         if (StrUtil.isNotBlank(user.getUsername()) || StrUtil.isNotBlank(user.getPhone())) {
             wrapper.eq("username", user.getUsername()).or().eq("phone", user.getPhone());
@@ -216,7 +215,7 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
         }
     }
 
-    public void isDisableByUserId(UserDto user) {
+    public void isDisableByUserId(UserDTO user) {
         SysUserModel userModel = new SysUserModel();
         userModel.setId(user.getId());
         userModel.setIsDisable(user.getIsDisable());
@@ -224,7 +223,7 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void updateUserById(UserDto userDto) {
+    public void updateUserById(UserDTO userDto) {
         Integer userId = userDto.getId();
         SysUserModel user = new SysUserModel();
         user.setId(userId);
@@ -239,7 +238,7 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
         saveUserRole(userDto, user);
     }
 
-    private void saveUserRole(UserDto userDto, SysUserModel user) {
+    private void saveUserRole(UserDTO userDto, SysUserModel user) {
         userDto.getRoleIds().forEach(i -> {
             SysUserRoleModel sysUserRoleModel = new SysUserRoleModel();
             sysUserRoleModel.setRoleId(i);

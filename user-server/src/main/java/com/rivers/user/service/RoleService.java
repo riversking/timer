@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.rivers.core.util.ExceptionUtil;
 import com.rivers.user.api.dto.RoleDO;
-import com.rivers.user.api.dto.RoleDto;
+import com.rivers.user.api.dto.RoleDTO;
 import com.rivers.user.api.entity.SysRoleModel;
 import com.rivers.user.api.entity.SysUserRoleModel;
 import com.rivers.user.dao.SysRoleDao;
@@ -48,7 +48,7 @@ public class RoleService extends ServiceImpl<SysRoleDao, SysRoleModel> {
      * @param roleDto roleDto
      * @return IPage
      */
-    public IPage<SysRoleModel> getRolePage(RoleDto roleDto) {
+    public IPage<SysRoleModel> getRolePage(RoleDTO roleDto) {
         QueryWrapper<SysRoleModel> wrapper = new QueryWrapper<>();
         if (StrUtil.isNotBlank(roleDto.getRoleName())) {
             wrapper.eq("role_name", roleDto.getRoleName());
@@ -110,7 +110,7 @@ public class RoleService extends ServiceImpl<SysRoleDao, SysRoleModel> {
         return sysRoleDao.selectRoleList();
     }
 
-    public void addRoleByUserId(RoleDto roleDto) {
+    public void addRoleByUserId(RoleDTO roleDto) {
         roleDto.getRoleIds().forEach(i -> {
             SysUserRoleModel userRole = new SysUserRoleModel();
             userRole.setRoleId(i);

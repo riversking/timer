@@ -2,14 +2,12 @@ package com.rivers.user.controller;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.rivers.core.annotation.SysLog;
 import com.rivers.core.bean.LoginUser;
 import com.rivers.core.view.RequestVo;
 import com.rivers.core.view.ResponseVo;
 import com.rivers.user.api.dto.RoleDO;
-import com.rivers.user.api.dto.RoleDto;
+import com.rivers.user.api.dto.RoleDTO;
 import com.rivers.user.api.entity.SysRoleModel;
-import com.rivers.user.api.entity.SysUserRoleModel;
 import com.rivers.user.service.RoleService;
 import com.rivers.userservice.proto.UpdateRoleByIdReq;
 import com.rivers.userservice.proto.UpdateRoleByIdRes;
@@ -61,8 +59,8 @@ public class RoleController {
      * @return ResponseVo
      */
     @PostMapping("rolePage")
-    public ResponseVo rolePage(@RequestBody RequestVo<RoleDto> requestVo) {
-        RoleDto roleDto = requestVo.getParam();
+    public ResponseVo rolePage(@RequestBody RequestVo<RoleDTO> requestVo) {
+        RoleDTO roleDto = requestVo.getParam();
         ResponseVo responseVo = ResponseVo.ok();
         IPage<SysRoleModel> pageInfo = roleService.getRolePage(roleDto);
         responseVo.setData(pageInfo);
@@ -125,8 +123,8 @@ public class RoleController {
 
 
     @PostMapping("addRoleByUserId")
-    public ResponseVo addRoleByUserId(@RequestBody RequestVo<RoleDto> req) {
-        RoleDto roleVo = req.getParam();
+    public ResponseVo addRoleByUserId(@RequestBody RequestVo<RoleDTO> req) {
+        RoleDTO roleVo = req.getParam();
         if (roleVo.getRoleIds().isEmpty()) {
             return ResponseVo.fail("-100001", "角色id为空");
         }

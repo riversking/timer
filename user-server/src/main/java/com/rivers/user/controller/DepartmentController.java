@@ -4,6 +4,7 @@ import com.rivers.core.view.ResponseVo;
 import com.rivers.user.api.dto.DeptTree;
 import com.rivers.user.service.DeptService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,9 +25,14 @@ public class DepartmentController {
     public ResponseVo getDeptTree() {
         ResponseVo vo = ResponseVo.ok();
         List<DeptTree> deptTrees = deptService.getDeptTree();
-        vo.setCode("0");
-        vo.setMessage("查询成功");
         vo.setData(deptTrees);
+        return vo;
+    }
+
+    @GetMapping("getDeptList")
+    public ResponseVo getDeptList() {
+        ResponseVo vo = ResponseVo.ok();
+        vo.setData(deptService.getDeptList());
         return vo;
     }
 

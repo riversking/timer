@@ -10,7 +10,7 @@ import java.util.List;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class RoleDto extends Page {
+public class RoleDTO extends Page {
 
     private String roleName;
 

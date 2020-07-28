@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.rivers.user.api.dto.MenuDto;
-import com.rivers.user.api.dto.MenuRoleDto;
+import com.rivers.user.api.dto.MenuRoleDTO;
 import com.rivers.user.api.dto.MenuTree;
 import com.rivers.user.api.entity.SysMenuModel;
 import com.rivers.user.api.entity.SysRoleMenuModel;
@@ -140,7 +140,7 @@ public class MenuService extends ServiceImpl<SysMenuDao, SysMenuModel> {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void updateMenuByRoleId(MenuRoleDto menuRoleDto) {
+    public void updateMenuByRoleId(MenuRoleDTO menuRoleDto) {
         SysRoleMenuModel sysRoleMenuModel = new SysRoleMenuModel();
         sysRoleMenuModel.setIsDelete(1);
         sysRoleMenuModel.setRoleId(menuRoleDto.getRoleId());

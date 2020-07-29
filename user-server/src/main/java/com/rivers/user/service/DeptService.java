@@ -41,7 +41,7 @@ public class DeptService {
                 .stream()
                 .map(i -> {
                     DeptDTO dept = new DeptDTO();
-                    BeanUtils.copyProperties(dept, i);
+                    BeanUtils.copyProperties(i, dept);
                     return dept;
                 }).collect(Collectors.toList());
     }

@@ -16,4 +16,6 @@ public class DeptTree extends TreeNode {
 
     private String label;
 
+    private Integer orderNum;
+
 }

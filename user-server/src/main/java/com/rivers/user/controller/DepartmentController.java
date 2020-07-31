@@ -1,15 +1,15 @@
 package com.rivers.user.controller;
 
 import com.rivers.core.view.ResponseVo;
+import com.rivers.user.api.dto.DeptDTO;
 import com.rivers.user.api.dto.DeptTree;
 import com.rivers.user.service.DeptService;
+import com.rivers.userservice.proto.DeleteDeptByIdReq;
+import com.rivers.userservice.proto.DeleteDeptByIdRes;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -19,7 +19,7 @@ import java.util.List;
  * @author riverskingking
  */
 @RestController
-@RequestMapping("/user/dept")
+@RequestMapping(value = "/user/dept", produces = MediaType.APPLICATION_JSON_VALUE)
 public class DepartmentController {
 
     @Autowired
@@ -39,6 +39,25 @@ public class DepartmentController {
         vo.setData(deptService.getDeptList());
         return vo;
     }
+
+    @PostMapping("updateDept")
+    public ResponseVo updateDept(@RequestBody DeptDTO deptDTO) {
+        deptService.updateDeptById(deptDTO);
+        return ResponseVo.ok();
+    }
+
+    @PostMapping("addDept")
+    public ResponseVo addDept(@RequestBody DeptDTO deptDTO) {
+        deptService.addDept(deptDTO);
+        return ResponseVo.ok();
+    }
+
+    @PostMapping("deleteDept")
+    public DeleteDeptByIdRes deleteDept(@RequestBody DeleteDeptByIdReq req) {
+        deptService.deleteDept(req.getId());
+        return DeleteDeptByIdRes.ok();
+    }
+
 
     public static void main(String[] args) {
         String string = "73.25%";

@@ -1,5 +1,5 @@
 
-Ì
+Ø
 userservice.proto"#
 	LoginUser
 userId (	RuserId"<
@@ -66,6 +66,13 @@ createDate"·
 userd (2
 .LoginUserRuser"E
 UpdateRoleByIdRes
+retCode (RretCode
+retMsg (	RretMsg"C
+DeleteDeptByIdReq
+id (Rid
+userd (2
+.LoginUserRuser"E
+DeleteDeptByIdRes
 retCode (RretCode
 retMsg (	RretMsgB5
 com.rivers.userservice.protoBUserServiceMetasPˆbproto3

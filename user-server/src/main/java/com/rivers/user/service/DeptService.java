@@ -1,6 +1,7 @@
 package com.rivers.user.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.rivers.core.bean.LoginUser;
 import com.rivers.user.api.dto.DeptDTO;
 import com.rivers.user.api.dto.DeptTree;
 import com.rivers.user.api.entity.SysDeptModel;
@@ -46,6 +47,32 @@ public class DeptService {
                 }).collect(Collectors.toList());
     }
 
+    public void addDept(DeptDTO deptDTO) {
+        SysDeptModel deptModel = new SysDeptModel();
+        LoginUser user = deptDTO.getUser();
+        deptModel.setName(deptDTO.getName());
+        deptModel.setParentId(deptDTO.getParentId());
+        deptModel.setOrderNum(deptDTO.getOrderNum());
+        deptModel.setCreateUser(user.getUserId());
+        deptModel.setUpdateUser(user.getUserId());
+        deptModel.insert();
+    }
+
+    public void deleteDept(Integer id) {
+        sysDeptDao.deleteById(id);
+    }
+
+    public void updateDeptById(DeptDTO deptDTO) {
+        SysDeptModel deptModel = new SysDeptModel();
+        LoginUser user = deptDTO.getUser();
+        deptModel.setId(deptDTO.getId());
+        deptModel.setName(deptDTO.getName());
+        deptModel.setParentId(deptDTO.getParentId());
+        deptModel.setOrderNum(deptDTO.getOrderNum());
+        deptModel.setUpdateUser(user.getUserId());
+        deptModel.updateById();
+    }
+
 
     private List<DeptTree> buildDeptTree(List<SysDeptModel> depts) {
         List<DeptTree> treeList = depts.stream()
@@ -55,6 +82,7 @@ public class DeptService {
                     node.setParentId(dept.getParentId());
                     node.setName(dept.getName());
                     node.setLabel(dept.getName());
+                    node.setOrderNum(dept.getOrderNum());
                     return node;
                 }).collect(Collectors.toList());
         List<DeptTree> roots = treeList.stream()

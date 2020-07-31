@@ -91,3 +91,13 @@ message UpdateRoleByIdRes {
     int32 retCode = 1;
     string retMsg = 2;
 }
+
+message DeleteDeptByIdReq {
+    int32 id = 1;
+    LoginUser user = 100;
+}
+
+message DeleteDeptByIdRes {
+    int32 retCode = 1;
+    string retMsg = 2;
+}

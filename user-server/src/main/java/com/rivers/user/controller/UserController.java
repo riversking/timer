@@ -11,9 +11,7 @@ import com.rivers.user.api.dto.UserInfo;
 import com.rivers.user.api.entity.SysUserModel;
 import com.rivers.user.api.vo.TokenVo;
 import com.rivers.user.service.UserService;
-import com.rivers.userservice.proto.AddUserReq;
-import com.rivers.userservice.proto.GetUserListReq;
-import com.rivers.userservice.proto.GetUserListRes;
+import com.rivers.userservice.proto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -196,5 +195,16 @@ public class UserController {
     public GetUserListRes getUserPage(@RequestBody GetUserListReq req) {
         return userService.getUserList(req);
     }
+
+    @PostMapping(value = "changePassword")
+    public ChangePasswordRes changePassword(@RequestBody ChangePasswordReq req) {
+        String firstPassword = req.getFirstPassword();
+        String secPassword = req.getSecPassword();
+        if (!Objects.equals(firstPassword, secPassword)) {
+            return ChangePasswordRes.failed(-608105, "两次密码输入不一致");
+        }
+        return userService.changePwd(req);
+    }
+
 
 }

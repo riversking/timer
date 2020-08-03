@@ -22,9 +22,7 @@ import com.rivers.user.dao.SysRoleDao;
 import com.rivers.user.dao.SysUserDao;
 import com.rivers.user.dao.SysUserRoleDao;
 import com.rivers.user.util.ExcelUtils;
-import com.rivers.userservice.proto.GetUserListReq;
-import com.rivers.userservice.proto.GetUserListRes;
-import com.rivers.userservice.proto.User;
+import com.rivers.userservice.proto.*;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -44,7 +42,8 @@ import java.util.stream.Collectors;
 @Log4j2
 public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
 
-    public static final String IS_DELETE1 = "is_delete";
+    public static final String IS_DELETE = "is_delete";
+
     @Resource
     private SysUserDao sysUserDao;
 
@@ -57,8 +56,6 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
 
     @Resource
     private SysMenuDao sysMenuDao;
-
-    private static String IS_DELETE = IS_DELETE1;
 
 
     /**
@@ -108,10 +105,18 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
                 .peek(i -> {
                     List<SysRoleModel> roleModels = sysRoleDao.selectRoleByUserId(i.getUserId());
                     i.setSysRoleModels(roleModels);
+                    i.setPhone(mobileEncrypt(i.getPhone()));
                     i.setCreateTime(DateUtil.parseDate(DateUtil.formatDate(i.getCreateTime())).toSqlDate());
                 }).collect(Collectors.toList());
         sysUserPage.setRecords(collect);
         return sysUserPage;
+    }
+
+    public String mobileEncrypt(String mobile) {
+        if (StrUtil.isEmpty(mobile) || (mobile.length() != 11)) {
+            return mobile;
+        }
+        return mobile.replaceAll("(\\d{3})\\d{4}(\\d{4})", "$1****$2");
     }
 
     /**
@@ -228,13 +233,14 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
         SysUserModel user = new SysUserModel();
         user.setId(userId);
         user.setUsername(userDto.getUsername());
+        user.setUserId(userDto.getUserId());
         user.setPassword(userDto.getPassword());
         user.setAvatar(userDto.getAvatar());
         user.setMail(userDto.getMail());
         user.setNickname(userDto.getNickname());
         user.setUpdateUser(userDto.getUpdateUser());
         sysUserDao.updateById(user);
-        sysUserRoleDao.deleteByUserId(userId);
+        sysUserRoleDao.deleteByUserId(userDto.getUserId());
         saveUserRole(userDto, user);
     }
 
@@ -251,7 +257,7 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
     public void parseUserExcel(String filepath) {
         List<Map<String, Object>> userMaps = ExcelUtils.importExcel(filepath);
         QueryWrapper<SysUserModel> wrapper = new QueryWrapper<>();
-        wrapper.eq(IS_DELETE1, 0);
+        wrapper.eq(IS_DELETE, 0);
         List<SysUserModel> users = sysUserDao.selectList(wrapper);
         List<String> userNames = users.stream().map(SysUserModel::getUsername).collect(Collectors.toList());
         List<String> phones = users.stream().map(SysUserModel::getPhone).collect(Collectors.toList());
@@ -267,7 +273,7 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
             SysUserModel userModel = new SysUserModel();
             userModel.setUsername(String.valueOf(i.get("username")));
             userModel.setPhone(String.valueOf(i.get("phone")));
-            userModel.setPassword(String.valueOf(i.get("password")));
+            userModel.setPassword(new BCryptPasswordEncoder().encode(String.valueOf(i.get("password"))));
             userModel.setUserId(String.valueOf(i.get("userId")));
             userModel.setSalt(UUID.randomUUID().toString());
             userModel.setCreateUser("admin");
@@ -278,7 +284,7 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
 
     public void exportUserExcel() {
         QueryWrapper<SysUserModel> wrapper = new QueryWrapper<>();
-        wrapper.eq(IS_DELETE1, 0);
+        wrapper.eq(IS_DELETE, 0);
         List<SysUserModel> list = sysUserDao.selectList(wrapper);
         ExcelWriter writer = ExcelUtil.getWriter();
         writer.merge(4, "一班成绩单");
@@ -327,5 +333,18 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
         Page<SysUserModel> page = new Page<>(getUserListReq.getPage().getPageNum(),
                 getUserListReq.getPage().getPageSize());
         return sysUserDao.selectPage(page, wrapper);
+    }
+
+    public ChangePasswordRes changePwd(ChangePasswordReq changePasswordReq) {
+        QueryWrapper<SysUserModel> wrapper = new QueryWrapper<>();
+        wrapper.eq(IS_DELETE, 0);
+        wrapper.eq("password", changePasswordReq.getOldPassword());
+        SysUserModel user = sysUserDao.selectOne(wrapper);
+        if (null == user) {
+            return ChangePasswordRes.failed(-608106, "原来密码错误");
+        }
+        user.setPassword(new BCryptPasswordEncoder().encode(String.valueOf(changePasswordReq.getFirstPassword())));
+        user.updateById();
+        return ChangePasswordRes.ok();
     }
 }

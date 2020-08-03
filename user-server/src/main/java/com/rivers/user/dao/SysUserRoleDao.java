@@ -16,5 +16,5 @@ public interface SysUserRoleDao extends BaseMapper<SysUserRoleModel> {
 
     List<Integer> selectRoleId(String userId);
 
-    void deleteByUserId(Integer userId);
+    void deleteByUserId(String userId);
 }

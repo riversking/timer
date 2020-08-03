@@ -101,3 +101,17 @@ message DeleteDeptByIdRes {
     int32 retCode = 1;
     string retMsg = 2;
 }
+
+message ChangePasswordReq {
+    int32 id = 1;
+    string oldPassword = 2;
+    string firstPassword = 3;
+    string secPassword = 4;
+    string phone = 5;
+    LoginUser user = 100;
+}
+
+message ChangePasswordRes {
+    int32 retCode = 1;
+    string retMsg = 2;
+}

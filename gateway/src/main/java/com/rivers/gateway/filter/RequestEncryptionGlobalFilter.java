@@ -14,6 +14,7 @@ import org.springframework.cloud.gateway.filter.factory.rewrite.RewriteFunction;
 import org.springframework.core.Ordered;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.server.RequestPath;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.security.jwt.JwtHelper;
 import org.springframework.stereotype.Component;
@@ -70,6 +71,10 @@ public class RequestEncryptionGlobalFilter implements GlobalFilter, Ordered {
             ServerHttpRequest request = exchange.getRequest().mutate().uri(newUri).build();
             return chain.filter(exchange.mutate().request(request).build());
         }
+        RequestPath path = exchange.getRequest().getPath();
+        if (path.toString().contains("upload")) {
+            return chain.filter(exchange);
+        }
         //post 请求 特殊处理
         return delegate.filter(exchange, chain);
     }
@@ -84,8 +89,7 @@ public class RequestEncryptionGlobalFilter implements GlobalFilter, Ordered {
             // 这里的body就是请求体参数, 类型是LinkedHashMap, 可以根据需要转成JSON
             ServerHttpRequest request = serverWebExchange.getRequest();
             HttpHeaders headers = request.getHeaders();
-            if (request.getPath().toString().contains("login") ||
-                    request.getPath().toString().contains("upload")) {
+            if (request.getPath().toString().contains("login")) {
                 return Mono.just(body);
             }
             Map<String, Object> user = Maps.newLinkedHashMap();

@@ -1,5 +1,6 @@
 package com.rivers.user.service;
 
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelUtil;
@@ -77,7 +78,7 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
         LoginUser user = userDto.getUser();
         sysUserModel.setUsername(userDto.getUsername());
         sysUserModel.setPassword(new BCryptPasswordEncoder().encode(userDto.getPassword()));
-        sysUserModel.setUserId(String.format("%05d", num + 1));
+        sysUserModel.setUserId(String.format("T%05d", num + 1));
         sysUserModel.setPhone(userDto.getPhone());
         sysUserModel.setAvatar(userDto.getAvatar());
         sysUserModel.setSalt(UUID.randomUUID().toString());
@@ -85,16 +86,6 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
         sysUserModel.setUpdateUser(user.getUserId());
         sysUserDao.insert(sysUserModel);
         saveUserRole(userDto, sysUserModel);
-    }
-
-    public static void main(String[] args) {
-        String s = "T00001";
-        String t = s.substring(s.indexOf("T") + 1);
-        int i = NumberUtils.toInt(t);
-        System.out.println("iiiiiiiiiii：" + i);
-        System.out.println("asdasdasd：" + t);
-        int a = NumberUtils.toInt("001", 0);
-        System.out.println(a);
     }
 
     /**
@@ -264,7 +255,7 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
 
     private void saveUserRole(UserDTO userDto, SysUserModel user) {
         List<Integer> roleIds = userDto.getRoleIds();
-        if (roleIds.isEmpty()) {
+        if (CollectionUtil.isEmpty(roleIds)) {
             return;
         }
         roleIds.forEach(i -> {

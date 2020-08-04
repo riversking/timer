@@ -15,4 +15,10 @@ public interface SysUserDao extends BaseMapper<SysUserModel> {
 
     SysUserModel selectUserById(Integer id);
 
+    Integer selectUserByUserName(String username);
+
+    Integer selectUserByPhone(String phone);
+
+    String selectUserId();
+
 }

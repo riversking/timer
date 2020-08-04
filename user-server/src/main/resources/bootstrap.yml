@@ -44,7 +44,7 @@ mybatis-plus:
   #  typeAliasesPackage: com.riversking.user.entity
   global-config:
     db-config:
-      id-type: none
+      id-type: auto
       logic-not-delete-value: 0
       logic-delete-value: 1
   configuration:
@@ -53,7 +53,6 @@ mybatis-plus:
     lazyLoadingEnabled: true #延时加载的开关
     multipleResultSetsEnabled: true #开启的话
     call-setters-on-nulls: false
-
 
 
 logging:

@@ -65,26 +65,17 @@ public class UserController {
     /**
      * 添加用户
      *
-     * @param requestVo requestVo
+     * @param userDTO userDTO
      * @return ResponseVo
      */
     @PostMapping("addUser")
-    public ResponseVo addUser(@RequestBody RequestVo<UserDTO> requestVo) {
-        ResponseVo vo = ResponseVo.ok();
-        UserDTO user = requestVo.getParam();
-        List<SysUserModel> userModels = userService.getUser(user);
-        if (StrUtil.isBlank(user.getPhone())) {
-            return ResponseVo.fail("-101003", "手机号为空");
+    public ResponseVo addUser(@RequestBody UserDTO userDTO) {
+        ResponseVo vo = checkUser(userDTO);
+        if (vo != null) {
+            return vo;
         }
-        if (userModels.isEmpty()) {
-            user.setCreateUser(requestVo.getUserId());
-            user.setUpdateUser(requestVo.getUserId());
-            userService.addUser(user);
-            vo.setMessage("操作成功");
-        } else {
-            return ResponseVo.fail("-101004", "用户名/手机号已存在");
-        }
-        return vo;
+        userService.addUser(userDTO);
+        return ResponseVo.ok();
     }
 
     @PostMapping(value = "addUser1")
@@ -173,11 +164,28 @@ public class UserController {
     }
 
     @PostMapping("updateUserById")
-    public ResponseVo updateUserById(@RequestBody RequestVo<UserDTO> userReq) {
-        UserDTO param = userReq.getParam();
-        param.setUpdateUser(userReq.getUserId());
-        userService.updateUserById(param);
+    public ResponseVo updateUserById(@RequestBody UserDTO userReq) {
+        ResponseVo vo = checkUser(userReq);
+        if (vo != null) {
+            return vo;
+        }
+        userService.updateUserById(userReq);
         return ResponseVo.ok();
+    }
+
+    private ResponseVo checkUser(UserDTO userReq) {
+        if (StrUtil.isBlank(userReq.getPhone())) {
+            return ResponseVo.fail("-101003", "手机号为空");
+        }
+        Integer usernameCount = userService.getUserByUserName(userReq.getUsername());
+        if (usernameCount != null && usernameCount == 1) {
+            return ResponseVo.fail("-101004", "用户名已存在");
+        }
+        Integer phoneCount = userService.getUserByPhone(userReq.getPhone());
+        if (phoneCount != null && phoneCount == 1) {
+            return ResponseVo.fail("-101005", "手机已存在");
+        }
+        return null;
     }
 
     @PostMapping("importUserExcel")

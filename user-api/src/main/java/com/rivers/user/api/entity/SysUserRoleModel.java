@@ -32,7 +32,7 @@ public class SysUserRoleModel extends Model<SysUserRoleModel> {
 	 *
 	 */
 	@TableField(value="user_id")
-	private Integer userId;
+	private String userId;
 
 	/**
 	 * 角色ID

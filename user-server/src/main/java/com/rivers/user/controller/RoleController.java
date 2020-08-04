@@ -128,7 +128,7 @@ public class RoleController {
         if (roleVo.getRoleIds().isEmpty()) {
             return ResponseVo.fail("-100001", "角色id为空");
         }
-        if (roleVo.getUserId() == 0) {
+        if (StrUtil.isBlank(roleVo.getUserId())) {
             return ResponseVo.fail("-100002", "用户id为空");
         }
         roleService.addRoleByUserId(roleVo);

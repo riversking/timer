@@ -103,9 +103,9 @@ public class RequestEncryptionGlobalFilter implements GlobalFilter, Ordered {
                 if (MapUtil.isEmpty(map)) {
                     map = Maps.newLinkedHashMap();
                 }
+                user.put("id", json.get("id"));
                 user.put("userId", json.get("userId"));
                 map.put("user", user);
-                map.put("userId", json.get("userId"));
                 log.info("请求体: {}", JSON.toJSONString(map));
                 return Mono.just(map);
             }

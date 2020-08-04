@@ -22,7 +22,7 @@ public class RoleDTO extends Page {
 
     private Integer isDelete;
 
-    private Integer userId;
+    private String userId;
 
     private List<Integer> roleIds;
 

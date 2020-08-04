@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.rivers.core.bean.LoginUser;
 import com.rivers.core.util.ExceptionUtil;
 import com.rivers.user.api.dto.UserDTO;
 import com.rivers.user.api.dto.UserInfo;
@@ -24,6 +25,7 @@ import com.rivers.user.dao.SysUserRoleDao;
 import com.rivers.user.util.ExcelUtils;
 import com.rivers.userservice.proto.*;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -65,17 +67,34 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
      */
     @Transactional(rollbackFor = Exception.class)
     public void addUser(UserDTO userDto) {
+        String userId = sysUserDao.selectUserId();
+        String code = null;
+        if (null != userId) {
+            code = userId.substring(userId.indexOf("T") + 1);
+        }
+        int num = NumberUtils.toInt(code, 0);
         SysUserModel sysUserModel = new SysUserModel();
+        LoginUser user = userDto.getUser();
         sysUserModel.setUsername(userDto.getUsername());
         sysUserModel.setPassword(new BCryptPasswordEncoder().encode(userDto.getPassword()));
-        sysUserModel.setUserId(userDto.getUserId());
+        sysUserModel.setUserId(String.format("%05d", num + 1));
         sysUserModel.setPhone(userDto.getPhone());
         sysUserModel.setAvatar(userDto.getAvatar());
         sysUserModel.setSalt(UUID.randomUUID().toString());
-        sysUserModel.setCreateUser(userDto.getCreateUser());
-        sysUserModel.setUpdateUser(userDto.getUpdateUser());
+        sysUserModel.setCreateUser(user.getUserId());
+        sysUserModel.setUpdateUser(user.getUserId());
         sysUserDao.insert(sysUserModel);
         saveUserRole(userDto, sysUserModel);
+    }
+
+    public static void main(String[] args) {
+        String s = "T00001";
+        String t = s.substring(s.indexOf("T") + 1);
+        int i = NumberUtils.toInt(t);
+        System.out.println("iiiiiiiiiii：" + i);
+        System.out.println("asdasdasd：" + t);
+        int a = NumberUtils.toInt("001", 0);
+        System.out.println(a);
     }
 
     /**
@@ -159,16 +178,15 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
     /**
      * 获取用户
      *
-     * @param user user
+     * @param username username
      * @return List
      */
-    public List<SysUserModel> getUser(UserDTO user) {
-        QueryWrapper<SysUserModel> wrapper = new QueryWrapper<>();
-        if (StrUtil.isNotBlank(user.getUsername()) || StrUtil.isNotBlank(user.getPhone())) {
-            wrapper.eq("username", user.getUsername()).or().eq("phone", user.getPhone());
-        }
-        wrapper.eq(IS_DELETE, 0);
-        return sysUserDao.selectList(wrapper);
+    public Integer getUserByUserName(String username) {
+        return sysUserDao.selectUserByUserName(username);
+    }
+
+    public Integer getUserByPhone(String phone) {
+        return sysUserDao.selectUserByPhone(phone);
     }
 
     /**
@@ -231,24 +249,28 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
     public void updateUserById(UserDTO userDto) {
         Integer userId = userDto.getId();
         SysUserModel user = new SysUserModel();
+        LoginUser loginUser = userDto.getUser();
         user.setId(userId);
         user.setUsername(userDto.getUsername());
-        user.setUserId(userDto.getUserId());
-        user.setPassword(userDto.getPassword());
+        user.setPhone(userDto.getPhone());
         user.setAvatar(userDto.getAvatar());
         user.setMail(userDto.getMail());
         user.setNickname(userDto.getNickname());
-        user.setUpdateUser(userDto.getUpdateUser());
+        user.setUpdateUser(loginUser.getUserId());
         sysUserDao.updateById(user);
         sysUserRoleDao.deleteByUserId(userDto.getUserId());
         saveUserRole(userDto, user);
     }
 
     private void saveUserRole(UserDTO userDto, SysUserModel user) {
-        userDto.getRoleIds().forEach(i -> {
+        List<Integer> roleIds = userDto.getRoleIds();
+        if (roleIds.isEmpty()) {
+            return;
+        }
+        roleIds.forEach(i -> {
             SysUserRoleModel sysUserRoleModel = new SysUserRoleModel();
             sysUserRoleModel.setRoleId(i);
-            sysUserRoleModel.setUserId(user.getId());
+            sysUserRoleModel.setUserId(user.getUserId());
             sysUserRoleDao.insert(sysUserRoleModel);
         });
     }

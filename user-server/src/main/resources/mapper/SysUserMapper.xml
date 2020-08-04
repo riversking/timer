@@ -38,4 +38,37 @@
         AND
             is_delete = 0
 	</select>
+
+	<select id="selectUserByUserName" resultType="java.lang.Integer">
+		SELECT
+        	1
+        FROM
+        	`sys_user`
+        WHERE
+            username = #{username}
+        AND
+            is_delete = 0
+        LIMIT 1
+	</select>
+
+	<select id="selectUserByPhone" resultType="java.lang.Integer">
+		SELECT
+        	1
+        FROM
+        	`sys_user`
+        WHERE
+            phone = #{phone}
+        AND
+            is_delete = 0
+        LIMIT 1
+	</select>
+
+	<select id="selectUserId" resultType="java.lang.String">
+		SELECT
+        	user_id
+        FROM
+        	`sys_user`
+        ORDER BY id DESC
+        LIMIT 1
+	</select>
 </mapper>

@@ -11,6 +11,7 @@ import com.rivers.user.api.dto.UserInfo;
 import com.rivers.user.api.entity.SysUserModel;
 import com.rivers.user.api.vo.TokenVo;
 import com.rivers.user.service.UserService;
+import com.rivers.user.util.AESUtil;
 import com.rivers.userservice.proto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -19,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.Objects;
 
 
@@ -47,6 +47,7 @@ public class UserController {
     public ResponseVo login(@RequestBody RequestVo<UserDTO> requestVo) {
         ResponseVo responseVo = ResponseVo.ok();
         UserDTO userDto = requestVo.getParam();
+        userDto.setPassword(AESUtil.desEncrypt(userDto.getPassword()).trim());
         SysUserModel userModel = userService.getUserDetail(userDto);
         if (userModel.getId() == null) {
             return ResponseVo.fail("-101003", "用户名或密码错误");
@@ -165,10 +166,6 @@ public class UserController {
 
     @PostMapping("updateUserById")
     public ResponseVo updateUserById(@RequestBody UserDTO userReq) {
-        ResponseVo vo = checkUser(userReq);
-        if (vo != null) {
-            return vo;
-        }
         userService.updateUserById(userReq);
         return ResponseVo.ok();
     }

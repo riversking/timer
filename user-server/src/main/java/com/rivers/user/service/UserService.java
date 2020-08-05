@@ -3,6 +3,8 @@ package com.rivers.user.service;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.crypto.digest.DigestAlgorithm;
+import cn.hutool.crypto.digest.Digester;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -23,6 +25,7 @@ import com.rivers.user.dao.SysMenuDao;
 import com.rivers.user.dao.SysRoleDao;
 import com.rivers.user.dao.SysUserDao;
 import com.rivers.user.dao.SysUserRoleDao;
+import com.rivers.user.util.AESUtil;
 import com.rivers.user.util.ExcelUtils;
 import com.rivers.userservice.proto.*;
 import lombok.extern.log4j.Log4j2;
@@ -351,12 +354,19 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
     public ChangePasswordRes changePwd(ChangePasswordReq changePasswordReq) {
         QueryWrapper<SysUserModel> wrapper = new QueryWrapper<>();
         wrapper.eq(IS_DELETE, 0);
-        wrapper.eq("password", changePasswordReq.getOldPassword());
+        wrapper.eq("id", changePasswordReq.getId());
+        wrapper.select("id", "password");
         SysUserModel user = sysUserDao.selectOne(wrapper);
         if (null == user) {
-            return ChangePasswordRes.failed(-608106, "原来密码错误");
+            return ChangePasswordRes.failed(-608106, "用户不存在");
         }
-        user.setPassword(new BCryptPasswordEncoder().encode(String.valueOf(changePasswordReq.getFirstPassword())));
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String oldPassword = AESUtil.desEncrypt(changePasswordReq.getOldPassword()).trim();
+        if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
+            return ChangePasswordRes.failed(-608107, "旧的密码不正确");
+        }
+        String firstPassword = AESUtil.desEncrypt(changePasswordReq.getFirstPassword());
+        user.setPassword(passwordEncoder.encode(firstPassword));
         user.updateById();
         return ChangePasswordRes.ok();
     }

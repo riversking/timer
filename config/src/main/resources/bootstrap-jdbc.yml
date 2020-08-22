@@ -1,0 +1,25 @@
+server:
+  port: 8888
+
+
+spring:
+  application:
+    name: config
+  profiles:
+    active: dev
+  cloud:
+    config:
+      server:
+        jdbc:
+          sql: SELECT key, value from config_properties where APPLICATION=? and PROFILE=? and LABEL=?
+#  rabbitmq:
+#    host: localhost
+#    port: 5672
+#    username: guest
+#    password: guest
+#    bus:
+#      refresh:
+#        enabled: true
+
+
+

@@ -10,3 +10,14 @@ spring:
       name: gateway-server
     bus:
       enabled: true
+
+#
+#spring:
+#  application:
+#    name: gateway
+#  cloud:
+#    config:
+#      uri: http://localhost:8888
+#      label: master
+#      profile: dev
+#      name: gateway-server

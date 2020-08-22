@@ -2,13 +2,14 @@ dependencies {
     compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-webflux'
     compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-config'
-//    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-bus-amqp'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
     compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-gateway'
     compile group: 'org.jolokia', name: 'jolokia-core', version: '1.6.0'
-    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '2.0.2.RELEASE'
-    compile group: 'com.alibaba', name: 'fastjson', version: '1.2.47'
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '2.2.2.RELEASE'
+    compile group: 'com.alibaba', name: 'fastjson', version: '1.2.70'
     compile group: 'com.github.axet', name: 'kaptcha', version:'0.0.9'
+    compile group: 'org.springframework.security', name: 'spring-security-jwt', version: '1.0.9.RELEASE'
+    compile group: 'com.google.guava', name: 'guava', version:'20.0'
 //    compile('org.springframework.cloud:spring-cloud-starter-oauth2')
 //    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-security'
 }

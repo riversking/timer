@@ -19,18 +19,18 @@ public class WangyiUtil {
     public CdAccountWangYi getWangyiInfo(CdAccount cdAccount) {
         CdAccountWangYi cdAccountWangYi = new CdAccountWangYi();
         try {
-            WebDriver driver = getWangYiDrive(cdAccount);
-            WebElement subscribeCount = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[2]/div/div[2]/div/div/div[1]/div/dl[1]/dd"));
-            WebElement readCount = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[2]/div/div[2]/div/div/div[1]/div/dl[2]/dd"));
-           //头像
-            WebElement headImg = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[1]/div/div[2]/div/div[1]/a/img"));
-            //昵称
-            WebElement name = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[1]/div/div[2]/div/div[2]/div[1]/a"));
-            cdAccount.setNickname(name.getText());
-            //微博数
-            cdAccount.setHeadPortrait(headImg.getAttribute("src"));
-            cdAccountWangYi.setSubscribeCount(Integer.parseInt(subscribeCount.getText()));
-            cdAccountWangYi.setReadCount(Integer.parseInt(readCount.getText()));
+//            WebDriver driver = getWangYiDrive(cdAccount);
+//            WebElement subscribeCount = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[2]/div/div[2]/div/div/div[1]/div/dl[1]/dd"));
+//            WebElement readCount = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[2]/div/div[2]/div/div/div[1]/div/dl[2]/dd"));
+//           //头像
+//            WebElement headImg = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[1]/div/div[2]/div/div[1]/a/img"));
+//            //昵称
+//            WebElement name = driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[1]/div/div[2]/div/div[2]/div[1]/a"));
+//            cdAccount.setNickname(name.getText());
+//            //微博数
+//            cdAccount.setHeadPortrait(headImg.getAttribute("src"));
+//            cdAccountWangYi.setSubscribeCount(Integer.parseInt(subscribeCount.getText()));
+//            cdAccountWangYi.setReadCount(Integer.parseInt(readCount.getText()));
         } catch (Exception e) {
             ExceptionUtil.throwBusinessException("111", e);
         }

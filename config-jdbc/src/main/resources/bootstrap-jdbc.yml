@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: config-jdbc
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    username: root
+    password: root
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/config?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=GMT
+  cloud:
+    config:
+      server:
+        jdbc:
+          sql: SELECT `KEY`, `VALUE` from PROPERTIES where APPLICATION=? and PROFILE=? and LABEL=?
+          order: 0
+
+
+

@@ -7,27 +7,27 @@ spring:
       - id: oauth-server
         uri: lb://oauth-server
         predicates:
-        - Path=/api/v1/auth/**
+        - Path=/api/auth/**
         filters:
-        - StripPrefix=3
+        - StripPrefix=2
       - id: cd-account
         uri: lb://cd-account
         predicates:
-        - Path=/api/v1/account/**
+        - Path=/api/account/**
         filters:
-        - StripPrefix=2
+        - StripPrefix=1
       - id: user-server
         uri: lb://user-server
         predicates:
-          - Path=/api/v1/user/**
+          - Path=/api/user/**
         filters:
-          - StripPrefix=2
+          - StripPrefix=1
       - id: file-server
         uri: lb://file-server
         predicates:
-        - Path=/api/v1/file/**
+        - Path=/api/file/**
         filters:
-        - StripPrefix=2
+        - StripPrefix=1
      discovery:
        locator:
          enabled: true
@@ -44,3 +44,13 @@ feign:
       min-request-size: 2048
     response:
       enabled: true
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${server.port}
+    prefer-ip-address: true
+    ip-address: 139.9.206.164
+    health-check-url-path: /actuator/health
+  client:
+    serviceUrl:
+      defaultZone: http://139.9.206.164:8761/eureka/

@@ -9,7 +9,7 @@
 
  Target Server Type    : MySQL
  Target Server Version : 80012
- File Encoding         : 65001
+ File Encoding         : 635
 
  Date: 20/02/2019 14:36:03
 */
@@ -164,45 +164,45 @@ CREATE TABLE `sys_menu`  (
 -- ----------------------------
 -- Records of sys_menu
 -- ----------------------------
-INSERT INTO `sys_menu` VALUES (1000, '系统管理', NULL, '/setting', -1, 'icon-quanxianguanli', 'Layout', 0, 0, 0, NULL, '2018-09-28 08:29:53', NULL, '2019-02-20 10:56:08', 0);
-INSERT INTO `sys_menu` VALUES (1100, '用户管理', NULL, 'user', 1000, 'icon-yonghuguanli', 'views/admin/user/index', 1, 0, 0, NULL, '2017-11-02 22:24:37', NULL, '2018-09-28 09:00:41', 0);
-INSERT INTO `sys_menu` VALUES (1101, '用户新增', 'sys_user_add', NULL, 1100, NULL, NULL, NULL, 0, 1, NULL, '2017-11-08 09:52:09', NULL, '2018-09-28 09:06:34', 0);
-INSERT INTO `sys_menu` VALUES (1102, '用户修改', 'sys_user_edit', NULL, 1100, NULL, NULL, NULL, 0, 1, NULL, '2017-11-08 09:52:48', NULL, '2018-09-28 09:06:37', 0);
-INSERT INTO `sys_menu` VALUES (1103, '用户删除', 'sys_user_del', NULL, 1100, NULL, NULL, NULL, 0, 1, NULL, '2017-11-08 09:54:01', NULL, '2018-09-28 09:06:42', 0);
-INSERT INTO `sys_menu` VALUES (1200, '菜单管理', NULL, 'menu', 1000, 'icon-caidanguanli', 'views/admin/menu/index', 2, 0, 0, NULL, '2017-11-08 09:57:27', NULL, '2018-09-28 09:00:45', 0);
-INSERT INTO `sys_menu` VALUES (1201, '菜单新增', 'sys_menu_add', NULL, 1200, NULL, NULL, NULL, 0, 1, NULL, '2017-11-08 10:15:53', NULL, '2018-09-28 09:07:16', 0);
-INSERT INTO `sys_menu` VALUES (1202, '菜单修改', 'sys_menu_edit', NULL, 1200, NULL, NULL, NULL, 0, 1, NULL, '2017-11-08 10:16:23', NULL, '2018-09-28 09:07:18', 0);
-INSERT INTO `sys_menu` VALUES (1203, '菜单删除', 'sys_menu_del', NULL, 1200, NULL, NULL, NULL, 0, 1, NULL, '2017-11-08 10:16:43', NULL, '2018-09-28 09:07:22', 0);
-INSERT INTO `sys_menu` VALUES (1300, '角色管理', NULL, 'role', 1000, 'icon-jiaoseguanli', 'views/admin/role/index', 3, 0, 0, NULL, '2017-11-08 10:13:37', NULL, '2018-09-28 09:00:48', 0);
-INSERT INTO `sys_menu` VALUES (1301, '角色新增', 'sys_role_add', NULL, 1300, NULL, NULL, NULL, 0, 1, NULL, '2017-11-08 10:14:18', NULL, '2018-09-28 09:07:46', 0);
-INSERT INTO `sys_menu` VALUES (1302, '角色修改', 'sys_role_edit', NULL, 1300, NULL, NULL, NULL, 0, 1, NULL, '2017-11-08 10:14:41', NULL, '2018-09-28 09:07:49', 0);
-INSERT INTO `sys_menu` VALUES (1303, '角色删除', 'sys_role_del', NULL, 1300, NULL, NULL, NULL, 0, 1, NULL, '2017-11-08 10:14:59', NULL, '2018-09-28 09:07:53', 0);
-INSERT INTO `sys_menu` VALUES (1304, '分配权限', 'sys_role_perm', NULL, 1300, NULL, NULL, NULL, 0, 1, NULL, '2018-04-20 07:22:55', NULL, '2018-09-28 09:13:23', 0);
-INSERT INTO `sys_menu` VALUES (1400, '部门管理', NULL, 'dept', 1000, 'icon-web-icon-', 'views/admin/dept/index', 4, 0, 0, NULL, '2018-01-20 13:17:19', NULL, '2018-12-09 16:35:12', 0);
-INSERT INTO `sys_menu` VALUES (1401, '部门新增', 'sys_dept_add', NULL, 1400, NULL, NULL, NULL, 0, 1, NULL, '2018-01-20 14:56:16', NULL, '2018-09-28 09:08:13', 0);
-INSERT INTO `sys_menu` VALUES (1402, '部门修改', 'sys_dept_edit', NULL, 1400, NULL, NULL, NULL, 0, 1, NULL, '2018-01-20 14:56:59', NULL, '2018-09-28 09:08:16', 0);
-INSERT INTO `sys_menu` VALUES (1403, '部门删除', 'sys_dept_del', NULL, 1400, NULL, NULL, NULL, 0, 1, NULL, '2018-01-20 14:57:28', NULL, '2018-09-28 09:08:18', 0);
-INSERT INTO `sys_menu` VALUES (2000, 'admin管理', NULL, '/admin', -1, 'icon-xitongguanli', 'Layout', 1, 0, 0, NULL, '2017-11-07 20:56:00', NULL, '2019-02-20 10:56:31', 0);
-INSERT INTO `sys_menu` VALUES (2100, '日志管理', NULL, 'log', 2000, 'icon-rizhiguanli', 'views/admin/log/index', 5, 0, 0, NULL, '2017-11-20 14:06:22', NULL, '2018-09-28 09:01:52', 0);
-INSERT INTO `sys_menu` VALUES (2101, '日志删除', 'sys_log_del', NULL, 2100, NULL, NULL, NULL, 0, 1, NULL, '2017-11-20 20:37:37', NULL, '2018-09-28 09:08:44', 0);
-INSERT INTO `sys_menu` VALUES (2200, '字典管理', NULL, 'dict', 2000, 'icon-navicon-zdgl', 'views/admin/dict/index', 6, 0, 0, NULL, '2017-11-29 11:30:52', NULL, '2018-09-28 09:01:47', 0);
-INSERT INTO `sys_menu` VALUES (2201, '字典删除', 'sys_dict_del', NULL, 2200, NULL, NULL, NULL, 0, 1, NULL, '2017-11-29 11:30:11', NULL, '2018-09-28 09:09:10', 0);
-INSERT INTO `sys_menu` VALUES (2202, '字典新增', 'sys_dict_add', NULL, 2200, NULL, NULL, NULL, 0, 1, NULL, '2018-05-11 22:34:55', NULL, '2018-09-28 09:09:12', 0);
-INSERT INTO `sys_menu` VALUES (2203, '字典修改', 'sys_dict_edit', NULL, 2200, NULL, NULL, NULL, 0, 1, NULL, '2018-05-11 22:36:03', NULL, '2018-09-28 09:09:16', 0);
-INSERT INTO `sys_menu` VALUES (2300, '代码生成', '', 'gen', 2000, 'icon-weibiaoti46', 'views/gen/index', 8, 0, 0, NULL, '2018-01-20 13:17:19', NULL, '2018-11-24 05:21:01', 0);
-INSERT INTO `sys_menu` VALUES (2400, '终端管理', '', 'client', 2000, 'icon-shouji', 'views/admin/client/index', 9, 0, 0, NULL, '2018-01-20 13:17:19', NULL, '2018-09-28 09:01:43', 0);
-INSERT INTO `sys_menu` VALUES (2401, '客户端新增', 'sys_client_add', NULL, 2400, '1', NULL, NULL, 0, 1, NULL, '2018-05-15 21:35:18', NULL, '2018-09-28 09:10:25', 0);
-INSERT INTO `sys_menu` VALUES (2402, '客户端修改', 'sys_client_edit', NULL, 2400, NULL, NULL, NULL, 0, 1, NULL, '2018-05-15 21:37:06', NULL, '2018-09-28 09:10:27', 0);
-INSERT INTO `sys_menu` VALUES (2403, '客户端删除', 'sys_client_del', NULL, 2400, NULL, NULL, NULL, 0, 1, NULL, '2018-05-15 21:39:16', NULL, '2018-09-28 09:10:30', 0);
-INSERT INTO `sys_menu` VALUES (2500, '服务监控', NULL, 'http://139.224.200.249:15001', 2000, 'icon-server', NULL, 10, 0, 0, NULL, '2018-06-26 10:50:32', NULL, '2019-02-01 20:41:30', 0);
-INSERT INTO `sys_menu` VALUES (2600, '令牌管理', NULL, 'token', 2000, 'icon-denglvlingpai', 'views/admin/token/index', 11, 0, 0, NULL, '2018-09-04 05:58:41', NULL, '2018-09-28 09:01:38', 0);
-INSERT INTO `sys_menu` VALUES (2601, '令牌删除', 'sys_token_del', NULL, 2600, NULL, NULL, 1, 0, 1, NULL, '2018-09-04 05:59:50', NULL, '2018-09-28 09:11:24', 0);
-INSERT INTO `sys_menu` VALUES (5000, '一级菜单', NULL, '/crud', -1, 'icon-caidanguanli', '', 4, 0, 0, NULL, '2018-08-28 01:50:22', NULL, '2018-09-28 08:58:20', 0);
-INSERT INTO `sys_menu` VALUES (5001, '一级菜单', NULL, 'index', 5000, 'icon-caidanguanli', 'views/crud/index', 1, 0, 0, NULL, '2018-08-28 01:50:48', NULL, '2018-11-21 17:48:19', 1);
-INSERT INTO `sys_menu` VALUES (5002, '二级菜单', NULL, 'crud', 5001, 'icon-caidanguanli', 'views/crud/index', 1, 0, 0, NULL, '2018-08-28 01:51:23', NULL, '2018-11-21 17:47:40', 1);
-INSERT INTO `sys_menu` VALUES (5003, '二级菜单', NULL, '', 5000, 'icon-caidanguanli', '', 1, 0, 0, NULL, '2018-11-21 17:49:18', NULL, '2018-11-21 17:53:25', 0);
-INSERT INTO `sys_menu` VALUES (5004, '二级菜单', NULL, 'index', 5003, 'icon-caidanguanli', 'views/crud/index', 1, 0, 0, NULL, '2018-11-21 17:53:51', NULL, '2018-12-20 14:26:53', 1);
-INSERT INTO `sys_menu` VALUES (9999, '系统官网', NULL, 'https://pig4cloud.com/#/', -1, 'icon-guanwangfangwen', NULL, 9, 0, 0, NULL, '2019-01-17 17:05:19', NULL, '2019-01-17 17:29:06', 0);
+INSERT INTO `sys_menu` VALUES (1, '系统管理', NULL, '/setting', -1, 'icon-quanxianguanli', 'Layout', 0, 0, 0, NULL, '2018-09-28 08:29:53', NULL, '2019-02-20 10:56:08', 0);
+INSERT INTO `sys_menu` VALUES (2, '用户管理', NULL, 'user', 1, 'icon-yonghuguanli', 'views/admin/user/index', 1, 0, 0, NULL, '2017-11-02 22:24:37', NULL, '2018-09-28 09:00:41', 0);
+INSERT INTO `sys_menu` VALUES (3, '用户新增', 'sys_user_add', NULL, 2, NULL, NULL, NULL, 0, 1, NULL, '2017-11-08 09:52:09', NULL, '2018-09-28 09:06:34', 0);
+INSERT INTO `sys_menu` VALUES (4, '用户修改', 'sys_user_edit', NULL, 2, NULL, NULL, NULL, 0, 1, NULL, '2017-11-08 09:52:48', NULL, '2018-09-28 09:06:37', 0);
+INSERT INTO `sys_menu` VALUES (5, '用户删除', 'sys_user_del', NULL, 2, NULL, NULL, NULL, 0, 1, NULL, '2017-11-08 09:54:01', NULL, '2018-09-28 09:06:42', 0);
+INSERT INTO `sys_menu` VALUES (6, '菜单管理', NULL, 'menu', 1, 'icon-caidanguanli', 'views/admin/menu/index', 2, 0, 0, NULL, '2017-11-08 09:57:27', NULL, '2018-09-28 09:00:45', 0);
+INSERT INTO `sys_menu` VALUES (7, '菜单新增', 'sys_menu_add', NULL, 6, NULL, NULL, NULL, 0, 1, NULL, '2017-11-08 10:15:53', NULL, '2018-09-28 09:07:16', 0);
+INSERT INTO `sys_menu` VALUES (8, '菜单修改', 'sys_menu_edit', NULL, 6, NULL, NULL, NULL, 0, 1, NULL, '2017-11-08 10:16:23', NULL, '2018-09-28 09:07:18', 0);
+INSERT INTO `sys_menu` VALUES (9, '菜单删除', 'sys_menu_del', NULL, 6, NULL, NULL, NULL, 0, 1, NULL, '2017-11-08 10:16:43', NULL, '2018-09-28 09:07:22', 0);
+INSERT INTO `sys_menu` VALUES (10, '角色管理', NULL, 'role', 1, 'icon-jiaoseguanli', 'views/admin/role/index', 3, 0, 0, NULL, '2017-11-08 10:13:37', NULL, '2018-09-28 09:00:48', 0);
+INSERT INTO `sys_menu` VALUES (11, '角色新增', 'sys_role_add', NULL, 10, NULL, NULL, NULL, 0, 1, NULL, '2017-11-08 10:14:18', NULL, '2018-09-28 09:07:46', 0);
+INSERT INTO `sys_menu` VALUES (12, '角色修改', 'sys_role_edit', NULL, 10, NULL, NULL, NULL, 0, 1, NULL, '2017-11-08 10:14:41', NULL, '2018-09-28 09:07:49', 0);
+INSERT INTO `sys_menu` VALUES (13, '角色删除', 'sys_role_del', NULL, 10, NULL, NULL, NULL, 0, 1, NULL, '2017-11-08 10:14:59', NULL, '2018-09-28 09:07:53', 0);
+INSERT INTO `sys_menu` VALUES (14, '分配权限', 'sys_role_perm', NULL, 10, NULL, NULL, NULL, 0, 1, NULL, '2018-04-20 07:22:55', NULL, '2018-09-28 09:13:23', 0);
+INSERT INTO `sys_menu` VALUES (15, '部门管理', NULL, 'dept', 1, 'icon-web-icon-', 'views/admin/dept/index', 4, 0, 0, NULL, '2018-01-20 13:17:19', NULL, '2018-12-09 16:35:12', 0);
+INSERT INTO `sys_menu` VALUES (16, '部门新增', 'sys_dept_add', NULL, 15, NULL, NULL, NULL, 0, 1, NULL, '2018-01-20 14:56:16', NULL, '2018-09-28 09:08:13', 0);
+INSERT INTO `sys_menu` VALUES (17, '部门修改', 'sys_dept_edit', NULL, 15, NULL, NULL, NULL, 0, 1, NULL, '2018-01-20 14:56:59', NULL, '2018-09-28 09:08:16', 0);
+INSERT INTO `sys_menu` VALUES (18, '部门删除', 'sys_dept_del', NULL, 15, NULL, NULL, NULL, 0, 1, NULL, '2018-01-20 14:57:28', NULL, '2018-09-28 09:08:18', 0);
+INSERT INTO `sys_menu` VALUES (19, 'admin管理', NULL, '/admin', -1, 'icon-xitongguanli', 'Layout', 1, 0, 0, NULL, '2017-11-07 20:56:00', NULL, '2019-02-20 10:56:31', 0);
+INSERT INTO `sys_menu` VALUES (20, '日志管理', NULL, 'log', 19, 'icon-rizhiguanli', 'views/admin/log/index', 5, 0, 0, NULL, '2017-11-20 14:06:22', NULL, '2018-09-28 09:01:52', 0);
+INSERT INTO `sys_menu` VALUES (21, '日志删除', 'sys_log_del', NULL, 20, NULL, NULL, NULL, 0, 1, NULL, '2017-11-20 20:37:37', NULL, '2018-09-28 09:08:44', 0);
+INSERT INTO `sys_menu` VALUES (22, '字典管理', NULL, 'dict', 19, 'icon-navicon-zdgl', 'views/admin/dict/index', 6, 0, 0, NULL, '2017-11-29 11:30:52', NULL, '2018-09-28 09:01:47', 0);
+INSERT INTO `sys_menu` VALUES (23, '字典删除', 'sys_dict_del', NULL, 22, NULL, NULL, NULL, 0, 1, NULL, '2017-11-29 11:30:11', NULL, '2018-09-28 09:09:10', 0);
+INSERT INTO `sys_menu` VALUES (24, '字典新增', 'sys_dict_add', NULL, 22, NULL, NULL, NULL, 0, 1, NULL, '2018-05-11 22:34:55', NULL, '2018-09-28 09:09:12', 0);
+INSERT INTO `sys_menu` VALUES (25, '字典修改', 'sys_dict_edit', NULL, 22, NULL, NULL, NULL, 0, 1, NULL, '2018-05-11 22:36:03', NULL, '2018-09-28 09:09:16', 0);
+INSERT INTO `sys_menu` VALUES (26, '代码生成', '', 'gen', 19, 'icon-weibiaoti46', 'views/gen/index', 8, 0, 0, NULL, '2018-01-20 13:17:19', NULL, '2018-11-24 05:21:01', 0);
+INSERT INTO `sys_menu` VALUES (27, '终端管理', '', 'client', 19, 'icon-shouji', 'views/admin/client/index', 9, 0, 0, NULL, '2018-01-20 13:17:19', NULL, '2018-09-28 09:01:43', 0);
+INSERT INTO `sys_menu` VALUES (28, '客户端新增', 'sys_client_add', NULL, 27, '1', NULL, NULL, 0, 1, NULL, '2018-05-15 21:35:18', NULL, '2018-09-28 09:10:25', 0);
+INSERT INTO `sys_menu` VALUES (29, '客户端修改', 'sys_client_edit', NULL, 27, NULL, NULL, NULL, 0, 1, NULL, '2018-05-15 21:37:06', NULL, '2018-09-28 09:10:27', 0);
+INSERT INTO `sys_menu` VALUES (30, '客户端删除', 'sys_client_del', NULL, 27, NULL, NULL, NULL, 0, 1, NULL, '2018-05-15 21:39:16', NULL, '2018-09-28 09:10:30', 0);
+INSERT INTO `sys_menu` VALUES (31, '服务监控', NULL, 'http://139.224.200.249:135', 19, 'icon-server', NULL, 10, 0, 0, NULL, '2018-06-26 10:50:32', NULL, '2019-02-01 20:41:30', 0);
+INSERT INTO `sys_menu` VALUES (32, '令牌管理', NULL, 'token', 19, 'icon-denglvlingpai', 'views/admin/token/index', 11, 0, 0, NULL, '2018-09-04 05:58:41', NULL, '2018-09-28 09:01:38', 0);
+INSERT INTO `sys_menu` VALUES (33, '令牌删除', 'sys_token_del', NULL, 32, NULL, NULL, 1, 0, 1, NULL, '2018-09-04 05:59:50', NULL, '2018-09-28 09:11:24', 0);
+INSERT INTO `sys_menu` VALUES (34, '一级菜单', NULL, '/crud', -1, 'icon-caidanguanli', '', 4, 0, 0, NULL, '2018-08-28 01:50:22', NULL, '2018-09-28 08:58:20', 0);
+INSERT INTO `sys_menu` VALUES (35, '一级菜单', NULL, 'index', 34, 'icon-caidanguanli', 'views/crud/index', 1, 0, 0, NULL, '2018-08-28 01:50:48', NULL, '2018-11-21 17:48:19', 1);
+INSERT INTO `sys_menu` VALUES (36, '二级菜单', NULL, 'crud', 35, 'icon-caidanguanli', 'views/crud/index', 1, 0, 0, NULL, '2018-08-28 01:51:23', NULL, '2018-11-21 17:47:40', 1);
+INSERT INTO `sys_menu` VALUES (37, '二级菜单', NULL, '', 34, 'icon-caidanguanli', '', 1, 0, 0, NULL, '2018-11-21 17:49:18', NULL, '2018-11-21 17:53:25', 0);
+INSERT INTO `sys_menu` VALUES (38, '二级菜单', NULL, 'index', 37, 'icon-caidanguanli', 'views/crud/index', 1, 0, 0, NULL, '2018-11-21 17:53:51', NULL, '2018-12-20 14:26:53', 1);
+INSERT INTO `sys_menu` VALUES (39, '系统官网', NULL, 'https://pig4cloud.com/#/', -1, 'icon-guanwangfangwen', NULL, 9, 0, 0, NULL, '2019-01-17 17:05:19', NULL, '2019-01-17 17:29:06', 0);
 
 -- ----------------------------
 -- Table structure for sys_oauth_client
@@ -292,77 +292,81 @@ CREATE TABLE `sys_role_menu` (
 -- ----------------------------
 -- Records of sys_role_menu
 -- ----------------------------
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (1, 1, 1000);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (2, 1, 1100);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (3, 1, 1101);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (4, 1, 1102);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (5, 1, 1103);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (6, 1, 1200);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (7, 1, 1201);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (8, 1, 1202);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (9, 1, 1203);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (10, 1, 1300);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (11, 1, 1301);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (12, 1, 1302);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (13, 1, 1303);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (14, 1, 1304);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (15, 1, 1400);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (16, 1, 1401);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (17, 1, 1402);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (18, 1, 1403);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (19, 1, 2000);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (20, 1, 2100);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (21, 1, 2101);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (22, 1, 2200);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (23, 1, 2201);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (24, 1, 2202);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (25, 1, 2203);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (26, 1, 2300);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (27, 1, 2400);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (28, 1, 2401);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (29, 1, 2402);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (30, 1, 2403);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (31, 1, 2500);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (32, 1, 2600);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (33, 1, 2601);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (34, 1, 9999);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (35, 2, 1000);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (36, 2, 1100);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (37, 2, 1101);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (38, 2, 1102);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (39, 2, 1103);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (40, 2, 1200);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (41, 2, 1201);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (42, 2, 1202);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (43, 2, 1203);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (44, 2, 1300);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (45, 2, 1301);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (46, 2, 1302);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (47, 2, 1303);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (48, 2, 1304);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (49, 2, 1400);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (50, 2, 1401);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (51, 2, 1402);
-INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (52, 2, 1403);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (1, 1, 1);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (2, 1, 2);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (3, 1, 3);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (4, 1, 4);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (5, 1, 5);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (6, 1, 6);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (7, 1, 7);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (8, 1, 8);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (9, 1, 9);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (10, 1, 10);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (11, 1, 11);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (12, 1, 12);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (13, 1, 13);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (14, 1, 14);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (15, 1, 15);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (16, 1, 16);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (17, 1, 17);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (18, 1, 18);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (19, 1, 19);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (20, 1, 20);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (21, 1, 21);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (22, 1, 22);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (23, 1, 23);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (24, 1, 24);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (25, 1, 25);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (26, 1, 26);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (27, 1, 27);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (28, 1, 28);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (29, 1, 29);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (30, 1, 30);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (31, 1, 31);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (32, 1, 32);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (33, 1, 33);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (34, 1, 39);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (35, 2, 1);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (36, 2, 2);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (37, 2, 3);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (38, 2, 4);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (39, 2, 5);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (40, 2, 6);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (41, 2, 7);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (42, 2, 8);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (43, 2, 9);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (44, 2, 10);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (45, 2, 11);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (46, 2, 12);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (47, 2, 13);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (48, 2, 14);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (49, 2, 15);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (50, 2, 16);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (51, 2, 17);
+INSERT INTO `sys_role_menu` (id,role_id,menu_id) VALUES (52, 2, 18);
 
 -- ----------------------------
 -- Table structure for sys_user
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user`;
-CREATE TABLE `sys_user`  (
+CREATE TABLE `sys_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
-  `username` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '用户名',
-  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `username` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '用户名',
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '密码',
   `salt` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '随机盐',
   `phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '简介',
-  `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '头像',
+  `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT '' COMMENT '头像',
+  `mail` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '邮箱',
+  `nickname` varchar(100) DEFAULT NULL COMMENT '昵称',
   `create_user` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '创建人',
-  `create_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_user` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '修改人',
-  `update_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '修改时间',
-  `is_delete` int(1) NOT NULL DEFAULT 0 COMMENT '0-正常，1-删除',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  `is_delete` int(1) NOT NULL DEFAULT '0' COMMENT '0-正常，1-删除',
+  `is_disable` int(1) NOT NULL DEFAULT '0' COMMENT '0-有效，1-失效',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `unix_username` (`username`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_user

@@ -2,7 +2,9 @@ package com.rivers.oauth.config;
 
 import com.alibaba.fastjson.JSONObject;
 import com.rivers.oauth.common.CustomWebResponseExceptionTranslator;
+import com.rivers.oauth.enums.SecurityConstants;
 import com.rivers.oauth.service.ClientDetailsServiceImpl;
+import com.rivers.oauth.service.TimerUser;
 import com.rivers.oauth.service.UserDetailsServiceImpl;
 import com.rivers.oauth.token.MyRedisTokenStore;
 import lombok.extern.log4j.Log4j2;
@@ -16,6 +18,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.jwt.JwtHelper;
+import org.springframework.security.jwt.crypto.sign.RsaSigner;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -26,10 +30,10 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
-import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 
 import java.security.KeyPair;
+import java.security.interfaces.RSAPrivateKey;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -71,7 +75,6 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
         return myRedisTokenStore;
     }
 
-
     @Primary
     @Bean
     DefaultTokenServices tokenServices() {
@@ -83,7 +86,7 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
         //是否重复使用token
         d.setReuseRefreshToken(false);
         //增加token返回内容 使用JWT后用户信息放在密文中
-//        d.setTokenEnhancer(tokenEnhancer());
+        d.setTokenEnhancer(tokenEnhancer());
         //是否支持refresh token
         d.setSupportRefreshToken(true);
         return d;
@@ -113,67 +116,51 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints
                 .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST)
-//                .tokenServices(tokenServices())
-                .accessTokenConverter(jwtAccessTokenConverter())
+                .tokenServices(tokenServices())
+                // 生成jwt
+//                .accessTokenConverter(jwtAccessTokenConverter())
                 .tokenStore(tokenStore())
                 .userDetailsService(userDetailsService)
-                .authenticationManager(authenticationManager);
+                .authenticationManager(authenticationManager)
+                //修改异常时返回格式
+                .exceptionTranslator(customWebResponseExceptionTranslator);
         // endpoints.pathMapping("/oauth/token","/oauth/token3");//可以修改默认的endpoint路径
-//        endpoints.accessTokenConverter();
-        //修改异常时返回格式
-        endpoints.exceptionTranslator(customWebResponseExceptionTranslator);
     }
-
-    @Bean
-    public JwtAccessTokenConverter jwtAccessTokenConverter() {
-        JwtAccessTokenConverter converter = new JwtAccessTokenConverter() {
-            @Override
-            public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
-                String grantType = authentication.getOAuth2Request().getGrantType();
-                //只有如下两种模式才能获取到当前用户信息
-                if("authorization_code".equals(grantType) || "password".equals(grantType)) {
-                    String userName = authentication.getUserAuthentication().getName();
-                    log.info("用户信息 {}", JSONObject.toJSONString(authentication.getUserAuthentication()));
-                    Map<String, Object> additionalInformation = new HashMap<>(16);
-                    additionalInformation.put("user_name", userName);
-                    ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(additionalInformation);
-                }
-                return super.enhance(accessToken, authentication);
-            }
-        };
-        KeyPair keyPair = new KeyStoreKeyFactory(new ClassPathResource("kevin_key.jks"), "123456".toCharArray())
-                .getKeyPair("kevin_key");
-        converter.setKeyPair(keyPair);
-        return converter;
-    }
-
 
 
     /**
      * 增加token返回内容
+     * <p>
+     * {
+     * "access_token": "f067da15-91f9-4fda-bbe4-6344ae3aefa7",
+     * "token_type": "bearer",
+     * "refresh_token": "592dc245-ab20-4433-9060-247ca1f3c6d4",
+     * "expires_in": 43199,
+     * "scope": "scope",
+     * "username": "guest",
+     * "data": {
+     * "s1": "123",
+     * "d1": 123.456
+     * }
+     * }
+     * <p>
      *
-     * @return
+     * @return TokenEnhancer
      */
     @Bean
     public TokenEnhancer tokenEnhancer() {
-             /* {
-                "access_token": "f067da15-91f9-4fda-bbe4-6344ae3aefa7",
-                "token_type": "bearer",
-                "refresh_token": "592dc245-ab20-4433-9060-247ca1f3c6d4",
-                "expires_in": 43199,
-                "scope": "scope",
-                "username": "guest",
-                "data": {
-                    "s1": "123",
-                    "d1": 123.456
-        }
-        }*/
         return (OAuth2AccessToken accessToken, OAuth2Authentication authentication) -> {
             if (accessToken instanceof DefaultOAuth2AccessToken) {
                 DefaultOAuth2AccessToken token = (DefaultOAuth2AccessToken) accessToken;
-                Map<String, Object> additionalInformation = new LinkedHashMap<>();
-                additionalInformation.put("username", authentication.getName());
-                token.setAdditionalInformation(additionalInformation);
+                TimerUser user = (TimerUser) authentication.getUserAuthentication().getPrincipal();
+                final Map<String, Object> additionalInfo = new HashMap<>(4);
+                additionalInfo.put(SecurityConstants.USER_ID, user.getId());
+                additionalInfo.put(SecurityConstants.DETAILS_USER_ID, user.getUserId());
+                KeyPair keyPair = new KeyStoreKeyFactory(new ClassPathResource("kevin_key.jks"), "123456".toCharArray())
+                        .getKeyPair("kevin_key");
+                RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
+                RsaSigner signer = new RsaSigner(privateKey);
+                token.setValue(JwtHelper.encode(JSONObject.toJSONString(additionalInfo), signer).getEncoded());
             }
             return accessToken;
         };
@@ -184,6 +171,5 @@ public class AuthorizationServerConfigurer extends AuthorizationServerConfigurer
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 
 }

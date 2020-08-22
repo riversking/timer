@@ -6,10 +6,15 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.rivers.core.util.ExceptionUtil;
-import com.rivers.user.api.dto.RoleDto;
+import com.rivers.user.api.dto.RoleDO;
+import com.rivers.user.api.dto.RoleDTO;
 import com.rivers.user.api.entity.SysRoleModel;
-import com.rivers.user.mapper.SysRoleDao;
+import com.rivers.user.api.entity.SysUserRoleModel;
+import com.rivers.user.dao.SysRoleDao;
+import com.rivers.user.dao.SysUserRoleDao;
+import com.rivers.userservice.proto.UpdateRoleByIdReq;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -25,15 +30,16 @@ public class RoleService extends ServiceImpl<SysRoleDao, SysRoleModel> {
     @Resource
     private SysRoleDao sysRoleDao;
 
-    public void addRole(SysRoleModel sysRoleModel) {
-        try {
-            sysRoleModel.setCreateUser("tester");
-            sysRoleModel.setUpdateUser("tester");
-            sysRoleModel.insert();
-        } catch (Exception e) {
-            log.error("Add Role Exception {}", e);
-            ExceptionUtil.throwBusinessException("101001", e);
-        }
+    @Resource
+    private SysUserRoleDao sysUserRoleDao;
+
+    public void addRole(RoleDO role) {
+        SysRoleModel sysRoleModel = new SysRoleModel();
+        BeanUtils.copyProperties(role, sysRoleModel);
+        String userId = role.getUser().getUserId();
+        sysRoleModel.setCreateUser(userId);
+        sysRoleModel.setUpdateUser(userId);
+        sysRoleModel.insert();
     }
 
     /**
@@ -42,7 +48,7 @@ public class RoleService extends ServiceImpl<SysRoleDao, SysRoleModel> {
      * @param roleDto roleDto
      * @return IPage
      */
-    public IPage<SysRoleModel> getRolePage(RoleDto roleDto) {
+    public IPage<SysRoleModel> getRolePage(RoleDTO roleDto) {
         QueryWrapper<SysRoleModel> wrapper = new QueryWrapper<>();
         if (StrUtil.isNotBlank(roleDto.getRoleName())) {
             wrapper.eq("role_name", roleDto.getRoleName());
@@ -84,24 +90,37 @@ public class RoleService extends ServiceImpl<SysRoleDao, SysRoleModel> {
     public void deleteRoleById(Integer id) {
         try {
             sysRoleDao.deleteById(id);
+            sysUserRoleDao.delete(new QueryWrapper<SysUserRoleModel>().eq("role_id", id));
         } catch (Exception e) {
             ExceptionUtil.throwBusinessException("101002", e);
         }
     }
 
-    public void updateRoleById(SysRoleModel sysRoleModel) {
-        try {
-            sysRoleModel.setUpdateUser("tester");
-            sysRoleDao.updateById(sysRoleModel);
-        } catch (Exception e) {
-            log.error("Update Role Exception {}", e);
-            ExceptionUtil.throwBusinessException("101006", e);
-        }
-
+    public void updateRoleById(UpdateRoleByIdReq req) {
+        SysRoleModel role = new SysRoleModel();
+        role.setId(req.getId());
+        role.setRoleCode(req.getRoleCode());
+        role.setRoleName(req.getRoleName());
+        role.setRoleDesc(req.getRoleDesc());
+        role.setUpdateUser(req.getUser().getUserId());
+        sysRoleDao.updateById(role);
     }
 
     public List<SysRoleModel> getRoleList() {
         return sysRoleDao.selectRoleList();
+    }
+
+    public void addRoleByUserId(RoleDTO roleDto) {
+        roleDto.getRoleIds().forEach(i -> {
+            SysUserRoleModel userRole = new SysUserRoleModel();
+            userRole.setRoleId(i);
+            userRole.setUserId(roleDto.getUserId());
+            sysUserRoleDao.insert(userRole);
+        });
+    }
+
+    public List<SysRoleModel> getRoleByUserId(String userId) {
+        return sysRoleDao.selectRoleByUserId(userId);
     }
 
 }

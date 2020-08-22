@@ -88,3 +88,57 @@ resources.resourceId("authorize-server"); //重点，设置资源id
  "error":"access_denied",
  "error_description":"Invalid token does not contain resource id (oauth2-resource)"
 }
+
+
+生成JWT
+@Bean
+public JwtAccessTokenConverter jwtAccessTokenConverter() {
+    JwtAccessTokenConverter converter = new JwtAccessTokenConverter() {
+        @Override
+        public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
+            String grantType = authentication.getOAuth2Request().getGrantType();
+            //只有如下两种模式才能获取到当前用户信息
+            if("authorization_code".equals(grantType) || "password".equals(grantType)) {
+                String userName = authentication.getUserAuthentication().getName();
+                log.info("用户信息 {}", JSONObject.toJSONString(authentication.getUserAuthentication()));
+                Map<String, Object> additionalInformation = new HashMap<>(16);
+                additionalInformation.put("user_name", userName);
+                ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(additionalInformation);
+            }
+            return super.enhance(accessToken, authentication);
+        }
+    };
+    KeyPair keyPair = new KeyStoreKeyFactory(new ClassPathResource("kevin_key.jks"), "123456".toCharArray())
+            .getKeyPair("kevin_key");
+    converter.setKeyPair(keyPair);
+    return converter;
+}
+
+auth 验证器
+OAuth2AuthenticationManager authenticate
+
+RemoteTokenServices loadAuthentication
+
+public OAuth2Authentication loadAuthentication(String accessToken) throws AuthenticationException, InvalidTokenException {
+
+		MultiValueMap<String, String> formData = new LinkedMultiValueMap<String, String>();
+		formData.add(tokenName, accessToken);
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", getAuthorizationHeader(clientId, clientSecret));
+		Map<String, Object> map = postForMap(checkTokenEndpointUrl, formData, headers);
+
+		if (map.containsKey("error")) {
+			if (logger.isDebugEnabled()) {
+				logger.debug("check_token returned error: " + map.get("error"));
+			}
+			throw new InvalidTokenException(accessToken);
+		}
+
+		// gh-838 在Hoxton.SR5 下map.get("active") 会变成字符串 导致严重不通过
+		if (!Boolean.TRUE.equals(map.get("active"))) {
+			logger.debug("check_token returned active attribute: " + map.get("active"));
+			throw new InvalidTokenException(accessToken);
+		}
+
+		return tokenConverter.extractAuthentication(map);
+}

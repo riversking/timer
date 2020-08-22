@@ -1,29 +1,21 @@
 package com.rivers.oauth.service;
 
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.rivers.core.constant.SecurityConstants;
-import com.rivers.core.view.RequestVo;
-import com.rivers.core.view.ResponseVo;
 import com.rivers.user.api.client.UserClientFeign;
 import com.rivers.user.api.dto.UserInfo;
 import com.rivers.user.api.entity.SysUserModel;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.Cache;
-import org.springframework.cache.CacheManager;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -58,6 +50,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         //这里为了方便演示，创建了两个用户，一个admin，拥有res1,res2和res3
         //一个user,只拥有res1和res2
         //一个guest,只拥有res1
+//        redisTemplate.delete("admin");
         UserDetails user = (UserDetails) redisTemplate.opsForValue().get(username);
         if (user != null) {
             log.info("USER {}", JSONObject.toJSONString(user));
@@ -75,11 +68,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (result == null) {
             throw new UsernameNotFoundException("用户不存在");
         }
-        UserInfo userInfo = result.getObject("datas", UserInfo.class);
+        UserInfo userInfo = result.getObject("data", UserInfo.class);
         Set<String> dbAuthsSet = new HashSet<>(userInfo.getPermissions());
         Collection<? extends GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(dbAuthsSet.toArray(new String[0]));
-        SysUserModel sysUserModel = userInfo.getSysUser();
-        return new User(sysUserModel.getUsername(), sysUserModel.getPassword(), authorities);
+        SysUserModel sysUser = userInfo.getSysUser();
+        return new TimerUser(sysUser.getId(), sysUser.getUserId(), sysUser.getUsername(), sysUser.getPassword(),
+                StrUtil.equals(String.valueOf(sysUser.getIsDisable()), "0"),
+                true, true, true, authorities);
     }
 
 }

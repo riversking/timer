@@ -62,7 +62,7 @@ public class CdAccountController {
         }
         PageInfo<CdAccount> cdAccountPage = accountService.getAccountList(cdAccount);
         rvo.setMessage("操作成功");
-        rvo.setDatas(cdAccountPage);
+        rvo.setData(cdAccountPage);
         return rvo;
     }
 
@@ -108,7 +108,7 @@ public class CdAccountController {
         CdAccount cdAccount = vo.getParam();
         List<CdAccount> cdAccountList = accountService.selectAccountDynamic(cdAccount);
         rvo.setMessage("操作成功");
-        rvo.setDatas(cdAccountList);
+        rvo.setData(cdAccountList);
         return rvo;
     }
 
@@ -117,7 +117,7 @@ public class CdAccountController {
         ResponseVo rvo = ResponseVo.ok();
         List<CdAccount> planAccounts = accountService.getPlanAccount(vo.getParam());
         rvo.setMessage("操作成功");
-        rvo.setDatas(planAccounts);
+        rvo.setData(planAccounts);
         return rvo;
     }
 
@@ -135,7 +135,7 @@ public class CdAccountController {
         account.setArticleList(articleList);
         account.setTagList(tagList);
         rvo.setMessage("操作成功");
-        rvo.setDatas(account);
+        rvo.setData(account);
         return rvo;
     }
 
@@ -144,7 +144,7 @@ public class CdAccountController {
         ResponseVo rvo = ResponseVo.ok();
         List<Integer> userIdList = accountService.getUserId(vo.getParam());
         rvo.setMessage("操作成功");
-        rvo.setDatas(userIdList);
+        rvo.setData(userIdList);
         return rvo;
     }
 

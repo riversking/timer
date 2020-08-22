@@ -3,13 +3,14 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-undertow'
-    compile group: 'com.alibaba', name: 'druid-spring-boot-starter', version:'1.1.10'
-    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '2.0.2.RELEASE'
+//    compile group: 'com.alibaba', name: 'druid-spring-boot-starter', version:'1.1.22'
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '2.2.2.RELEASE'
     compile group: 'mysql', name: 'mysql-connector-java'
 //    compile group: 'org.springframework', name: 'spring-jdbc'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
     compile group: 'org.jolokia', name: 'jolokia-core', version: '1.6.0'
-    compile project(':user-api')
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-config'
+    implementation project(':user-api')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 configurations {
@@ -23,4 +24,3 @@ sourceSets {
         }
     }
 }
-

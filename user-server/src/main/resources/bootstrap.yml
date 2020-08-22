@@ -1,37 +1,31 @@
 server:
   port: 6080
+  http2:
+    enabled: true
+  undertow:
+    threads:
+      io: 16
+      worker: 256
+    buffer-size: 1024
+    direct-buffers: true
 
 spring:
   application:
     name: user-server
-  jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
-    time-zone: GMT+8
-  datasource:
-    name: user-server
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/cloud_deer_admin?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=GMT%2B8
-    username: root
-    password: root
-    # 使用druid数据源
-    type: com.alibaba.druid.pool.DruidDataSource
-    driver-class-name: com.mysql.jdbc.Driver
-  redis:
-    host: ${REDIS_HOST:localhost}
-    port:  ${REDIS_PORT:6379}
-    password:
-    timeout: 2000ms
-    database: 0
-    jedis:
-      pool:
-        max-active: 300
-        max-idle: 100
-        max-wait: -1s
+  profiles:
+    active: local
+  cloud:
+    bus:
+      refresh:
+        enabled: true
 
 feign:
   httpclient:
     enabled: false
   okhttp:
     enabled: true
+  hystrix:
+    enabled: false
 
 
 
@@ -47,11 +41,10 @@ ribbon:
 
 mybatis-plus:
   mapper-locations: classpath*:/mapper/*.xml
-#  typeAliasesPackage: com.riversking.user.entity
+  #  typeAliasesPackage: com.riversking.user.entity
   global-config:
     db-config:
-      id-type: none
-      column-like: false
+      id-type: auto
       logic-not-delete-value: 0
       logic-delete-value: 1
   configuration:
@@ -59,40 +52,16 @@ mybatis-plus:
     cache-enabled: true #配置的缓存的全局开关
     lazyLoadingEnabled: true #延时加载的开关
     multipleResultSetsEnabled: true #开启的话
-
-
-
-eureka:
-  instance:
-    instance-id: ${spring.application.name}:${server.port}
-    prefer-ip-address: true
-    ip-address: localhost
-    health-check-url-path: /actuator/health
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
-
-
-
-security:
-  oauth2:
-    client:
-      client-id: admin
-      client-secret: secret
-      scope: server
-    resource:
-      token-info-uri: http://localhost:9080/oauth/check_token
-      service-id: oauth-server
-#      user-info-uri:
+    call-setters-on-nulls: false
 
 
 logging:
   level:
     com.rivers: debug
-  path: D:\project\timer\logs\user-server\debug.log
-#  spring-admin 读取应用的日志 关键
-  file: ./logs/${spring.application.name}/debug.log
-
+  #  spring-admin 读取应用的日志 关键
+  file:
+    path: ./logs/${spring.application.name}/debug.log
+    name: ./logs/${spring.application.name}/debug.log
 
 management:
   endpoints:
@@ -106,9 +75,14 @@ management:
       enabled: true
     loggers:
       enabled: true
+    bus-refresh:
+      enabled: true
 
 ignore:
   urls:
     - /actuator/**
     - /user/login
     - /user/info
+
+hystrix:
+  shareSecurityContext: true

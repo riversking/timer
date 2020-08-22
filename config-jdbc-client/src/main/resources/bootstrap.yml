@@ -1,0 +1,25 @@
+server:
+  port: 8001
+
+
+spring:
+  application:
+    name: config-client
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    username: root
+    password: root
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/config?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=GMT
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: bus-refresh

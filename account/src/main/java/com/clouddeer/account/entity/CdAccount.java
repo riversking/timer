@@ -1,6 +1,7 @@
 package com.clouddeer.account.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -16,6 +17,7 @@ import javax.persistence.*;
  * @email cd@clouddeer.com
  * @date 2018-06-13 15:27:01
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Table(name = "cd_account")
 public class CdAccount extends Page {

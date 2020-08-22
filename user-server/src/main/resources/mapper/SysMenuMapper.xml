@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.rivers.user.mapper.SysMenuDao">
+<mapper namespace="com.rivers.user.dao.SysMenuDao">
 
     <resultMap id="BaseResultMap" type="com.rivers.user.api.entity.SysMenuModel">
         <result column="id" property="id"/>
@@ -28,12 +28,24 @@
 	</select>
 
     <select id="getMenuByUserId" resultMap="BaseResultMap">
-		SELECT menu.* FROM sys_menu menu
-		LEFT JOIN sys_role_menu role_menu ON menu.id = role_menu.menu_id
-		LEFT JOIN sys_user_role user_role ON role_menu.role_id = user_role.role_id
-		WHERE user_role.user_id = #{id}
-		AND menu.type = 0
-		AND menu.is_delete = 0
+		SELECT
+        	a.id,
+	        a.`name`,
+	        a.path,
+	        a.parent_id,
+	        a.icon,
+	        a.component,
+	        a.sort,
+	        a.type
+        FROM
+        	sys_menu a
+        	LEFT JOIN sys_role_menu b ON a.id = b.menu_id AND b.is_delete = 0
+        	LEFT JOIN sys_user_role c ON b.role_id = c.role_id
+        	AND c.is_delete = 0
+        WHERE
+        	c.user_id = 'T00001'
+        	AND a.type = 0
+        	AND a.is_delete = 0
 	</select>
 
 </mapper>

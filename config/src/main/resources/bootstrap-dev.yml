@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: config
+  rabbitmq:
+    host: 139.9.206.164
+    port: 5672
+    username: guest
+    password: guest
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitee.com/riversking/config-repo.git
+          search-paths: config-repo
+          ignore-local-ssh-settings: true
+          strict-host-key-checking: false
+          private-key:  -----BEGIN RSA PRIVATE KEY-----
+                        MIIEpQIBAAKCAQEAnzTG8QjSF8GW0V83rQVlcXJU/GruJz9JpbePthv7WbJ1IvPr
+                        ZDrB4PI+T1JRdBnHzQOV7zTFiZ8UoZ0VUSgz3hbTxmpaLYpJEtCStFDxtXtvmP0r
+                        dEMCM0G7ah9Uf9KdwTwX0L6dT01OXSYxInssiLqviKC1Eq3baaan7AegtNSCFWzV
+                        lWKER5X58LycqS5MNp94MH4pwlOph8kGpAIe+35Rr7eAxZU9C1IuG2ogmzj3AhLu
+                        8ayZqRV+HwGSLdEoreRCWyylNToZ4g6O8eITl1DkBQCfMQBOjdpXiN9AsIv/KwY/
+                        YYGekHbr7+jjcyYjMH3s6bArmemdxCE2A8nCRQIDAQABAoIBAQCbqNF+Z55qxce9
+                        DDj2fVky85NufOo/C1zpnzDu4CsAB0EKHK0hAWYAlzke+yBSwMYeiAv3poQhS52z
+                        ak+mWwVjdrQ2wlNLRXKu56kYji/VvktdrOLouH+VOAaS+vD2TSoa/bNXUJekKrSc
+                        1LOjwATJ5qWrk12XVs85XE3As7CIO9fdY+gMVN1ahhInCSOnrty3BZxxRGzXaN4w
+                        nNQa5jZcZ87Ut7GjdOKEa6tbR1xYSq6rX33oENbn+oCbZAHc/eBybhfRL8z9uZ0+
+                        z5YvLvGGPIXMm3w7YW9RDpnNayTFmw2G11GMTb3qL5oYhG9jZ7cV5Vu/jkXttccp
+                        p0KA+SPdAoGBAM3sH9FvxjVkVXLcUq9KsIbTaIOMEsLoFZkT70+02CRLm+uLVGdH
+                        gMwUyOsZdUGcSC3HBs4mCMGEzDAGI0PXIFiImZ0oG9G0c/EORUVecllAnm6t6qQ5
+                        5RE0BJkupZruK7oWwi7zvbOWR2paS4MlP+W16rRko7Q2dKxASrdGtQzvAoGBAMXs
+                        S49pENZTw1PcZmaUee0ThnZNgS/nPW495TGjwu0a2+bgjPW0+s3gxgumhAMqbZqi
+                        bitFy0ftkAN+zaQbgcWb70c7Pc2o8oKfHkoGOMmC/dsCY//FoqA//YhB6BrW5F7R
+                        Divkq0lhR4tM3j8b3wPPS53JRkdj6+KD64qHCQwLAoGBALadSw5JyIX654hH+Q+4
+                        9dlrTAk0xEKS3Ox28EhIQVHWt3xogD5i+8aAPDm5xvGbbasjEFbrBeLQKOAB4W49
+                        LlM1OL1VH26WUCebFzVQb6nVE2tl0ms3aHwcHGPYKUa/JooNusE2qKnFgKnBT6wK
+                        8aJ99Jlrkn2zuT40ec4U52SDAoGAbDgpkH6IQEiIkr/+FbS1fhWg/eqe6oxroG2j
+                        diLuoCqBdpntOSP9xrhSUWh44io+x8BssKh24BtbFS4uTr7jlCMREEeqIVtxTk6m
+                        hx8jybsgBrIl72Im66xRekFfId3B/L4eG43qwjK4pcgf9S3OIQ0lcV7uWHagMbij
+                        /5iaL8UCgYEAiQFJJ9jkWTMClTswNTT0M6nWUyXU4ltrdZlyPhW9Ng0p2qOWEarv
+                        Y7VJ6ttnOMvVVbTMyuQSrHmq5VUAbhCoEqH42TLkwm+g60i4bEYBAMtlZZf1eRXE
+                        UgIEBEzVxd0Kz/y1YhPq1u7x72GgFceq6h7B58/0sylsqegBYZYmCiM=
+                        -----END RSA PRIVATE KEY-----
+
+
+    bus:
+      refresh:
+        enabled: true
+

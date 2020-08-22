@@ -1,0 +1,134 @@
+server:
+  port: 6080
+
+spring:
+  application:
+    name: user-server
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    default-property-inclusion: non_empty
+  datasource:
+    name: user-server
+    url: jdbc:mysql://${MYSQL_HOST:139.9.206.164}:${MYSQL_PORT:3306}/timer_admin?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
+    username: root
+    password: King1992!
+    # 使用hikari数据源
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      allow-pool-suspension: true
+      minimum-idle: 10
+      maximum-pool-size: 20
+      idle-timeout: 180000
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+  redis:
+    host: ${REDIS_HOST:139.9.206.164}
+    port:  ${REDIS_PORT:6379}
+    password: king1278
+    timeout: 2000ms
+    database: 0
+    jedis:
+      pool:
+        max-active: 300
+        max-idle: 100
+        max-wait: -1s
+
+feign:
+  httpclient:
+    enabled: false
+  okhttp:
+    enabled: true
+  hystrix:
+    enabled: false
+
+
+
+ribbon:
+  eureka:
+    enabled: true
+  ReadTimeout: 100000
+  ConnectTimeout: 100000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1
+  OkToRetryOnAllOperations: false
+
+
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/*.xml
+  #  typeAliasesPackage: com.riversking.user.entity
+  global-config:
+    db-config:
+      id-type: none
+      column-like: false
+      logic-not-delete-value: 0
+      logic-delete-value: 1
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: true #配置的缓存的全局开关
+    lazyLoadingEnabled: true #延时加载的开关
+    multipleResultSetsEnabled: true #开启的话
+    call-setters-on-nulls: false
+
+
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${server.port}:${random.value}
+    prefer-ip-address: true
+    ip-address: 139.9.206.164
+    health-check-url-path: /actuator/health
+  client:
+    serviceUrl:
+      defaultZone: http://139.9.206.164:8761/eureka/
+
+#eureka:
+#  instance:
+#    instance-id: ${spring.application.name}:${server.port}
+#    prefer-ip-address: true
+#    ip-address: 127.0.0.1
+#    health-check-url-path: /actuator/health
+#  client:
+#    serviceUrl:
+#      defaultZone: http://localhost:8761/eureka/
+
+security:
+  oauth2:
+    client:
+      client-id: admin
+      client-secret: secret
+      scope: server
+    resource:
+      token-info-uri: http://139.9.206.164:9080/oauth/check_token
+      service-id: oauth-server
+#      user-info-uri:
+
+
+logging:
+  level:
+    com.rivers: debug
+  #  spring-admin 读取应用的日志 关键
+  file:
+    path: ./logs/${spring.application.name}/debug.log
+    name: ./logs/${spring.application.name}/debug.log
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+    logfile:
+      enabled: true
+    loggers:
+      enabled: true
+
+ignore:
+  urls:
+    - /actuator/**
+    - /user/login
+    - /user/info

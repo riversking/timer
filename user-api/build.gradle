@@ -5,11 +5,7 @@ dependencies {
 	compile group: 'com.github.riversking', name: 'utils', version:'1.0.3'
 	compile group: 'com.github.riversking', name: 'core', version: '2.0.4'
 	compile 'com.github.riversking:oauth2-client:1.0.2'
-	compile files('../protos/userservice_protos.jar')
-	compile group: 'com.google.protobuf', name: 'protobuf-java', version: '3.11.4'
-	compile group: 'com.googlecode.protobuf-java-format', name: 'protobuf-java-format', version: '1.4'
-	compile group: 'com.google.protobuf', name: 'protobuf-java-util', version: '3.11.4'
-	compile group: 'com.hubspot.jackson', name: 'jackson-datatype-protobuf', version: '0.9.11-jackson2.9'
+	compile group: 'com.hubspot.jackson', name: 'jackson-datatype-protobuf', version: '0.9.12'
 	compile('org.springframework.security.oauth:spring-security-oauth2:2.3.8.RELEASE')
 //	compile group: 'org.springframework.security.oauth', name: 'spring-security-oauth2'
 	// https://mvnrepository.com/artifact/org.springframework.security.oauth/spring-security-oauth2

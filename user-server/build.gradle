@@ -21,6 +21,9 @@ dependencies {
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-webflux'
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis'
 	implementation project(':user-api')
+	compile group: 'com.github.riversking', name: 'utils', version: '1.0.3'
+	compile group: 'com.github.riversking', name: 'core', version: '2.0.5'
+	compile 'com.github.riversking:oauth2-client:1.0.2'
 //	compile files('lib/user-api-boot.jar')
 	compile group: 'org.apache.poi', name: 'poi', version: '4.1.2'
 	compile group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.2'
@@ -28,6 +31,7 @@ dependencies {
 }
 configurations {
 	compile.exclude module: 'spring-boot-starter-tomcat'
+	compile.exclude module: 'servlet-api'
 //	compile.exclude module: 'spring-boot-starter-json'
 //	compile.exclude module: 'spring-security-config'
 }

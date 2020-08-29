@@ -11,12 +11,14 @@ dependencies {
     compile group: 'org.jolokia', name: 'jolokia-core', version: '1.6.0'
     compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-config'
     implementation project(':user-api')
-    compile group: 'com.google.protobuf', name: 'protobuf-java', version: '3.11.4'
-//    compile group: 'ai.ost', name: 'fastjson-protobuf', version: '1.0.0'
+    compile group: 'com.github.riversking', name: 'utils', version: '1.0.3'
+    compile group: 'com.github.riversking', name: 'core', version: '2.0.5'
+    compile 'com.github.riversking:oauth2-client:1.0.2'
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 configurations {
     compile.exclude module: 'spring-boot-starter-tomcat'
+    compile.exclude module: 'servlet-api'
 }
 
 sourceSets {

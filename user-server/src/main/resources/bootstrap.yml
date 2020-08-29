@@ -13,7 +13,7 @@ spring:
   application:
     name: user-server
   profiles:
-    active: local
+    active: dev
   cloud:
     bus:
       refresh:

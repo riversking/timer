@@ -22,5 +22,5 @@ public interface UserClientFeign {
      * @return JSONObject
      */
     @PostMapping(value = "/user/info")
-    JSONObject userInfo(@RequestHeader(SecurityConstants.FROM) String from, @RequestBody String username);
+    JSONObject userInfo(@RequestHeader("from") String from, @RequestBody String username);
 }

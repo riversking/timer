@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.rivers.oauth.common.CustomWebResponseExceptionTranslator;
 import com.rivers.oauth.enums.SecurityConstants;
 import com.rivers.oauth.service.ClientDetailsServiceImpl;
-import com.rivers.oauth.service.TimerUser;
+import com.rivers.oauth.model.TimerUser;
 import com.rivers.oauth.service.UserDetailsServiceImpl;
 import com.rivers.oauth.token.MyRedisTokenStore;
 import lombok.extern.log4j.Log4j2;
@@ -35,7 +35,6 @@ import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFacto
 import java.security.KeyPair;
 import java.security.interfaces.RSAPrivateKey;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**

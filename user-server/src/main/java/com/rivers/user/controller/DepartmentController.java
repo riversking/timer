@@ -1,8 +1,8 @@
 package com.rivers.user.controller;
 
 import com.rivers.core.view.ResponseVo;
-import com.rivers.user.api.dto.DeptDTO;
-import com.rivers.user.api.dto.DeptTree;
+import com.rivers.user.dto.DeptDTO;
+import com.rivers.user.dto.DeptTree;
 import com.rivers.user.service.DeptService;
 import com.rivers.userservice.proto.DeleteDeptByIdReq;
 import com.rivers.userservice.proto.DeleteDeptByIdRes;

@@ -1,4 +1,4 @@
-package com.rivers.user.api.dto;
+package com.rivers.user.dto;
 
 import com.rivers.utils.dto.TreeNode;
 import lombok.Data;

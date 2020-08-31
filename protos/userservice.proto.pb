@@ -1,5 +1,5 @@
 
-å
+·
 userservice.proto"#
 	LoginUser
 userId (	RuserId"<
@@ -85,5 +85,18 @@ createDate"·
 .LoginUserRuser"E
 ChangePasswordRes
 retCode (RretCode
-retMsg (	RretMsgB5
+retMsg (	RretMsg"ª
+UserInfo
+id (Rid
+username (	Rusername
+password (	Rpassword
+userId (	RuserId
+	isDisable (R	isDisable 
+permissions (	Rpermissions"2
+GetUserByUserNameReq
+username (	Rusername"o
+GetUserByUserNameRes
+retCode (RretCode
+retMsg (	RretMsg%
+userInfo (2	.UserInfoRuserInfoB5
 com.rivers.userservice.protoBUserServiceMetasPˆbproto3

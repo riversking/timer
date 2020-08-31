@@ -2,8 +2,8 @@ package com.rivers.user.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.rivers.core.bean.LoginUser;
-import com.rivers.user.api.dto.DeptDTO;
-import com.rivers.user.api.dto.DeptTree;
+import com.rivers.user.dto.DeptDTO;
+import com.rivers.user.dto.DeptTree;
 import com.rivers.user.api.entity.SysDeptModel;
 import com.rivers.user.dao.SysDeptDao;
 import com.rivers.utils.tree.TreeUtil;

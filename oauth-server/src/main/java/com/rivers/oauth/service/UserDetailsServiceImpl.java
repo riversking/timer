@@ -2,10 +2,11 @@ package com.rivers.oauth.service;
 
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
-import com.rivers.core.constant.SecurityConstants;
+import com.rivers.oauth.model.TimerUser;
 import com.rivers.user.api.client.UserClientFeign;
-import com.rivers.user.api.dto.UserInfo;
-import com.rivers.user.api.entity.SysUserModel;
+import com.rivers.userservice.proto.GetUserByUserNameReq;
+import com.rivers.userservice.proto.GetUserByUserNameRes;
+import com.rivers.userservice.proto.UserInfo;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -56,24 +57,24 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             log.info("USER {}", JSONObject.toJSONString(user));
             return user;
         }
-        JSONObject result = userClientFeign.userInfo(SecurityConstants.FROM_IN, username);
-        UserDetails userDetails = getUserDetails(result);
+        GetUserByUserNameRes getUserRes = userClientFeign
+                .userInfo(GetUserByUserNameReq.newBuilder().setUsername(username).build());
+        UserDetails userDetails = getUserDetails(getUserRes);
         redisTemplate.opsForValue().set(username, userDetails);
         log.info("userDetails {}", JSONObject.toJSONString(userDetails));
         return userDetails;
     }
 
 
-    private UserDetails getUserDetails(JSONObject result) {
-        if (result == null) {
+    private UserDetails getUserDetails(GetUserByUserNameRes getUserRes) {
+        UserInfo userInfo = getUserRes.getUserInfo();
+        if (userInfo == null) {
             throw new UsernameNotFoundException("用户不存在");
         }
-        UserInfo userInfo = result.getObject("data", UserInfo.class);
-        Set<String> dbAuthsSet = new HashSet<>(userInfo.getPermissions());
+        Set<String> dbAuthsSet = new HashSet<>(userInfo.getPermissionsList());
         Collection<? extends GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(dbAuthsSet.toArray(new String[0]));
-        SysUserModel sysUser = userInfo.getSysUser();
-        return new TimerUser(sysUser.getId(), sysUser.getUserId(), sysUser.getUsername(), sysUser.getPassword(),
-                StrUtil.equals(String.valueOf(sysUser.getIsDisable()), "0"),
+        return new TimerUser(userInfo.getId(), userInfo.getUserId(), userInfo.getUsername(), userInfo.getPassword(),
+                StrUtil.equals(String.valueOf(userInfo.getIsDisable()), "0"),
                 true, true, true, authorities);
     }
 

@@ -3,8 +3,6 @@ package com.rivers.user.service;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.crypto.digest.DigestAlgorithm;
-import cn.hutool.crypto.digest.Digester;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -15,8 +13,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.rivers.core.bean.LoginUser;
 import com.rivers.core.util.ExceptionUtil;
-import com.rivers.user.api.dto.UserDTO;
-import com.rivers.user.api.dto.UserInfo;
+import com.rivers.user.dto.UserDTO;
 import com.rivers.user.api.entity.SysMenuModel;
 import com.rivers.user.api.entity.SysRoleModel;
 import com.rivers.user.api.entity.SysUserModel;
@@ -197,26 +194,27 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
     }
 
     public UserInfo queryUserInfo(String username) {
-        UserInfo userInfo = new UserInfo();
         QueryWrapper<SysUserModel> wrapper = new QueryWrapper<>();
         wrapper.eq("username", username);
         wrapper.eq(IS_DELETE, 0);
-        SysUserModel sysUserModel = sysUserDao.selectOne(wrapper);
-        String userId = sysUserModel.getUserId();
+        SysUserModel user = sysUserDao.selectOne(wrapper);
+        String userId = user.getUserId();
         List<Integer> roleIds = sysUserRoleDao.selectRoleId(userId);
-        Set<String> permission = Sets.newHashSet();
-        roleIds.forEach(roleId -> {
-            List<String> permissionList = sysMenuDao.getMenuByRoleId(roleId)
-                    .stream()
-                    .filter(i -> StrUtil.isNotBlank(i.getPermission()))
-                    .map(SysMenuModel::getPermission)
-                    .collect(Collectors.toList());
-            permission.addAll(permissionList);
-        });
-        userInfo.setSysUser(sysUserModel);
-        userInfo.setPermissions(Lists.newArrayList(permission));
-        userInfo.setRoles(roleIds);
-        return userInfo;
+        String ids = roleIds.stream()
+                .map(i -> "'" + i + "'")
+                .collect(Collectors.joining(","));
+        Set<String> permissions = sysMenuDao.getMenuByRoleId("(" + ids + ")")
+                .stream()
+                .filter(StrUtil::isNotBlank)
+                .collect(Collectors.toSet());
+        return UserInfo.newBuilder()
+                .setId(user.getId())
+                .setPassword(user.getPassword())
+                .setUsername(user.getUsername())
+                .setUserId(userId)
+                .setIsDisable(user.getIsDisable())
+                .addAllPermissions(permissions)
+                .build();
     }
 
     /**

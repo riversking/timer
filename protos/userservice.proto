@@ -115,3 +115,22 @@ message ChangePasswordRes {
     int32 retCode = 1;
     string retMsg = 2;
 }
+
+message UserInfo {
+    int32 id = 1;
+    string username = 2;
+    string password = 3;
+    string userId = 4;
+    int32 isDisable = 5;
+    repeated string permissions = 6;
+}
+
+message GetUserByUserNameReq {
+    string username = 1;
+}
+
+message GetUserByUserNameRes {
+    int32 retCode = 1;
+    string retMsg = 2;
+    UserInfo userInfo = 3;
+}

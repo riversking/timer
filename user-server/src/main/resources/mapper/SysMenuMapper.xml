@@ -20,10 +20,11 @@
         <result column="is_delete" property="isDelete"/>
     </resultMap>
 
-    <select id="getMenuByRoleId" resultMap="BaseResultMap">
-		SELECT menu.* FROM sys_menu menu
+    <select id="getMenuByRoleId" resultType="java.lang.String">
+		SELECT menu.permission
+		FROM sys_menu menu
 		LEFT JOIN sys_role_menu role_menu ON menu.id = role_menu.menu_id
-		WHERE role_menu.role_id = #{id}
+		WHERE role_menu.role_id IN ${id}
 		AND menu.is_delete = 0
 	</select>
 

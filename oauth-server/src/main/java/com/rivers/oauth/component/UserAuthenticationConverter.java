@@ -2,7 +2,7 @@ package com.rivers.oauth.component;
 
 
 import com.rivers.oauth.enums.SecurityConstants;
-import com.rivers.oauth.service.TimerUser;
+import com.rivers.oauth.model.TimerUser;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;

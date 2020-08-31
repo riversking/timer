@@ -1,4 +1,4 @@
-package com.rivers.user.api.dto;
+package com.rivers.oauth.model;
 
 import com.rivers.user.api.entity.SysUserModel;
 import lombok.Data;

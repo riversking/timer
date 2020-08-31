@@ -1,6 +1,8 @@
 package com.rivers.user.api.client;
 
 import com.alibaba.fastjson.JSONObject;
+import com.rivers.userservice.proto.GetUserByUserNameReq;
+import com.rivers.userservice.proto.GetUserByUserNameRes;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,10 +18,9 @@ public interface UserClientFeign {
     /**
      * 用户查询
      *
-     * @param from     from
-     * @param username username
-     * @return JSONObject
+     * @param req req
+     * @return GetUserByUserNameRes
      */
     @PostMapping(value = "/user/info")
-    JSONObject userInfo(@RequestHeader("from") String from, @RequestBody String username);
+    GetUserByUserNameRes userInfo(@RequestBody GetUserByUserNameReq req);
 }

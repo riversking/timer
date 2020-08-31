@@ -19,7 +19,7 @@ public interface SysMenuDao extends BaseMapper<SysMenuModel> {
      * @param id id
      * @return List
      */
-    List<SysMenuModel> getMenuByRoleId(Integer id);
+    List<String> getMenuByRoleId(String id);
 
 
     List<SysMenuModel> getMenuByUserId(String userId);

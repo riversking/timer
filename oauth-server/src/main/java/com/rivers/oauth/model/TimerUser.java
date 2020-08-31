@@ -1,4 +1,4 @@
-package com.rivers.oauth.service;
+package com.rivers.oauth.model;
 
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;

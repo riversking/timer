@@ -6,10 +6,9 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.rivers.core.view.RequestVo;
 import com.rivers.core.view.ResponseVo;
 import com.rivers.user.api.client.OauthClientFeign;
-import com.rivers.user.api.dto.UserDTO;
-import com.rivers.user.api.dto.UserInfo;
 import com.rivers.user.api.entity.SysUserModel;
 import com.rivers.user.api.vo.TokenVo;
+import com.rivers.user.dto.UserDTO;
 import com.rivers.user.service.UserService;
 import com.rivers.user.util.AESUtil;
 import com.rivers.userservice.proto.*;
@@ -149,12 +148,12 @@ public class UserController {
     }
 
     @PostMapping("info")
-    public ResponseVo info(@RequestBody String username) {
-        ResponseVo vo = ResponseVo.ok();
-        UserInfo userInfo = userService.queryUserInfo(username);
-        vo.setData(userInfo);
-        vo.setMessage("查询成功");
-        return vo;
+    public GetUserByUserNameRes info(@RequestBody GetUserByUserNameReq req) {
+        UserInfo userInfo = userService.queryUserInfo(req.getUsername());
+        return GetUserByUserNameRes
+                .newBuilder()
+                .setUserInfo(userInfo)
+                .build();
     }
 
     @PostMapping("isDisable")

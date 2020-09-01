@@ -1,0 +1,20 @@
+dependencies {
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.cloud:spring-cloud-starter-config'
+    compile 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+    runtimeOnly 'mysql:mysql-connector-java'
+    compile group: 'com.github.riversking', name: 'utils', version: '1.0.3'
+    compile group: 'com.github.riversking', name: 'core', version: '2.0.5'
+//    compile 'com.github.riversking:oauth2-client:1.0.2'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-undertow'
+    compile group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.4.0'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+}
+
+configurations {
+    compile.exclude module: 'spring-boot-starter-tomcat'
+    compile.exclude module: 'servlet-api'
+}

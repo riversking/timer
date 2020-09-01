@@ -45,8 +45,8 @@ logging:
   level:
     com.riversking: debug
   file:
-    name: ./logs/${spring.application.name}/debug.log
-    path: D:\project\timer\logs\oauth-server\debug.log
+    name: ./logs/${spring.application.name}/all.log
+    path: D:\project\timer\logs\oauth-server\all.log
 
 
 management:

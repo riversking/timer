@@ -1,11 +1,10 @@
 package com.rivers.nba.service;
 
 import cn.hutool.core.util.StrUtil;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.rivers.nba.dao.PlayerDao;
 import com.rivers.nba.model.PlayerModel;
 import lombok.extern.log4j.Log4j2;
@@ -23,12 +22,11 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
 @Log4j2
-public class PlayerService {
+public class PlayerService extends ServiceImpl<PlayerDao, PlayerModel> {
 
     @Value("${nba.key}")
     private String nbaKey;
@@ -60,16 +58,19 @@ public class PlayerService {
                 return;
             }
             List<Integer> ids = playerDao.selectPlayerId();
-            List<PlayerModel> hasPlayers = playerList
-                    .stream()
-                    .filter(p -> ids.contains(p.getPlayerId()))
+            List<PlayerModel> players = playerList.stream()
                     .peek(i -> {
+                        i.setCreateUser("T00001");
                         i.setUpdateUser("T00001");
                         i.setHeight((int) (i.getHeight() * 2.54));
                         i.setPhotoUrl(StringEscapeUtils.unescapeJava(i.getPhotoUrl()));
-                    })
-                    .collect(Collectors.toList());
-            hasPlayers.forEach(i -> playerDao.insert(i));
+                    }).collect(Collectors.toList());
+            if (ids.isEmpty()) {
+                saveBatch(players);
+            } else {
+
+            }
+
         }
     }
 

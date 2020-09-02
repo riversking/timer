@@ -2,7 +2,7 @@ package com.rivers.oauth.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.rivers.user.api.entity.SysOauthClientModel;
-import com.rivers.oauth.mapper.SysOauthClientDao;
+import com.rivers.oauth.dao.SysOauthClientDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.provider.ClientDetails;

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rivers.nba.dao.PlayerDao">
+
+	<resultMap id="BaseResultMap" type="com.rivers.nba.model.PlayerModel">
+		<result column="id" property="id" />
+		<result column="jersey" property="jersey" />
+		<result column="last_name" property="lastName" />
+		<result column="photo_url" property="photoUrl" />
+		<result column="play_id" property="playerId" />
+		<result column="position" property="position" />
+		<result column="position_category" property="positionCategory" />
+		<result column="salary" property="salary" />
+		<result column="status" property="status" />
+		<result column="team" property="team" />
+		<result column="team_id" property="teamId" />
+		<result column="update_time" property="updateTime" />
+		<result column="update_user" property="updateUser" />
+		<result column="weight" property="weight" />
+		<result column="birth_city" property="birthCity" />
+		<result column="birth_country" property="birthCountry" />
+		<result column="birth_date" property="birthDate" />
+		<result column="birth_state" property="birthState" />
+		<result column="college" property="college" />
+		<result column="create_time" property="createTime" />
+		<result column="create_user" property="createUser" />
+		<result column="experience" property="experience" />
+		<result column="first_name" property="firstName" />
+		<result column="height" property="height" />
+	</resultMap>
+
+	<select id="selectPlayerId" resultType="java.lang.Integer">
+		SELECT player_id FROM player
+	</select>
+
+</mapper>

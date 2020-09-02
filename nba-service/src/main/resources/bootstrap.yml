@@ -19,11 +19,11 @@ spring:
     time-zone: GMT+8
     default-property-inclusion: non_empty
   datasource:
-    name: user-server
-    url: jdbc:mysql://${MYSQL_HOST:139.9.206.164}:${MYSQL_PORT:3306}/timer_admin?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
+    name: nba-server
+    url: jdbc:mysql://${MYSQL_HOST:139.9.206.164}:${MYSQL_PORT:3306}/timer_nba?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
     username: root
     password: King1992!
-    # ʹ��hikari����Դ
+    # 使用hikari数据源
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
@@ -46,6 +46,20 @@ spring:
         max-idle: 100
         max-wait: -1s
 
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/*.xml
+  typeAliasesPackage: com.rivers.nba.model
+  global-config:
+    #    id: 0  #0:数据库ID自增   1:用户输入id  2:全局唯一id(IdWorker)  3:全局唯一ID(uuid)
+    #    db-column-underline: false
+    #    refresh-mapper: true
+    db-config:
+      id-type: auto
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: true #配置的缓存的全局开关
+    lazyLoadingEnabled: true #延时加载的开关
+    multipleResultSetsEnabled: true #开启的话
 
 
 eureka:
@@ -61,7 +75,7 @@ eureka:
 logging:
   level:
     com.rivers: debug
-  #  spring-admin ��ȡӦ�õ���־ �ؼ�
+  #  spring-admin 读取应用的日志 关键
   file:
     path: ./logs/${spring.application.name}/all.log
     name: ./logs/${spring.application.name}/all.log
@@ -83,3 +97,19 @@ management:
 
 hystrix:
   shareSecurityContext: true
+
+xxl:
+  job:
+    admin:
+      addresses: http://127.0.0.1:8080/xxl-job-admin
+      executor:
+        appname: nba-service-executor
+        address:
+        ip:
+        port: 9001
+        logpath: /data/applogs/xxl-job/jobhandler
+        logretentiondays: 30
+    accessToken:
+
+nba:
+  key: a2e4941f622f4398b8cec175b3b51b6b

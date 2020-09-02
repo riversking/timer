@@ -14,7 +14,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  */
 @EnableEurekaClient
 @EnableFeignClients(basePackages = "com.rivers.user.api.client")
-@MapperScan(basePackages = {"com.rivers.oauth.mapper"})
+@MapperScan(basePackages = {"com.rivers.oauth.dao"})
 @RefreshScope
 @SpringBootApplication
 public class OauthServerApplication {

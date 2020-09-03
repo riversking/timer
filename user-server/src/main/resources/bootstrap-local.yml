@@ -35,6 +35,11 @@ spring:
         max-active: 300
         max-idle: 100
         max-wait: -1s
+  rabbitmq:
+    host: 139.9.206.164
+    port: 5672
+    username: guest
+    password: guest
 
 feign:
   httpclient:

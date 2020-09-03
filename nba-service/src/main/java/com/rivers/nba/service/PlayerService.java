@@ -68,9 +68,18 @@ public class PlayerService extends ServiceImpl<PlayerDao, PlayerModel> {
             if (ids.isEmpty()) {
                 saveBatch(players);
             } else {
-
+                redisTemplate.opsForList().leftPop("nba_player_list");
+                players.forEach(i -> {
+                    if (ids.contains(i.getPlayerId())) {
+                        QueryWrapper<PlayerModel> wrapper = new QueryWrapper<>();
+                        wrapper.eq("player_id", i.getPlayerId());
+                        playerDao.update(i, wrapper);
+                    } else {
+                        playerDao.insert(i);
+                    }
+                });
             }
-
+            redisTemplate.opsForList().leftPushAll("nba_player_list", players);
         }
     }
 

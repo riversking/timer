@@ -92,24 +92,24 @@ public class RequestEncryptionGlobalFilter implements GlobalFilter, Ordered {
             if (request.getPath().toString().contains("login")) {
                 return Mono.just(body);
             }
-            Map<String, Object> user = Maps.newLinkedHashMap();
+            LinkedHashMap<String, Object> map = (LinkedHashMap<String, Object>) body;
             List<String> list = headers.get("Authorization");
             if (null != list) {
                 String authorization = Objects.requireNonNull(list).stream().findFirst().orElse(null);
                 String token = StrUtil.subAfter(authorization, "Bearer ", false);
                 String claims = JwtHelper.decode(token).getClaims();
                 JSONObject json = JSON.parseObject(claims);
-                LinkedHashMap<String, Object> map = (LinkedHashMap<String, Object>) body;
                 if (MapUtil.isEmpty(map)) {
                     map = Maps.newLinkedHashMap();
                 }
+                Map<String, Object> user = Maps.newLinkedHashMap();
                 user.put("id", json.get("id"));
                 user.put("userId", json.get("userId"));
                 map.put("user", user);
                 log.info("请求体: {}", JSON.toJSONString(map));
                 return Mono.just(map);
             }
-            return Mono.just(user);
+            return Mono.just(map);
         };
     }
 

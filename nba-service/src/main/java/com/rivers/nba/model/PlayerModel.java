@@ -191,6 +191,13 @@ public class PlayerModel extends Model<PlayerModel> {
     @TableField(value="weight")
     private Integer weight;
 
+    /**
+     * 球员全称
+     *
+     */
+    @TableField(value="draft_kings_name")
+    private String draftKingsName;
+
 
     @Override
     protected Serializable pkVal() {

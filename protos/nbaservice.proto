@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+//import "krpcext.proto";
+option java_multiple_files = true;
+option java_generic_services = true;
+
+option java_package = "com.rivers.nbaservice.proto";
+option java_outer_classname = "NbaServiceMetas";
+
+
+message LoginUser {
+  string userId = 1;
+}
+
+message Player {
+  int32 playerId = 1;
+  string firstName = 2;
+  string lastName = 3;
+  string team = 4;
+  int32 teamId = 5;
+  int32 jersey = 6;//号码
+  string position = 7;//球员位置
+  int32 height = 8;
+  int32 weight = 9;
+  string birthDate = 10;
+  string birthCity = 11;
+  string birthState = 12;
+  string college = 13;
+  int32 salary = 14;//年薪
+  string photoUrl = 15;
+  int32 experience = 16;//职业年薪
+  string playerName = 17;
+}
+
+message GetNbaPlayerListReq {
+  int32 pageNum = 1;
+  int32 pageSize = 2;
+  string playerName = 3;
+  string position = 4;
+  int32 playerId = 5;
+  string team = 6;
+  LoginUser user = 100;
+}
+
+message GetNbaPlayerListRes {
+  repeated Player players = 1;
+  int64 total = 2;
+  int32 retCode = 3;
+  string retMsg = 4;
+}
+

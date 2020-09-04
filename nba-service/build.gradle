@@ -11,6 +11,7 @@ dependencies {
     compile group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.4.0'
     compile group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.8.1'
     compile group: 'com.xuxueli', name: 'xxl-job-core', version: '2.2.0'
+    compile files('../protos/nbaservice_protos.jar')
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }

@@ -3,16 +3,23 @@ package com.rivers.nba.service;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.rivers.nba.controller.PlayerController;
 import com.rivers.nba.dao.PlayerDao;
+import com.rivers.nba.dto.PlayerDTO;
 import com.rivers.nba.model.PlayerModel;
+import com.rivers.nbaservice.proto.GetNbaPlayerListReq;
 import lombok.extern.log4j.Log4j2;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 import org.apache.commons.lang.StringEscapeUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -27,6 +34,9 @@ import java.util.stream.Collectors;
 @Service
 @Log4j2
 public class PlayerService extends ServiceImpl<PlayerDao, PlayerModel> {
+
+    private Logger logger = LoggerFactory.getLogger(PlayerService.class);
+
 
     @Value("${nba.key}")
     private String nbaKey;
@@ -68,7 +78,7 @@ public class PlayerService extends ServiceImpl<PlayerDao, PlayerModel> {
             if (ids.isEmpty()) {
                 saveBatch(players);
             } else {
-                redisTemplate.opsForList().leftPop("nba_player_list");
+                redisTemplate.delete("nba_player_list");
                 players.forEach(i -> {
                     if (ids.contains(i.getPlayerId())) {
                         QueryWrapper<PlayerModel> wrapper = new QueryWrapper<>();
@@ -81,6 +91,19 @@ public class PlayerService extends ServiceImpl<PlayerDao, PlayerModel> {
             }
             redisTemplate.opsForList().leftPushAll("nba_player_list", players);
         }
+    }
+
+    public IPage<PlayerModel> playerPage(GetNbaPlayerListReq req) {
+        Page<PlayerModel> page = new Page<>(req.getPageNum(), req.getPageSize());
+        PlayerDTO player = new PlayerDTO();
+        player.setPlayerId(req.getPlayerId());
+        player.setPlayerName(req.getPlayerName());
+        player.setPosition(req.getPosition());
+        player.setTeam(req.getTeam());
+        logger.info("GetNbaPlayerListReq req {} {}", req.getPageNum(), req.getPageSize());
+        IPage<PlayerModel> playerModelIPage = playerDao.selectPlayerPage(page, player);
+        logger.info("playerModelIPage {}", playerModelIPage.getRecords());
+        return playerModelIPage;
     }
 
 }

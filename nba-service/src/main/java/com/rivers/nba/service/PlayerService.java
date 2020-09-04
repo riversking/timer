@@ -101,9 +101,7 @@ public class PlayerService extends ServiceImpl<PlayerDao, PlayerModel> {
         player.setPosition(req.getPosition());
         player.setTeam(req.getTeam());
         logger.info("GetNbaPlayerListReq req {} {}", req.getPageNum(), req.getPageSize());
-        IPage<PlayerModel> playerModelIPage = playerDao.selectPlayerPage(page, player);
-        logger.info("playerModelIPage {}", playerModelIPage.getRecords());
-        return playerModelIPage;
+        return playerDao.selectPlayerPage(page, player);
     }
 
 }

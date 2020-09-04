@@ -100,6 +100,17 @@ management:
     bus-refresh:
       enabled: true
 
+security:
+  oauth2:
+    client:
+      client-id: admin
+      client-secret: secret
+      scope: server
+    resource:
+      token-info-uri: http://139.9.206.164:9080/oauth/check_token
+      service-id: oauth-server
+#      user-info-uri:
+
 hystrix:
   shareSecurityContext: true
 

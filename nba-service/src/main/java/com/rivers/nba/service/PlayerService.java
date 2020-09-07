@@ -28,7 +28,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 @Service
@@ -78,7 +81,6 @@ public class PlayerService extends ServiceImpl<PlayerDao, PlayerModel> {
             if (ids.isEmpty()) {
                 saveBatch(players);
             } else {
-                redisTemplate.delete("nba_player_list");
                 players.forEach(i -> {
                     if (ids.contains(i.getPlayerId())) {
                         QueryWrapper<PlayerModel> wrapper = new QueryWrapper<>();
@@ -89,18 +91,33 @@ public class PlayerService extends ServiceImpl<PlayerDao, PlayerModel> {
                     }
                 });
             }
-            redisTemplate.opsForList().leftPushAll("nba_player_list", players);
+            CompletableFuture.runAsync(() -> {
+                redisTemplate.delete("nba_player_list");
+                List<PlayerModel> list = players
+                        .stream()
+                        .sorted(Comparator.comparing(PlayerModel::getPlayerId))
+                        .collect(Collectors.toList());
+                redisTemplate.opsForList().rightPushAll("nba_player_list", list);
+            });
         }
     }
 
     public IPage<PlayerModel> playerPage(GetNbaPlayerListReq req) {
-        Page<PlayerModel> page = new Page<>(req.getPageNum(), req.getPageSize());
+        int pageNum = req.getPageNum();
+        int pageSize = req.getPageSize();
+        Page<PlayerModel> page = new Page<>(pageNum, pageSize);
+        List<PlayerModel> playerList = redisTemplate
+                .opsForList().range("nba_player_list", pageNum - 1, pageSize - 1);
+        if (Objects.nonNull(playerList) && !playerList.isEmpty()) {
+            page.setRecords(playerList);
+            return page;
+        }
         PlayerDTO player = new PlayerDTO();
         player.setPlayerId(req.getPlayerId());
         player.setPlayerName(req.getPlayerName());
         player.setPosition(req.getPosition());
         player.setTeam(req.getTeam());
-        logger.info("GetNbaPlayerListReq req {} {}", req.getPageNum(), req.getPageSize());
+        logger.info("GetNbaPlayerListReq req {} {}", pageNum, pageSize);
         return playerDao.selectPlayerPage(page, player);
     }
 

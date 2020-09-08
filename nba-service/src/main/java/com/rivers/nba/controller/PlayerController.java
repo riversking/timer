@@ -29,8 +29,8 @@ public class PlayerController {
     @Autowired
     private PlayerService playerService;
 
-    @PostMapping("playList")
-    public GetNbaPlayerListRes playList(@RequestBody GetNbaPlayerListReq req) {
+    @PostMapping("playerList")
+    public GetNbaPlayerListRes playerList(@RequestBody GetNbaPlayerListReq req) {
         IPage<PlayerModel> players = playerService.playerPage(req);
         List<Player> list = players.getRecords()
                 .stream()
@@ -47,5 +47,11 @@ public class PlayerController {
                         .build())
                 .collect(Collectors.toList());
         return GetNbaPlayerListRes.newBuilder().addAllPlayers(list).setTotal(players.getTotal()).build();
+    }
+
+    @PostMapping("syncPlayer")
+    public ResponseVo syncPlayer() {
+        playerService.savePlayerInfo();
+        return ResponseVo.ok();
     }
 }

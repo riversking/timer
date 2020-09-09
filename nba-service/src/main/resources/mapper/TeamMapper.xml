@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rivers.nba.dao.TeamDao">
+
+	<resultMap id="BaseResultMap" type="com.rivers.nba.model.TeamModel">
+		<result column="active" property="active" />
+		<result column="city" property="city" />
+		<result column="conference" property="conference" />
+		<result column="division" property="division" />
+		<result column="global_team_id" property="globalTeamId" />
+		<result column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="nba_dot_com_team_id" property="nbaDotComTeamId" />
+		<result column="primary_color" property="primaryColor" />
+		<result column="quaternary_color" property="quaternaryColor" />
+		<result column="secondary_color" property="secondaryColor" />
+		<result column="stadium_id" property="stadiumId" />
+		<result column="team_id" property="teamId" />
+		<result column="tertiary_color" property="tertiaryColor" />
+		<result column="wikipedia_logo_url" property="wikipediaLogoUrl" />
+	</resultMap>
+
+</mapper>

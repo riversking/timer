@@ -121,4 +121,8 @@ public class PlayerService extends ServiceImpl<PlayerDao, PlayerModel> {
         return playerDao.selectPlayerPage(page, player);
     }
 
+    public void syncNBATeam() {
+
+    }
+
 }

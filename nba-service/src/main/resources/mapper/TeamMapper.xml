@@ -3,11 +3,6 @@
 <mapper namespace="com.rivers.nba.dao.TeamDao">
 
 	<resultMap id="BaseResultMap" type="com.rivers.nba.model.TeamModel">
-		<result column="active" property="active" />
-		<result column="city" property="city" />
-		<result column="conference" property="conference" />
-		<result column="division" property="division" />
-		<result column="global_team_id" property="globalTeamId" />
 		<result column="id" property="id" />
 		<result column="name" property="name" />
 		<result column="nba_dot_com_team_id" property="nbaDotComTeamId" />
@@ -18,6 +13,11 @@
 		<result column="team_id" property="teamId" />
 		<result column="tertiary_color" property="tertiaryColor" />
 		<result column="wikipedia_logo_url" property="wikipediaLogoUrl" />
+		<result column="active" property="active" />
+		<result column="city" property="city" />
+		<result column="conference" property="conference" />
+		<result column="division" property="division" />
+		<result column="global_team_id" property="globalTeamId" />
 	</resultMap>
 
 </mapper>

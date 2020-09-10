@@ -11,6 +11,7 @@ import com.rivers.nba.controller.PlayerController;
 import com.rivers.nba.dao.PlayerDao;
 import com.rivers.nba.dto.PlayerDTO;
 import com.rivers.nba.model.PlayerModel;
+import com.rivers.nba.utils.HttpClientUtils;
 import com.rivers.nbaservice.proto.GetNbaPlayerListReq;
 import lombok.extern.log4j.Log4j2;
 import okhttp3.OkHttpClient;
@@ -44,6 +45,9 @@ public class PlayerService extends ServiceImpl<PlayerDao, PlayerModel> {
     @Value("${nba.key}")
     private String nbaKey;
 
+    @Value("${nba.url}")
+    private String nbaUrl;
+
     @Resource
     private PlayerDao playerDao;
 
@@ -52,19 +56,7 @@ public class PlayerService extends ServiceImpl<PlayerDao, PlayerModel> {
 
     @Transactional(rollbackFor = Exception.class)
     public void savePlayerInfo() {
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url("https://api.sportsdata.io/v3/nba/scores/json/Players?key=" + nbaKey)
-                .build();
-        String bodyStr = "";
-        try (Response response = client.newCall(request).execute()) {
-            ResponseBody body = response.body();
-            if (body != null) {
-                bodyStr = body.string();
-            }
-        } catch (IOException e) {
-            log.error("NBA PLAYER ERROR", e);
-        }
+        String bodyStr = HttpClientUtils.get(nbaUrl + "Players?key=" + nbaKey);
         if (StrUtil.isNotBlank(bodyStr)) {
             List<PlayerModel> playerList = JSONObject.parseArray(bodyStr, PlayerModel.class);
             if (playerList.isEmpty()) {
@@ -119,10 +111,6 @@ public class PlayerService extends ServiceImpl<PlayerDao, PlayerModel> {
         player.setTeam(req.getTeam());
         logger.info("GetNbaPlayerListReq req {} {}", pageNum, pageSize);
         return playerDao.selectPlayerPage(page, player);
-    }
-
-    public void syncNBATeam() {
-
     }
 
 }

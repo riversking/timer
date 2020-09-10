@@ -2,22 +2,52 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rivers.nba.dao.TeamDao">
 
-	<resultMap id="BaseResultMap" type="com.rivers.nba.model.TeamModel">
-		<result column="id" property="id" />
-		<result column="name" property="name" />
-		<result column="nba_dot_com_team_id" property="nbaDotComTeamId" />
-		<result column="primary_color" property="primaryColor" />
-		<result column="quaternary_color" property="quaternaryColor" />
-		<result column="secondary_color" property="secondaryColor" />
-		<result column="stadium_id" property="stadiumId" />
-		<result column="team_id" property="teamId" />
-		<result column="tertiary_color" property="tertiaryColor" />
-		<result column="wikipedia_logo_url" property="wikipediaLogoUrl" />
-		<result column="active" property="active" />
-		<result column="city" property="city" />
-		<result column="conference" property="conference" />
-		<result column="division" property="division" />
-		<result column="global_team_id" property="globalTeamId" />
-	</resultMap>
+    <resultMap id="BaseResultMap" type="com.rivers.nba.model.TeamModel">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="nba_dot_com_team_id" property="nbaDotComTeamId"/>
+        <result column="primary_color" property="primaryColor"/>
+        <result column="quaternary_color" property="quaternaryColor"/>
+        <result column="secondary_color" property="secondaryColor"/>
+        <result column="stadium_id" property="stadiumId"/>
+        <result column="team_id" property="teamId"/>
+        <result column="tertiary_color" property="tertiaryColor"/>
+        <result column="wikipedia_logo_url" property="wikipediaLogoUrl"/>
+        <result column="active" property="active"/>
+        <result column="city" property="city"/>
+        <result column="conference" property="conference"/>
+        <result column="division" property="division"/>
+        <result column="global_team_id" property="globalTeamId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="update_user" property="updateUser"/>
+    </resultMap>
+
+    <select id="hasData" resultType="java.lang.Integer">
+		select 1 from team where id = id limit 1
+	</select>
+
+    <select id="selectTeamPage" resultMap="BaseResultMap">
+		SELECT
+           team_id,
+           `name`,
+           city,
+           conference,
+           division
+        FROM
+           team
+        WHERE
+           active = 1
+        <if test="record.name != null and record.name != '' ">
+            AND `name` = #{record.name}
+        </if>
+        <if test="record.teamId != null and record.team != 0">
+            AND team_id = #{record.teamId}
+        </if>
+        <if test="record.conference != null and record.conference != '' ">
+            AND conference = #{record.conference}
+        </if>
+	</select>
 
 </mapper>

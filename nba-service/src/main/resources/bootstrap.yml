@@ -129,3 +129,4 @@ xxl:
 
 nba:
   key: a2e4941f622f4398b8cec175b3b51b6b
+  url: https://api.sportsdata.io/v3/nba/scores/json/

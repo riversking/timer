@@ -4,8 +4,10 @@ import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.rivers.nba.dao.TeamDao;
+import com.rivers.nba.dto.TeamDTO;
 import com.rivers.nba.model.PlayerModel;
 import com.rivers.nba.model.TeamModel;
 import com.rivers.nba.utils.HttpClientUtils;
@@ -51,6 +53,13 @@ public class TeamService extends ServiceImpl<TeamDao, TeamModel> {
             }
         }
     }
-    
+
+    public IPage<TeamModel> teamPage(TeamDTO teamDTO) {
+        int pageNumber = teamDTO.getPageNumber();
+        int pageSize = teamDTO.getPageSize();
+        Page<TeamModel> page = new Page<>(pageNumber, pageSize);
+        return teamDao.selectTeamPage(page, teamDTO);
+    }
+
 
 }

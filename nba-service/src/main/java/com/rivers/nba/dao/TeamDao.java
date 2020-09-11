@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.rivers.nba.dto.PlayerDTO;
+import com.rivers.nba.dto.TeamDTO;
 import com.rivers.nba.model.PlayerModel;
 import com.rivers.nba.model.TeamModel;
 import org.apache.ibatis.annotations.Param;
@@ -18,6 +19,6 @@ public interface TeamDao extends BaseMapper<TeamModel> {
 
     Integer hasData();
 
-    IPage<TeamModel> selectTeamPage(Page<?> page, @Param("record") TeamDao teamDao);
+    IPage<TeamModel> selectTeamPage(Page<?> page, @Param("record") TeamDTO teamDTO);
 
 }

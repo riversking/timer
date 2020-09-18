@@ -60,5 +60,10 @@ public class TeamService extends ServiceImpl<TeamDao, TeamModel> {
         return teamDao.selectTeamPage(page, teamDTO);
     }
 
+    public List<TeamModel> teamList() {
+        QueryWrapper<TeamModel> wrapper = new QueryWrapper<>();
+        wrapper.select("team_id", "name");
+        return teamDao.selectList(wrapper);
+    }
 
 }

@@ -39,6 +39,7 @@ message GetNbaPlayerListReq {
   string position = 4;
   int32 playerId = 5;
   string team = 6;
+  int32 teamId = 7;
   LoginUser user = 100;
 }
 

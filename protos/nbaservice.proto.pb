@@ -1,5 +1,5 @@
 
-¬
+Ä
 nbaservice.proto"#
 	LoginUser
 userId (	RuserId"Ø
@@ -27,7 +27,7 @@ experience (R
 experience
 
 playerName (	R
-playerName"×
+playerName"ï
 GetNbaPlayerListReq
 pageNum (RpageNum
 pageSize (RpageSize
@@ -36,7 +36,8 @@ playerName (	R
 playerName
 position (	Rposition
 playerId (RplayerId
-team (	Rteam
+team (	Rteam
+teamId (RteamId
 userd (2
 .LoginUserRuser"€
 GetNbaPlayerListRes!

@@ -101,7 +101,7 @@ public class PlayerService extends ServiceImpl<PlayerDao, PlayerModel> {
         List<PlayerModel> playerList = redisTemplate
                 .opsForList().range("nba_player_list", (pageNum - 1) * pageSize, pageSize - 1);
         if (StrUtil.isBlank(req.getPlayerName()) && StrUtil.isBlank(req.getPosition()) && StrUtil.isBlank(req.getTeam())
-                && req.getPlayerId() == 0) {
+                && req.getPlayerId() == 0 && req.getTeamId() == 0) {
             if (Objects.nonNull(playerList) && !playerList.isEmpty()) {
                 page.setRecords(playerList);
                 page.setTotal(redisTemplate.opsForList().size("nba_player_list"));
@@ -113,6 +113,7 @@ public class PlayerService extends ServiceImpl<PlayerDao, PlayerModel> {
         player.setPlayerName(req.getPlayerName());
         player.setPosition(req.getPosition());
         player.setTeam(req.getTeam());
+        player.setTeamId(req.getTeamId());
         logger.info("GetNbaPlayerListReq req {} {}", pageNum, pageSize);
         return playerDao.selectPlayerPage(page, player);
     }

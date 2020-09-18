@@ -1,7 +1,6 @@
 package com.rivers.nba.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.rivers.core.view.RequestVo;
 import com.rivers.core.view.ResponseVo;
 import com.rivers.nba.dto.TeamDTO;
 import com.rivers.nba.model.TeamModel;
@@ -26,9 +25,15 @@ public class TeamController {
         return ResponseVo.ok();
     }
 
-    @PostMapping("getTeamList")
-    public ResponseVo getTeamList(@RequestBody TeamDTO teamDTO) {
+    @PostMapping("getTeamPage")
+    public ResponseVo getTeamPage(@RequestBody TeamDTO teamDTO) {
         IPage<TeamModel> teamModelIPage = teamService.teamPage(teamDTO);
         return ResponseVo.ok(teamModelIPage);
     }
+
+    @PostMapping("getTeamList")
+    public ResponseVo getTeamList() {
+        return ResponseVo.ok(teamService.teamList());
+    }
+
 }

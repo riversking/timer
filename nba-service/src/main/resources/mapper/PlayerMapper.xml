@@ -65,6 +65,9 @@
         <if test="record.teamId != null and record.teamId != 0">
             AND team_id = #{record.teamId}
         </if>
+        <if test="record.playerId != null and record.playerId != 0">
+            AND player_id = #{record.playerId}
+        </if>
     </select>
 
 </mapper>

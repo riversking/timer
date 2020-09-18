@@ -44,7 +44,7 @@ message GetNbaPlayerListReq {
 
 message GetNbaPlayerListRes {
   repeated Player players = 1;
-  int64 total = 2;
+  int32 total = 2;
   int32 retCode = 3;
   string retMsg = 4;
 }

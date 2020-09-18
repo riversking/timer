@@ -9,6 +9,7 @@ import com.rivers.nba.service.PlayerService;
 import com.rivers.nbaservice.proto.GetNbaPlayerListReq;
 import com.rivers.nbaservice.proto.GetNbaPlayerListRes;
 import com.rivers.nbaservice.proto.Player;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,9 +45,13 @@ public class PlayerController {
                         .setHeight(i.getHeight())
                         .setWeight(i.getWeight())
                         .setPlayerName(i.getDraftKingsName())
+                        .setPosition(i.getPosition())
+                        .setSalary(i.getSalary())
+                        .setTeam(i.getTeam())
                         .build())
                 .collect(Collectors.toList());
-        return GetNbaPlayerListRes.newBuilder().addAllPlayers(list).setTotal(players.getTotal()).build();
+        return GetNbaPlayerListRes.newBuilder().addAllPlayers(list)
+                .setTotal(Integer.parseInt(String.valueOf(players.getTotal()))).build();
     }
 
     @PostMapping("syncPlayer")

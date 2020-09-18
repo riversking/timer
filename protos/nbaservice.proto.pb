@@ -41,7 +41,7 @@ playerName
 .LoginUserRuser"€
 GetNbaPlayerListRes!
 players (2.PlayerRplayers
-total (Rtotal
+total (Rtotal
 retCode (RretCode
 retMsg (	RretMsgB3
 com.rivers.nbaservice.protoBNbaServiceMetasPˆbproto3

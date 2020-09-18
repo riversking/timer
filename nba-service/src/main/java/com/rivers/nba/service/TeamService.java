@@ -8,7 +8,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.rivers.nba.dao.TeamDao;
 import com.rivers.nba.dto.TeamDTO;
-import com.rivers.nba.model.PlayerModel;
 import com.rivers.nba.model.TeamModel;
 import com.rivers.nba.utils.HttpClientUtils;
 import org.springframework.beans.factory.annotation.Value;

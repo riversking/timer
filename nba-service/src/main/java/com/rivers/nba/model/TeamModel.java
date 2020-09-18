@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -17,6 +18,7 @@ import java.util.Date;
  * @author riversking
  * @Date 2020-09-09 17:48
  */
+@EqualsAndHashCode(callSuper = true)
 @TableName("team")
 @Data
 public class TeamModel extends Model<TeamModel> {

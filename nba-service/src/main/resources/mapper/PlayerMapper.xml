@@ -54,7 +54,7 @@
         WHERE
             1
         <if test="record.playerName != null and record.playerName != '' ">
-            AND draft_kings_name = #{record.playName}
+            AND draft_kings_name = #{record.playerName}
         </if>
         <if test="record.position != null and record.position != ''">
             AND `position` = #{record.position}
@@ -62,7 +62,7 @@
         <if test="record.team != null and record.team != ''">
             AND team = #{record.team}
         </if>
-        <if test="record.teamId != null and record.team != 0">
+        <if test="record.teamId != null and record.teamId != 0">
             AND team_id = #{record.teamId}
         </if>
     </select>

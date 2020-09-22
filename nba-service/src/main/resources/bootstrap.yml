@@ -125,7 +125,7 @@ xxl:
       port: 9001
       logpath: /data/applogs/xxl-job/jobhandler
       logretentiondays: 30
-    accessToken:
+    accessToken: token
 
 nba:
   key: a2e4941f622f4398b8cec175b3b51b6b

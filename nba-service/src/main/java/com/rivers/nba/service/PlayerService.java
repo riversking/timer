@@ -11,6 +11,7 @@ import com.rivers.nba.controller.PlayerController;
 import com.rivers.nba.dao.PlayerDao;
 import com.rivers.nba.dto.PlayerDTO;
 import com.rivers.nba.model.PlayerModel;
+import com.rivers.nba.model.TeamModel;
 import com.rivers.nba.utils.HttpClientUtils;
 import com.rivers.nbaservice.proto.GetNbaPlayerListReq;
 import lombok.extern.log4j.Log4j2;
@@ -21,6 +22,7 @@ import okhttp3.ResponseBody;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -62,7 +64,6 @@ public class PlayerService extends ServiceImpl<PlayerDao, PlayerModel> {
             if (playerList.isEmpty()) {
                 return;
             }
-            List<Integer> ids = playerDao.selectPlayerId();
             List<PlayerModel> players = playerList.stream()
                     .peek(i -> {
                         i.setCreateUser("T00001");
@@ -70,26 +71,33 @@ public class PlayerService extends ServiceImpl<PlayerDao, PlayerModel> {
                         i.setHeight((int) (i.getHeight() * 2.54));
                         i.setPhotoUrl(StringEscapeUtils.unescapeJava(i.getPhotoUrl()));
                     }).collect(Collectors.toList());
-            if (ids.isEmpty()) {
-                saveBatch(players);
-            } else {
-                players.forEach(i -> {
-                    if (ids.contains(i.getPlayerId())) {
-                        QueryWrapper<PlayerModel> wrapper = new QueryWrapper<>();
-                        wrapper.eq("player_id", i.getPlayerId());
-                        playerDao.update(i, wrapper);
-                    } else {
-                        playerDao.insert(i);
-                    }
-                });
-            }
+            redisTemplate.delete("nba_player_list");
+            redisTemplate.delete("nba_player_hash");
+            List<PlayerModel> list = players
+                    .stream()
+                    .sorted(Comparator.comparing(PlayerModel::getPlayerId))
+                    .collect(Collectors.toList());
+            redisTemplate.opsForList().rightPushAll("nba_player_list", list);
             CompletableFuture.runAsync(() -> {
-                redisTemplate.delete("nba_player_list");
-                List<PlayerModel> list = players
-                        .stream()
-                        .sorted(Comparator.comparing(PlayerModel::getPlayerId))
-                        .collect(Collectors.toList());
-                redisTemplate.opsForList().rightPushAll("nba_player_list", list);
+                List<Integer> ids = playerDao.selectPlayerId();
+                if (ids.isEmpty()) {
+                    saveBatch(players);
+                } else {
+                    players.forEach(i -> {
+                        if (ids.contains(i.getPlayerId())) {
+                            QueryWrapper<PlayerModel> wrapper = new QueryWrapper<>();
+                            wrapper.eq("player_id", i.getPlayerId());
+                            playerDao.update(i, wrapper);
+                        } else {
+                            playerDao.insert(i);
+                        }
+                    });
+                }
+                list.forEach(i -> {
+                    PlayerDTO playerDTO = new PlayerDTO();
+                    BeanUtils.copyProperties(i, playerDTO);
+                    redisTemplate.opsForHash().put("nba_player_hash", i.getPlayerId(), playerDTO);
+                });
             });
         }
     }
@@ -116,6 +124,18 @@ public class PlayerService extends ServiceImpl<PlayerDao, PlayerModel> {
         player.setTeamId(req.getTeamId());
         logger.info("GetNbaPlayerListReq req {} {}", pageNum, pageSize);
         return playerDao.selectPlayerPage(page, player);
+    }
+
+    public PlayerDTO getPlayerDetail(Integer playerId) {
+        PlayerDTO playerDTO = (PlayerDTO) redisTemplate.opsForHash().get("nba_player_hash", playerId);
+        if (Objects.isNull(playerDTO)) {
+            QueryWrapper<PlayerModel> wrapper = new QueryWrapper<>();
+            wrapper.select("position", "draft_kings_name", "photo_url", "height", "weight", "jersey", "college", "team_id");
+            wrapper.eq("playerId", playerId);
+            PlayerModel playerModel = playerDao.selectOne(wrapper);
+            BeanUtils.copyProperties(playerModel, playerDTO);
+        }
+        return playerDTO;
     }
 
 }

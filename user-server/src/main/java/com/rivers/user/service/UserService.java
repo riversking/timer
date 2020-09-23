@@ -249,6 +249,7 @@ public class UserService extends ServiceImpl<SysUserDao, SysUserModel> {
         user.setMail(userDto.getMail());
         user.setNickname(userDto.getNickname());
         user.setUpdateUser(loginUser.getUserId());
+        user.setUserId(userDto.getUserId());
         sysUserDao.updateById(user);
         sysUserRoleDao.deleteByUserId(userDto.getUserId());
         saveUserRole(userDto, user);

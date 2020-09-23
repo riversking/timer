@@ -44,7 +44,7 @@
         	LEFT JOIN sys_user_role c ON b.role_id = c.role_id
         	AND c.is_delete = 0
         WHERE
-        	c.user_id = 'T00001'
+        	c.user_id = #{userId}
         	AND a.type = 0
         	AND a.is_delete = 0
 	</select>

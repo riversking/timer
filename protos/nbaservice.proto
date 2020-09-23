@@ -50,3 +50,14 @@ message GetNbaPlayerListRes {
   string retMsg = 4;
 }
 
+message GetPlayerDetailReq {
+  int32 playerId = 1;
+  LoginUser user = 100;
+}
+
+message GetPlayerDetailRes {
+  Player player = 1;
+  int32 retCode = 2;
+  string retMsg = 3;
+}
+

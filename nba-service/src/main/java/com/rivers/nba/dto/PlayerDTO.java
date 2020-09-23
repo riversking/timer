@@ -18,4 +18,16 @@ public class PlayerDTO implements Serializable {
     private String team;
 
     private Integer teamId;
+
+    private String photoUrl;
+
+    private Integer height;
+
+    private Integer weight;
+
+    private Integer jersey;
+
+    private String college;
+
+    private String draftKingsName;
 }

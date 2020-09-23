@@ -1,7 +1,7 @@
 buildscript {
     ext {
-        springBootVersion = '2.3.3.RELEASE'
-        springCloudVersion = 'Hoxton.SR7'
+        springBootVersion = '2.3.4.RELEASE'
+        springCloudVersion = 'Hoxton.SR8'
         wrapperVersion = '1.0.21.RELEASE'
     }
     repositories {

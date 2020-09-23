@@ -54,7 +54,7 @@
         WHERE
             1
         <if test="record.playerName != null and record.playerName != '' ">
-            AND draft_kings_name = #{record.playerName}
+            AND draft_kings_name like concat('%',#{record.playerName},'%')
         </if>
         <if test="record.position != null and record.position != ''">
             AND `position` = #{record.position}

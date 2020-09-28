@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rivers.nba.dao.StadiumDao">
+
+    <resultMap id="BaseResultMap" type="com.rivers.nba.model.StadiumModel">
+        <result column="id" property="id"/>
+        <result column="address" property="address"/>
+        <result column="capacity" property="capacity"/>
+        <result column="city" property="city"/>
+        <result column="country" property="country"/>
+        <result column="create_time" property="createTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="geo_lat" property="geoLat"/>
+        <result column="geo_long" property="geoLong"/>
+        <result column="name" property="name"/>
+        <result column="stadium_id" property="stadiumId"/>
+        <result column="state" property="state"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="zip" property="zip"/>
+    </resultMap>
+
+    <select id="hasData" resultType="java.lang.Integer">
+		select 1 from stadium where id = id limit 1
+	</select>
+
+
+    <select id="selectStadiumPage" resultMap="BaseResultMap">
+        SELECT
+	       `name`,
+	       address,
+	       city,
+	       `state`,
+	       country,
+	       zip,
+	       capacity,
+	       geo_lat,
+	       geo_long
+        FROM
+	       stadium
+	    WHERE 1
+        <if test="record.name != null and record.name != '' ">
+            AND `name` = #{record.name}
+        </if>
+        <if test="record.country != null and record.country != '' ">
+            AND country = #{record.country}
+        </if>
+    </select>
+
+</mapper>

@@ -1,8 +1,11 @@
 
-ÿ
+½	
 nbaservice.proto"#
 	LoginUser
-userId (	RuserId"Ø
+userId (	RuserId"<
+Page
+pageNum (RpageNum
+pageSize (RpageSize"Ø
 Player
 playerId (RplayerId
 	firstName (	R	firstName

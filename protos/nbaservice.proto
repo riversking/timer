@@ -12,6 +12,11 @@ message LoginUser {
   string userId = 1;
 }
 
+message Page {
+  int32 pageNum = 1;
+  int32 pageSize = 2;
+}
+
 message Player {
   int32 playerId = 1;
   string firstName = 2;

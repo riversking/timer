@@ -22,6 +22,7 @@
         <result column="create_user" property="createUser"/>
         <result column="update_time" property="updateTime"/>
         <result column="update_user" property="updateUser"/>
+        <result column="stadiumName" property="stadiumName"/>
     </resultMap>
 
     <select id="hasData" resultType="java.lang.Integer">
@@ -30,23 +31,25 @@
 
     <select id="selectTeamPage" resultMap="BaseResultMap">
 		SELECT
-           team_id,
-           `name`,
-           city,
-           conference,
-           division
+           a.team_id,
+           a.`name`,
+           a.city,
+           a.conference,
+           a.division,
+           b.name stadiumName
         FROM
-           team
+           team a
+        LEFT JOIN stadium b ON a.stadium_id = b.stadium_id
         WHERE
-           active = 1
+           a.active = 1
         <if test="record.name != null and record.name != '' ">
-            AND `name` = #{record.name}
+            AND a.`name` = #{record.name}
         </if>
         <if test="record.teamId != null and record.team != 0">
-            AND team_id = #{record.teamId}
+            AND a.team_id = #{record.teamId}
         </if>
         <if test="record.conference != null and record.conference != '' ">
-            AND conference = #{record.conference}
+            AND a.conference = #{record.conference}
         </if>
 	</select>
 

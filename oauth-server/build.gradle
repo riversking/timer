@@ -12,7 +12,7 @@ dependencies {
     compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-config'
     implementation project(':user-api')
     compile group: 'com.github.riversking', name: 'utils', version: '1.0.3'
-    compile group: 'com.github.riversking', name: 'core', version: '2.0.5'
+    compile group: 'com.github.riversking', name: 'core', version: '2.0.6'
     compile 'com.github.riversking:oauth2-client:1.0.4'
     compile('org.springframework.security.oauth:spring-security-oauth2:2.3.8.RELEASE')
     testCompile('org.springframework.boot:spring-boot-starter-test')

@@ -27,6 +27,7 @@
 
     <select id="selectStadiumPage" resultMap="BaseResultMap">
         SELECT
+           stadium_id,
 	       `name`,
 	       address,
 	       city,

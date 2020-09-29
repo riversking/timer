@@ -20,7 +20,7 @@ spring:
     default-property-inclusion: non_empty
   datasource:
     name: nba-server
-    url: jdbc:mysql://${MYSQL_HOST:139.9.206.164}:${MYSQL_PORT:3306}/timer_nba?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://${MYSQL_HOST:139.9.206.164}:${MYSQL_PORT:3306}/timer_nba?useUnicode=true&characterEncodeing=UTF-8&useSSL=false&serverTimezone=GMT
     username: root
     password: King1992!
     # 使用hikari数据源

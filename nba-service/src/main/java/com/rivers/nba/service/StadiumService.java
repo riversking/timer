@@ -4,8 +4,10 @@ import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.rivers.nba.dao.StadiumDao;
+import com.rivers.nba.dto.StadiumDTO;
 import com.rivers.nba.model.PlayerModel;
 import com.rivers.nba.model.StadiumModel;
 import com.rivers.nba.model.TeamModel;
@@ -57,8 +59,11 @@ public class StadiumService extends ServiceImpl<StadiumDao, StadiumModel> {
         }
     }
 
-    private IPage<StadiumModel> getStadiumPage() {
-        return null;
+    public IPage<StadiumModel> getStadiumPage(StadiumDTO stadiumDTO) {
+        int pageNumber = stadiumDTO.getpageNum();
+        int pageSize = stadiumDTO.getPageSize();
+        Page<TeamModel> page = new Page<>(pageNumber, pageSize);
+        return stadiumDao.selectStadiumPage(page, stadiumDTO);
     }
 
 }

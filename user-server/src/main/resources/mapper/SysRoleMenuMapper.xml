@@ -10,10 +10,13 @@
     </resultMap>
 
     <select id="getMenuIdByRoleId" resultType="java.lang.Integer">
-		SELECT menu_id FROM sys_role_menu
-		WHERE role_id = #{roleId}
-		AND   is_delete = 0
-	</select>
+		SELECT a.menu_id
+		FROM sys_role_menu a
+		LEFT JOIN sys_menu b ON a.menu_id = b.id
+		WHERE a.role_id = #{roleId}
+		AND   a.is_delete = 0
+		AND   b.parent_id &lt;&gt; -1
+    </select>
 
     <update id="updateByRoleId" parameterType="com.rivers.user.api.entity.SysRoleMenuModel">
         UPDATE sys_role_menu SET is_delete = #{isDelete}

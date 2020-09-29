@@ -54,7 +54,7 @@ public class TeamService extends ServiceImpl<TeamDao, TeamModel> {
     }
 
     public IPage<TeamModel> teamPage(TeamDTO teamDTO) {
-        int pageNumber = teamDTO.getPageNumber();
+        int pageNumber = teamDTO.getpageNum();
         int pageSize = teamDTO.getPageSize();
         Page<TeamModel> page = new Page<>(pageNumber, pageSize);
         return teamDao.selectTeamPage(page, teamDTO);

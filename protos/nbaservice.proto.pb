@@ -1,5 +1,5 @@
 
-½	
+—
 nbaservice.proto"#
 	LoginUser
 userId (	RuserId"<
@@ -54,6 +54,23 @@ playerName
 .LoginUserRuser"g
 GetPlayerDetailRes
 player (2.PlayerRplayer
+retCode (RretCode
+retMsg (	RretMsg"ª
+Team
+teamName (	RteamName
+city (	Rcity
+
+conference (	R
+conference
+division (	Rdivision
+	stadiumId (R	stadiumId
+logoUrl (	RlogoUrl"J
+GetTeamDetailReq
+teamId (RteamId
+userd (2
+.LoginUserRuser"_
+GetTeamDetailRes
+team (2.TeamRteam
 retCode (RretCode
 retMsg (	RretMsgB3
 com.rivers.nbaservice.protoBNbaServiceMetasPˆbproto3

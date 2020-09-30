@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "nba/stadium", produces = MediaType.APPLICATION_JSON_VALUE)
 public class StadiumController {
@@ -29,6 +31,12 @@ public class StadiumController {
     public ResponseVo getStadiumPage(@RequestBody StadiumDTO stadiumDTO) {
         IPage<StadiumModel> stadiumPage = stadiumService.getStadiumPage(stadiumDTO);
         return ResponseVo.ok(stadiumPage);
+    }
+
+    @PostMapping("stadiumList")
+    public ResponseVo stadiumList() {
+        List<StadiumModel> stadiumList = stadiumService.stadiumList();
+        return ResponseVo.ok(stadiumList);
     }
 
 }

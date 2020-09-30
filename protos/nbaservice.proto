@@ -9,60 +9,80 @@ option java_outer_classname = "NbaServiceMetas";
 
 
 message LoginUser {
-  string userId = 1;
+    string userId = 1;
 }
 
 message Page {
-  int32 pageNum = 1;
-  int32 pageSize = 2;
+    int32 pageNum = 1;
+    int32 pageSize = 2;
 }
 
 message Player {
-  int32 playerId = 1;
-  string firstName = 2;
-  string lastName = 3;
-  string team = 4;
-  int32 teamId = 5;
-  int32 jersey = 6;//号码
-  string position = 7;//球员位置
-  int32 height = 8;
-  int32 weight = 9;
-  string birthDate = 10;
-  string birthCity = 11;
-  string birthState = 12;
-  string college = 13;
-  int32 salary = 14;//年薪
-  string photoUrl = 15;
-  int32 experience = 16;//职业年薪
-  string playerName = 17;
+    int32 playerId = 1;
+    string firstName = 2;
+    string lastName = 3;
+    string team = 4;
+    int32 teamId = 5;
+    int32 jersey = 6; //号码
+    string position = 7; //球员位置
+    int32 height = 8;
+    int32 weight = 9;
+    string birthDate = 10;
+    string birthCity = 11;
+    string birthState = 12;
+    string college = 13;
+    int32 salary = 14; //年薪
+    string photoUrl = 15;
+    int32 experience = 16; //职业年薪
+    string playerName = 17;
 }
 
 message GetNbaPlayerListReq {
-  int32 pageNum = 1;
-  int32 pageSize = 2;
-  string playerName = 3;
-  string position = 4;
-  int32 playerId = 5;
-  string team = 6;
-  int32 teamId = 7;
-  LoginUser user = 100;
+    int32 pageNum = 1;
+    int32 pageSize = 2;
+    string playerName = 3;
+    string position = 4;
+    int32 playerId = 5;
+    string team = 6;
+    int32 teamId = 7;
+    LoginUser user = 100;
 }
 
 message GetNbaPlayerListRes {
-  repeated Player players = 1;
-  int32 total = 2;
-  int32 retCode = 3;
-  string retMsg = 4;
+    repeated Player players = 1;
+    int32 total = 2;
+    int32 retCode = 3;
+    string retMsg = 4;
 }
 
 message GetPlayerDetailReq {
-  int32 playerId = 1;
-  LoginUser user = 100;
+    int32 playerId = 1;
+    LoginUser user = 100;
 }
 
 message GetPlayerDetailRes {
-  Player player = 1;
-  int32 retCode = 2;
-  string retMsg = 3;
+    Player player = 1;
+    int32 retCode = 2;
+    string retMsg = 3;
+}
+
+message Team {
+    string teamName = 1;
+    string city = 2;
+    string conference = 3;
+    string division = 4;
+    int32 stadiumId = 5;
+    string logoUrl = 6;
+}
+
+message GetTeamDetailReq {
+    int32 teamId =1;
+    LoginUser user = 100;
+}
+
+message GetTeamDetailRes {
+    Team team = 1;
+    int32 retCode = 2;
+    string retMsg = 3;
 }
 

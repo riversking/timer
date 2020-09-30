@@ -66,5 +66,11 @@ public class TeamService extends ServiceImpl<TeamDao, TeamModel> {
         return teamDao.selectList(wrapper);
     }
 
+    public TeamModel getTeamDetail(Integer teamId) {
+        QueryWrapper<TeamModel> wrapper = new QueryWrapper<>();
+        wrapper.eq("team_id", teamId);
+        wrapper.select("name", "city", "stadium_id", "conference", "division", "wikipedia_logo_url");
+        return teamDao.selectOne(wrapper);
+    }
 
 }

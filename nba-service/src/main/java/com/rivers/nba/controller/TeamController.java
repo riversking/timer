@@ -5,6 +5,10 @@ import com.rivers.core.view.ResponseVo;
 import com.rivers.nba.dto.TeamDTO;
 import com.rivers.nba.model.TeamModel;
 import com.rivers.nba.service.TeamService;
+import com.rivers.nbaservice.proto.GetPlayerDetailReq;
+import com.rivers.nbaservice.proto.GetTeamDetailReq;
+import com.rivers.nbaservice.proto.GetTeamDetailRes;
+import com.rivers.nbaservice.proto.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,6 +38,20 @@ public class TeamController {
     @PostMapping("getTeamList")
     public ResponseVo getTeamList() {
         return ResponseVo.ok(teamService.teamList());
+    }
+
+    @PostMapping("getTeamDetail")
+    public GetTeamDetailRes getTeamDetail(@RequestBody GetTeamDetailReq req) {
+        TeamModel teamDetail = teamService.getTeamDetail(req.getTeamId());
+        Team team = Team.newBuilder()
+                .setCity(teamDetail.getCity())
+                .setConference(teamDetail.getConference())
+                .setDivision(teamDetail.getDivision())
+                .setLogoUrl(teamDetail.getWikipediaLogoUrl())
+                .setTeamName(teamDetail.getName())
+                .setStadiumId(teamDetail.getStadiumId())
+                .build();
+        return GetTeamDetailRes.newBuilder().setTeam(team).build();
     }
 
 }

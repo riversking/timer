@@ -66,4 +66,10 @@ public class StadiumService extends ServiceImpl<StadiumDao, StadiumModel> {
         return stadiumDao.selectStadiumPage(page, stadiumDTO);
     }
 
+    public List<StadiumModel> stadiumList() {
+        QueryWrapper<StadiumModel> wrapper = new QueryWrapper<>();
+        wrapper.select("stadium_id", "name");
+        return stadiumDao.selectList(wrapper);
+    }
+
 }

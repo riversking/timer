@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: nba-server
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config
+      label: master
+      name: nba-server
+    bus:
+      enabled: true

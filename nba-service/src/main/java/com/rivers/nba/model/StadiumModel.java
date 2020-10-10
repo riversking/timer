@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -18,6 +19,7 @@ import java.util.Date;
  * @author riversking
  * @Date 2020-09-25 12:16
  */
+@EqualsAndHashCode(callSuper = true)
 @TableName("stadium")
 @Data
 public class StadiumModel extends Model<StadiumModel> {

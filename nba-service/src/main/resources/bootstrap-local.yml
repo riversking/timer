@@ -1,0 +1,106 @@
+spring:
+  application:
+    name: nba-server
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    default-property-inclusion: non_null
+  datasource:
+    name: user-server
+    url: jdbc:mysql://${MYSQL_HOST:139.9.206.164}:${MYSQL_PORT:3306}/timer_admin?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
+    username: root
+    password: King1992!
+    # 使用hikari数据源
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      allow-pool-suspension: true
+      minimum-idle: 10
+      maximum-pool-size: 20
+      idle-timeout: 180000
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+  redis:
+    host: ${REDIS_HOST:139.9.206.164}
+    port:  ${REDIS_PORT:6379}
+    password: king1278
+    timeout: 2000ms
+    database: 0
+    jedis:
+      pool:
+        max-active: 300
+        max-idle: 100
+        max-wait: -1s
+
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/*.xml
+  typeAliasesPackage: com.riversking.oauth.entity
+  global-config:
+    #    id: 0  #0:数据库ID自增   1:用户输入id  2:全局唯一id(IdWorker)  3:全局唯一ID(uuid)
+    #    db-column-underline: false
+    #    refresh-mapper: true
+    db-config:
+      id-type: auto
+      column-like: false
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: true #配置的缓存的全局开关
+    lazyLoadingEnabled: true #延时加载的开关
+    multipleResultSetsEnabled: true #开启的话
+
+# 必须配置
+feign:
+  httpclient:
+    enabled: false
+  okhttp:
+    enabled: true
+  hystrix:
+    enabled: false
+
+ribbon:
+  eureka:
+    enabled: true
+  ReadTimeout: 100000
+  ConnectTimeout: 100000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1
+  OkToRetryOnAllOperations: false
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${server.port}
+    prefer-ip-address: true
+    health-check-url-path: /actuator/health
+    ip-address: 139.9.206.164
+  client:
+    serviceUrl:
+      defaultZone: http://139.9.206.164:8761/eureka/
+
+
+#eureka:
+#  instance:
+#    instance-id: ${spring.application.name}:${server.port}
+#    prefer-ip-address: true
+#    ip-address: 127.0.0.1
+#    health-check-url-path: /actuator/health
+#  client:
+#    serviceUrl:
+#      defaultZone: http://localhost:8761/eureka/
+
+logging:
+  level:
+    com.riversking: debug
+  file:
+    name: ./logs/${spring.application.name}/all.log
+    path: D:\project\timer\logs\oauth-server\all.log
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS

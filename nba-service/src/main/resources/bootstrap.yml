@@ -10,46 +10,26 @@ server:
     direct-buffers: true
 
 
-
 spring:
   application:
     name: nba-server
-  jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
-    time-zone: GMT+8
-    default-property-inclusion: non_empty
-  datasource:
-    name: nba-server
-    url: jdbc:mysql://${MYSQL_HOST:139.9.206.164}:${MYSQL_PORT:3306}/timer_nba?useUnicode=true&characterEncodeing=UTF-8&useSSL=false&serverTimezone=GMT
-    username: root
-    password: King1992!
-    # 使用hikari数据源
-    type: com.zaxxer.hikari.HikariDataSource
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    hikari:
-      allow-pool-suspension: true
-      minimum-idle: 10
-      maximum-pool-size: 20
-      idle-timeout: 180000
-      max-lifetime: 30000
-      connection-timeout: 30000
-      connection-test-query: SELECT 1
-  redis:
-    host: ${REDIS_HOST:139.9.206.164}
-    port: ${REDIS_PORT:6379}
-    password: king1278
-    timeout: 2000ms
-    database: 0
-    jedis:
-      pool:
-        max-active: 300
-        max-idle: 100
-        max-wait: -1s
-  rabbitmq:
-    host: 139.9.206.164
-    port: 5672
-    username: guest
-    password: guest
+  profiles:
+    active: dev
+  cloud:
+    bus:
+      refresh:
+        enabled: true
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${server.port}:${random.value}
+    prefer-ip-address: true
+    ip-address: 139.9.206.164
+    health-check-url-path: /actuator/health
+  client:
+    serviceUrl:
+      defaultZone: http://139.9.206.164:8761/eureka/
+
 
 mybatis-plus:
   mapper-locations: classpath*:/mapper/*.xml
@@ -66,17 +46,6 @@ mybatis-plus:
     lazyLoadingEnabled: true #延时加载的开关
     multipleResultSetsEnabled: true #开启的话
 
-
-eureka:
-  instance:
-    instance-id: ${spring.application.name}:${server.port}:${random.value}
-    prefer-ip-address: true
-    ip-address: 139.9.206.164
-    health-check-url-path: /actuator/health
-  client:
-    serviceUrl:
-      defaultZone: http://139.9.206.164:8761/eureka/
-
 logging:
   level:
     com.rivers: debug
@@ -84,6 +53,15 @@ logging:
   file:
     path: ./logs/${spring.application.name}/all.log
     name: ./logs/${spring.application.name}/all.log
+
+
+feign:
+  httpclient:
+    enabled: false
+  okhttp:
+    enabled: true
+  hystrix:
+    enabled: false
 
 management:
   endpoints:
@@ -100,16 +78,6 @@ management:
     bus-refresh:
       enabled: true
 
-security:
-  oauth2:
-    client:
-      client-id: admin
-      client-secret: secret
-      scope: server
-    resource:
-      token-info-uri: http://139.9.206.164:9080/oauth/check_token
-      service-id: oauth-server
-#      user-info-uri:
 
 hystrix:
   shareSecurityContext: true

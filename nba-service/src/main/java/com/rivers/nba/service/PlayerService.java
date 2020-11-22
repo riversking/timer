@@ -60,7 +60,9 @@ public class PlayerService extends ServiceImpl<PlayerDao, PlayerModel> {
                     .peek(i -> {
                         i.setCreateUser("T00001");
                         i.setUpdateUser("T00001");
-                        i.setHeight((int) (i.getHeight() * 2.54));
+                        if (Objects.nonNull(i.getHeight())) {
+                            i.setHeight((int) (i.getHeight() * 2.54));
+                        }
                         i.setPhotoUrl(StringEscapeUtils.unescapeJava(i.getPhotoUrl()));
                     }).collect(Collectors.toList());
             redisTemplate.delete("nba_player_list");

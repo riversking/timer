@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 @Log4j2
 public class PlayerService extends ServiceImpl<PlayerDao, PlayerModel> {
 
-    private Logger logger = LoggerFactory.getLogger(PlayerService.class);
+    private final Logger logger = LoggerFactory.getLogger(PlayerService.class);
 
 
     @Value("${nba.key}")
@@ -125,7 +125,7 @@ public class PlayerService extends ServiceImpl<PlayerDao, PlayerModel> {
         if (Objects.isNull(playerDTO)) {
             QueryWrapper<PlayerModel> wrapper = new QueryWrapper<>();
             wrapper.select("position", "draft_kings_name", "photo_url", "height", "weight", "jersey", "college", "team_id");
-            wrapper.eq("playerId", playerId);
+            wrapper.eq("player_id", playerId);
             PlayerModel playerModel = playerDao.selectOne(wrapper);
             BeanUtils.copyProperties(playerModel, playerDTO);
         }

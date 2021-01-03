@@ -10,7 +10,7 @@ spring:
     time-zone: GMT+8
     default-property-inclusion: non_null
   datasource:
-    name: user-server
+    name: oauth-server
     url: jdbc:mysql://${MYSQL_HOST:139.9.206.164}:${MYSQL_PORT:3306}/timer_admin?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
     username: root
     password: King1992!

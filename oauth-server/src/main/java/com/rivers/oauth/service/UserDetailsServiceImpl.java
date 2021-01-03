@@ -68,9 +68,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     private UserDetails getUserDetails(GetUserByUserNameRes getUserRes) {
         UserInfo userInfo = getUserRes.getUserInfo();
-        if (userInfo == null) {
-            throw new UsernameNotFoundException("用户不存在");
-        }
         Set<String> dbAuthsSet = new HashSet<>(userInfo.getPermissionsList());
         Collection<? extends GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(dbAuthsSet.toArray(new String[0]));
         return new TimerUser(userInfo.getId(), userInfo.getUserId(), userInfo.getUsername(), userInfo.getPassword(),

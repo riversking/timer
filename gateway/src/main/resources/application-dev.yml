@@ -1,0 +1,30 @@
+spring:
+  config:
+    import: optional:configserver:http://www.timerrivers.com:8888
+  cloud:
+    bus:
+      enabled: true
+    config:
+      label: master
+
+#
+#spring:
+#  application:
+#    name: gateway
+#  cloud:
+#    config:
+#      uri: http://localhost:8888
+#      label: master
+#      profile: dev
+#      name: gateway-server
+
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${server.port}
+    prefer-ip-address: true
+    ip-address: 139.9.206.164
+    health-check-url-path: /actuator/health
+  client:
+    serviceUrl:
+      defaultZone: http://139.9.206.164:8761/eureka/

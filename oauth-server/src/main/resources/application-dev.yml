@@ -1,34 +1,23 @@
 spring:
   application:
-    name: gateway
+    name: oauth-server
   cloud:
     config:
       discovery:
         enabled: true
         service-id: config
       label: master
-      name: gateway-server
+      name: oauth-server
     bus:
       enabled: true
-
-#
-#spring:
-#  application:
-#    name: gateway
-#  cloud:
-#    config:
-#      uri: http://localhost:8888
-#      label: master
-#      profile: dev
-#      name: gateway-server
 
 
 eureka:
   instance:
     instance-id: ${spring.application.name}:${server.port}
     prefer-ip-address: true
-    ip-address: 139.9.206.164
     health-check-url-path: /actuator/health
+    ip-address: 139.9.206.164
   client:
     serviceUrl:
       defaultZone: http://139.9.206.164:8761/eureka/

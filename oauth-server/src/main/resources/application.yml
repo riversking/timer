@@ -6,7 +6,7 @@ spring:
   application:
     name: oauth-server
   profiles:
-    active: dev
+    active: local
   cloud:
     bus:
       refresh:
@@ -21,7 +21,6 @@ mybatis-plus:
     #    refresh-mapper: true
     db-config:
       id-type: auto
-      column-like: false
   configuration:
     map-underscore-to-camel-case: true
     cache-enabled: true #配置的缓存的全局开关

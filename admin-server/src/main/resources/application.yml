@@ -10,16 +10,19 @@ spring:
 
 ---
 spring:
-  profiles: insecure
-
+  config:
+    activate:
+      on-profile: insecure
 ---
 # admin登录的用户名和密码
 spring:
-  profiles: secure
   security:
     user:
       name: "root"
       password: "root"
+  config:
+    activate:
+      on-profile: secure
 
 server:
   port: 7086

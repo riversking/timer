@@ -11,26 +11,27 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author riverskingking
+ * @author riversking
  */
 public class AuthExceptionEntryPoint implements AuthenticationEntryPoint {
+
     /**
      * token错误时进入到这里
-     * @param request
-     * @param response
-     * @param authException
-     * @throws ServletException
+     *
+     * @param request request
+     * @param response response
+     * @param authException authException
+     * @throws ServletException ServletException
      */
-
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response,
                          AuthenticationException authException)
             throws ServletException {
 
-        Map<String,Object> map = new HashMap<>(16);
+        Map<String, Object> map = new HashMap<>(16);
         map.put("code", 401);
         map.put("message", authException.getMessage());
-        map.put("timestamp", System.currentTimeMillis());
+        map.put("timestamp", String.valueOf(System.currentTimeMillis()));
         response.setContentType("application/json");
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         try {

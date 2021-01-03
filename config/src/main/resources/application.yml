@@ -1,0 +1,37 @@
+server:
+  port: 8888
+
+
+spring:
+  application:
+    name: config
+  profiles:
+    active: dev
+  rabbitmq:
+    host: 139.9.206.164
+    port: 5672
+    username: guest
+    password: guest
+  cloud:
+    bus:
+      enabled: true
+
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${server.port}:${random.value}
+    prefer-ip-address: true
+    ip-address: localhost
+    health-check-url-path: /actuator/health
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    bus-refresh:
+      enabled: true

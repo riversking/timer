@@ -32,11 +32,6 @@ feign:
 ribbon:
   eureka:
     enabled: true
-  ReadTimeout: 100000
-  ConnectTimeout: 100000
-  MaxAutoRetries: 0
-  MaxAutoRetriesNextServer: 1
-  OkToRetryOnAllOperations: false
 
 
 mybatis-plus:
@@ -84,5 +79,12 @@ ignore:
     - /user/login
     - /user/info
 
-hystrix:
-  shareSecurityContext: true
+#eureka:
+#  instance:
+#    instance-id: ${spring.application.name}:${server.port}
+#    prefer-ip-address: true
+#    ip-address: 139.9.206.164
+#    health-check-url-path: /actuator/health
+#  client:
+#    serviceUrl:
+#      defaultZone: http://139.9.206.164:8761/eureka/

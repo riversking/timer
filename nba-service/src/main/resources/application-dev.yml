@@ -1,21 +1,14 @@
-server:
-  port: 8888
-
-
 spring:
   application:
-    name: config
-  profiles:
-    active: dev
-  rabbitmq:
-    host: 139.9.206.164
-    port: 5672
-    username: guest
-    password: guest
+    name: nba-server
+  config:
+    import: optional:configserver:http://www.timerrivers.com:8888
   cloud:
+    config:
+      label: master
+      name: nba-server
     bus:
       enabled: true
-
 
 eureka:
   instance:
@@ -26,12 +19,3 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://139.9.206.164:8761/eureka/
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'
-  endpoint:
-    bus-refresh:
-      enabled: true

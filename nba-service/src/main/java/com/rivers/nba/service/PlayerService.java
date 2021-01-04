@@ -127,7 +127,9 @@ public class PlayerService extends ServiceImpl<PlayerDao, PlayerModel> {
             wrapper.select("position", "draft_kings_name", "photo_url", "height", "weight", "jersey", "college", "team_id");
             wrapper.eq("player_id", playerId);
             PlayerModel playerModel = playerDao.selectOne(wrapper);
-            BeanUtils.copyProperties(playerModel, playerDTO);
+            PlayerDTO player = new PlayerDTO();
+            BeanUtils.copyProperties(playerModel, player);
+            return player;
         }
         return playerDTO;
     }

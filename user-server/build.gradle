@@ -19,7 +19,7 @@ dependencies {
 	compile 'com.github.riversking:oauth2-client:1.0.4'
 	compile group: 'org.apache.poi', name: 'poi', version: '4.1.2'
 	compile group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.2'
-	compile('org.springframework.security.oauth:spring-security-oauth2:2.3.8.RELEASE')
+//	compile('org.springframework.security.oauth:spring-security-oauth2:2.3.8.RELEASE')
 //	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-security'
 }
 configurations {

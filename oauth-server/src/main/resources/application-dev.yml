@@ -1,11 +1,10 @@
 spring:
   application:
     name: oauth-server
+  config:
+    import: optional:configserver:http://www.timerrivers.com:8888
   cloud:
     config:
-      discovery:
-        enabled: true
-        service-id: config
       label: master
       name: oauth-server
     bus:

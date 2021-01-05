@@ -6,7 +6,7 @@ spring:
   application:
     name: oauth-server
   profiles:
-    active: local
+    active: dev
   cloud:
     bus:
       refresh:

@@ -12,6 +12,9 @@ dependencies {
     compile group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.8.1'
     compile group: 'com.xuxueli', name: 'xxl-job-core', version: '2.2.0'
     compile files('../protos/nbaservice_protos.jar')
+    // https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml
+    compile group: 'org.apache.poi', name: 'poi-ooxml', version: '5.0.0'
+    compile group: 'org.apache.poi', name: 'poi-scratchpad', version: '5.0.0'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }

@@ -75,7 +75,7 @@ hystrix:
 xxl:
   job:
     admin:
-      addresses: http://139.9.206.164:8081/xxl-job-admin
+      addresses: http://1.15.229.197:8081/xxl-job-admin
     executor:
       appname: nba-service-executor
       address:

@@ -4,7 +4,7 @@ dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-undertow'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
 //    compile group: 'com.github.riversking', name: 'core', version: '1.0.8'
-    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-config'
+//    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-config'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-webflux'
     compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '2.2.2.RELEASE'
 //    compile group: 'com.github.riversking', name: 'core', version: '1.0.9.98'

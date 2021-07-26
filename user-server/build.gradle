@@ -1,30 +1,30 @@
 dependencies {
-	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client'
-	compile group: 'mysql', name: 'mysql-connector-java'
-	compile group: 'com.github.pagehelper', name: 'pagehelper-spring-boot-starter', version: '1.2.3'
-	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
-    compile group: 'com.google.guava', name: 'guava', version:'20.0'
-	compile group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.10.0'
-	compile (group: 'org.springframework.boot', name: 'spring-boot-starter-web')
-	compile files('../protos/userservice_protos.jar')
-	compile group: 'com.google.code.gson', name: 'gson', version: '2.8.6'
-	compile group: 'org.springframework.boot', name: 'spring-boot-starter-undertow'
-	compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
-	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-config'
-	compile group: 'org.springframework.boot', name: 'spring-boot-starter-webflux'
-	compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis'
+	implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client'
+	implementation group: 'mysql', name: 'mysql-connector-java'
+	implementation group: 'com.github.pagehelper', name: 'pagehelper-spring-boot-starter', version: '1.2.3'
+	implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
+    implementation group: 'com.google.guava', name: 'guava', version:'20.0'
+	implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.10.0'
+	implementation (group: 'org.springframework.boot', name: 'spring-boot-starter-web')
+	implementation files('../protos/userservice_protos.jar')
+	implementation group: 'com.google.code.gson', name: 'gson', version: '2.8.6'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-undertow'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
+	implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-config'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-webflux'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis'
 	implementation project(':user-api')
-	compile group: 'com.github.riversking', name: 'utils', version: '1.0.3'
-	compile group: 'com.github.riversking', name: 'core', version: '2.0.6'
-	compile 'com.github.riversking:oauth2-client:1.0.4'
-	compile group: 'org.apache.poi', name: 'poi', version: '4.1.2'
-	compile group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.2'
-//	compile('org.springframework.security.oauth:spring-security-oauth2:2.3.8.RELEASE')
-//	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-security'
+	implementation group: 'com.github.riversking', name: 'utils', version: '1.0.3'
+	implementation group: 'com.github.riversking', name: 'core', version: '2.0.6'
+	implementation 'com.github.riversking:oauth2-client:1.0.4'
+	implementation group: 'org.apache.poi', name: 'poi', version: '4.1.2'
+	implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.2'
+//	implementation('org.springframework.security.oauth:spring-security-oauth2:2.3.8.RELEASE')
+//	implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-security'
 }
 configurations {
-	compile.exclude module: 'spring-boot-starter-tomcat'
-	compile.exclude module: 'servlet-api'
+	implementation.exclude module: 'spring-boot-starter-tomcat'
+	implementation.exclude module: 'servlet-api'
 }
 
 sourceSets {

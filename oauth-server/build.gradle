@@ -1,26 +1,26 @@
 dependencies {
-    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client'
-    compile('org.springframework.boot:spring-boot-starter-web')
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-undertow'
-//    compile group: 'com.alibaba', name: 'druid-spring-boot-starter', version:'1.1.22'
-    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '2.2.2.RELEASE'
-    compile group: 'mysql', name: 'mysql-connector-java'
-//    compile group: 'org.springframework', name: 'spring-jdbc'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
-    compile group: 'org.jolokia', name: 'jolokia-core', version: '1.6.0'
-    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-config'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client'
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-undertow'
+//    implementation group: 'com.alibaba', name: 'druid-spring-boot-starter', version:'1.1.22'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '2.2.2.RELEASE'
+    implementation group: 'mysql', name: 'mysql-connector-java'
+//    implementation group: 'org.springframework', name: 'spring-jdbc'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
+    implementation group: 'org.jolokia', name: 'jolokia-core', version: '1.6.0'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-config'
     implementation project(':user-api')
-    compile group: 'com.github.riversking', name: 'utils', version: '1.0.3'
-    compile group: 'com.github.riversking', name: 'core', version: '2.0.6'
-    compile 'com.github.riversking:oauth2-client:1.0.4'
-    compile('org.springframework.security.oauth:spring-security-oauth2:2.3.8.RELEASE')
-    compile group: 'org.springframework.security', name: 'spring-security-jwt', version: '1.0.9.RELEASE'
-    testCompile('org.springframework.boot:spring-boot-starter-test')
+    implementation group: 'com.github.riversking', name: 'utils', version: '1.0.3'
+    implementation group: 'com.github.riversking', name: 'core', version: '2.0.6'
+    implementation 'com.github.riversking:oauth2-client:1.0.4'
+    implementation('org.springframework.security.oauth:spring-security-oauth2:2.3.8.RELEASE')
+    implementation group: 'org.springframework.security', name: 'spring-security-jwt', version: '1.0.9.RELEASE'
+    implementation('org.springframework.boot:spring-boot-starter-test')
 }
 configurations {
-    compile.exclude module: 'spring-boot-starter-tomcat'
-    compile.exclude module: 'servlet-api'
+    implementation.exclude module: 'spring-boot-starter-tomcat'
+    implementation.exclude module: 'servlet-api'
 }
 
 sourceSets {

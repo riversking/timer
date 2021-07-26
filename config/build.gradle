@@ -1,11 +1,11 @@
 dependencies {
-    compile group: 'org.springframework.cloud', name: 'spring-cloud-config-server'
-    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client'
-    //    compile group: 'org.springframework.cloud', name: 'spring-cloud-config-monitor'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
-    compile(group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springBootVersion)
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-undertow', version: springBootVersion
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-config-server'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client'
+    //    implementation group: 'org.springframework.cloud', name: 'spring-cloud-config-monitor'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
+    implementation(group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springBootVersion)
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-undertow', version: springBootVersion
 }
 configurations {
-    compile.exclude module: 'spring-boot-starter-tomcat'
+    implementation.exclude module: 'spring-boot-starter-tomcat'
 }

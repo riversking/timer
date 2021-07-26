@@ -19,7 +19,7 @@ eureka:
     registerWithEureka: false
     fetchRegistry: false
     serviceUrl:
-      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+      defaultZone: http://139.9.206.164:8761/eureka/,http://1.15.229.197:8761/eureka/
   server:
     enable-self-preservation: false
     peer-node-connect-timeout-ms: 200

@@ -1,18 +1,18 @@
 dependencies {
-    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-webflux'
-    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-config'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
-    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-gateway'
-    compile group: 'org.jolokia', name: 'jolokia-core', version: '1.6.0'
-    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '2.2.2.RELEASE'
-    compile group: 'com.alibaba', name: 'fastjson', version: '1.2.70'
-    compile group: 'com.github.axet', name: 'kaptcha', version:'0.0.9'
-    compile group: 'org.springframework.security', name: 'spring-security-jwt', version: '1.0.9.RELEASE'
-    compile group: 'com.google.guava', name: 'guava', version:'20.0'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-webflux'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-config'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-gateway'
+    implementation group: 'org.jolokia', name: 'jolokia-core', version: '1.6.0'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '2.2.2.RELEASE'
+    implementation group: 'com.alibaba', name: 'fastjson', version: '1.2.70'
+    implementation group: 'com.github.axet', name: 'kaptcha', version:'0.0.9'
+    implementation group: 'org.springframework.security', name: 'spring-security-jwt', version: '1.0.9.RELEASE'
+    implementation group: 'com.google.guava', name: 'guava', version:'20.0'
 //    compile('org.springframework.cloud:spring-cloud-starter-oauth2')
 //    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-security'
 }
 configurations {
-    compile.exclude module: 'spring-boot-starter-web'
+    implementation.exclude module: 'spring-boot-starter-web'
 }

@@ -1,26 +1,26 @@
 dependencies {
-    compile 'org.springframework.boot:spring-boot-starter-web'
-    compile 'org.springframework.cloud:spring-cloud-starter-config'
-    compile 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.cloud:spring-cloud-starter-config'
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
     runtimeOnly 'mysql:mysql-connector-java'
-    compile group: 'com.github.riversking', name: 'utils', version: '1.0.3'
-    compile group: 'com.github.riversking', name: 'core', version: '2.0.6'
-    compile 'com.github.riversking:oauth2-client:1.0.4'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-undertow'
-    compile group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.4.0'
-    compile group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.8.1'
-    compile group: 'com.xuxueli', name: 'xxl-job-core', version: '2.2.0'
-    compile files('../protos/nbaservice_protos.jar')
+    implementation group: 'com.github.riversking', name: 'utils', version: '1.0.3'
+    implementation group: 'com.github.riversking', name: 'core', version: '2.0.6'
+    implementation 'com.github.riversking:oauth2-client:1.0.4'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-undertow'
+    implementation group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.4.0'
+    implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.8.1'
+    implementation group: 'com.xuxueli', name: 'xxl-job-core', version: '2.2.0'
+    implementation files('../protos/nbaservice_protos.jar')
     // https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml
-    compile group: 'org.apache.poi', name: 'poi-ooxml', version: '5.0.0'
-    compile group: 'org.apache.poi', name: 'poi-scratchpad', version: '5.0.0'
+    implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '5.0.0'
+    implementation group: 'org.apache.poi', name: 'poi-scratchpad', version: '5.0.0'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
 }
 
 configurations {
-    compile.exclude module: 'spring-boot-starter-tomcat'
-    compile.exclude module: 'servlet-api'
+    implementation.exclude module: 'spring-boot-starter-tomcat'
+    implementation.exclude module: 'servlet-api'
 }

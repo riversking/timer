@@ -1,17 +1,17 @@
 buildscript {
     ext {
-        springBootVersion = '2.4.4'
-        springCloudVersion = '2020.0.2'
+        springBootVersion = '2.5.0'
+        springCloudVersion = '2020.0.3'
         wrapperVersion = '1.0.21.RELEASE'
     }
     repositories {
         mavenCentral()
-        maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+//        maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
         maven { url 'https://repo.spring.io/milestone' }
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
-        jcenter {
-            url 'http://jcenter.bintray.com'
-        }
+//        jcenter {
+//            url 'http://jcenter.bintray.com'
+//        }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -22,7 +22,7 @@ buildscript {
 
 repositories {
     mavenCentral()
-    maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+//    maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
     maven { url 'https://repo.spring.io/milestone' }
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
 //    maven { url "https://repo.spring.io/snapshot" }
@@ -32,7 +32,7 @@ repositories {
 
 subprojects {
     apply plugin: 'maven-publish'
-    apply plugin: 'maven'
+//    apply plugin: 'maven'
     apply plugin: 'java'
     apply plugin: 'idea'
     apply plugin: 'org.springframework.boot'
@@ -68,14 +68,14 @@ subprojects {
 
     repositories {
         mavenCentral()
-        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+//        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
         maven { url 'https://repo.spring.io/milestone' }
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
 //        maven { url "https://repo.spring.io/snapshot" }
 //        maven { url "https://repo.spring.io/milestone" }
-        jcenter {
-            url 'http://jcenter.bintray.com'
-        }
+//        jcenter {
+//            url 'http://jcenter.bintray.com'
+//        }
     }
 
 
@@ -89,14 +89,14 @@ subprojects {
     dependencies {
         annotationProcessor 'org.projectlombok:lombok:1.18.2'
         compileOnly 'org.projectlombok:lombok:1.18.2'
-        compile group: 'de.codecentric', name: 'spring-boot-admin-starter-client', version: '2.3.1'
+        implementation group: 'de.codecentric', name: 'spring-boot-admin-starter-client', version: '2.4.3'
 //        compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-sleuth'
 //        compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-zipkin'
-        compile group: 'cn.hutool', name: 'hutool-all', version: '5.3.5'
-        compile group: 'joda-time', name: 'joda-time', version: '2.10.6'
-    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-bus-amqp'
+        implementation group: 'cn.hutool', name: 'hutool-all', version: '5.3.5'
+        implementation group: 'joda-time', name: 'joda-time', version: '2.10.6'
+        implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bus-amqp'
 //        compileOnly group: 'org.slf4j', name: 'slf4j-log4j12', version:'1.7.25'
-        testCompile('org.springframework.boot:spring-boot-starter-test')
+        implementation('org.springframework.boot:spring-boot-starter-test')
     }
 
 //    task thinProp{

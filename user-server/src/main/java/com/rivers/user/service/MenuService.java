@@ -29,6 +29,7 @@ import java.util.stream.Collectors;
 public class MenuService extends ServiceImpl<SysMenuDao, SysMenuModel> {
 
     public static final String IS_DELETE = "is_delete";
+
     @Resource
     private SysMenuDao sysMenuDao;
 

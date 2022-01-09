@@ -19,6 +19,7 @@ dependencies {
 	implementation 'com.github.riversking:oauth2-client:1.0.4'
 	implementation group: 'org.apache.poi', name: 'poi', version: '4.1.2'
 	implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.2'
+	implementation group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.3.2'
 //	implementation('org.springframework.security.oauth:spring-security-oauth2:2.3.8.RELEASE')
 //	implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-security'
 }

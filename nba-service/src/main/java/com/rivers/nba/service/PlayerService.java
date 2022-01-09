@@ -110,7 +110,6 @@ public class PlayerService extends ServiceImpl<PlayerDao, PlayerModel> {
                 return page;
             }
         }
-        CompletableFuture completableFuture = new CompletableFuture();
         PlayerDTO player = new PlayerDTO();
         player.setPlayerId(req.getPlayerId());
         player.setPlayerName(req.getPlayerName());

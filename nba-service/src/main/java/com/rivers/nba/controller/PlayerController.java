@@ -31,8 +31,7 @@ public class PlayerController {
         IPage<PlayerModel> players = playerService.playerPage(req);
         List<Player> list = players.getRecords()
                 .stream()
-                .map(i -> Player
-                        .newBuilder()
+                .map(i -> Player.newBuilder()
                         .setPlayerId(i.getPlayerId())
                         .setBirthCity(i.getBirthCity())
                         .setBirthDate(DateUtil.formatDate(i.getBirthDate()))

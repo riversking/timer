@@ -11,11 +11,13 @@ dependencies {
     implementation group: 'org.jolokia', name: 'jolokia-core', version: '1.6.0'
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-config'
     implementation project(':user-api')
+    implementation files('../protos/userservice_protos.jar')
     implementation group: 'com.github.riversking', name: 'utils', version: '1.0.3'
     implementation group: 'com.github.riversking', name: 'core', version: '2.0.6'
     implementation 'com.github.riversking:oauth2-client:1.0.4'
     implementation('org.springframework.security.oauth:spring-security-oauth2:2.3.8.RELEASE')
     implementation group: 'org.springframework.security', name: 'spring-security-jwt', version: '1.0.9.RELEASE'
+    implementation group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.3.2'
     implementation('org.springframework.boot:spring-boot-starter-test')
 }
 configurations {

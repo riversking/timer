@@ -58,7 +58,7 @@ public class RequestEncryptionGlobalFilter implements GlobalFilter, Ordered {
             if (org.springframework.util.StringUtils.hasText(originalQuery)) {
                 query.append(originalQuery);
                 if (originalQuery.charAt(originalQuery.length() - 1) != '&') {
-                    query.append('&');
+                    query.append("&");
                 }
             }
             // 添加查询参数

@@ -41,6 +41,7 @@ spring:
                         Y7VJ6ttnOMvVVbTMyuQSrHmq5VUAbhCoEqH42TLkwm+g60i4bEYBAMtlZZf1eRXE
                         UgIEBEzVxd0Kz/y1YhPq1u7x72GgFceq6h7B58/0sylsqegBYZYmCiM=
                         -----END RSA PRIVATE KEY-----
+          default-label: master
 
 
     bus:

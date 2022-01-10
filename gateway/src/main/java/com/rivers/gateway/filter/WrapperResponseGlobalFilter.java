@@ -2,13 +2,8 @@ package com.rivers.gateway.filter;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import io.netty.buffer.ByteBufAllocator;
 import lombok.extern.log4j.Log4j2;
 import org.reactivestreams.Publisher;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.cloud.gateway.filter.NettyWriteResponseFilter;
@@ -16,21 +11,14 @@ import org.springframework.core.Ordered;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferFactory;
 import org.springframework.core.io.buffer.DataBufferUtils;
-import org.springframework.core.io.buffer.NettyDataBufferFactory;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.server.reactive.ServerHttpRequest;
-import org.springframework.http.server.reactive.ServerHttpRequestDecorator;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.http.server.reactive.ServerHttpResponseDecorator;
 import org.springframework.stereotype.Component;
-import org.springframework.util.Assert;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.io.InputStream;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
@@ -84,7 +72,8 @@ public class WrapperResponseGlobalFilter implements GlobalFilter, Ordered {
                         log.info("响应内容:{}", responseData);
                         log.info("getStatusCode() {}", getStatusCode());
                         byte[] uppedContent;
-                        if (Objects.equals(getStatusCode(), HttpStatus.OK) || Objects.equals(getStatusCode(), HttpStatus.UNAUTHORIZED)) {
+                        if (Objects.equals(getStatusCode(), HttpStatus.OK)
+                                || Objects.equals(getStatusCode(), HttpStatus.UNAUTHORIZED)) {
                             uppedContent = new String(content, StandardCharsets.UTF_8).getBytes();
                         } else {
                             JSONObject jsonObject = JSON.parseObject(responseData);

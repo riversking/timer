@@ -11,6 +11,8 @@ spring:
     bus:
       refresh:
         enabled: true
+  main:
+    allow-circular-references: true
 
 mybatis-plus:
   mapper-locations: classpath*:/mapper/*.xml
@@ -64,3 +66,4 @@ management:
       show-details: ALWAYS
     bus-refresh:
       enabled: true
+

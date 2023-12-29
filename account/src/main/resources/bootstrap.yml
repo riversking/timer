@@ -8,6 +8,7 @@ spring:
     name: cd-account
   profiles:
     active: local
+    
 
 
 

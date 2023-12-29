@@ -12,7 +12,7 @@ import com.rivers.nba.model.PlayerModel;
 import com.rivers.nba.utils.HttpClientUtils;
 import com.rivers.nbaservice.proto.GetNbaPlayerListReq;
 import lombok.extern.log4j.Log4j2;
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;

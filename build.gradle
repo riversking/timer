@@ -6,7 +6,7 @@ buildscript {
     }
     repositories {
         mavenCentral()
-//        maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+        maven { url 'https://maven.aliyun.com/repository/publi' }
         maven { url 'https://repo.spring.io/milestone' }
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
 //        jcenter {
@@ -22,7 +22,7 @@ buildscript {
 
 repositories {
     mavenCentral()
-//    maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+    maven { url 'https://maven.aliyun.com/repository/publi' }
     maven { url 'https://repo.spring.io/milestone' }
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
 //    maven { url "https://repo.spring.io/snapshot" }
@@ -68,7 +68,7 @@ subprojects {
 
     repositories {
         mavenCentral()
-//        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'https://maven.aliyun.com/repository/publi' }
         maven { url 'https://repo.spring.io/milestone' }
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
 //        maven { url "https://repo.spring.io/snapshot" }
